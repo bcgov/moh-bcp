@@ -1,8 +1,24 @@
 <common-page-framework>
-  <p>applicant-info works!</p>
-</common-page-framework>
+    <h1>Facility Administrator Information </h1>
+    <p class="border-bottom">In order to apply for a Medical Services Plan Facility Number the Facility Administrator must
+      by an active medical practitioner that is registered with the College of Physicians and Surgeons of British
+      Columbia. </p>
 
-<common-form-action-bar [defaultColor]='false'
-                        widthOption='extra-width-mobile-only'
-                        (btnClick)="continue()">
-</common-form-action-bar>
+
+
+    <aside>
+      <h2>Tips</h2>
+      <p>A validation check will automatically be done using the following fields upon submission of this page:</p>
+      <ul>
+        <li>Facility Administrator First Name</li>
+        <li>Facility Administrator Last Name</li>
+        <li>Medical Services Plan Practitioner Number</li>
+      </ul>
+      <p>In order to apply for a Facility Number the Facility Administrator must be an Active medical practitioner.</p>
+    </aside>
+  </common-page-framework>
+
+  <common-form-action-bar [defaultColor]='false'
+                          widthOption='extra-width-mobile-only'
+                          (btnClick)="continue()">
+  </common-form-action-bar>
