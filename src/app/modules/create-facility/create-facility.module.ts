@@ -8,10 +8,11 @@ import { FacilityInfoComponent } from './pages/facility-info/facility-info.compo
 import { ReviewComponent } from './pages/review/review.component';
 import { SubmissionComponent } from './pages/submission/submission.component';
 import { CoreBCPModule } from '../core-bcp/core-bcp.module';
+import { CreateFacilityContainerComponent } from './create-facility-container/create-facility-container.component';
 
 
 @NgModule({
-  declarations: [HomeComponent, ApplicantInfoComponent, FacilityInfoComponent, ReviewComponent, SubmissionComponent],
+  declarations: [HomeComponent, ApplicantInfoComponent, FacilityInfoComponent, ReviewComponent, SubmissionComponent, CreateFacilityContainerComponent],
   imports: [
     CommonModule,
     CreateFacilityRoutingModule,

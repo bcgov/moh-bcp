@@ -5,9 +5,10 @@ import { ApplicantInfoComponent } from './pages/applicant-info/applicant-info.co
 import { FacilityInfoComponent } from './pages/facility-info/facility-info.component';
 import { ReviewComponent } from './pages/review/review.component';
 import { SubmissionComponent } from './pages/submission/submission.component';
+import { CreateFacilityContainerComponent } from './create-facility-container/create-facility-container.component';
 
-
-const routes: Routes = [
+/** The individual page routes only, does not include container */
+export const createFacilityPageRoutes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
@@ -35,8 +36,18 @@ const routes: Routes = [
   }
 ];
 
+/** The top-level routes, including container, we pass to Angular  */
+export const createFacilityRoutes: Routes = [
+  {
+    path: '',
+    component: CreateFacilityContainerComponent,
+    children: createFacilityPageRoutes,
+    canActivateChild: []
+  }
+]
+
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(createFacilityRoutes)],
   exports: [RouterModule]
 })
 export class CreateFacilityRoutingModule { }
