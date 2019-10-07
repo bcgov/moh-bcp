@@ -7,13 +7,15 @@ import { ApplicantInfoComponent } from './pages/applicant-info/applicant-info.co
 import { FacilityInfoComponent } from './pages/facility-info/facility-info.component';
 import { ReviewComponent } from './pages/review/review.component';
 import { SubmissionComponent } from './pages/submission/submission.component';
+import { CoreBCPModule } from '../core-bcp/core-bcp.module';
 
 
 @NgModule({
   declarations: [HomeComponent, ApplicantInfoComponent, FacilityInfoComponent, ReviewComponent, SubmissionComponent],
   imports: [
     CommonModule,
-    CreateFacilityRoutingModule
+    CreateFacilityRoutingModule,
+    CoreBCPModule
   ]
 })
 export class CreateFacilityModule { }
