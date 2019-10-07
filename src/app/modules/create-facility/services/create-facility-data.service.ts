@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -6,5 +7,9 @@ import { Injectable } from '@angular/core';
 export class CreateFacilityDataService {
   informationCollectionNoticeConsent: boolean;
 
-  constructor() { }
+  constructor() {
+    if (environment.bypassModal) {
+      this.informationCollectionNoticeConsent = true;
+    }
+  }
 }
