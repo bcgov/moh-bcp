@@ -1,0 +1,20 @@
+<label for='pracNumber'>Medical services plan practitioner number</label>
+  <input type="text"
+         class='form-control'
+         name='pracNumber'
+         id='pracNumber'
+         [(value)]='pracNumber'
+         (change)='inputChange($event)'
+         (blur)='onBlur($event)'
+         bcpValidatePractitionerNumber
+         >
+
+<common-error-container [displayError]="(controlDir?.dirty || controlDir?.touched) &&  controlDir?.errors">
+  <div *ngIf="controlDir?.errors?.required">
+      Medical service plan practitioner number is required
+    </div>
+    <div *ngIf="controlDir?.errors?.invalidFormat">
+      <!-- TODO: Implement validations so this error shows up.  Currently it never shows up. -->
+      Medical service plan practitioner number is invalid format.  Please make sure it is just numbers.
+  </div>
+</common-error-container>

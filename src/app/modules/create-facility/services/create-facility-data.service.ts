@@ -10,7 +10,7 @@ export class CreateFacilityDataService {
   // Facility Administrator
   facAdminFirstName: string;
   facAdminLastName: string;
-  pracNumber: string;
+  pracNumber = '';
   emailAddress: string;
   confirmEmailAddress: string;
   facAdminPhoneNumber: string;
