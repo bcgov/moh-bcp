@@ -11,7 +11,7 @@ export const createFacilityPageRoutes: Routes = [
     component: HomeComponent,
   },
   {
-    path: 'applicant-info',
+    path: 'facility-administrator',
     component: ApplicantInfoComponent
   },
   {
