@@ -9,14 +9,22 @@ import { ReviewComponent } from './pages/review/review.component';
 import { SubmissionComponent } from './pages/submission/submission.component';
 import { CoreBCPModule } from '../core-bcp/core-bcp.module';
 import { CreateFacilityContainerComponent } from './create-facility-container/create-facility-container.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
-  declarations: [HomeComponent, ApplicantInfoComponent, FacilityInfoComponent, ReviewComponent, SubmissionComponent, CreateFacilityContainerComponent],
+  declarations: [
+    HomeComponent,
+    ApplicantInfoComponent,
+    FacilityInfoComponent,
+    ReviewComponent,
+    SubmissionComponent,
+    CreateFacilityContainerComponent],
   imports: [
     CommonModule,
     CreateFacilityRoutingModule,
-    CoreBCPModule
+    CoreBCPModule,
+    FormsModule,
   ]
 })
 export class CreateFacilityModule { }

@@ -5,6 +5,9 @@
 export const environment = {
   production: false,
   bypassModal: true,
+  links: {
+    tbd: 'google.com'
+  }
 };
 
 /*

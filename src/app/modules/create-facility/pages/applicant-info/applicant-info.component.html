@@ -4,55 +4,68 @@
       by an active medical practitioner that is registered with the College of Physicians and Surgeons of British
       Columbia. </p>
 
-      <div class="form-group">
-        <common-name label='Facility administrator first name'></common-name>
-      </div>
+      <form #formRef='ngForm' novalidate>
 
-      <div class="form-group">
-        <common-name label='Facility administrator last name'></common-name>
-      </div>
+        <div class="form-group">
+          <common-name label='Facility administrator first name'
+                       name='facAdminFirstName'
+                       [(ngModel)]='dataService.facAdminFirstName'
+                       commonValidateName
+                       required></common-name>
+        </div>
 
-      <div class="form-group">
-        <label for='pracNumber'>
-          Medical services plan practitioner number
-        </label>
-        <input type="text" class='form-control' id='pracNumber'>
-      </div>
+        <div class="form-group">
+          <common-name label='Facility administrator last name'
+                       name='facAdminLastName'
+                       [(ngModel)]='dataService.facAdminLasName'
+                       commonValidateName
+                       required></common-name>
+        </div>
 
-      <div class="form-group">
-        <label for='email'>
-          Email address
-        </label>
-        <input type="text" class='form-control' id='email'>
-      </div>
+        <div class="form-group">
+          <label for='pracNumber'>
+            Medical services plan practitioner number
+          </label>
+          <input type="text"
+                 class='form-control'
+                 name='pracNumber'
+                 id='pracNumber'
+                 [(ngModel)]='dataService.pracNumber'
+                 required>
+        </div>
 
-      <div class="form-group">
-        <label for='emailConfirm'>
-          Confirm email address
-        </label>
-        <input type="text" class='form-control' id='emailConfirm'>
-      </div>
+        <div class="form-group">
+          <label for='email'>
+            Email address
+          </label>
+          <input type="text" class='form-control' id='email'>
+        </div>
 
-
-      <div class="form-group row">
-          <div class="col-10">
-            <label for='phone'>
-              Phone number
-            </label>
-            <input type="text" class='form-control' id='phone'>
-          </div>
-
-          <div class="col-2">
-            <label for='extension'>
-                Extension
-              </label>
-              <input type="text" class='form-control' id='extension'>
-          </div>
+        <div class="form-group">
+          <label for='emailConfirm'>
+            Confirm email address
+          </label>
+          <input type="text" class='form-control' id='emailConfirm'>
         </div>
 
 
+        <div class="form-group row">
+            <div class="col-10">
+              <common-phone-number></common-phone-number>
+              <!-- <label for='phone'>
+                Phone number
+              </label>
+              <input type="text" class='form-control' id='phone'> -->
+            </div>
 
-
+            <div class="col-2">
+              <label for='extension'>
+                  Extension
+                </label>
+                <input type="text" class='form-control' id='extension'>
+            </div>
+          </div>
+      </form>
     <aside>
       <h2>Tips</h2>
       <p>A validation check will automatically be done using the following fields upon submission of this page:</p>
