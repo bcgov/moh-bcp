@@ -28,7 +28,7 @@ export class ApplicantInfoComponent extends CreateFacilityForm implements OnInit
 
   showEmailMismatchError(): boolean {
     // Haven't initialized yet
-    if (!this.form.controls.emailConfirm || !this.form.controls.email){
+    if (!this.form.controls.emailConfirm || !this.form.controls.email) {
       return null;
     }
 

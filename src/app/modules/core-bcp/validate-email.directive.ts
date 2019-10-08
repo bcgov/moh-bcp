@@ -20,7 +20,7 @@ export class ValidateEmailDirective implements Validator {
 
 
 export const emailValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
-  const criteria: RegExp = /^(\S+)@(\S+)\.(\S+)$/
+  const criteria: RegExp = /^(\S+)@(\S+)\.(\S+)$/;
 
   if (control.value) {
     const result = criteria.test(control.value);
