@@ -3,6 +3,7 @@ import { Container, CheckCompleteBaseService } from 'moh-common-lib';
 import { createFacilityPageRoutes } from '../create-facility-page-routing';
 import { environment } from 'src/environments/environment';
 import { CREATE_FACILITY } from '../create-facility-route-constants';
+import { HeaderService } from 'src/app/services/header.service';
 
 @Component({
   selector: 'app-create-facility-container',
@@ -11,7 +12,7 @@ import { CREATE_FACILITY } from '../create-facility-route-constants';
 })
 export class CreateFacilityContainerComponent extends Container implements OnInit {
 
-  constructor(private checkPageService: CheckCompleteBaseService) {
+  constructor(private checkPageService: CheckCompleteBaseService, private headerService: HeaderService) {
     super();
 
     // 'Submission' should not be in the stepper.
@@ -30,6 +31,7 @@ export class CreateFacilityContainerComponent extends Container implements OnIni
     });
     this.checkPageService.bypassGuards = environment.bypassGuards;
     this.checkPageService.startUrl = `/${CREATE_FACILITY}/home`;
+    this.headerService.setTitle('Application for Medical Services Plan Facility Number')
   }
 
   ngOnInit() {
