@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CreateFacilityForm } from '../../models/create-facility-form';
 import { Router } from '@angular/router';
 import { CreateFacilityDataService } from '../../services/create-facility-data.service';
-import { ValidatorFn, AbstractControl } from '@angular/forms';
+import { ValidatorFn, AbstractControl, NgControl } from '@angular/forms';
 
 // TODO: Phone validation
 // TODO: Double check input names
 // TODO: email validaion - create CommonEmail (like CommonName)
-// TODO: Wire up 'Continue' button.
+// TODO: Wire up 'Continue' button - with "spinner" for backend check.
 
 @Component({
   selector: 'app-applicant-info',
@@ -15,15 +15,19 @@ import { ValidatorFn, AbstractControl } from '@angular/forms';
   styleUrls: ['./applicant-info.component.scss']
 })
 export class ApplicantInfoComponent extends CreateFacilityForm implements OnInit {
+  public loading = false;
 
-  constructor(protected router: Router, public dataService: CreateFacilityDataService) {
+  constructor(
+    protected router: Router,
+    public dataService: CreateFacilityDataService,
+    private cdr: ChangeDetectorRef) {
     super(router);
    }
 
   ngOnInit() {
   }
 
-  emailsMismatcherror(): boolean {
+  showEmailMismatchError(): boolean {
     // Haven't initialized yet
     if (!this.form.controls.emailConfirm || !this.form.controls.email){
       return null;
@@ -37,17 +41,45 @@ export class ApplicantInfoComponent extends CreateFacilityForm implements OnInit
     return this.dataService.emailAddress !== this.dataService.confirmEmailAddress;
   }
 
+  continue() {
+    this.markAllInputsTouched();
+
+    if (this.form.valid) {
+      const time = 2.5 * 1000;
+      this.loading = true;
+      setTimeout(() => {
+        this.loading = false;
+        this.cdr.detectChanges();
+        // todo: navigate
+        this.navigate('register-facility/facility-info');
+      }, time);
+
+    } else {
+      console.log('Form not valid', this.form);
+    }
+
+  }
+
+  showEmailError(key: 'email' | 'emailConfirm') {
+    const control: AbstractControl = this.form.controls[key];
+    if (control && control.touched && control.errors) {
+      return true;
+    }
+    return false;
+  }
+
 }
 
 
+// TODO: NOT USED!
 // TODO - Move this into common library.
-export function emailValidator(): ValidatorFn {
-  return (control: AbstractControl): { [key: string]: any } | null => {
-      const forbidden = /^(\S+)@(\S+)\.(\S+)$/.test(
-      control.value
-      );
-      return forbidden
-          ? { invalidEmail: { value: control.value } }
-          : null;
-  };
-}
+// export function emailValidator(): ValidatorFn {
+//   return (control: AbstractControl): { [key: string]: any } | null => {
+//       const forbidden = /^(\S+)@(\S+)\.(\S+)$/.test(
+//       control.value
+//       );
+//       return forbidden
+//           ? { invalidEmail: { value: control.value } }
+//           : null;
+//   };
+// }
