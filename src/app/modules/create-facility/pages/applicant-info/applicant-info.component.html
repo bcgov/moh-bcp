@@ -45,10 +45,16 @@
                  name='email'
                  required
                  [attr.maxlength]="50"
+                 bcpValidateEmail
                  [(ngModel)]='dataService.emailAddress'>
           <common-error-container
-            [displayError]='showEmailError("email")'>
+            [displayError]='showEmailError("email", "required")'>
             Email address is required.
+          </common-error-container>
+
+          <common-error-container
+            [displayError]='showEmailError("email", "invalidEmail")'>
+            Invalid email format.
           </common-error-container>
         </div>
 
@@ -62,11 +68,17 @@
                  name='emailConfirm'
                  required
                  [attr.maxlength]="50"
+                 bcpValidateEmail
                  [(ngModel)]='dataService.confirmEmailAddress'>
 
           <common-error-container
-            [displayError]='showEmailError("emailConfirm")'>
+            [displayError]='showEmailError("emailConfirm", "required")'>
             Confirm email address is required.
+          </common-error-container>
+
+          <common-error-container
+            [displayError]='showEmailError("emailConfirm", "invalidEmail")'>
+            Invalid email format.
           </common-error-container>
 
           <common-error-container [displayError]='showEmailMismatchError()'>

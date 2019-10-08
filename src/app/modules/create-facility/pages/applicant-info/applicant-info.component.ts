@@ -6,6 +6,7 @@ import { ValidatorFn, AbstractControl, NgControl } from '@angular/forms';
 
 // TODO: Phone validation (passes on 1 char entered)
 // TODO: email validaion - create CommonEmail (like CommonName)
+// TODO: Verify BCP Prac Number logic is correct (now just checking it's #s)
 
 @Component({
   selector: 'app-applicant-info',
@@ -57,9 +58,12 @@ export class ApplicantInfoComponent extends CreateFacilityForm implements OnInit
 
   }
 
-  showEmailError(key: 'email' | 'emailConfirm') {
-    const control: AbstractControl = this.form.controls[key];
-    if (control && control.touched && control.errors) {
+  showEmailError(controlKey: 'email' | 'emailConfirm', errorName: 'required' | 'invalidEmail') {
+    const control: AbstractControl = this.form.controls[controlKey];
+    if (control &&
+      control.touched &&
+      control.errors &&
+      control.errors[errorName]) {
       return true;
     }
     return false;
@@ -67,16 +71,3 @@ export class ApplicantInfoComponent extends CreateFacilityForm implements OnInit
 
 }
 
-
-// TODO: NOT USED!
-// TODO - Move this into common library.
-// export function emailValidator(): ValidatorFn {
-//   return (control: AbstractControl): { [key: string]: any } | null => {
-//       const forbidden = /^(\S+)@(\S+)\.(\S+)$/.test(
-//       control.value
-//       );
-//       return forbidden
-//           ? { invalidEmail: { value: control.value } }
-//           : null;
-//   };
-// }

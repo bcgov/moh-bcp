@@ -4,10 +4,12 @@ import { SharedCoreModule } from 'moh-common-lib';
 import { PractitionerNumberComponent } from './practitioner-number/practitioner-number.component';
 import { FormsModule } from '@angular/forms';
 import { ValidatePractitionerNumberDirective } from './practitioner-number/validate-practitioner-number.directive';
+import { ValidateEmailDirective } from './validate-email.directive';
 
 const exportables = [
   PractitionerNumberComponent,
-  ValidatePractitionerNumberDirective
+  ValidatePractitionerNumberDirective,
+  ValidateEmailDirective
 ];
 
 @NgModule({
