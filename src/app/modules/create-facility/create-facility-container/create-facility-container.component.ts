@@ -13,7 +13,12 @@ export class CreateFacilityContainerComponent extends Container implements OnIni
 
   constructor(private checkPageService: CheckCompleteBaseService) {
     super();
-    this.setProgressSteps( createFacilityPageRoutes );
+
+    // 'Submission' should not be in the stepper.
+    const pageRoutesWithoutSubmission = createFacilityPageRoutes
+      .filter(x => x.path !== 'submission');
+
+    this.setProgressSteps( pageRoutesWithoutSubmission );
 
     // TODO: Refactor into new  service inheritis from CheckCompleteBaseService.
     // Re-consider when building out other forms and we can assess impact.
