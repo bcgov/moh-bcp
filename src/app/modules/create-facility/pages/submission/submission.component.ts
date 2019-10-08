@@ -16,4 +16,8 @@ export class SubmissionComponent extends CreateFacilityForm implements OnInit {
   ngOnInit() {
   }
 
+  continue(){
+    console.log('TODO');
+  }
+
 }

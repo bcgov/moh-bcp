@@ -27,8 +27,8 @@ export class HomeComponent extends CreateFacilityForm implements AfterViewInit {
     this.dataService.informationCollectionNoticeConsent = bool;
   }
 
-  continue() {
-    this.navigate('register-facility/facility-administrator');
-  }
+  // continue() {
+  //   // this.navigate('register-facility/facility-administrator');
+  // }
 
 }
