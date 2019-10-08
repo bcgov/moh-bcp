@@ -4,10 +4,8 @@ import { Router } from '@angular/router';
 import { CreateFacilityDataService } from '../../services/create-facility-data.service';
 import { ValidatorFn, AbstractControl, NgControl } from '@angular/forms';
 
-// TODO: Phone validation
-// TODO: Double check input names
+// TODO: Phone validation (passes on 1 char entered)
 // TODO: email validaion - create CommonEmail (like CommonName)
-// TODO: Wire up 'Continue' button - with "spinner" for backend check.
 
 @Component({
   selector: 'app-applicant-info',
@@ -50,7 +48,6 @@ export class ApplicantInfoComponent extends CreateFacilityForm implements OnInit
       setTimeout(() => {
         this.loading = false;
         this.cdr.detectChanges();
-        // todo: navigate
         this.navigate('register-facility/facility-info');
       }, time);
 

@@ -11,6 +11,7 @@
                        name='facAdminFirstName'
                        [(ngModel)]='dataService.facAdminFirstName'
                        commonValidateName
+                       maxlen=15
                        required></common-name>
         </div>
 
@@ -19,6 +20,7 @@
                        name='facAdminLastName'
                        [(ngModel)]='dataService.facAdminLasName'
                        commonValidateName
+                       maxlen=15
                        required></common-name>
         </div>
 
@@ -42,6 +44,7 @@
                  id='email'
                  name='email'
                  required
+                 [attr.maxlength]="50"
                  [(ngModel)]='dataService.emailAddress'>
           <common-error-container
             [displayError]='showEmailError("email")'>
@@ -58,6 +61,7 @@
                  id='emailConfirm'
                  name='emailConfirm'
                  required
+                 [attr.maxlength]="50"
                  [(ngModel)]='dataService.confirmEmailAddress'>
 
           <common-error-container
@@ -85,6 +89,7 @@
             <input name='extension' type="text"
                    class='form-control'
                    id='extension'
+                   [attr.maxlength]="4"
                    [(ngModel)]='dataService.facAdminExtension'>
           </div>
         </div>
