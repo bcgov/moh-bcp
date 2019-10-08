@@ -18,7 +18,6 @@ export const createFacilityRoutes: Routes = [
     path: '',
     component: CreateFacilityContainerComponent,
     children: createFacilityPageRoutesWithRedirct,
-    canActivateChild: []
   }
 ]
 

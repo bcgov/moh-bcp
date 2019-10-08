@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { ConsentModalComponent } from 'moh-common-lib';
+import { ConsentModalComponent, CheckCompleteBaseService } from 'moh-common-lib';
 import { CreateFacilityDataService } from '../../services/create-facility-data.service';
 import { CreateFacilityForm } from '../../models/create-facility-form';
 import { Router } from '@angular/router';
@@ -9,12 +9,18 @@ import { Router } from '@angular/router';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent extends CreateFacilityForm implements AfterViewInit {
+export class HomeComponent extends CreateFacilityForm implements OnInit, AfterViewInit {
 
   @ViewChild('bcpConsentModal', { static: true }) bcpConsentModal: ConsentModalComponent;
 
-  constructor(private dataService: CreateFacilityDataService, protected router: Router) {
+  constructor(private dataService: CreateFacilityDataService,
+              protected router: Router,
+              private checkPageService: CheckCompleteBaseService) {
     super(router);
+  }
+
+  ngOnInit(){
+    this.checkPageService.setPageIncomplete();
   }
 
   ngAfterViewInit() {
@@ -27,8 +33,15 @@ export class HomeComponent extends CreateFacilityForm implements AfterViewInit {
     this.dataService.informationCollectionNoticeConsent = bool;
   }
 
-  // continue() {
-  //   // this.navigate('register-facility/facility-administrator');
-  // }
+  canContinue() {
+    return this.dataService.informationCollectionNoticeConsent;
+  }
+
+  continue() {
+    if (this.canContinue()) {
+      this.checkPageService.setPageComplete();
+      this.navigate('register-facility/facility-administrator');
+    }
+  }
 
 }

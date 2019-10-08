@@ -10,6 +10,7 @@ import { SubmissionComponent } from './pages/submission/submission.component';
 import { CoreBCPModule } from '../core-bcp/core-bcp.module';
 import { CreateFacilityContainerComponent } from './create-facility-container/create-facility-container.component';
 import { FormsModule } from '@angular/forms';
+import { AbstractPgCheckService, RouteGuardService, CheckCompleteBaseService } from 'moh-common-lib';
 
 
 @NgModule({
@@ -25,6 +26,10 @@ import { FormsModule } from '@angular/forms';
     CreateFacilityRoutingModule,
     CoreBCPModule,
     FormsModule,
+  ],
+  providers: [
+    {provide: AbstractPgCheckService, useExisting: CheckCompleteBaseService},
+    RouteGuardService
   ]
 })
 export class CreateFacilityModule { }

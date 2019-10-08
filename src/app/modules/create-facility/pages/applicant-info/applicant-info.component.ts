@@ -3,6 +3,7 @@ import { CreateFacilityForm } from '../../models/create-facility-form';
 import { Router } from '@angular/router';
 import { CreateFacilityDataService } from '../../services/create-facility-data.service';
 import { ValidatorFn, AbstractControl, NgControl } from '@angular/forms';
+import { CheckCompleteBaseService } from 'moh-common-lib';
 
 // TODO: Phone validation (passes on 1 char entered)
 // TODO: email validaion - create CommonEmail (like CommonName)
@@ -19,11 +20,13 @@ export class ApplicantInfoComponent extends CreateFacilityForm implements OnInit
   constructor(
     protected router: Router,
     public dataService: CreateFacilityDataService,
-    private cdr: ChangeDetectorRef) {
+    private cdr: ChangeDetectorRef,
+    private pageCheckService: CheckCompleteBaseService) {
     super(router);
    }
 
   ngOnInit() {
+    this.pageCheckService.setPageIncomplete();
   }
 
   showEmailMismatchError(): boolean {
@@ -49,6 +52,7 @@ export class ApplicantInfoComponent extends CreateFacilityForm implements OnInit
       setTimeout(() => {
         this.loading = false;
         this.cdr.detectChanges();
+        this.pageCheckService.setPageComplete();
         this.navigate('register-facility/facility-info');
       }, time);
 
