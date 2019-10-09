@@ -72,7 +72,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
       postalCode: [null, cCreateFacilityValidators.address.postalCode],
       phoneNumber: [null, cCreateFacilityValidators.facilityDetail.phoneNumber],
       faxNumber: [null, cCreateFacilityValidators.facilityDetail.faxNumber],
-      isSameMailingAddress: [null],
+      isSameMailingAddress: [null, cCreateFacilityValidators.facilityDetail.isSameMailingAddress],
       isQualifyForBCP: [null, cCreateFacilityValidators.facilityDetail.isQualifyForBCP],
       services: this.buildServiceTypes()
     });
