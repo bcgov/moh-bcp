@@ -29,7 +29,7 @@
     "bootstrap": "^4.0.0",
     "core-js": "^3.2.1",
     "font-awesome": "^4.6.3",
-    "moh-common-lib": "^2.21.0",
+    "moh-common-lib": "^2.22.0",
     "moment": "^2.24.0",
     "mygovbc-bootstrap-theme": "^0.4.0",
     "ngx-bootstrap": "^5.1.2",
