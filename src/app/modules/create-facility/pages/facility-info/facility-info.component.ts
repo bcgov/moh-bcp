@@ -13,7 +13,7 @@ import { CreateFacilityDataService } from '../../services/create-facility-data.s
 })
 export class FacilityInfoComponent extends CreateFacilityForm implements OnInit {
 
-  showMailingAddress: false;
+  showMailingAddress: boolean = false;
   facilityForm: FormGroup;
   mailingForm: FormGroup;
 
@@ -25,18 +25,18 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
   ];
 
   availableServiceTypes = [
-    { label: `Physician's private office`, value: '1', optional:false, selected: false },
-    { label: 'Population Based Funding (PBF)', value: '2', optional:false, selected: false },
-    { label: 'Primary Care Network', value: '3', optional:false, selected: false },
-    { label: 'UPPC', value: '4', optional:false, selected: false },
-    { label: 'Walk in clinic', value: '5', optional:false, selected: false },
+    { label: `Physician's private office`, value: '1', optional: false, selected: false },
+    { label: 'Population Based Funding (PBF)', value: '2', optional: false, selected: false },
+    { label: 'Primary Care Network', value: '3', optional: false, selected: false },
+    { label: 'UPPC', value: '4', optional: false, selected: false },
+    { label: 'Walk in clinic', value: '5', optional: false, selected: false },
   ];
 
   buildServiceTypes() {
     const arr = this.availableServiceTypes.map(serviceType => {
       return this.fb.control(serviceType.selected);
     });
-    return this.fb.array(arr,Validators.required);
+    return this.fb.array(arr, Validators.required);
   }
 
   get getServiceTypes(): FormArray {
@@ -46,7 +46,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
 
   constructor(
     protected router: Router,
-    private pageCheckService: CheckCompleteBaseService,    
+    private pageCheckService: CheckCompleteBaseService,
     public dataService: CreateFacilityDataService,
     private fb: FormBuilder,
   ) {
@@ -85,19 +85,21 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
 
       mailing_address: [null, cCreateFacilityValidators.address.streetAddress],
       mailing_city: [null, cCreateFacilityValidators.address.city],
-      mailing_province:  [BRITISH_COLUMBIA],
+      mailing_province: [BRITISH_COLUMBIA],
       mailing_postalCode: [null, cCreateFacilityValidators.address.postalCode],
     });
     return form;
   }
 
   toggleMailingAddress(formGroup, status) {
+    console.log(status);
+    this.showMailingAddress = status ? false : true;
     this.facilityForm.patchValue({ isSameMailingAddress: status });
-    this.showMailingAddress = status;
+
   }
 
   continue() {
     this.navigate('register-facility/review');
   }
- 
+
 }
