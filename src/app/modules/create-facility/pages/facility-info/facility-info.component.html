@@ -1,8 +1,169 @@
-<common-page-framework>
-  <p>facility-info works!</p>
+<common-page-framework layout='blank'>
+  <h1>Facility Information</h1>
+  <p class="border-bottom">
+    To qualify a Facility must be location in British Columbia.
+  </p>
+  <common-page-section layout="tips">
+    <div class="form-group col-sm-8 p-sm-0">
+      <form [formGroup]="facilityForm">
+
+        <div class="form-group">
+          <!-- Facility Name -->
+          <label class="control-label" for="facilityName">Facility Name</label>
+          <input id="facilityName" formControlName="facilityName" class="form-control" required="true">
+          <common-error-container [displayError]="validFormControl(facilityForm,'facilityName')">
+            Facility Name is a required field
+          </common-error-container>
+        </div>
+
+        <div class="form-group">
+          <!-- Physical Address-->
+          <label class="control-label" for="address">Physical Address</label>
+          <input id="address" formControlName="address" class="form-control" required="true">
+          <common-error-container [displayError]="validFormControl(facilityForm,'address')">
+            Facility Address is a required field
+          </common-error-container>
+        </div>
+
+        <div class="form-group">
+          <!-- City -->
+          <common-city formControlName="city" required="true"></common-city>
+          <!-- <common-error-container [displayError]="validFormControl(facilityForm,'city')">
+            City is a required field
+          </common-error-container> -->
+        </div>
+
+        <div class="form-group">
+          <!-- Province -->
+          <common-province label='Province' formControlName='province' disabled>
+          </common-province>
+          <!-- <common-error-container [displayError]="validFormControl(facilityForm,'province')">
+            Province is a required field
+          </common-error-container> -->
+        </div>
+
+        <div class="form-group">
+          <!-- Postal Code -->
+          <common-postal-code label='Postal Code' formControlName='postalCode' required="true"></common-postal-code>
+          <!-- <common-error-container [displayError]="validFormControl(facilityForm,'postalCode')">
+            Postal Code is a required field
+          </common-error-container> -->
+        </div>
+
+        <div class="form-group">
+          <common-phone-number label='Phone number' formControlName='phoneNumber' required="true"></common-phone-number>
+          <!-- <label class="control-label" for="phone_edit_{{formIndex}}">Phone Number</label>
+          <input id="phone_edit_{{formIndex}}" formControlName="phoneNumber" class="form-control">
+          <common-error-container [displayError]="validFormControl(facilityForm,'phoneNumber')">
+            Phone Number is a required field
+          </common-error-container> -->
+        </div>
+
+        <div class="form-group">
+          <common-phone-number label='Fax Number' formControlName='faxNumber' required="true"></common-phone-number>
+          <!-- <label class="control-label" for="fax_edit">Fax Number</label>
+          <input id="fax_edit" formControlName="faxNumber" class="form-control">
+          <common-error-container [displayError]="validFormControl(facilityForm,'faxNumber')">
+            Fax Number is a required field
+          </common-error-container> -->
+        </div>
+
+        <div class="form-group">
+          <common-date label="Effective Date" [restrictDate]="'past'" required="true"></common-date>
+        </div>
+
+        <div class="form-group">
+          <common-radio [radioLabels]="radioBtnLabels" formControlName="isSameMailingAddress"
+            label="Is the mailing adderss the same as the Physical Facility Address?" display="table-row-group"
+            (statusChange)="toggleMailingAddress(facilityForm,$event)" required="true"></common-radio>
+          <common-error-container [displayError]="validFormControl(facilityForm,'isSameMailingAddress')">
+            Please indicate if the mailing address is the same as the physical address
+          </common-error-container>
+        </div>
+
+      </form>
+    </div>
+
+    <h2 class='border-bottom' *ngIf="showMailingAddress">Facility Mailing Address</h2>
+    <div class="form-group col-sm-8 p-sm-0" *ngIf="showMailingAddress">
+      <form [formGroup]="mailingForm">
+
+        <div class="form-group">
+          <label class="control-label" for="mailing_address">Mailing Address</label>
+          <input id="mailing_address" class="form-control" formControlName="mailing_address" required="true">
+          <common-error-container [displayError]="validFormControl(mailingForm,'mailing_address')">
+            Mailing Address is a required field
+          </common-error-container>
+        </div>
+
+        <div class="form-group">
+          <common-city label='City' value='' formControlName="mailing_city" required="true"></common-city>
+          <!-- <common-error-container [displayError]="validFormControl(mailingForm,'mailing_city')">
+            City is a required field
+          </common-error-container> -->
+        </div>
+
+        <div class="form-group">
+          <common-province label='Province' value='' formControlName="mailing_province" disabled required="true">
+          </common-province>
+          <!-- <common-error-container [displayError]="validFormControl(mailingForm,'mailing_province')">
+            Province is a required field
+          </common-error-container> -->
+        </div>
+
+        <div class="form-group">
+          <common-postal-code label='Postal Code' value='' formControlName="mailing_postalCode" class="pt-1"
+            required="true">
+          </common-postal-code>
+          <!-- <common-error-container [displayError]="validFormControl(mailingForm,'mailing_postalCode')">
+            Postal Code is a required field
+          </common-error-container> -->
+        </div>
+
+      </form>
+    </div>
+
+
+    <h2 class='border-bottom'>Facility Service Type</h2>
+    <div class="form-group col-sm-8 p-sm-0">
+      <form [formGroup]="facilityForm">
+        <div formArrayName="services" *ngFor="let fg of getServiceTypes.controls; let formIndex=index;">
+          <div class="form-group">
+            <common-checkbox class="form-check mb-3"
+              formControlName="{{availableServiceTypes[formIndex].value}}"
+              id="{{availableServiceTypes[formIndex].value}}" label="{{availableServiceTypes[formIndex].label}}"
+              required="true">
+            </common-checkbox>
+          </div>
+          <common-error-container [displayError]="validFormControl(facilityForm,'services')">
+            At least one (1) Service Type must be selected
+          </common-error-container>
+        </div>
+      </form>
+    </div>
+
+
+    <h2>Business Cost Premium</h2>
+    <p class="border-bottom">
+      Business Cost Premium applies to services which are provided in community-based offices where the physician pays
+      towards rent or lease cost either directly or indirectly.
+    </p>
+    <div class="form-group col-sm-8 p-sm-0">
+      <form [formGroup]="facilityForm">
+        <div class="form-group">
+          <common-radio [radioLabels]="radioBtnLabels" formControlName="isQualifyForBCP"
+            label="Does your business qualify for the Business Cost Premium?" display="table-row-group" required="true">
+          </common-radio>
+          <common-error-container [displayError]="validFormControl(facilityForm,'isQualifyForBCP')">
+            Please indicate if your business qualifies for the Business Cost Premium
+          </common-error-container>
+        </div>
+      </form>
+    </div>
+
+  </common-page-section>
 </common-page-framework>
 
-<common-form-action-bar [defaultColor]='false'
-                        widthOption='extra-width-mobile-only'
-                        (btnClick)="continue()">
+<common-form-action-bar [defaultColor]='false' widthOption='extra-width-mobile-only' [isLoading]='loading'
+  (btnClick)="continue()">
 </common-form-action-bar>
