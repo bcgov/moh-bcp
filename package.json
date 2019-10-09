@@ -1,11 +1,12 @@
 {
   "name": "moh-bcp",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "npm run dev",
+    "dev": "ng serve --host=0.0.0.0 -o",
     "prebuild": "node src/version.js",
-    "build": "ng build",
+    "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
