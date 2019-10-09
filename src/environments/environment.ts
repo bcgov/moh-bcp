@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   bypassModal: true,
-  bypassGuards: false,
+  bypassGuards: true,
   links: {
     tbd: 'google.com'
   }
