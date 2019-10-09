@@ -14,7 +14,7 @@
   <div *ngIf="controlDir?.errors?.required">
       Medical service plan practitioner number is required
     </div>
-    <div *ngIf="controlDir?.errors?.invalidFormat">
+    <div *ngIf="controlDir?.errors?.invalidFormat && !controlDir?.errors?.required">
       Medical service plan practitioner number is invalid format.  Please make sure it is alphanumeric and does not contain special characers or spaces.
   </div>
 </common-error-container>
