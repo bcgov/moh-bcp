@@ -9,7 +9,7 @@ import { ReviewComponent } from './pages/review/review.component';
 import { SubmissionComponent } from './pages/submission/submission.component';
 import { CoreBCPModule } from '../core-bcp/core-bcp.module';
 import { CreateFacilityContainerComponent } from './create-facility-container/create-facility-container.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AbstractPgCheckService, RouteGuardService, CheckCompleteBaseService } from 'moh-common-lib';
 
 
@@ -26,6 +26,7 @@ import { AbstractPgCheckService, RouteGuardService, CheckCompleteBaseService } f
     CreateFacilityRoutingModule,
     CoreBCPModule,
     FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [
     {provide: AbstractPgCheckService, useExisting: CheckCompleteBaseService},
