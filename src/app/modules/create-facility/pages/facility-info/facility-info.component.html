@@ -107,7 +107,13 @@
         </div>
 
         <div class="form-group">
-          <common-province label='Province' value='' formControlName="mailing_province" disabled required="true">
+          <!-- <common-province label='Province' value='' placeholder='' formControlName="mailing_province" disabled required="true">
+          </common-province> -->
+          <common-province label='Province'
+                           placeholder=''
+                           formControlName='mailing_province'
+                           class="border-1"
+          >
           </common-province>
           <!-- <common-error-container [displayError]="validFormControl(mailingForm,'mailing_province')">
             Province is a required field
