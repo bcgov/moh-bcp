@@ -71,6 +71,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
       province: [BRITISH_COLUMBIA],
       postalCode: [null, cCreateFacilityValidators.address.postalCode],
       phoneNumber: [null, cCreateFacilityValidators.facilityDetail.phoneNumber],
+      phoneExtension: [null],
       faxNumber: [null, cCreateFacilityValidators.facilityDetail.faxNumber],
       isSameMailingAddress: [null, cCreateFacilityValidators.facilityDetail.isSameMailingAddress],
       isQualifyForBCP: [null, cCreateFacilityValidators.facilityDetail.isQualifyForBCP],
