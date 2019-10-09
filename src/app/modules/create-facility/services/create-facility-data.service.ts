@@ -20,5 +20,15 @@ export class CreateFacilityDataService {
     if (environment.bypassModal) {
       this.informationCollectionNoticeConsent = true;
     }
+
+    if (environment.useDummyData){
+      this.facAdminFirstName = 'John';
+      this.facAdminLastName = 'Smith';
+      this.pracNumber = '12345';
+      this.emailAddress = 'a@example.com';
+      this.confirmEmailAddress = 'a@example.com';
+      this.facAdminPhoneNumber = '250-555-5555';
+
+    }
   }
 }
