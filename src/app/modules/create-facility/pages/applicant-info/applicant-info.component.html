@@ -1,108 +1,82 @@
-<common-page-framework>
-    <h1>Facility Administrator Information </h1>
-    <p class="border-bottom">In order to apply for a Medical Services Plan Facility Number the Facility Administrator must
-      by an active medical practitioner that is registered with the College of Physicians and Surgeons of British
-      Columbia. </p>
+<common-page-framework layout='blank'>
+  <h1>Facility Administrator Information </h1>
+  <p>In order to apply for a Medical Services Plan Facility Number the Facility Administrator must
+    by an active medical practitioner that is registered with the College of Physicians and Surgeons of British
+    Columbia. </p>
+  <hr>
 
-      <form #formRef='ngForm' novalidate>
+  <common-page-section>
 
-        <div class="form-group">
-          <common-name label='Facility administrator first name'
-                       name='facAdminFirstName'
-                       [(ngModel)]='dataService.facAdminFirstName'
-                       commonValidateName
-                       maxlen=15
-                       required></common-name>
+    <form #formRef='ngForm'
+          novalidate>
+
+      <div class="form-group">
+        <common-name label='Facility administrator first name'
+                     name='facAdminFirstName'
+                     [(ngModel)]='dataService.facAdminFirstName'
+                     commonValidateName
+                     maxlen=15
+                     required></common-name>
+      </div>
+
+      <div class="form-group">
+        <common-name label='Facility administrator last name'
+                     name='facAdminLastName'
+                     [(ngModel)]='dataService.facAdminLastName'
+                     commonValidateName
+                     maxlen=15
+                     required></common-name>
+      </div>
+
+      <div class="form-group">
+        <bcp-practitioner-number name='pracNumber'
+                                 required
+                                 bcpValidatePractitionerNumber
+                                 [(ngModel)]='dataService.pracNumber'></bcp-practitioner-number>
+      </div>
+
+      <div class="form-group">
+        <common-email name='email'
+                      required
+                      [maxlength]="50"
+                      [(ngModel)]='dataService.emailAddress'
+                      commonValidateEmail></common-email>
+      </div>
+
+      <div class="form-group">
+        <common-email name='emailConfirm'
+                      required
+                      label='Confirm email address'
+                      [maxlength]="50"
+                      [(ngModel)]='dataService.confirmEmailAddress'
+                      commonValidateEmail></common-email>
+
+        <common-error-container [displayError]='showEmailMismatchError()'>
+          This email address does not match the original email provided.
+        </common-error-container>
+      </div>
+
+
+      <div class="form-group row">
+        <div class="col-10">
+          <common-phone-number name='phoneNumber'
+                               [(ngModel)]='dataService.facAdminPhoneNumber'
+                               required></common-phone-number>
         </div>
 
-        <div class="form-group">
-          <common-name label='Facility administrator last name'
-                       name='facAdminLastName'
-                       [(ngModel)]='dataService.facAdminLastName'
-                       commonValidateName
-                       maxlen=15
-                       required></common-name>
-        </div>
-
-        <div class="form-group">
-          <bcp-practitioner-number name='pracNumber'
-                                   required
-                                   bcpValidatePractitionerNumber
-                                   [(ngModel)]='dataService.pracNumber'></bcp-practitioner-number>
-        </div>
-
-        <div class="form-group">
-          <!-- TODO: Create Common-Email? Base it off Common-Name -->
-          <label for='email'>
-            Email address
+        <div class="col-2">
+          <label for='extension'>
+            Extension
           </label>
-          <input type="text"
+          <input name='extension'
+                 type="text"
                  class='form-control'
-                 id='email'
-                 name='email'
-                 required
-                 [attr.maxlength]="50"
-                 bcpValidateEmail
-                 [(ngModel)]='dataService.emailAddress'>
-          <common-error-container
-            [displayError]='showEmailError("email", "required")'>
-            Email address is required.
-          </common-error-container>
-
-          <common-error-container
-            [displayError]='showEmailError("email", "invalidEmail")'>
-            Invalid email format.
-          </common-error-container>
+                 id='extension'
+                 [attr.maxlength]="4"
+                 [(ngModel)]='dataService.facAdminExtension'>
         </div>
-
-        <div class="form-group">
-          <label for='emailConfirm'>
-            Confirm email address
-          </label>
-          <input type="text"
-                 class='form-control'
-                 id='emailConfirm'
-                 name='emailConfirm'
-                 required
-                 [attr.maxlength]="50"
-                 bcpValidateEmail
-                 [(ngModel)]='dataService.confirmEmailAddress'>
-
-          <common-error-container
-            [displayError]='showEmailError("emailConfirm", "required")'>
-            Confirm email address is required.
-          </common-error-container>
-
-          <common-error-container
-            [displayError]='showEmailError("emailConfirm", "invalidEmail")'>
-            Invalid email format.
-          </common-error-container>
-
-          <common-error-container [displayError]='showEmailMismatchError()'>
-            This email address does not match the original email provided.
-          </common-error-container>
-        </div>
-
-
-        <div class="form-group row">
-          <div class="col-10">
-            <common-phone-number name='phoneNumber'
-                                 [(ngModel)]='dataService.facAdminPhoneNumber'
-                                 required></common-phone-number>
-          </div>
-
-          <div class="col-2">
-            <label for='extension'>
-              Extension
-            </label>
-            <input name='extension' type="text"
-                   class='form-control'
-                   id='extension'
-                   [attr.maxlength]="4"
-                   [(ngModel)]='dataService.facAdminExtension'>
-          </div>
-        </div>
-      </form>
+      </div>
+    </form>
     <aside>
       <h2>Tips</h2>
       <p>A validation check will automatically be done using the following fields upon submission of this page:</p>
@@ -113,10 +87,12 @@
       </ul>
       <p>In order to apply for a Facility Number the Facility Administrator must be an Active medical practitioner.</p>
     </aside>
-  </common-page-framework>
 
-  <common-form-action-bar [defaultColor]='false'
-                          widthOption='extra-width-mobile-only'
-                          [isLoading]='loading'
-                          (btnClick)="continue()">
-  </common-form-action-bar>
+  </common-page-section>
+</common-page-framework>
+
+<common-form-action-bar [defaultColor]='false'
+                        widthOption='extra-width-mobile-only'
+                        [isLoading]='loading'
+                        (btnClick)="continue()">
+</common-form-action-bar>
