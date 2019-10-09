@@ -84,7 +84,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
 
       mailing_address: [null, cCreateFacilityValidators.address.streetAddress],
       mailing_city: [null, cCreateFacilityValidators.address.city],
-      mailing_province: [null, cCreateFacilityValidators.address.province],
+      mailing_province:  [BRITISH_COLUMBIA],
       mailing_postalCode: [null, cCreateFacilityValidators.address.postalCode],
     });
     return form;
