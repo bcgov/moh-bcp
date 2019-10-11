@@ -99,7 +99,11 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
   }
 
   continue() {
-    this.navigate('register-facility/review');
+    this.facilityForm.markAllAsTouched();
+    this.markAllInputsTouched();
+
+    // this.markAllInputsTouched();
+    //this.navigate('register-facility/review');
   }
 
 }

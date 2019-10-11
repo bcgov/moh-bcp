@@ -19,7 +19,7 @@
         <div class="form-group">
           <!-- Physical Address-->
           <label class="control-label" for="facilityaddress">Physical Address</label>
-          <input id="facilityaddress" formControlName="address" class="form-control" required="true" maxlength="70" >
+          <input id="facilityaddress" formControlName="address" class="form-control" required="true" maxlength="70">
           <common-error-container [displayError]="validFormControl(facilityForm,'address')">
             Facility Address is a required field
           </common-error-container>
@@ -44,16 +44,18 @@
 
         <div class="form-group">
           <!-- Postal Code -->
-          <common-postal-code  name='facilityPostalCode' label='Postal Code' formControlName='postalCode' required="true"  [maxlength]="10"></common-postal-code>
+          <common-postal-code name='facilityPostalCode' label='Postal Code' formControlName='postalCode' required="true"
+            [maxlength]="10"></common-postal-code>
           <!-- <common-error-container [displayError]="validFormControl(facilityForm,'postalCode')">
             Postal Code is a required field
           </common-error-container> -->
         </div>
-    
+
         <div class="form-group row">
           <div class="col-10">
-            <common-phone-number  name='facilityPhoneNumber' label='Phone number' formControlName='phoneNumber' required="true" [maxlength]="10"></common-phone-number>
-           <!-- <label class="control-label" for="phone_edit_{{formIndex}}">Phone Number</label>
+            <common-phone-number name='facilityPhoneNumber' label='Phone number' formControlName='phoneNumber'
+              [maxlength]="10" commonValidatePhone required></common-phone-number>
+            <!-- <label class="control-label" for="phone_edit_{{formIndex}}">Phone Number</label>
             <input id="phone_edit_{{formIndex}}" formControlName="phoneNumber" class="form-control">
             <common-error-container [displayError]="validFormControl(facilityForm,'phoneNumber')">
               Phone Number is a required field
@@ -63,14 +65,14 @@
             <label for='facilityPhoneExtension'>
               Extension
             </label>
-            <input id='facilityPhoneExtension' type="text"
-                   class='form-control'
-                   formControlName='phoneExtension' maxlength="4" >
+            <input id='facilityPhoneExtension' type="text" class='form-control' formControlName='phoneExtension'
+              maxlength="4">
           </div>
         </div>
 
         <div class="form-group">
-          <common-phone-number name='facilityPhoneExtension' label='Fax Number' formControlName='faxNumber' required="true" [maxlength]="10"></common-phone-number>
+          <common-phone-number name='facilityPhoneExtension' label='Fax Number' formControlName='faxNumber'
+            [maxlength]="10" commonValidatePhone required></common-phone-number>
           <!-- <label class="control-label" for="fax_edit">Fax Number</label>
           <input id="fax_edit" formControlName="faxNumber" class="form-control">
           <common-error-container [displayError]="validFormControl(facilityForm,'faxNumber')">
@@ -79,14 +81,14 @@
         </div>
 
         <div class="form-group">
-          <common-date name='effectiveDate' label="Effective Date" [restrictDate]="'past'" required="true"></common-date>
+          <common-date name='effectiveDate' label="Effective Date" [restrictDate]="'past'" required></common-date>
         </div>
 
         <div class="form-group">
-          <common-radio [radioLabels]="radioBtnLabels" 
-            formControlName="isSameMailingAddress" name="isSameMailingAddress"
-            label="Is the mailing adderss the same as the Physical Facility Address?" display="table-row-group"
-            (statusChange)="toggleMailingAddress(facilityForm,$event)" required="true"></common-radio>
+          <common-radio [radioLabels]="radioBtnLabels" formControlName="isSameMailingAddress"
+            name="isSameMailingAddress" label="Is the mailing adderss the same as the Physical Facility Address?"
+            display="table-row-group" (statusChange)="toggleMailingAddress(facilityForm,$event)" required="true">
+          </common-radio>
           <common-error-container [displayError]="validFormControl(facilityForm,'isSameMailingAddress')">
             Please indicate if the mailing address is the same as the physical address
           </common-error-container>
@@ -101,22 +103,24 @@
 
         <div class="form-group">
           <label class="control-label" for="mailingAddress">Mailing Address</label>
-          <input id="mailingAddress" class="form-control"  name="mailingAddress"
-          formControlName="mailing_address" required="true">
+          <input id="mailingAddress" class="form-control" name="mailingAddress" formControlName="mailing_address"
+            required="true">
           <common-error-container [displayError]="validFormControl(mailingForm,'mailing_address')">
             Mailing Address is a required field
           </common-error-container>
         </div>
 
         <div class="form-group">
-          <common-city label='City' value='' name="mailingCity" formControlName="mailing_city" required="true" [maxlength]="30"></common-city>
+          <common-city label='City' value='' name="mailingCity" formControlName="mailing_city" required="true"
+            [maxlength]="30"></common-city>
           <!-- <common-error-container [displayError]="validFormControl(mailingForm,'mailing_city')">
             City is a required field
           </common-error-container> -->
         </div>
 
         <div class="form-group">
-          <common-province name="mailingProvince" label='Province' placeholder='' formControlName='mailing_province'disabled>
+          <common-province name="mailingProvince" label='Province' placeholder='' formControlName='mailing_province'
+            disabled>
           </common-province>
           <!-- <common-error-container [displayError]="validFormControl(mailingForm,'mailing_province')">
             Province is a required field
@@ -124,8 +128,8 @@
         </div>
 
         <div class="form-group">
-          <common-postal-code name="mailingPostalCode" label='Postal Code' value='' formControlName="mailing_postalCode" class="pt-1"
-            required="true" [maxlength]="10">
+          <common-postal-code name="mailingPostalCode" label='Postal Code' value='' formControlName="mailing_postalCode"
+            class="pt-1" required="true" [maxlength]="10">
           </common-postal-code>
           <!-- <common-error-container [displayError]="validFormControl(mailingForm,'mailing_postalCode')">
             Postal Code is a required field
@@ -142,8 +146,7 @@
         <div formArrayName="services" *ngFor="let fg of getServiceTypes.controls; let formIndex=index;">
           <div class="form-group">
             <common-checkbox class="form-check mb-3" formControlName="{{availableServiceTypes[formIndex].value}}"
-              id="{{availableServiceTypes[formIndex].value}}" label="{{availableServiceTypes[formIndex].label}}"
-              required="true">
+              id="{{availableServiceTypes[formIndex].value}}" label="{{availableServiceTypes[formIndex].label}}">
             </common-checkbox>
           </div>
           <common-error-container [displayError]="validFormControl(facilityForm,'services')">
@@ -162,8 +165,8 @@
     <div class="form-group col-sm-8 p-sm-0">
       <form [formGroup]="facilityForm">
         <div class="form-group">
-          <common-radio [radioLabels]="radioBtnLabels" formControlName="isQualifyForBCP" name="isQualifyForBCP" 
-            label="Does your business qualify for the Business Cost Premium?" display="table-row-group" required="true">
+          <common-radio [radioLabels]="radioBtnLabels" formControlName="isQualifyForBCP" name="isQualifyForBCP"
+            label="Does your business qualify for the Business Cost Premium?" display="table-row-group">
           </common-radio>
           <common-error-container [displayError]="validFormControl(facilityForm,'isQualifyForBCP')">
             Please indicate if your business qualifies for the Business Cost Premium
