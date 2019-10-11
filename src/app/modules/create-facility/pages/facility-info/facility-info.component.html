@@ -19,7 +19,7 @@
         <div class="form-group">
           <!-- Physical Address-->
           <label class="control-label" for="facilityaddress">Physical Address</label>
-          <input id="facilityaddress" formControlName="address" class="form-control" required="true" >
+          <input id="facilityaddress" formControlName="address" class="form-control" required="true" maxlength="70" >
           <common-error-container [displayError]="validFormControl(facilityForm,'address')">
             Facility Address is a required field
           </common-error-container>
