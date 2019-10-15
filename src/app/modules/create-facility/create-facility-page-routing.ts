@@ -5,8 +5,12 @@ import { FacilityInfoComponent } from './pages/facility-info/facility-info.compo
 import { ReviewComponent } from './pages/review/review.component';
 import { SubmissionComponent } from './pages/submission/submission.component';
 import { RouteGuardService } from 'moh-common-lib';
+import { environment } from '../../../environments/environment';
+
+
+
 /** The individual page routes only, does not include container */
-export const createFacilityPageRoutes: Routes = [
+let defaultPages: Routes = [
   {
     path: 'home',
     component: HomeComponent,
@@ -33,3 +37,15 @@ export const createFacilityPageRoutes: Routes = [
     canActivate: [RouteGuardService]
   },
 ];
+
+// Ths bit of code is super helpful for local dev.  It lets us refresh on
+// route-guarded pages directly (i.e. don't have to navigate back to page).
+if (environment.bypassGuards) {
+    // console.log('DEVELOPMENT ONLY - BYPASSING ROUTE GUARDS');
+    defaultPages = defaultPages.map((x) => {
+        x.canActivate = [];
+        return x;
+    });
+}
+
+export const createFacilityPageRoutes = defaultPages
