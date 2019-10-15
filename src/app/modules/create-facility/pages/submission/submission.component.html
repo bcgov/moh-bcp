@@ -1,51 +1,54 @@
 <common-page-framework layout='blank'>
-  
-  
+
   <common-confirm-template>
-      <!-- <h1 confirmationTitle>Confirmation of Submission</h1> -->
 
-      <div confirmationTitle>
-          <a onclick="window.print();return false;">
-            <strong class="float-right">Print
-              <i class="fa fa-print fa-lg pointer" aria-hidden="true"></i>
-            </strong>
-          </a>
-          <h1 class='border-bottom'>Confirmation of Submission</h1>
-          <!-- <p class="border-bottom">
-            It is important to keep your reference number - write it down, or print this page for your records.
-          </p> -->
-        </div>
+    <div confirmationTitle>
+      <a onclick="window.print();return false;">
+        <strong class="float-right">Print
+          <i class="fa fa-print fa-lg pointer"
+             aria-hidden="true"></i>
+        </strong>
+      </a>
+      <h1 class='border-bottom'>Confirmation of Submission</h1>
+    </div>
 
-        <div message>
-            <div>
-                <h2 class='mt-2'>Your application has been submitted</h2>
-            </div>
+    <div message>
+      <div>
+        <h2 class='mt-2'>Your application has been submitted</h2>
+      </div>
 
-            <div class="row">
-              <div class="col-6">Date of Submission</div>
-              <div class="col-6 font-weight-bold">January 1, 2020</div>
+      <div class="row">
+        <div class="col-6">Date of Submission</div>
+        <div class="col-6 font-weight-bold">January 1, 2020</div>
 
-              <div class="col-6">Reference Number</div>
-              <div class="col-6 font-weight-bold">N/A</div>
+        <div class="col-6">Reference Number</div>
+        <div class="col-6 font-weight-bold">N/A</div>
 
-              <div class="col-6">Facility Number</div>
-              <div class="col-6 font-weight-bold">N/A</div>
-            </div>          
-          </div>
+        <div class="col-6">Facility Number</div>
+        <div class="col-6 font-weight-bold {{isUnderReview ? 'text-primary' : ''}} "> {{facilityNumberText}} </div>
+      </div>
+    </div>
 
-          <div AdditionalInfo>
+    <div AdditionalInfo>
 
-              <h2 class="border-bottom"><strong>Next Steps</strong></h2>
-              <common-page-section layout='noTips'>
-                <ul>
-                  <li>You will recieve a letter with your Facility Number</li>
-                  <li>Registration practitioners, complete with practitioner assignment to Medical Services Plan facility for Business Cost Premium form.</li>
-                </ul>
-              </common-page-section>
-            </div>
+      <div class="message-container under-review" *ngIf="isUnderReview">
+        <i class="fa fa-2x fa-exclamation-circle text-primary pr-2" aria-label="info"></i>
+        Your Facility Number will be provided once your request has been processed. If you have any questions on the
+        status of your submission please call us at 1-800-555-1234 and provide your Reference Number.
+      </div>
+
+
+
+      <h2 class="border-bottom"><strong>Next Steps</strong></h2>
+      <common-page-section layout='noTips'>
+        <ul>
+          <li>You will recieve a letter with your Facility Number</li>
+          <li *ngIf="!isUnderReview">Registration practitioners, complete with practitioner assignment to Medical Services Plan facility for
+            Business Cost Premium form.</li>
+        </ul>
+      </common-page-section>
+    </div>
 
   </common-confirm-template>
 
 </common-page-framework>
-
-
