@@ -2,10 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Container, CheckCompleteBaseService } from 'moh-common-lib';
 import { createFacilityPageRoutes } from '../create-facility-page-routing';
 import { environment } from 'src/environments/environment';
-import { CREATE_FACILITY } from '../create-facility-route-constants';
+import { CREATE_FACILITY, CREATE_FACILITY_PAGES } from '../create-facility-route-constants';
 import { HeaderService } from 'src/app/services/header.service';
-import { Routes } from '@angular/router';
+import { Routes, Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { Route } from '@angular/compiler/src/core';
+import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-create-facility-container',
@@ -14,14 +17,20 @@ import { Route } from '@angular/compiler/src/core';
 })
 export class CreateFacilityContainerComponent extends Container implements OnInit {
 
-  constructor(private checkPageService: CheckCompleteBaseService, private headerService: HeaderService) {
+  hideStepper = false;
+  routerSubscription: Subscription;
+
+  constructor(private checkPageService: CheckCompleteBaseService,
+    private headerService: HeaderService,
+    private router: Router) {
     super();
 
     // 'Submission' should not be in the stepper.
     const pageRoutesWithoutSubmission = createFacilityPageRoutes
       .filter(x => x.path !== 'submission');
 
-    this.setProgressSteps( (pageRoutesWithoutSubmission as Route[]) );
+    this.setProgressSteps((pageRoutesWithoutSubmission as Route[]));
+    // this.setProgressSteps( (createFacilityPageRoutes as Route[]) );
 
     // TODO: Refactor into new  service inheritis from CheckCompleteBaseService.
     // Re-consider when building out other forms and we can assess impact.
@@ -37,6 +46,30 @@ export class CreateFacilityContainerComponent extends Container implements OnIni
   }
 
   ngOnInit() {
+
+    this.routerSubscription = this.router.events
+    .pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(event => {
+      // console.log('nav', this.router.url);
+      this.setStepperVisibility();
+    });
+
+    this.setStepperVisibility();
+  }
+
+  ngOnDestroy(){
+    this.routerSubscription.unsubscribe();
+  }
+
+  setStepperVisibility(){
+    this.hideStepper = this.router.url.includes(CREATE_FACILITY_PAGES.SUBMISSION.path);
+    // console.log('url', this.router.url, 'hideStepper', this.hideStepper);
+    console.log({
+      url: this.router.url,
+      check: `${this.router.url}.includes('${CREATE_FACILITY_PAGES.SUBMISSION.path}')`,
+      val: this.router.url.includes(CREATE_FACILITY_PAGES.SUBMISSION.path),
+    })
   }
 
 }
