@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CreateFacilityForm } from '../../models/create-facility-form';
 import { CheckCompleteBaseService } from 'moh-common-lib';
+import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
 
 @Component({
   selector: 'app-review',
@@ -18,9 +19,17 @@ export class ReviewComponent extends CreateFacilityForm implements OnInit {
     this.pageCheckService.setPageIncomplete();
   }
 
+  canContinue(){
+    // TODO : Write! By Defualt this just returns this.form.valid, But if we do
+    // not want to setup a form, we must modify this to just ensure the
+    // "Authorization of Submission" checkbox is written.
+    return true;
+  }
+
   continue() {
     if (this.canContinue()) {
       this.pageCheckService.setPageComplete();
+      this.navigate(CREATE_FACILITY_PAGES.SUBMISSION.fullPath);
       // TODO: - API Request / Submission
     }
   }
