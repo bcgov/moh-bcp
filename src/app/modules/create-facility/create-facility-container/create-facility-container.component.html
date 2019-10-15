@@ -1,6 +1,6 @@
-<common-core-breadcrumb>
-
-  <common-wizard-progress-bar center
+<common-core-breadcrumb *ngIf='!hideStepper'>
+  <common-wizard-progress-bar
+                              center
                               [progressSteps]="progressSteps">
   </common-wizard-progress-bar>
 
