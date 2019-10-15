@@ -4,9 +4,13 @@
 
 export const environment = {
   production: false,
-  bypassModal: true,
-  bypassGuards: true,
+  bypassModal: false,
+  bypassGuards: false,
   useDummyData: false,
+  api: {
+    base: '/bcp/api',
+    captcha: '/bcp/api/captcha'
+  },
   links: {
     tbd: 'google.com'
   }

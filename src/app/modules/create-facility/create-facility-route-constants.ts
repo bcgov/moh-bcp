@@ -1,4 +1,4 @@
-export const CREATE_FACILITY = 'register-facility/';
+export const CREATE_FACILITY = 'register-facility';
 
 export const CREATE_FACILITY_PAGES = {
     HOME: {

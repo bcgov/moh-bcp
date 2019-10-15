@@ -11,7 +11,7 @@ import { CoreBCPModule } from '../core-bcp/core-bcp.module';
 import { CreateFacilityContainerComponent } from './create-facility-container/create-facility-container.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AbstractPgCheckService, RouteGuardService, CheckCompleteBaseService } from 'moh-common-lib';
-
+import { CaptchaModule } from 'moh-common-lib/captcha';
 
 @NgModule({
   declarations: [
@@ -27,6 +27,7 @@ import { AbstractPgCheckService, RouteGuardService, CheckCompleteBaseService } f
     CoreBCPModule,
     FormsModule,
     ReactiveFormsModule,
+    CaptchaModule
   ],
   providers: [
     {provide: AbstractPgCheckService, useExisting: CheckCompleteBaseService},

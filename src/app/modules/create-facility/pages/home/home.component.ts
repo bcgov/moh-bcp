@@ -5,6 +5,10 @@ import { CreateFacilityForm } from '../../models/create-facility-form';
 import { Router } from '@angular/router';
 import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
 
+import { UUID } from 'angular2-uuid';
+import { environment } from '../../../../../environments/environment';
+import { BCPApiService } from '../../../../services/bcp-api.service';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -13,10 +17,13 @@ import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
 export class HomeComponent extends CreateFacilityForm implements OnInit, AfterViewInit {
 
   @ViewChild('bcpConsentModal', { static: true }) bcpConsentModal: ConsentModalComponent;
+  nonce: string = UUID.UUID();
+  captchaApiBaseUrl = environment.api.captcha;
 
   constructor(private dataService: CreateFacilityDataService,
               protected router: Router,
-              private checkPageService: CheckCompleteBaseService) {
+              private checkPageService: CheckCompleteBaseService,
+              private ApiService: BCPApiService) {
     super(router);
   }
 
@@ -45,4 +52,12 @@ export class HomeComponent extends CreateFacilityForm implements OnInit, AfterVi
     }
   }
 
+  hasCaptchaToken(): boolean {
+    return this.ApiService.hasToken;
+  }
+  
+  handleToken(token: string): void {
+    console.log('TODO', {token});
+    this.ApiService.setToken(token);
+  }
 }
