@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { CreateFacilityDataService } from '../../services/create-facility-data.service';
 import { ValidatorFn, AbstractControl, NgControl } from '@angular/forms';
 import { CheckCompleteBaseService } from 'moh-common-lib';
+import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
 
 // TODO: Phone validation (passes on 1 char entered)
 // TODO: email validaion - create CommonEmail (like CommonName)
@@ -53,7 +54,7 @@ export class ApplicantInfoComponent extends CreateFacilityForm implements OnInit
         this.loading = false;
         this.cdr.detectChanges();
         this.pageCheckService.setPageComplete();
-        this.navigate('register-facility/facility-info');
+        this.navigate(CREATE_FACILITY_PAGES.FACILITY_INFO.fullPath);
       }, time);
 
     } else {

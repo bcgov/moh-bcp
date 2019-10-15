@@ -1,0 +1,4 @@
+common-page-framework {
+    // Needs to be adjusted because there is no ComonFormActionBar at the bottom.
+    min-height: calc(100vh - 210px)
+}
