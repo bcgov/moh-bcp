@@ -3,6 +3,7 @@ import { ConsentModalComponent, CheckCompleteBaseService } from 'moh-common-lib'
 import { CreateFacilityDataService } from '../../services/create-facility-data.service';
 import { CreateFacilityForm } from '../../models/create-facility-form';
 import { Router } from '@angular/router';
+import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
 
 @Component({
   selector: 'app-home',
@@ -40,7 +41,7 @@ export class HomeComponent extends CreateFacilityForm implements OnInit, AfterVi
   continue() {
     if (this.canContinue()) {
       this.checkPageService.setPageComplete();
-      this.navigate('register-facility/facility-administrator');
+      this.navigate(CREATE_FACILITY_PAGES.FACILITY_ADMIN.fullPath);
     }
   }
 
