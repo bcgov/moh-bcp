@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { CreateFacilityForm } from '../../models/create-facility-form';
 import { Router } from '@angular/router';
 import { ApiStatusCodes } from 'moh-common-lib';
+import { CreateFacilityDataService } from '../../services/create-facility-data.service';
 
 @Component({
   selector: 'app-submission',
@@ -11,7 +12,7 @@ import { ApiStatusCodes } from 'moh-common-lib';
 })
 export class SubmissionComponent extends CreateFacilityForm implements OnInit {
 
-  constructor(protected router: Router) {
+  constructor(protected router: Router, protected dataService: CreateFacilityDataService) {
     super(router);
   }
 
@@ -31,6 +32,12 @@ export class SubmissionComponent extends CreateFacilityForm implements OnInit {
     if (this.isUnderReview) return 'Under Review'
     // todo - if response, show that.
     return 'N/A';
+  }
+
+  print(event: Event){
+    window.print();
+    event.stopPropagation();
+    return false;
   }
 
 }
