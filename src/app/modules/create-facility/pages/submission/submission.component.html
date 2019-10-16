@@ -3,12 +3,12 @@
   <common-confirm-template>
 
     <div confirmationTitle>
-      <a onclick="window.print();return false;">
-        <strong class="float-right">Print
-          <i class="fa fa-print fa-lg pointer"
+      <button (click)="print($event)" class="btn btn-clear float-right print-hide">
+        <strong>Print
+          <i class="fa fa-print fa-lg"
              aria-hidden="true"></i>
         </strong>
-      </a>
+      </button>
       <h1 class='border-bottom'>Confirmation of Submission</h1>
     </div>
 
@@ -54,6 +54,8 @@
       </div>
 
 
+      <!-- Prinable section should have same contents as Review page
+      TODO: Explore refactoring so we can actually just put Review component here and style it in print-css.  -->
       <div class="print-only">
 
         <h3 class="border-bottom">Facility Administrator Info</h3>
