@@ -1,7 +1,9 @@
 export const environment = {
   production: true,
   bypassModal: false,
-  bypassGuards: false,
+
+  // TODO: REVERT THIS! ENABLED ONLY FOR EASY UX REVIEW FOR JEFF
+  bypassGuards: true,
   useDummyData: false,
   api: {
     base: '/bcp/api',
