@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { SharedCoreModule } from 'moh-common-lib';
 import { HttpClientModule } from '@angular/common/http';
 import { LandingComponent } from './pages/landing/landing.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [
@@ -17,6 +19,7 @@ import { LandingComponent } from './pages/landing/landing.component';
     AppRoutingModule,
     SharedCoreModule, // necessary here for CommonHeader at top level,
     HttpClientModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

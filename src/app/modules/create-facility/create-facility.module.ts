@@ -10,8 +10,11 @@ import { SubmissionComponent } from './pages/submission/submission.component';
 import { CoreBCPModule } from '../core-bcp/core-bcp.module';
 import { CreateFacilityContainerComponent } from './create-facility-container/create-facility-container.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AbstractPgCheckService, RouteGuardService, CheckCompleteBaseService } from 'moh-common-lib';
+import { AbstractPgCheckService, RouteGuardService, CheckCompleteBaseService, GeocoderService } from 'moh-common-lib';
 import { CaptchaModule } from 'moh-common-lib/captcha';
+import { BCPGeocoderService } from '../../services/bcp-geocoder.service';
+
+
 
 @NgModule({
   declarations: [
@@ -27,11 +30,12 @@ import { CaptchaModule } from 'moh-common-lib/captcha';
     CoreBCPModule,
     FormsModule,
     ReactiveFormsModule,
-    CaptchaModule
+    CaptchaModule,
   ],
   providers: [
     {provide: AbstractPgCheckService, useExisting: CheckCompleteBaseService},
-    RouteGuardService
+    RouteGuardService,
+    {provide: GeocoderService, useExisting: BCPGeocoderService },
   ]
 })
 export class CreateFacilityModule { }

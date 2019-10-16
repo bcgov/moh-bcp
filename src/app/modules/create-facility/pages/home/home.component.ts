@@ -57,7 +57,10 @@ export class HomeComponent extends CreateFacilityForm implements OnInit, AfterVi
   }
   
   handleToken(token: string): void {
-    console.log('TODO', {token});
     this.ApiService.setToken(token);
+  }
+
+  debug(a){
+    console.log('debug', a);
   }
 }
