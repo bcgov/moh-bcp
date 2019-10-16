@@ -4,7 +4,7 @@
     To qualify a Facility must be location in British Columbia.
   </p>
   <common-page-section layout="tips">
-    <div class="form-group col-sm-8 p-sm-0">
+    <div class="form-group">
       <form [formGroup]="facilityForm">
 
         <div class="form-group">
@@ -18,10 +18,18 @@
 
         <div class="form-group">
           <!-- Physical Address-->
-          <label class="control-label" for="facilityaddress">Physical Address</label>
-          <input id="facilityaddress" formControlName="address" class="form-control" required="true" maxlength="60">
-          <common-error-container [displayError]="validFormControl(facilityForm,'address')">
+          <common-geocoder-input
+                label='Physical Address'
+                formControlName="address"
+                maxlength=60>
+          </common-geocoder-input>
+
+          <common-error-container [displayError]="facilityForm.controls?.address?.touched && facilityForm.controls?.address?.errors?.required">
             Facility Address is a required field
+          </common-error-container>
+
+          <common-error-container [displayError]="facilityForm.controls?.address?.errors?.maxlength">
+            Facility Address max length must be 60 or fewer characters.
           </common-error-container>
         </div>
 
