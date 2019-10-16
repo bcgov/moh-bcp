@@ -8,6 +8,7 @@ import { Routes, Router, NavigationEnd, NavigationStart } from '@angular/router'
 import { Route } from '@angular/compiler/src/core';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { SplunkLoggerService } from 'src/app/services/splunk-logger.service';
 
 
 @Component({
@@ -22,7 +23,8 @@ export class CreateFacilityContainerComponent extends Container implements OnIni
 
   constructor(private checkPageService: CheckCompleteBaseService,
     private headerService: HeaderService,
-    private router: Router) {
+    private router: Router,
+    private splunkLogger: SplunkLoggerService) {
     super();
 
     // 'Submission' should not be in the stepper.
@@ -53,6 +55,11 @@ export class CreateFacilityContainerComponent extends Container implements OnIni
     ).subscribe(event => {
       // console.log('nav', this.router.url);
       this.setStepperVisibility();
+
+      this.splunkLogger.log({
+        event: 'navigation',
+        url: this.router.url
+      })
     });
 
     this.setStepperVisibility();
@@ -72,4 +79,9 @@ export class CreateFacilityContainerComponent extends Container implements OnIni
     })
   }
 
+  logPage(){
+    // this.splunkLogger.log()
+  }
+
 }
+

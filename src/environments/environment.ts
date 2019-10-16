@@ -9,7 +9,8 @@ export const environment = {
   useDummyData: false,
   api: {
     base: '/bcp/api',
-    captcha: '/bcp/api/captcha'
+    captcha: '/bcp/api/captcha',
+    splunk: '/bcp/api/logging'
   },
   links: {
     tbd: 'google.com'
