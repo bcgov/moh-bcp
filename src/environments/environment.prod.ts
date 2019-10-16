@@ -4,7 +4,9 @@ export const environment = {
   bypassGuards: false,
   useDummyData: false,
   api: {
-    captcha: '/bcp/api/captcha'
+    base: '/bcp/api',
+    captcha: '/bcp/api/captcha',
+    splunk: '/bcp/api/logging'
   },
   links: {
     tbd: 'google.com'
