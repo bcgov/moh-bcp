@@ -12,7 +12,6 @@ import { CreateFacilityContainerComponent } from './create-facility-container/cr
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AbstractPgCheckService, RouteGuardService, CheckCompleteBaseService, GeocoderService } from 'moh-common-lib';
 import { CaptchaModule } from 'moh-common-lib/captcha';
-import { BCPGeocoderService } from '../../services/bcp-geocoder.service';
 
 
 
@@ -35,7 +34,6 @@ import { BCPGeocoderService } from '../../services/bcp-geocoder.service';
   providers: [
     {provide: AbstractPgCheckService, useExisting: CheckCompleteBaseService},
     RouteGuardService,
-    {provide: GeocoderService, useExisting: BCPGeocoderService },
   ]
 })
 export class CreateFacilityModule { }
