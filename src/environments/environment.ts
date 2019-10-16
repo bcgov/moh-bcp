@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  bypassModal: false,
-  bypassGuards: false,
+  bypassModal: true,
+  bypassGuards: true,
   useDummyData: false,
   api: {
     base: '/bcp/api',
