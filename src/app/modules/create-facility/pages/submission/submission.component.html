@@ -31,22 +31,101 @@
 
     <div AdditionalInfo>
 
-      <div class="message-container under-review" *ngIf="isUnderReview">
-        <i class="fa fa-2x fa-exclamation-circle text-primary pr-2" aria-label="info"></i>
+      <div class="message-container under-review"
+           *ngIf="isUnderReview">
+        <i class="fa fa-2x fa-exclamation-circle text-primary pr-2"
+           aria-label="info"></i>
         Your Facility Number will be provided once your request has been processed. If you have any questions on the
         status of your submission please call us at 1-800-555-1234 and provide your Reference Number.
       </div>
 
 
 
-      <h2 class="border-bottom"><strong>Next Steps</strong></h2>
-      <common-page-section layout='noTips'>
-        <ul>
-          <li>You will recieve a letter with your Facility Number</li>
-          <li *ngIf="!isUnderReview">Registration practitioners, complete with practitioner assignment to Medical Services Plan facility for
-            Business Cost Premium form.</li>
-        </ul>
-      </common-page-section>
+      <div class="print-hide">
+        <h2 class="border-bottom"><strong>Next Steps</strong></h2>
+        <common-page-section layout='noTips'>
+          <ul>
+            <li>You will recieve a letter with your Facility Number</li>
+            <li *ngIf="!isUnderReview">Registration practitioners, complete with practitioner assignment to Medical
+              Services Plan facility for
+              Business Cost Premium form.</li>
+          </ul>
+        </common-page-section>
+      </div>
+
+
+      <div class="print-only">
+
+        <h3 class="border-bottom">Facility Administrator Info</h3>
+        Facility administrator first name
+        <div class="row">
+          <div class="col-6">Facility administrator last name</div>
+          <div class="col-6 font-weight-bold">todo</div>
+
+          <div class="col-6">Medical Services plan practitioner number</div>
+          <div class="col-6 font-weight-bold">todo</div>
+
+          <div class="col-6">Email address</div>
+          <div class="col-6 font-weight-bold">todo</div>
+
+          <div class="col-6">Phone number</div>
+          <div class="col-6 font-weight-bold">todo</div>
+        </div>
+
+        <h3 class="border-botom">Facility Information</h3>
+        <div class="row">
+          <div class='col-6'>Facility name</div>
+          <div class='col-6 font-weight-bold'>todo</div>
+
+          <div class='col-6'>Physical address</div>
+          <div class='col-6 font-weight-bold'>todo</div>
+
+          <div class='col-6'>City</div>
+          <div class='col-6 font-weight-bold'>todo</div>
+
+          <div class='col-6'>Province</div>
+          <div class='col-6 font-weight-bold'>todo</div>
+
+          <div class='col-6'>Postal code</div>
+          <div class='col-6 font-weight-bold'>todo</div>
+
+          <div class='col-6'>Phone number</div>
+          <div class='col-6 font-weight-bold'>todo</div>
+
+          <div class='col-6'>Fax number</div>
+          <div class='col-6 font-weight-bold'>todo</div>
+
+          <div class='col-6'>Effective date</div>
+          <div class='col-6 font-weight-bold'>todo</div>
+        </div>
+
+        <h2 class="border-bottom">Facility Mailing Address</h2>
+
+
+        <!-- TODO: ngFor based on selection -->
+        <common-checkbox [data]='true'
+                         class='pl-4'
+                         label="Physician's private office"></common-checkbox>
+
+
+        <h2 class='border-bottom'>Business Cost Premium</h2>
+        <div class="row">
+          <div class="col-6">Does your business qualify for Business Cost Premium?</div>
+          <div class="col-6 font-weight-bold">TODO</div>
+        </div>
+
+        <h2 class='border-bottom'>Authorization of Submission</h2>
+        <common-checkbox [data]='true'
+                         class='pl-4'
+                         label='By checking this box I confirm that I am (or I have the authority) to submit this form as the principle practitioner of the facility (the "Applicant")'>
+        </common-checkbox>
+        <div class="row">
+          <div class="col-6">Date of Authorization</div>
+          <div class="col-6 font-weight-bold">TODO</div>
+        </div>
+
+      </div>
+
     </div>
 
   </common-confirm-template>

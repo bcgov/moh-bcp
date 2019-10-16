@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { CreateFacilityForm } from '../../models/create-facility-form';
 import { Router } from '@angular/router';
 import { ApiStatusCodes } from 'moh-common-lib';
@@ -6,7 +6,8 @@ import { ApiStatusCodes } from 'moh-common-lib';
 @Component({
   selector: 'app-submission',
   templateUrl: './submission.component.html',
-  styleUrls: ['./submission.component.scss']
+  styleUrls: ['./submission.component.scss'],
+  encapsulation: ViewEncapsulation.None, // for print css
 })
 export class SubmissionComponent extends CreateFacilityForm implements OnInit {
 
@@ -17,7 +18,7 @@ export class SubmissionComponent extends CreateFacilityForm implements OnInit {
   templateStatus: ApiStatusCodes
 
   /** An application is still a "success" even if it's under review */
-  isUnderReview: boolean = true;
+  isUnderReview: boolean = false;
 
   ngOnInit() {
   }

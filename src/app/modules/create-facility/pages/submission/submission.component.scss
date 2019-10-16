@@ -1,21 +1,45 @@
 @import 'variables.scss';
 
 
-common-page-framework {
+// We need to use ViewEncapsulation.None for print css
+app-submission {
+
+  common-page-framework {
     // Needs to be adjusted because there is no ComonFormActionBar / Stepper
     min-height: calc(100vh - 132px)
-}
+  }
 
-// Based off of .message-container styles in <common-confirm-template>'s .scss file in common lib.
-.under-review {
+  // Based off of .message-container styles in <common-confirm-template>'s .scss file in common lib.
+  .under-review {
     display: flex;
     border: 3px solid blue;
     padding: 2rem 1rem;
     margin-top: 1rem;
     font-size: $h3-font-size;
 
-    @include media-breakpoint-down(sm){
+    @include media-breakpoint-down(sm) {
       height: auto;
       margin: initial;
     }
+  }
+
+
+}
+
+
+.print-only {display: none;}
+@media print {
+  .print-only {display: block; }
+  .print-hide {display: none;}
+  header {
+    background-color: white;
+    .title {color: black !important;}
+    .header-logo {content:url("../../../../../assets/logo_print.png"); }
+    border-bottom: 0 !important;
+  }
+
+  // Save ink, no need for dark blue.
+  body, h1, h2, h3 {
+    color: black !important
+  }
 }
