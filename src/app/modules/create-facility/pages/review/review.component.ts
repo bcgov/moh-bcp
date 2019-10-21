@@ -11,6 +11,7 @@ import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
 })
 export class ReviewComponent extends CreateFacilityForm implements OnInit {
 
+  confirmed : boolean = false;
   constructor(protected router: Router, private pageCheckService: CheckCompleteBaseService) {
     super(router);
    }
@@ -19,11 +20,18 @@ export class ReviewComponent extends CreateFacilityForm implements OnInit {
     this.pageCheckService.setPageIncomplete();
   }
 
+
+  toggleValidation(data) {
+    console.log(data as boolean);
+    
+    this.confirmed = data as boolean;
+  }
+
   canContinue(){
     // TODO : Write! By Defualt this just returns this.form.valid, But if we do
     // not want to setup a form, we must modify this to just ensure the
     // "Authorization of Submission" checkbox is written.
-    return true;
+    return this.confirmed;
   }
 
   continue() {
