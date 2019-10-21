@@ -5,6 +5,8 @@ import { FormGroup, FormArray, FormBuilder, FormControl, Validators } from '@ang
 import { cCreateFacilityValidators, validMultiFormControl } from '../../models/validators';
 import { BRITISH_COLUMBIA, CheckCompleteBaseService } from 'moh-common-lib';
 import { CreateFacilityDataService } from '../../services/create-facility-data.service';
+import { environment } from 'src/environments/environment';
+import { RandomObjects } from '../../models/i-dataform';
 
 @Component({
   selector: 'app-facility-info',
@@ -61,7 +63,6 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
 
   private createAddressForm() {
     const form = this.fb.group({
-
       mailing_address: [null, cCreateFacilityValidators.address.streetAddress],
       mailing_city: [null, cCreateFacilityValidators.address.city],
       mailing_province: [BRITISH_COLUMBIA],
@@ -78,11 +79,17 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
   }
 
   continue() {
+    this.dataService.applicantInfo = this.facilityForm;
     this.facilityForm.markAllAsTouched();
     this.markAllInputsTouched();
 
     // this.markAllInputsTouched();
     //this.navigate('register-facility/review');
   }
+
+  patchValue(formGroup) {
+    if (!environment.useDummyData) return;
+    formGroup.patchValue(RandomObjects.getFacilityInfo('test'));
+}
 
 }

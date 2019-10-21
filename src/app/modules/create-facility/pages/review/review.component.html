@@ -1,7 +1,28 @@
-<common-page-framework>
-  <p>review works!</p>
+<common-page-framework layout='blank'>
+
+  <h1>Review Application - (in progress - showing wireframe contents)</h1>
+  <p class="border-bottom">Review your application before submission</p>
+
+    <bcp-review-applicant></bcp-review-applicant>
+    <bcp-review-facility></bcp-review-facility>
+    <bcp-review-facility-mailing-info></bcp-review-facility-mailing-info>
+    <bcp-review-facility-bcp></bcp-review-facility-bcp>
+
+    <div class="row col-md-12 ml-0 pl-0 align-items-center">
+      <div class="col-md-12 pl-0">
+        <h2 class="border-bottom">Declaration</h2>
+      </div>      
+      <div class="row col-md-12 ml-0 pl-0 align-items-left">
+        I understand that MSP is a public system based on trust, but also that my claims are subject to audit and financial recovery for claims contrary to the Medicare Protection Act (the “Act”). I undertake to not submit false or misleading claims information, and acknowledge that doing so is an offence under the Act and may be an offence under the Criminal Code of Canada. Further, I agree that I will meet the requirements of the Act and related Payment Schedule regarding claims for payment, including that prior to submitting a claim, I must create: (a) an adequate medical record, if I am a medical practitioner; or (b) an adequate clinical record, if I am a health care practitioner.
+      </div>
+      <common-checkbox 
+                        (dataChange)="toggleValidation($event)"
+                         class='mt-4 pl-4'
+                         label='I confirm that I have read and agree to the above statement'>
+      </common-checkbox>
+    </div>
+
 </common-page-framework>
 
-<common-form-action-bar widthOption='extra-width-mobile-only'
-                        (btnClick)="continue()">
+<common-form-action-bar [defaultColor]='false' widthOption='extra-width-mobile-only'  [canContinue]='canContinue()' (btnClick)="continue()">
 </common-form-action-bar>
