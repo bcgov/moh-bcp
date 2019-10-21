@@ -12,6 +12,11 @@ import { CreateFacilityContainerComponent } from './create-facility-container/cr
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AbstractPgCheckService, RouteGuardService, CheckCompleteBaseService, GeocoderService } from 'moh-common-lib';
 import { CaptchaModule } from 'moh-common-lib/captcha';
+import { ReviewApplicantComponent } from './pages/review/review-applicant/review-applicant.component';
+import { ReviewFacilityComponent } from './pages/review/review-facility/review-facility.component';
+import { ReviewFacilityMailingInfoComponent } from './pages/review/review-facility-mailing-info/review-facility-mailing-info.component';
+import { ReviewFacilityBcpComponent } from './pages/review/review-facility-bcp/review-facility-bcp.component';
+import { ReviewServiceTypesComponent } from './pages/review/review-service-types/review-service-types.component';
 
 
 
@@ -22,7 +27,12 @@ import { CaptchaModule } from 'moh-common-lib/captcha';
     FacilityInfoComponent,
     ReviewComponent,
     SubmissionComponent,
-    CreateFacilityContainerComponent],
+    CreateFacilityContainerComponent,
+    ReviewApplicantComponent,
+    ReviewFacilityComponent,
+    ReviewFacilityMailingInfoComponent,
+    ReviewFacilityBcpComponent,
+    ReviewServiceTypesComponent],
   imports: [
     CommonModule,
     CreateFacilityRoutingModule,
