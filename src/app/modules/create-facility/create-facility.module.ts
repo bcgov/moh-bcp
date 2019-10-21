@@ -16,7 +16,6 @@ import { ReviewApplicantComponent } from './pages/review/review-applicant/review
 import { ReviewFacilityComponent } from './pages/review/review-facility/review-facility.component';
 import { ReviewFacilityMailingInfoComponent } from './pages/review/review-facility-mailing-info/review-facility-mailing-info.component';
 import { ReviewFacilityBcpComponent } from './pages/review/review-facility-bcp/review-facility-bcp.component';
-import { ReviewServiceTypesComponent } from './pages/review/review-service-types/review-service-types.component';
 
 
 
@@ -32,7 +31,7 @@ import { ReviewServiceTypesComponent } from './pages/review/review-service-types
     ReviewFacilityComponent,
     ReviewFacilityMailingInfoComponent,
     ReviewFacilityBcpComponent,
-    ReviewServiceTypesComponent],
+  ],
   imports: [
     CommonModule,
     CreateFacilityRoutingModule,
@@ -42,7 +41,7 @@ import { ReviewServiceTypesComponent } from './pages/review/review-service-types
     CaptchaModule,
   ],
   providers: [
-    {provide: AbstractPgCheckService, useExisting: CheckCompleteBaseService},
+    { provide: AbstractPgCheckService, useExisting: CheckCompleteBaseService },
     RouteGuardService,
   ]
 })
