@@ -44,10 +44,14 @@ export class ApplicantInfoComponent extends CreateFacilityForm implements OnInit
     return this.dataService.emailAddress !== this.dataService.confirmEmailAddress;
   }
 
+  canContinue(){
+    return this.form.valid && !this.showEmailMismatchError();
+  }
+
   continue() {
     this.markAllInputsTouched();
 
-    if (this.form.valid) {
+    if (this.canContinue()) {
       const time = 2.5 * 1000;
       this.loading = true;
       setTimeout(() => {

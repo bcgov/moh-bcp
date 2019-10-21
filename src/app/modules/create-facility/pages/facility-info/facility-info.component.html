@@ -105,7 +105,6 @@
   </common-page-section>
   <h2 class='border-bottom' *ngIf="showMailingAddress">Facility Mailing Address</h2>
   <common-page-section layout="tips">
-
     <div class="form-group col-sm-8 p-sm-0" *ngIf="showMailingAddress">
       <form [formGroup]="mailingForm">
 
@@ -147,34 +146,12 @@
       </form>
     </div>
   </common-page-section>
-
-  <h2 class='border-bottom'>Facility Service Type</h2>
-  <common-page-section layout="tips">
-    <div class="form-group col-sm-8 p-sm-0">
-      <form [formGroup]="facilityForm">
-        <div formArrayName="services" *ngFor="let fg of getServiceTypes.controls; let formIndex=index;">
-          <div class="form-group">
-            <common-checkbox class="form-check mb-3" formControlName="{{availableServiceTypes[formIndex].value}}"
-              id="{{availableServiceTypes[formIndex].value}}" label="{{availableServiceTypes[formIndex].label}}">
-            </common-checkbox>
-          </div>
-          <common-error-container [displayError]="validFormControl(facilityForm,'services')">
-            At least one (1) Service Type must be selected
-          </common-error-container>
-        </div>
-      </form>
-    </div>
-
-  </common-page-section>
-
   <h2>Business Cost Premium</h2>
   <p class="border-bottom">
     Business Cost Premium applies to services which are provided in community-based offices where the physician pays
     towards rent or lease cost either directly or indirectly.
   </p>
-
   <common-page-section layout="tips">
-   
     <div class="form-group col-sm-8 p-sm-0">
       <form [formGroup]="facilityForm">
         <div class="form-group">
@@ -187,12 +164,10 @@
         </div>
       </form>
     </div>
-
     <aside>
       <h2>Tip</h2>
       <p>To register practitioners, complete the practitioner assignment to MSP facility for Business Cost Premium form once you have been assigned a facility number.</p>
     </aside>
-
   </common-page-section>
 </common-page-framework>
 
