@@ -18,13 +18,11 @@
 
         <div class="form-group">
           <!-- Physical Address-->
-          <common-geocoder-input
-                label='Physical Address'
-                formControlName="address"
-                maxlength=60>
+          <common-geocoder-input label='Physical Address' formControlName="address" maxlength=60>
           </common-geocoder-input>
 
-          <common-error-container [displayError]="facilityForm.controls?.address?.touched && facilityForm.controls?.address?.errors?.required">
+          <common-error-container
+            [displayError]="facilityForm.controls?.address?.touched && facilityForm.controls?.address?.errors?.required">
             Facility Address is a required field
           </common-error-container>
 
@@ -104,8 +102,9 @@
 
       </form>
     </div>
-
-    <h2 class='border-bottom' *ngIf="showMailingAddress">Facility Mailing Address</h2>
+  </common-page-section>
+  <h2 class='border-bottom' *ngIf="showMailingAddress">Facility Mailing Address</h2>
+  <common-page-section layout="tips">
     <div class="form-group col-sm-8 p-sm-0" *ngIf="showMailingAddress">
       <form [formGroup]="mailingForm">
 
@@ -146,12 +145,13 @@
 
       </form>
     </div>
-
-    <h2>Business Cost Premium</h2>
-    <p class="border-bottom">
-      Business Cost Premium applies to services which are provided in community-based offices where the physician pays
-      towards rent or lease cost either directly or indirectly.
-    </p>
+  </common-page-section>
+  <h2>Business Cost Premium</h2>
+  <p class="border-bottom">
+    Business Cost Premium applies to services which are provided in community-based offices where the physician pays
+    towards rent or lease cost either directly or indirectly.
+  </p>
+  <common-page-section layout="tips">
     <div class="form-group col-sm-8 p-sm-0">
       <form [formGroup]="facilityForm">
         <div class="form-group">
@@ -164,7 +164,10 @@
         </div>
       </form>
     </div>
-
+    <aside>
+      <h2>Tip</h2>
+      <p>To register practitioners, complete the practitioner assignment to MSP facility for Business Cost Premium form once you have been assigned a facility number.</p>
+    </aside>
   </common-page-section>
 </common-page-framework>
 
