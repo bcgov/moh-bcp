@@ -1,3 +1,6 @@
+
+// This file is only for creating static data
+
 import { FormGroup } from '@angular/forms';
 
 export function funcRandomNumber8Digit() {

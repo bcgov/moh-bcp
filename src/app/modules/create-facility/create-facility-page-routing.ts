@@ -13,7 +13,7 @@ import { environment } from '../../../environments/environment';
 let defaultPages: Routes = [
   {
     path: '',
-    component: ReviewComponent,
+    component: HomeComponent,
     // do NOT route-guard here, it's not necessary.
   },
   {

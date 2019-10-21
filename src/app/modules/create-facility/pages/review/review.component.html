@@ -6,7 +6,6 @@
     <bcp-review-applicant></bcp-review-applicant>
     <bcp-review-facility></bcp-review-facility>
     <bcp-review-facility-mailing-info></bcp-review-facility-mailing-info>
-    <bcp-review-service-types></bcp-review-service-types>
     <bcp-review-facility-bcp></bcp-review-facility-bcp>
 
     <div class="row col-md-12 ml-0 pl-0 align-items-center">
@@ -25,5 +24,5 @@
 
 </common-page-framework>
 
-<common-form-action-bar widthOption='extra-width-mobile-only' [canContinue]='canContinue()' (btnClick)="continue()">
+<common-form-action-bar [defaultColor]='false' widthOption='extra-width-mobile-only'  [canContinue]='canContinue()' (btnClick)="continue()">
 </common-form-action-bar>
