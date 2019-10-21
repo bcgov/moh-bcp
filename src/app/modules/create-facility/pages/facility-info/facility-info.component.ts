@@ -24,25 +24,6 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
     { label: 'Yes', value: true },
   ];
 
-  availableServiceTypes = [
-    { label: `Physician's private office`, value: '1', optional: false, selected: false },
-    { label: 'Population Based Funding (PBF)', value: '2', optional: false, selected: false },
-    { label: 'Primary Care Network', value: '3', optional: false, selected: false },
-    { label: 'UPPC', value: '4', optional: false, selected: false },
-    { label: 'Walk in clinic', value: '5', optional: false, selected: false },
-  ];
-
-  buildServiceTypes() {
-    const arr = this.availableServiceTypes.map(serviceType => {
-      return this.fb.control(serviceType.selected);
-    });
-    return this.fb.array(arr, Validators.required);
-  }
-
-  get getServiceTypes(): FormArray {
-    return this.facilityForm.get('services') as FormArray;
-  }
-
 
   constructor(
     protected router: Router,
@@ -56,7 +37,6 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
 
   ngOnInit() {
     this.facilityForm = this.createForm();
-    this.buildServiceTypes();
     this.mailingForm = this.createAddressForm();
   }
 
@@ -75,7 +55,6 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
       faxNumber: [null, cCreateFacilityValidators.facilityDetail.faxNumber],
       isSameMailingAddress: [null, cCreateFacilityValidators.facilityDetail.isSameMailingAddress],
       isQualifyForBCP: [null, cCreateFacilityValidators.facilityDetail.isQualifyForBCP],
-      services: this.buildServiceTypes()
     });
     return form;
   }

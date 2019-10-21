@@ -147,24 +147,6 @@
       </form>
     </div>
 
-
-    <h2 class='border-bottom'>Facility Service Type</h2>
-    <div class="form-group col-sm-8 p-sm-0">
-      <form [formGroup]="facilityForm">
-        <div formArrayName="services" *ngFor="let fg of getServiceTypes.controls; let formIndex=index;">
-          <div class="form-group">
-            <common-checkbox class="form-check mb-3" formControlName="{{availableServiceTypes[formIndex].value}}"
-              id="{{availableServiceTypes[formIndex].value}}" label="{{availableServiceTypes[formIndex].label}}">
-            </common-checkbox>
-          </div>
-          <common-error-container [displayError]="validFormControl(facilityForm,'services')">
-            At least one (1) Service Type must be selected
-          </common-error-container>
-        </div>
-      </form>
-    </div>
-
-
     <h2>Business Cost Premium</h2>
     <p class="border-bottom">
       Business Cost Premium applies to services which are provided in community-based offices where the physician pays
