@@ -32,11 +32,4 @@ export class CreateFacilityDataService {
     }
   }
 
-  //#region State Service by FW
-
-  applicantInfo?: FormGroup;
-  facilityInfo?: FormGroup;
-
-  //#endregion
-
 }

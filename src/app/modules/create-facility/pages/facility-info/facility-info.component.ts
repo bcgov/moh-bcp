@@ -78,8 +78,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
 
   }
 
-  continue() {
-    this.dataService.applicantInfo = this.facilityForm;
+  continue() {    
     this.facilityForm.markAllAsTouched();
     this.markAllInputsTouched();
 
