@@ -25,12 +25,10 @@ export class ReviewApplicantComponent implements OnInit {
     this.review.redirectPath = ROUTES_FACILITY.APPLICANT.fullpath;
     this.review.header = ROUTES_FACILITY.APPLICANT.title;
 
-    const form =RandomObjects.getApplicant(''); // this.updateStateService.forms.organizationForm;
+    const form =RandomObjects.getApplicant(''); 
     console.log(form);
     if (!form) return;
-    // const infoObject: interfaceObjects.IOrganizationEdit = interfaceObjects.getIOrganizationEdit(
-    //     form.value
-    // );
+    
     const infoObject:IApplicant = form;
     if (!infoObject) return;
 

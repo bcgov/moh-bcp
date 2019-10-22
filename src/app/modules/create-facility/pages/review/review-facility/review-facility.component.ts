@@ -23,12 +23,9 @@ export class ReviewFacilityComponent implements OnInit {
     this.review.redirectPath = ROUTES_FACILITY.FACILITY.fullpath;
     this.review.header = ROUTES_FACILITY.FACILITY.title;
 
-    const form =RandomObjects.getFacilityInfo(''); // this.updateStateService.forms.organizationForm;
+    const form =RandomObjects.getFacilityInfo('');
     console.log(form);
-    if (!form) return;
-    // const infoObject: interfaceObjects.IOrganizationEdit = interfaceObjects.getIOrganizationEdit(
-    //     form.value
-    // );
+    if (!form) return;    
     const infoObject:IFacilityInfo = form;
     if (!infoObject) return;
 
