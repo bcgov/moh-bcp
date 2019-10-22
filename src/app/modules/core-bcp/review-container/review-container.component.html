@@ -1,0 +1,46 @@
+<!--#region Section  -->
+
+<!--Section - Heading-->
+<div class="row col-md-12 ml-0 pl-0 align-items-center border-bottom">
+  <div class="col-md-6 pl-0">
+    <h2>{{header}}</h2>
+  </div>
+  <div class="col-md-2 ml-auto mr-0  text-right align-items-right ">
+    <button tabindex="0" class="btn btn-edit" (click)="redirect(redirectPath)" aria-label="Edit Organization">
+      Edit <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+    </button>
+  </div>
+</div>
+
+<!--Section - Content -->
+<div *ngIf="!showCheckBoxList" class='col-md-12 ml-2 pl-2 mt-2' style="background-color:#F2F2F2">
+  <div *ngFor="let form of sectionItems; let formIndex=index" class="pb-2">
+    <div class="row" *ngFor="let item of form; let i=index">
+      <div class='col-md-4'>
+        {{item.label}}:
+      </div>
+      <div class='col-md-7'>
+        <b>{{item.value}}</b>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--#endregion -->
+
+<!--Section - Content -->
+<div *ngIf="showCheckBoxList" class='col-md-12 ml-2 pl-2 mt-2' style="background-color:#F2F2F2">
+  <div *ngFor="let form of sectionItems; let formIndex=index" class="pb-2">
+    <div class="row" *ngFor="let item of form; let i=index">
+      <div class='col-md-12'>
+       <span [innerHTML]="item.label"> </span>
+
+        <span class='ml-2'>
+          {{item.value}}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--#endregion -->

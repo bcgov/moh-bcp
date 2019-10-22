@@ -12,6 +12,11 @@ import { environment } from '../../../environments/environment';
 /** The individual page routes only, does not include container */
 let defaultPages: Routes = [
   {
+    path: '',
+    component: HomeComponent,
+    // do NOT route-guard here, it's not necessary.
+  },
+  {
     path: 'home',
     component: HomeComponent,
     // do NOT route-guard here, it's not necessary.
