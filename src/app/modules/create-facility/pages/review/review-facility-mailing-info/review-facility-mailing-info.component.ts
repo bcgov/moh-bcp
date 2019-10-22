@@ -24,12 +24,10 @@ export class ReviewFacilityMailingInfoComponent implements OnInit {
     this.review.redirectPath = ROUTES_FACILITY.FACILITY.fullpath;
     this.review.header = 'Facility Mailing Address';
 
-    const form =RandomObjects.getFacilityInfo(''); // this.updateStateService.forms.organizationForm;
+    const form =RandomObjects.getFacilityInfo(''); 
     console.log(form);
     if (!form) return;
-    // const infoObject: interfaceObjects.IOrganizationEdit = interfaceObjects.getIOrganizationEdit(
-    //     form.value
-    // );
+    
     const infoObject:IFacilityInfo = form;
     if (!infoObject) return;
 
