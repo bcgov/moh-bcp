@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ReviewContainerComponent } from 'src/app/modules/core-bcp/review-container/review-container.component';
 import { ROUTES_FACILITY } from '../../../models/routes.constants';
-import { RandomObjects, IFacilityInfo } from '../../../models/i-dataform';
 import { CreateFacilityDataService } from '../../../services/create-facility-data.service';
 
 @Component({
