@@ -57,6 +57,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
       faxNumber: [null, cCreateFacilityValidators.facilityDetail.faxNumber],
       isSameMailingAddress: [null, cCreateFacilityValidators.facilityDetail.isSameMailingAddress],
       isQualifyForBCP: [null, cCreateFacilityValidators.facilityDetail.isQualifyForBCP],
+      effectiveDate: [null, Validators.required]
     });
     return form;
   }
