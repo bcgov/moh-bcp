@@ -5,6 +5,8 @@ import { FormGroup, FormArray, FormBuilder, FormControl, Validators } from '@ang
 import { cCreateFacilityValidators, validMultiFormControl } from '../../models/validators';
 import { BRITISH_COLUMBIA, CheckCompleteBaseService } from 'moh-common-lib';
 import { CreateFacilityDataService } from '../../services/create-facility-data.service';
+import { environment } from 'src/environments/environment';
+import { RandomObjects } from '../../models/i-dataform';
 
 @Component({
   selector: 'app-facility-info',
@@ -24,25 +26,6 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
     { label: 'Yes', value: true },
   ];
 
-  availableServiceTypes = [
-    { label: `Physician's private office`, value: '1', optional: false, selected: false },
-    { label: 'Population Based Funding (PBF)', value: '2', optional: false, selected: false },
-    { label: 'Primary Care Network', value: '3', optional: false, selected: false },
-    { label: 'UPPC', value: '4', optional: false, selected: false },
-    { label: 'Walk in clinic', value: '5', optional: false, selected: false },
-  ];
-
-  buildServiceTypes() {
-    const arr = this.availableServiceTypes.map(serviceType => {
-      return this.fb.control(serviceType.selected);
-    });
-    return this.fb.array(arr, Validators.required);
-  }
-
-  get getServiceTypes(): FormArray {
-    return this.facilityForm.get('services') as FormArray;
-  }
-
 
   constructor(
     protected router: Router,
@@ -56,7 +39,6 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
 
   ngOnInit() {
     this.facilityForm = this.createForm();
-    this.buildServiceTypes();
     this.mailingForm = this.createAddressForm();
   }
 
@@ -75,14 +57,12 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
       faxNumber: [null, cCreateFacilityValidators.facilityDetail.faxNumber],
       isSameMailingAddress: [null, cCreateFacilityValidators.facilityDetail.isSameMailingAddress],
       isQualifyForBCP: [null, cCreateFacilityValidators.facilityDetail.isQualifyForBCP],
-      services: this.buildServiceTypes()
     });
     return form;
   }
 
   private createAddressForm() {
     const form = this.fb.group({
-
       mailing_address: [null, cCreateFacilityValidators.address.streetAddress],
       mailing_city: [null, cCreateFacilityValidators.address.city],
       mailing_province: [BRITISH_COLUMBIA],
@@ -99,11 +79,17 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
   }
 
   continue() {
+    this.dataService.applicantInfo = this.facilityForm;
     this.facilityForm.markAllAsTouched();
     this.markAllInputsTouched();
 
     // this.markAllInputsTouched();
     //this.navigate('register-facility/review');
   }
+
+  patchValue(formGroup) {
+    if (!environment.useDummyData) return;
+    formGroup.patchValue(RandomObjects.getFacilityInfo('test'));
+}
 
 }
