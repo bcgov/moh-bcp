@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ROUTES_FACILITY } from '../../../models/routes.constants';
 import { ReviewContainerComponent } from 'src/app/modules/core-bcp/review-container/review-container.component';
-import { RandomObjects, IFacilityInfo } from '../../../models/i-dataform';
+import { CreateFacilityDataService } from '../../../services/create-facility-data.service';
 
 @Component({
   selector: 'bcp-review-facility-bcp',
@@ -13,7 +13,7 @@ export class ReviewFacilityBcpComponent implements OnInit {
   @ViewChild(ReviewContainerComponent, {static: true})
   review: ReviewContainerComponent;
 
-  constructor() { }
+  constructor(public dataService: CreateFacilityDataService) { }
 
   ngOnInit() {
     this.reviewItems();
@@ -24,18 +24,11 @@ export class ReviewFacilityBcpComponent implements OnInit {
     this.review.redirectPath = ROUTES_FACILITY.FACILITY.fullpath;
     this.review.header = 'Business Cost Premium';
 
-    const form =RandomObjects.getFacilityInfo('');
-    console.log(form);
-    if (!form) return;
-    
-    const infoObject:IFacilityInfo = form;
-    if (!infoObject) return;
-
     const items = [
         [
             {
                 label: 'Does your business qualify for Business Cost Premium?',
-                value: infoObject.isQualifyForBCP === true? 'Yes': 'No',
+                value: this.dataService.facInfoIsQualifyForBCP === true? 'Yes': 'No',
             }
         ],
     ];
