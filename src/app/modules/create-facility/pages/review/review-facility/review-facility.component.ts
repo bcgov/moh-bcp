@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ReviewContainerComponent } from 'src/app/modules/core-bcp/review-container/review-container.component';
 import { ROUTES_FACILITY } from '../../../models/routes.constants';
-import { RandomObjects, IFacilityInfo } from '../../../models/i-dataform';
+import { CreateFacilityDataService } from '../../../services/create-facility-data.service';
 
 @Component({
   selector: 'bcp-review-facility',
@@ -12,7 +12,7 @@ export class ReviewFacilityComponent implements OnInit {
   @ViewChild(ReviewContainerComponent, {static: true})
   review: ReviewContainerComponent;
 
-  constructor() { }
+  constructor(public dataService: CreateFacilityDataService) { }
 
   ngOnInit() {
     this.reviewItems();
@@ -23,28 +23,19 @@ export class ReviewFacilityComponent implements OnInit {
     this.review.redirectPath = ROUTES_FACILITY.FACILITY.fullpath;
     this.review.header = ROUTES_FACILITY.FACILITY.title;
 
-    const form =RandomObjects.getFacilityInfo(''); // this.updateStateService.forms.organizationForm;
-    console.log(form);
-    if (!form) return;
-    // const infoObject: interfaceObjects.IOrganizationEdit = interfaceObjects.getIOrganizationEdit(
-    //     form.value
-    // );
-    const infoObject:IFacilityInfo = form;
-    if (!infoObject) return;
-
     const items = [
         [
             {
                 label: 'Facility Name',
-                value: infoObject.facilityName,
+                value: this.dataService.facInfoFacilityName,
             },
-            { label: 'Physical address', value: infoObject.physicalAddress },
-            { label: 'City', value: infoObject.city },
-            { label: 'Province', value: infoObject.province },
-            { label: 'Postal code', value: infoObject.postalCode },
-            { label: 'Phone number', value: infoObject.phoneNumber },
-            { label: 'Fax number', value: infoObject.faxNumber },
-            { label: 'Effective date', value: infoObject.effectiveDate },
+            { label: 'Physical address', value: this.dataService.facInfoPhysicalAddress },
+            { label: 'City', value: this.dataService.facInfoCity },
+            { label: 'Province', value: this.dataService.facInfoProvince },
+            { label: 'Postal code', value: this.dataService.facInfoPostalCode },
+            { label: 'Phone number', value: this.dataService.facInfoPhoneNumber },
+            { label: 'Fax number', value: this.dataService.facInfoFaxNumber },
+            { label: 'Effective date', value: this.dataService.facInfoEffectiveDate},
         ],
     ];
     this.review.sectionItems = items;
