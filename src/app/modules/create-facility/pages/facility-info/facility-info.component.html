@@ -87,7 +87,11 @@
         </div>
 
         <div class="form-group">
-          <common-date name='effectiveDate' label="Effective Date" [restrictDate]="'past'" required></common-date>
+          <common-date name='effectiveDate'
+                       label="Effective Date"
+                       [restrictDate]="'past'"
+                       formControlName='effectiveDate'
+                       ></common-date>
         </div>
 
         <div class="form-group">
