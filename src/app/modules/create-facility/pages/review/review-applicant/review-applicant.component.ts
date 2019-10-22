@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ReviewContainerComponent } from 'src/app/modules/core-bcp/review-container/review-container.component';
 import { ROUTES_FACILITY } from '../../../models/routes.constants';
 import { RandomObjects, IApplicant,  } from '../../../models/i-dataform';
+import { CreateFacilityDataService } from '../../../services/create-facility-data.service';
 
 @Component({
   selector: 'bcp-review-applicant',
@@ -13,7 +14,7 @@ export class ReviewApplicantComponent implements OnInit {
   @ViewChild(ReviewContainerComponent, {static: true})
   review: ReviewContainerComponent;
 
-  constructor() { }
+  constructor(public dataService: CreateFacilityDataService,) { }
 
   ngOnInit() {
     this.reviewItems();
@@ -37,12 +38,12 @@ export class ReviewApplicantComponent implements OnInit {
         [
             {
                 label: 'Facility administrator first name',
-                value: infoObject.firstName,
+                value: this.dataService.facAdminFirstName,
             },
-            { label: 'Facility administrator last name', value: infoObject.lastName },
-            { label: 'Medical Services Plan practitioner number', value: infoObject.mspPractisionerNumber },
-            { label: 'Email address', value: infoObject.email },
-            { label: 'Phone number', value: infoObject.mobile + ' Ext.' + infoObject.extension }
+            { label: 'Facility administrator last name', value: this.dataService.facAdminLastName },
+            { label: 'Medical Services Plan practitioner number', value: this.dataService.pracNumber },
+            { label: 'Email address', value: this.dataService.emailAddress },
+            { label: 'Phone number', value: this.dataService.facAdminPhoneNumber + ' Ext. ' + this.dataService.facAdminExtension }
         ],
     ];
     this.review.sectionItems = items;
