@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ROUTES_FACILITY } from '../../../models/routes.constants';
 import { ReviewContainerComponent } from 'src/app/modules/core-bcp/review-container/review-container.component';
-import { RandomObjects, IFacilityInfo } from '../../../models/i-dataform';
+import { CreateFacilityDataService } from '../../../services/create-facility-data.service';
 
 @Component({
   selector: 'bcp-review-facility-mailing-info',
@@ -13,7 +13,7 @@ export class ReviewFacilityMailingInfoComponent implements OnInit {
   @ViewChild(ReviewContainerComponent, {static: true})
   review: ReviewContainerComponent;
 
-  constructor() { }
+  constructor(public dataService: CreateFacilityDataService) { }
 
   ngOnInit() {
     this.reviewItems();
@@ -24,22 +24,15 @@ export class ReviewFacilityMailingInfoComponent implements OnInit {
     this.review.redirectPath = ROUTES_FACILITY.FACILITY.fullpath;
     this.review.header = 'Facility Mailing Address';
 
-    const form =RandomObjects.getFacilityInfo(''); 
-    console.log(form);
-    if (!form) return;
-    
-    const infoObject:IFacilityInfo = form;
-    if (!infoObject) return;
-
     const items = [
         [
             {
                 label: 'Mailing address',
-                value: infoObject.mailingForm.mailing_address,
+                value: this.dataService.facInfoMailAddress,
             },
-            { label: 'Mailing city', value: infoObject.mailingForm.mailing_city },            
-            { label: 'Mailing province', value: infoObject.mailingForm.mailing_province },
-            { label: 'Mailing postal code', value: infoObject.mailingForm.mailing_postalCode }
+            { label: 'Mailing city', value: this.dataService.facInfoMailCity },            
+            { label: 'Mailing province', value: this.dataService.facInfoMailProvince },
+            { label: 'Mailing postal code', value:  this.dataService.facInfoMailPostalCode }
         ],
     ];
     this.review.sectionItems = items;
