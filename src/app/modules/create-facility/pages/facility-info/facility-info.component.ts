@@ -38,36 +38,36 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
   }
 
   ngOnInit() {
-    this.facilityForm = this.createForm();
-    this.mailingForm = this.createAddressForm();
+    this.facilityForm = this.initialize();
+    this.mailingForm = this.initializeAddressForm();
   }
 
-  private createForm() {
+  private initialize() {
     const form = this.fb.group({
       facilityName: [
-        null,
+        this.dataService.facInfoFacilityName,
         cCreateFacilityValidators.facilityDetail.facilityName,
       ],
-      address: [null, cCreateFacilityValidators.address.streetAddress],
-      city: [null, cCreateFacilityValidators.address.city],
+      address: [this.dataService.facInfoPhysicalAddress, cCreateFacilityValidators.address.streetAddress],
+      city: [this.dataService.facInfoCity, cCreateFacilityValidators.address.city],
       province: [BRITISH_COLUMBIA],
-      postalCode: [null, cCreateFacilityValidators.address.postalCode],
-      phoneNumber: [null, cCreateFacilityValidators.facilityDetail.phoneNumber],
-      phoneExtension: [null],
-      faxNumber: [null, cCreateFacilityValidators.facilityDetail.faxNumber],
-      isSameMailingAddress: [null, cCreateFacilityValidators.facilityDetail.isSameMailingAddress],
-      isQualifyForBCP: [null, cCreateFacilityValidators.facilityDetail.isQualifyForBCP],
+      postalCode: [this.dataService.facInfoPostalCode, cCreateFacilityValidators.address.postalCode],
+      phoneNumber: [this.dataService.facInfoPhoneNumber, cCreateFacilityValidators.facilityDetail.phoneNumber],
+      phoneExtension: [this.dataService.facInfoPhoneExtension],
+      faxNumber: [this.dataService.facInfoFaxNumber, cCreateFacilityValidators.facilityDetail.faxNumber],
+      isSameMailingAddress: [this.dataService.facInfoIsSameMailingAddress, cCreateFacilityValidators.facilityDetail.isSameMailingAddress],
+      isQualifyForBCP: [this.dataService.facInfoIsQualifyForBCP, cCreateFacilityValidators.facilityDetail.isQualifyForBCP],
       effectiveDate: [null, Validators.required]
     });
     return form;
   }
 
-  private createAddressForm() {
+  private initializeAddressForm() {
     const form = this.fb.group({
-      mailing_address: [null, cCreateFacilityValidators.address.streetAddress],
-      mailing_city: [null, cCreateFacilityValidators.address.city],
+      mailing_address: [this.dataService.facInfoMailAddress, cCreateFacilityValidators.address.streetAddress],
+      mailing_city: [this.dataService.facInfoMailCity, cCreateFacilityValidators.address.city],
       mailing_province: [BRITISH_COLUMBIA],
-      mailing_postalCode: [null, cCreateFacilityValidators.address.postalCode],
+      mailing_postalCode: [this.dataService.facInfoMailPostalCode, cCreateFacilityValidators.address.postalCode],
     });
     return form;
   }
@@ -76,10 +76,9 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
     console.log(status);
     this.showMailingAddress = status ? false : true;
     this.facilityForm.patchValue({ isSameMailingAddress: status });
-
   }
 
-  continue() {    
+  continue() {
     this.facilityForm.markAllAsTouched();
     this.markAllInputsTouched();
 
@@ -90,6 +89,6 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
   patchValue(formGroup) {
     if (!environment.useDummyData) return;
     formGroup.patchValue(RandomObjects.getFacilityInfo('test'));
-}
+  }
 
 }
