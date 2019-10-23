@@ -29,8 +29,9 @@ export class CreateFacilityDataService {
   facInfoProvince: string;
   facInfoPostalCode: string;
   facInfoPhoneNumber: string;
+  facInfoPhoneExtension: string;
   facInfoFaxNumber: string;
-  facInfoEffectiveDate: string;
+  facInfoEffectiveDate: Date;
   facInfoIsSameMailingAddress: boolean;
   facInfoIsQualifyForBCP: boolean;
 
@@ -65,7 +66,7 @@ export class CreateFacilityDataService {
       this.facInfoPhoneNumber = '250-555-1234';
       this.facInfoFaxNumber = '250-555-6666';
       this.facInfoEffectiveDate = 'April 15, 2020';
-      this.facInfoIsSameMailingAddress = false;
+      this.facInfoIsSameMailingAddress = true;
       this.facInfoIsQualifyForBCP = true;
       // mailing info
       this.facInfoMailAddress = '12345 Carson Street';
