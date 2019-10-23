@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { FormGroup } from '@angular/forms';
+
 
 @Injectable({
   providedIn: 'root'
@@ -65,7 +65,7 @@ export class CreateFacilityDataService {
       this.facInfoPostalCode = 'V8J 8J8';
       this.facInfoPhoneNumber = '250-555-1234';
       this.facInfoFaxNumber = '250-555-6666';
-      this.facInfoEffectiveDate = 'April 15, 2020';
+      this.facInfoEffectiveDate = new Date('15/04/2020');
       this.facInfoIsSameMailingAddress = true;
       this.facInfoIsQualifyForBCP = true;
       // mailing info
