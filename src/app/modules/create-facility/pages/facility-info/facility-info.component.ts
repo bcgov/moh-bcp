@@ -117,8 +117,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
       postalCode.clearValidators();
 
       address.patchValue(null);
-      city.patchValue(null);
-      province.patchValue(null);
+      city.patchValue(null);      
       postalCode.patchValue(null);
     }
 
@@ -131,7 +130,6 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
     this.facilityForm.patchValue({
       mailingAddress: null,
       mailingCity: null,
-      mailingProvince: null,
       mailingPostalCode: null
     });
   }
