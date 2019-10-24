@@ -12,9 +12,9 @@ export const cCreateFacilityValidators = {
         facilityName: [
             Validators.required
         ],
-        phoneNumber: [
-            Validators.required
-        ],
+        // phoneNumber: [
+        //     Validators.required
+        // ],
         faxNumber: [
             Validators.required
         ],
@@ -22,6 +22,9 @@ export const cCreateFacilityValidators = {
             Validators.required
         ],
         isSameMailingAddress: [
+            Validators.required
+        ],
+        effectiveDate: [
             Validators.required
         ],
         services: [
