@@ -66,7 +66,7 @@ export class CreateFacilityDataService {
       // this.facInfoPhoneNumber = '+1 (250) 555-1234';
       // this.facInfoPhoneExtension = '444'
       this.facInfoFaxNumber = '+1 (250) 555-6666';
-      this.facInfoEffectiveDate = new Date('15/04/2020');
+      this.facInfoEffectiveDate = new Date(2020, 4, 15);
       this.facInfoIsSameMailingAddress = false;
       this.facInfoIsQualifyForBCP = true;
       // mailing info
