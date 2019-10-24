@@ -28,8 +28,8 @@ export class CreateFacilityDataService {
   facInfoCity: string;
   facInfoProvince: string;
   facInfoPostalCode: string;
-  facInfoPhoneNumber: string;
-  facInfoPhoneExtension: string;
+  // facInfoPhoneNumber: string;
+  // facInfoPhoneExtension: string;
   facInfoFaxNumber: string;
   facInfoEffectiveDate: Date;
   facInfoIsSameMailingAddress: boolean;
@@ -63,10 +63,11 @@ export class CreateFacilityDataService {
       this.facInfoCity = 'Victoria';
       this.facInfoProvince = 'British Columbia';
       this.facInfoPostalCode = 'V8J 8J8';
-      this.facInfoPhoneNumber = '250-555-1234';
-      this.facInfoFaxNumber = '250-555-6666';
-      this.facInfoEffectiveDate = new Date('15/04/2020');
-      this.facInfoIsSameMailingAddress = true;
+      // this.facInfoPhoneNumber = '+1 (250) 555-1234';
+      // this.facInfoPhoneExtension = '444'
+      this.facInfoFaxNumber = '+1 (250) 555-6666';
+      this.facInfoEffectiveDate = new Date(2020, 4, 15);
+      this.facInfoIsSameMailingAddress = false;
       this.facInfoIsQualifyForBCP = true;
       // mailing info
       this.facInfoMailAddress = '12345 Carson Street';
