@@ -10,7 +10,7 @@ import { CreateFacilityDataService } from '../../../services/create-facility-dat
 })
 export class ReviewFacilityMailingInfoComponent implements OnInit {
 
-  @ViewChild(ReviewContainerComponent, {static: true})
+  @ViewChild(ReviewContainerComponent, { static: true })
   review: ReviewContainerComponent;
 
   constructor(public dataService: CreateFacilityDataService) { }
@@ -20,22 +20,40 @@ export class ReviewFacilityMailingInfoComponent implements OnInit {
   }
 
   reviewItems() {
-    
+
     this.review.redirectPath = ROUTES_FACILITY.FACILITY.fullpath;
     this.review.header = 'Facility Mailing Address';
 
+    const isSameMailing = this.dataService.facInfoIsSameMailingAddress;
+
     const items = [
-        [
-            {
-                label: 'Mailing address',
-                value: this.dataService.facInfoMailAddress,
-            },
-            { label: 'Mailing city', value: this.dataService.facInfoMailCity },            
-            { label: 'Mailing province', value: this.dataService.facInfoMailProvince },
-            { label: 'Mailing postal code', value:  this.dataService.facInfoMailPostalCode }
-        ],
+      [
+        {
+          label: 'Mailing address',
+          value: isSameMailing ?
+            this.dataService.facInfoPhysicalAddress :
+            this.dataService.facInfoMailAddress,
+        },
+        {
+          label: 'Mailing city', value: isSameMailing ?
+            this.dataService.facInfoCity :
+            this.dataService.facInfoMailCity
+        },
+        {
+          label: 'Mailing province', value: isSameMailing ?
+            this.dataService.facInfoProvince :
+            this.dataService.facInfoMailProvince
+        },
+        {
+          label: 'Mailing postal code', value: isSameMailing ?
+            this.dataService.facInfoPostalCode :
+            this.dataService.facInfoMailPostalCode
+        }
+      ],
     ];
+
+
     this.review.sectionItems = items;
-}
+  }
 
 }

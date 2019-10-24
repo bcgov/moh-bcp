@@ -34,74 +34,53 @@
         <div class="form-group">
           <!-- City -->
           <common-city name='facilityCity' formControlName="city" required="true" [maxlen]="30"></common-city>
-          <!-- <common-error-container [displayError]="validFormControl(facilityForm,'city')">
-            City is a required field
-          </common-error-container> -->
         </div>
 
         <div class="form-group">
           <!-- Province -->
           <common-province name='facilityProvince' label='Province' placeholder='' formControlName='province' disabled>
           </common-province>
-          <!-- <common-error-container [displayError]="validFormControl(facilityForm,'province')">
-            Province is a required field
-          </common-error-container> -->
         </div>
 
         <div class="form-group">
           <!-- Postal Code -->
           <common-postal-code name='facilityPostalCode' label='Postal Code' formControlName='postalCode' required="true"
             [maxlength]="10"></common-postal-code>
-          <!-- <common-error-container [displayError]="validFormControl(facilityForm,'postalCode')">
-            Postal Code is a required field
-          </common-error-container> -->
-        </div>
-
-        <div class="form-group row">
-          <div class="col-10">
-            <common-phone-number name='facilityPhoneNumber' label='Phone number' formControlName='phoneNumber'
-              [maxlength]="10" commonValidatePhone required></common-phone-number>
-            <!-- <label class="control-label" for="phone_edit_{{formIndex}}">Phone Number</label>
-            <input id="phone_edit_{{formIndex}}" formControlName="phoneNumber" class="form-control">
-            <common-error-container [displayError]="validFormControl(facilityForm,'phoneNumber')">
-              Phone Number is a required field
-            </common-error-container> -->
-          </div>
-          <div class="col-2">
-            <label for='facilityPhoneExtension'>
-              Extension
-            </label>
-            <input id='facilityPhoneExtension' type="text" class='form-control' formControlName='phoneExtension'
-              maxlength="4">
-          </div>
         </div>
 
         <div class="form-group">
-          <common-phone-number name='facilityPhoneExtension' label='Fax Number' formControlName='faxNumber'
-            [maxlength]="10" commonValidatePhone required></common-phone-number>
-          <!-- <label class="control-label" for="fax_edit">Fax Number</label>
-          <input id="fax_edit" formControlName="faxNumber" class="form-control">
-          <common-error-container [displayError]="validFormControl(facilityForm,'faxNumber')">
-            Fax Number is a required field
-          </common-error-container> -->
+          <common-phone-number name='facilityFaxNumber' label='Fax Number' formControlName='faxNumber' [maxlength]="10"
+            commonValidatePhone required></common-phone-number>
         </div>
 
         <div class="form-group">
-          <common-date name='effectiveDate'
+
+          <!-- 
+            issue with common-date. It does not set the common-date at all, in simpledate or initialization
+            ref: bcp-16 #comment-24615
+            https://github.com/bcgov/moh-common-styles/blob/master/projects/common/lib/components/date/date.component.ts
+            https://github.com/bcgov/moh-common-styles/blob/master/projects/common/lib/models/simple-date.interface.ts 
+          -->
+
+          <common-date name='effectiveDate' label="Effective Date" [restrictDate]="'past'"
+            formControlName='effectiveDate' [required]="true" [date]="getEffectiveDateInCommonDateFormat"></common-date>
+
+          <!-- <common-date name='effectiveDate'
                        label="Effective Date"
                        [restrictDate]="'past'"
                        formControlName='effectiveDate'
-                       ></common-date>
+                       [required]="true"
+                       ></common-date> -->
         </div>
 
         <div class="form-group">
           <common-radio [radioLabels]="radioBtnLabels" formControlName="isSameMailingAddress"
             name="isSameMailingAddress" label="Is the mailing adderss the same as the Physical Facility Address?"
-            display="table-row-group" (statusChange)="toggleMailingAddress(facilityForm,$event)" required="true">
+            display="table-row-group" required="true">
           </common-radio>
-          <common-error-container [displayError]="validFormControl(facilityForm,'isSameMailingAddress')">
+          <!-- <common-error-container [displayError]="validFormControl(facilityForm,'isSameMailingAddress')">
             Please indicate if the mailing address is the same as the physical address
-          </common-error-container>
+          </common-error-container> -->
         </div>
 
       </form>
@@ -110,41 +89,40 @@
   <h2 class='border-bottom' *ngIf="showMailingAddress">Facility Mailing Address</h2>
   <common-page-section layout="tips">
     <div class="form-group col-sm-8 p-sm-0" *ngIf="showMailingAddress">
-      <form [formGroup]="mailingForm">
+
+
+      <form [formGroup]="facilityForm">
 
         <div class="form-group">
-          <label class="control-label" for="mailingAddress">Mailing Address</label>
-          <input id="mailingAddress" class="form-control" name="mailingAddress" formControlName="mailing_address"
-            required="true">
-          <common-error-container [displayError]="validFormControl(mailingForm,'mailing_address')">
-            Mailing Address is a required field
-          </common-error-container>
+          <common-geocoder-input label='Mailing Address' formControlName="mailingAddress" maxlength="60">
+          </common-geocoder-input>
+
+        <common-error-container
+          [displayError]="facilityForm.controls?.mailingAddress?.touched && facilityForm.controls?.mailingAddress?.errors?.required">
+          Facility Mailing Address is a required field
+        </common-error-container>
+
+        <common-error-container [displayError]="facilityForm.controls?.mailingAddress?.errors?.maxlength">
+          Facility Mailing Address max length must be 60 or fewer characters.
+        </common-error-container>
         </div>
 
+
         <div class="form-group">
-          <common-city label='City' value='' name="mailingCity" formControlName="mailing_city" required="true"
+          <common-city label='City' value='' name="mailingCity" formControlName="mailingCity" required="true"
             [maxlength]="30"></common-city>
-          <!-- <common-error-container [displayError]="validFormControl(mailingForm,'mailing_city')">
-            City is a required field
-          </common-error-container> -->
         </div>
 
         <div class="form-group">
-          <common-province name="mailingProvince" label='Province' placeholder='' formControlName='mailing_province'
+          <common-province name="mailingProvince" label='Province' placeholder='' formControlName='mailingProvince'
             disabled>
           </common-province>
-          <!-- <common-error-container [displayError]="validFormControl(mailingForm,'mailing_province')">
-            Province is a required field
-          </common-error-container> -->
         </div>
 
         <div class="form-group">
-          <common-postal-code name="mailingPostalCode" label='Postal Code' value='' formControlName="mailing_postalCode"
+          <common-postal-code name="mailingPostalCode" label='Postal Code' value='' formControlName="mailingPostalCode"
             class="pt-1" required="true" [maxlength]="10">
           </common-postal-code>
-          <!-- <common-error-container [displayError]="validFormControl(mailingForm,'mailing_postalCode')">
-            Postal Code is a required field
-          </common-error-container> -->
         </div>
 
       </form>
@@ -162,15 +140,16 @@
           <common-radio [radioLabels]="radioBtnLabels" formControlName="isQualifyForBCP" name="isQualifyForBCP"
             label="Does your business qualify for the Business Cost Premium?" display="table-row-group">
           </common-radio>
-          <common-error-container [displayError]="validFormControl(facilityForm,'isQualifyForBCP')">
+          <!-- <common-error-container [displayError]="validFormControl(facilityForm,'isQualifyForBCP')">
             Please indicate if your business qualifies for the Business Cost Premium
-          </common-error-container>
+          </common-error-container> -->
         </div>
       </form>
     </div>
     <aside>
       <h2>Tip</h2>
-      <p>To register practitioners, complete the practitioner assignment to MSP facility for Business Cost Premium form once you have been assigned a facility number.</p>
+      <p>To register practitioners, complete the practitioner assignment to MSP facility for Business Cost Premium form
+        once you have been assigned a facility number.</p>
     </aside>
   </common-page-section>
 </common-page-framework>

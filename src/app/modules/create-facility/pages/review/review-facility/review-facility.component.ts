@@ -23,6 +23,10 @@ export class ReviewFacilityComponent implements OnInit {
     this.review.redirectPath = ROUTES_FACILITY.FACILITY.fullpath;
     this.review.header = ROUTES_FACILITY.FACILITY.title;
 
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const dateString = this.dataService.facInfoEffectiveDate? 
+    this.dataService.facInfoEffectiveDate.toLocaleString('en', options): 'invalid Date from Common-Date'
+
     const items = [
         [
             {
@@ -33,9 +37,10 @@ export class ReviewFacilityComponent implements OnInit {
             { label: 'City', value: this.dataService.facInfoCity },
             { label: 'Province', value: this.dataService.facInfoProvince },
             { label: 'Postal code', value: this.dataService.facInfoPostalCode },
-            { label: 'Phone number', value: this.dataService.facInfoPhoneNumber },
+            // { label: 'Phone number', value: this.dataService.facInfoPhoneNumber },
             { label: 'Fax number', value: this.dataService.facInfoFaxNumber },
-            { label: 'Effective date', value: this.dataService.facInfoEffectiveDate},
+
+            { label: 'Effective date', value: dateString},
         ],
     ];
     this.review.sectionItems = items;
