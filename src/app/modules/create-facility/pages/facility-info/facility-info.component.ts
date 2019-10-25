@@ -59,10 +59,14 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
       faxNumber: [this.dataService.facInfoFaxNumber, cCreateFacilityValidators.facilityDetail.faxNumber],
       isSameMailingAddress: [this.dataService.facInfoIsSameMailingAddress, cCreateFacilityValidators.facilityDetail.isSameMailingAddress],
       isQualifyForBCP: [this.dataService.facInfoIsQualifyForBCP, cCreateFacilityValidators.facilityDetail.isQualifyForBCP],
-      
+
       // effectiveDate: [this.getEffectiveDateInCommonDateFormat, cCreateFacilityValidators.facilityDetail.effectiveDate],
       // common-date gives error if we provide date in simpledate format for initialization, changinging to null
+      // effectiveDate: [null, cCreateFacilityValidators.facilityDetail.effectiveDate],
       effectiveDate: [null, cCreateFacilityValidators.facilityDetail.effectiveDate],
+      // effectiveDate: [new Date()],
+
+
 
       mailingAddress: [this.dataService.facInfoMailAddress, cCreateFacilityValidators.address.streetAddress],
       mailingCity: [this.dataService.facInfoMailCity, cCreateFacilityValidators.address.city],
@@ -80,25 +84,25 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
   }
 
   //#region Mailing Address update data service effective date
-  // following code intentionally kept simple for maintenance 
+  // following code intentionally kept simple for maintenance
 
-  public get getEffectiveDateInCommonDateFormat(): SimpleDate {
+  // public get getEffectiveDateInCommonDateFormat(): SimpleDate {
 
-    // issue with common-date. It does not set the common-date at all, in simpledate or initialization
-    // ref: bcp-16 #comment-24615
-    // https://github.com/bcgov/moh-common-styles/blob/master/projects/common/lib/models/simple-date.interface.ts
-    // https://github.com/bcgov/moh-common-styles/blob/master/projects/common/lib/components/date/date.component.ts
+  //   // issue with common-date. It does not set the common-date at all, in simpledate or initialization
+  //   // ref: bcp-16 #comment-24615
+  //   // https://github.com/bcgov/moh-common-styles/blob/master/projects/common/lib/models/simple-date.interface.ts
+  //   // https://github.com/bcgov/moh-common-styles/blob/master/projects/common/lib/components/date/date.component.ts
 
-    // tbr
-    const date = this.dataService.facInfoEffectiveDate? this.dataService.facInfoEffectiveDate : new Date();
+  //   // tbr
+  //   const date = this.dataService.facInfoEffectiveDate? this.dataService.facInfoEffectiveDate : new Date();
 
-    const commonDateFormat = {
-      day: date.getDay(),
-      month: date.getMonth(),
-      year: date.getFullYear(),
-    }
-    return commonDateFormat;
-  }
+  //   const commonDateFormat = {
+  //     day: date.getDay(),
+  //     month: date.getMonth(),
+  //     year: date.getFullYear(),
+  //   }
+  //   return commonDateFormat;
+  // }
 
   updateMailingValidity(isRequired: boolean): void {
     const address = this.facilityForm.get('mailingAddress');
@@ -117,7 +121,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
       postalCode.clearValidators();
 
       address.patchValue(null);
-      city.patchValue(null);      
+      city.patchValue(null);
       postalCode.patchValue(null);
     }
 
@@ -154,7 +158,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
     this.dataService.facInfoMailPostalCode = fd.mailingPostalCode;
   }
 
-  //#region 
+  //#region
 
   continue() {
     this.updateDataService();
