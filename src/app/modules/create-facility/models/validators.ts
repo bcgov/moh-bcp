@@ -8,7 +8,7 @@ export function validMultiFormControl(fg: FormGroup, name: string) {
 
 export const cCreateFacilityValidators = {
 
-    facilityDetail: {        
+    facilityDetail: {
         facilityName: [
             Validators.required
         ],
