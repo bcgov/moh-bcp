@@ -63,7 +63,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
       // effectiveDate: [this.getEffectiveDateInCommonDateFormat, cCreateFacilityValidators.facilityDetail.effectiveDate],
       // common-date gives error if we provide date in simpledate format for initialization, changinging to null
       // effectiveDate: [null, cCreateFacilityValidators.facilityDetail.effectiveDate],
-      effectiveDate: [null, cCreateFacilityValidators.facilityDetail.effectiveDate],
+      effectiveDate: [this.dataService.facInfoEffectiveDate, cCreateFacilityValidators.facilityDetail.effectiveDate],
       // effectiveDate: [new Date()],
 
 
@@ -109,7 +109,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
     const city = this.facilityForm.get('mailingCity');
     const province = this.facilityForm.get('mailingProvince');
     const postalCode = this.facilityForm.get('mailingPostalCode');
-    if (isRequired) {
+    if (!isRequired) {
       address.setValidators(Validators.required);
       city.setValidators(Validators.required);
       province.setValidators(Validators.required);
@@ -136,6 +136,8 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
       mailingCity: null,
       mailingPostalCode: null
     });
+
+    this.facilityForm.updateValueAndValidity({ onlySelf: false });
   }
 
   updateDataService() {
@@ -167,7 +169,6 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
     // todo: fix common-components issues
     this.facilityForm.markAllAsTouched();
     // this.markAllInputsTouched();
-
     if (this.facilityForm.valid) {
       this.navigate('register-facility/review');
     }

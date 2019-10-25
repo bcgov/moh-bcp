@@ -49,7 +49,7 @@
         </div>
 
         <div class="form-group">
-          <common-phone-number name='facilityFaxNumber' label='Fax Number' formControlName='faxNumber' [maxlength]="10"
+          <common-phone-number name='facilityFaxNumber' label='Fax Number' formControlName='faxNumber'
             commonValidatePhone required></common-phone-number>
         </div>
 
@@ -62,7 +62,7 @@
             https://github.com/bcgov/moh-common-styles/blob/master/projects/common/lib/models/simple-date.interface.ts 
           -->
 
-          <common-date name='effectiveDate' label="Effective Date" [restrictDate]="'past'"
+          <common-date name='effectiveDate' label="Effective Date" [restrictDate]="'future'"
             formControlName='effectiveDate' [required]="true" [date]="getEffectiveDateInCommonDateFormat"></common-date>
 
           <!-- <common-date name='effectiveDate'
