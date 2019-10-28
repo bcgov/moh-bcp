@@ -6,7 +6,7 @@ export const environment = {
   bypassGuards: false,
   useDummyData: false,
   api: {
-    base: '/bcp/api',
+    base: '/bcp/api/bcpIntegration',
     captcha: '/bcp/api/captcha',
     splunk: '/bcp/api/logging'
   },
