@@ -68,7 +68,9 @@ export class ApplicantInfoComponent extends CreateFacilityForm implements OnInit
         } else {
           // Successful response
           this.handleValidation(res.valid)
-          this.navigate(CREATE_FACILITY_PAGES.FACILITY_INFO.fullPath);
+          if (res.valid){
+            this.navigate(CREATE_FACILITY_PAGES.FACILITY_INFO.fullPath);
+          }
         }
       }, error => {
         console.log('ARC apiService onerror', error);
