@@ -17,6 +17,9 @@
                      commonValidateName
                      maxlen=15
                      required></common-name>
+        <common-error-container [displayError]='showValidationError'>
+          {{ validationErrorMessage }}
+        </common-error-container>
       </div>
 
       <div class="form-group">
@@ -26,6 +29,9 @@
                      commonValidateName
                      maxlen=15
                      required></common-name>
+        <common-error-container [displayError]='showValidationError'>
+          {{ validationErrorMessage }}
+        </common-error-container>
       </div>
 
       <div class="form-group">
@@ -33,6 +39,9 @@
                                  required
                                  bcpValidatePractitionerNumber
                                  [(ngModel)]='dataService.pracNumber'></bcp-practitioner-number>
+        <common-error-container [displayError]='showValidationError'>
+          {{ validationErrorMessage }}
+        </common-error-container>
       </div>
 
       <div class="form-group">
@@ -77,6 +86,11 @@
                  [(ngModel)]='dataService.facAdminExtension'>
         </div>
       </div>
+
+      <common-error-container [displayError]='systemDownError'>
+        Unable to continue, system down.  Please try again later.
+      </common-error-container>
+
     </form>
     <aside>
       <h2>Tips</h2>
