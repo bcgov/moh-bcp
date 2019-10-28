@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
     styleUrls: ['./review-container.component.scss'],
 })
 export class ReviewContainerComponent implements OnInit {
+    @Input() hideReviewSection : boolean = false;
     @Input() header: string | null;
     @Input() redirectPath: string | null;
     @Input() sectionItems: any | null;
