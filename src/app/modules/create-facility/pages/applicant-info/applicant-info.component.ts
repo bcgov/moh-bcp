@@ -5,10 +5,8 @@ import { CreateFacilityDataService } from '../../services/create-facility-data.s
 import { ValidatorFn, AbstractControl, NgControl } from '@angular/forms';
 import { CheckCompleteBaseService } from 'moh-common-lib';
 import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
-
-// TODO: Phone validation (passes on 1 char entered)
-// TODO: email validaion - create CommonEmail (like CommonName)
-// TODO: Verify BCP Prac Number logic is correct (now just checking it's #s)
+import { BCPApiService } from '../../../../services/bcp-api.service';
+import { ValidationResponse } from '../../models/create-facility-api-model';
 
 @Component({
   selector: 'app-applicant-info',
@@ -17,14 +15,18 @@ import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
 })
 export class ApplicantInfoComponent extends CreateFacilityForm implements OnInit {
   public loading = false;
+  public systemDownError = false;
+  public showValidationError = false;
+  public validationErrorMessage = 'This field does not match our records';
 
   constructor(
     protected router: Router,
     public dataService: CreateFacilityDataService,
     private cdr: ChangeDetectorRef,
-    private pageCheckService: CheckCompleteBaseService) {
+    private pageCheckService: CheckCompleteBaseService,
+    private apiService: BCPApiService) {
     super(router);
-   }
+  }
 
   ngOnInit() {
     this.pageCheckService.setPageIncomplete();
@@ -44,7 +46,7 @@ export class ApplicantInfoComponent extends CreateFacilityForm implements OnInit
     return this.dataService.emailAddress !== this.dataService.confirmEmailAddress;
   }
 
-  canContinue(){
+  canContinue() {
     return this.form.valid && !this.showEmailMismatchError();
   }
 
@@ -52,17 +54,27 @@ export class ApplicantInfoComponent extends CreateFacilityForm implements OnInit
     this.markAllInputsTouched();
 
     if (this.canContinue()) {
-      const time = 2.5 * 1000;
       this.loading = true;
-      setTimeout(() => {
-        this.loading = false;
-        this.cdr.detectChanges();
-        this.pageCheckService.setPageComplete();
-        this.navigate(CREATE_FACILITY_PAGES.FACILITY_INFO.fullPath);
-      }, time);
 
-    } else {
-      console.log('Form not valid', this.form);
+      this.apiService.validatePractitioner({
+        firstName: this.dataService.facAdminFirstName,
+        lastName: this.dataService.facAdminLastName,
+        number: this.dataService.pracNumber,
+      }, this.dataService.applicationUUID).subscribe((res: ValidationResponse) => {
+        console.log('apiService response', res);
+
+        if (!res.valid && res.error) {
+          this.handleError();
+        } else {
+          // Successful response
+          this.handleValidation(res.valid)
+          this.navigate(CREATE_FACILITY_PAGES.FACILITY_INFO.fullPath);
+        }
+      }, error => {
+        console.log('ARC apiService onerror', error);
+        this.handleError();
+      });
+
     }
 
   }
@@ -76,6 +88,27 @@ export class ApplicantInfoComponent extends CreateFacilityForm implements OnInit
       return true;
     }
     return false;
+  }
+
+  private handleError(): void {
+    this.systemDownError = true;
+    this.loading = false;
+    this.cdr.detectChanges();
+  }
+
+  private handleValidation(isValid: boolean): void {
+    this.showValidationError = !isValid;
+    this.loading = false;
+    this.systemDownError = false;
+    this.cdr.detectChanges();
+
+    if (isValid){
+      this.pageCheckService.setPageComplete();
+    }
+    else {
+      this.pageCheckService.setPageIncomplete();
+    }
+
   }
 
 }
