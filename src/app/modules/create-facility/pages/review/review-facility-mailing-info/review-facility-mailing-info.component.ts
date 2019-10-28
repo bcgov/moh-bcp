@@ -52,7 +52,7 @@ export class ReviewFacilityMailingInfoComponent implements OnInit {
       ],
     ];
 
-
+    this.review.hideReviewSection = isSameMailing;
     this.review.sectionItems = items;
   }
 
