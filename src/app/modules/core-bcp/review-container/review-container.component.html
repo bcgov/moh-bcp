@@ -1,19 +1,19 @@
 <!--#region Section  -->
 
 <!--Section - Heading-->
-<div class="row col-md-12 ml-0 pl-0 align-items-center border-bottom">
+<div class="row col-md-12 ml-0 pl-0 align-items-center border-bottom" *ngIf="!hideReviewSection">
   <div class="col-md-6 pl-0">
     <h2>{{header}}</h2>
   </div>
   <div class="col-md-2 ml-auto mr-0  text-right align-items-right ">
-    <button tabindex="0" class="btn btn-edit" (click)="redirect(redirectPath)" aria-label="Edit Organization">
+    <button tabindex="0" class="btn btn-edit" (click)="redirect(redirectPath)" aria-label="Edit">
       Edit <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
     </button>
   </div>
 </div>
 
 <!--Section - Content -->
-<div *ngIf="!showCheckBoxList" class='col-md-12 ml-2 pl-2 mt-2' style="background-color:#F2F2F2">
+<div *ngIf="!hideReviewSection && !showCheckBoxList" class='col-md-12 ml-2 pl-2 mt-2' style="background-color:#F2F2F2">
   <div *ngFor="let form of sectionItems; let formIndex=index" class="pb-2">
     <div class="row" *ngFor="let item of form; let i=index">
       <div class='col-md-4'>
@@ -29,7 +29,7 @@
 <!--#endregion -->
 
 <!--Section - Content -->
-<div *ngIf="showCheckBoxList" class='col-md-12 ml-2 pl-2 mt-2' style="background-color:#F2F2F2">
+<div *ngIf="!hideReviewSection && showCheckBoxList" class='col-md-12 ml-2 pl-2 mt-2' style="background-color:#F2F2F2">
   <div *ngFor="let form of sectionItems; let formIndex=index" class="pb-2">
     <div class="row" *ngFor="let item of form; let i=index">
       <div class='col-md-12'>
