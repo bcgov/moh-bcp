@@ -4,11 +4,11 @@
 
 export const environment = {
   production: false,
-  bypassModal: false,
+  bypassModal: true,
   bypassGuards: true,
-  useDummyData: true,
+  useDummyData: false,
   api: {
-    base: '/bcp/api/bcpIntegration',
+    base: '/bcp/api',
     captcha: '/bcp/api/captcha',
     splunk: '/bcp/api/logging'
   },
