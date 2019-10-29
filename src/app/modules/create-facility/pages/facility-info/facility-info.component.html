@@ -18,7 +18,7 @@
 
         <div class="form-group">
           <!-- Physical Address-->
-          <common-geocoder-input label='Physical Address' formControlName="address" maxlength=60>
+          <common-geocoder-input label='Physical Address' formControlName="address" maxlength="60" (addressChange)="physicalAddressSelected($event)">
           </common-geocoder-input>
 
           <common-error-container
@@ -94,7 +94,7 @@
       <form [formGroup]="facilityForm">
 
         <div class="form-group">
-          <common-geocoder-input label='Mailing Address' formControlName="mailingAddress" maxlength="60">
+          <common-geocoder-input label='Mailing Address' formControlName="mailingAddress" maxlength="60" (addressChange)="mailingAddressSelected($event)">
           </common-geocoder-input>
 
         <common-error-container
