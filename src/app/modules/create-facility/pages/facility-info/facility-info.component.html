@@ -50,7 +50,7 @@
 
         <div class="form-group">
           <common-phone-number name='facilityFaxNumber' label='Fax Number' formControlName='faxNumber'
-            commonValidatePhone required></common-phone-number>
+            [allowInternational]='false' required></common-phone-number>
         </div>
 
         <div class="form-group">
