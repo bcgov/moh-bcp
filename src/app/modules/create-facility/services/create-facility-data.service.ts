@@ -1,11 +1,16 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import format from 'date-fns/format';
+import { UUID } from 'angular2-uuid';
+
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class CreateFacilityDataService {
+
+  applicationUUID: string = UUID.UUID();
 
   // Home
   informationCollectionNoticeConsent: boolean;
@@ -41,6 +46,10 @@ export class CreateFacilityDataService {
   facInfoMailProvince: string;
   facInfoMailPostalCode: string
 
+  // review page
+  // TODO: We must set this when user clicks the Declaration checkbox on the Review page.
+  dateOfDeclaration: Date;
+
   //#endregion
 
   constructor() {
@@ -49,12 +58,13 @@ export class CreateFacilityDataService {
     }
 
     if (environment.useDummyData) {
-      this.facAdminFirstName = 'John';
-      this.facAdminLastName = 'Smith';
-      this.pracNumber = '12345';
+      // Name and PracNumber will pass backend validation in TEST
+      this.facAdminFirstName = 'Harry';
+      this.facAdminLastName = 'Potter';
+      this.pracNumber = '22278';
       this.emailAddress = 'a@example.com';
       this.confirmEmailAddress = 'a@example.com';
-      this.facAdminPhoneNumber = '250-555-5555';
+      this.facAdminPhoneNumber = '1 (250) 555-5555';
 
       // Following code is as per directions by Adam ref:bcp-68 18/10/2019 10:40AM
       // facility      
@@ -67,6 +77,7 @@ export class CreateFacilityDataService {
       // this.facInfoPhoneExtension = '444'
       this.facInfoFaxNumber = '+1 (250) 555-6666';
       this.facInfoEffectiveDate = new Date(2020, 4, 15);
+
       this.facInfoIsSameMailingAddress = false;
       this.facInfoIsQualifyForBCP = true;
       // mailing info
@@ -74,7 +85,15 @@ export class CreateFacilityDataService {
       this.facInfoMailCity = 'Victoria';
       this.facInfoMailProvince = 'British Columbia';
       this.facInfoMailPostalCode = 'V8J 8J8'
+      
+      // Review page
+      this.dateOfDeclaration = new Date();
     }
+  }
+
+  // Potentially abstract formatting into separate service if it grows beyond this method
+  formatDate(inputDate): string {
+    return format(inputDate, 'MMMM dd, yyyy');
   }
 
 }
