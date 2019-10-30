@@ -81,6 +81,8 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
     );
 
     this.showMailingAddress = !this.dataService.facInfoIsSameMailingAddress;
+    this.physicalAddress = { addressLine1: this.dataService.facInfoPhysicalAddress };
+    this.mailingAddress = { addressLine1: this.dataService.facInfoMailAddress };
     return form;
   }
 
@@ -146,7 +148,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
 
     const fd = this.facilityForm.value;
     this.dataService.facInfoFacilityName = fd.facilityName;
-    this.dataService.facInfoPhysicalAddress = fd.address;
+    this.dataService.facInfoPhysicalAddress = this.physicalAddress? this.physicalAddress.addressLine1: fd.address;
     this.dataService.facInfoCity = fd.city;
     this.dataService.facInfoProvince = fd.province;
     this.dataService.facInfoPostalCode = fd.postalCode;
@@ -155,7 +157,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
     this.dataService.facInfoIsQualifyForBCP = fd.isQualifyForBCP;
     this.dataService.facInfoEffectiveDate = fd.effectiveDate;
 
-    this.dataService.facInfoMailAddress = fd.mailingAddress;
+    this.dataService.facInfoMailAddress = this.mailingAddress? this.mailingAddress.addressLine1: fd.mailingAddress;
     this.dataService.facInfoMailCity = fd.mailingCity;
     this.dataService.facInfoMailProvince = fd.mailingProvince;
     this.dataService.facInfoMailPostalCode = fd.mailingPostalCode;
@@ -174,7 +176,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
       this.navigate('register-facility/review');
     }
   }
-
+  physicalAddress: any = null;
   physicalAddressSelected(address: Address){    
     console.log(address);
     this.facilityForm.patchValue({
@@ -184,7 +186,10 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
 
     this.dataService.facInfoPhysicalAddress = address.addressLine1;
     this.dataService.facInfoCity = address.city;
+    this.physicalAddress = address;
   }
+
+  mailingAddress:any = null;
   mailingAddressSelected(address: Address){    
     console.log(address);
     this.facilityForm.patchValue({
@@ -193,5 +198,6 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
     });
     this.dataService.facInfoMailAddress = address.addressLine1;
     this.dataService.facInfoMailCity = address.city;
+    this.mailingAddress = address;
   }
 }
