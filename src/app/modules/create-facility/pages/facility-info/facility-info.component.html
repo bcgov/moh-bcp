@@ -18,7 +18,7 @@
 
         <div class="form-group">
           <!-- Physical Address-->
-          <common-geocoder-input label='Physical Address' formControlName="address" maxlength=60>
+          <common-geocoder-input label='Physical Address' formControlName="address" maxlength="60" (addressChange)="physicalAddressSelected($event)">
           </common-geocoder-input>
 
           <common-error-container
@@ -94,7 +94,7 @@
       <form [formGroup]="facilityForm">
 
         <div class="form-group">
-          <common-geocoder-input label='Mailing Address' formControlName="mailingAddress" maxlength="60">
+          <common-geocoder-input label='Mailing Address' formControlName="mailingAddress" maxlength="60" (addressChange)="mailingAddressSelected($event)">
           </common-geocoder-input>
 
         <common-error-container
@@ -151,6 +151,12 @@
       <p>To register practitioners, complete the practitioner assignment to MSP facility for Business Cost Premium form
         once you have been assigned a facility number.</p>
     </aside>
+
+    <pre><code>
+      {{this.facilityForm.value | json}}
+      <hr/>
+      {{ getAllErrors(facilityForm) | json }}
+  </code></pre>
   </common-page-section>
 </common-page-framework>
 

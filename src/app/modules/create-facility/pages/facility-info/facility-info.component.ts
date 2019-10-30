@@ -3,7 +3,7 @@ import { CreateFacilityForm } from '../../models/create-facility-form';
 import { Router } from '@angular/router';
 import { FormGroup, FormArray, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { cCreateFacilityValidators, validMultiFormControl } from '../../models/validators';
-import { BRITISH_COLUMBIA, CheckCompleteBaseService, SimpleDate } from 'moh-common-lib';
+import { BRITISH_COLUMBIA, CheckCompleteBaseService, Address } from 'moh-common-lib';
 import { CreateFacilityDataService } from '../../services/create-facility-data.service';
 import { environment } from 'src/environments/environment';
 import { RandomObjects } from '../../models/i-dataform';
@@ -172,5 +172,25 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
     if (this.facilityForm.valid) {
       this.navigate('register-facility/review');
     }
+  }
+
+  physicalAddressSelected(address: Address){    
+    console.log(address);
+    this.facilityForm.patchValue({
+      address: address.addressLine1,
+      city: address.city
+    });
+
+    this.dataService.facInfoPhysicalAddress = address.addressLine1;
+    this.dataService.facInfoCity = address.city;
+  }
+  mailingAddressSelected(address: Address){    
+    console.log(address);
+    this.facilityForm.patchValue({
+      mailingAddress: address.addressLine1,
+      mailingCity: address.city
+    });
+    this.dataService.facInfoMailAddress = address.addressLine1;
+    this.dataService.facInfoMailCity = address.city;
   }
 }
