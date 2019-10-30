@@ -80,6 +80,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
     );
 
     this.showMailingAddress = !this.dataService.facInfoIsSameMailingAddress;
+    this.updateMailingValidity(this.dataService.facInfoIsSameMailingAddress);
     return form;
   }
 
