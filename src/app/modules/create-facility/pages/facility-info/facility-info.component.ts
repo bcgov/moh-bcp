@@ -180,6 +180,9 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
       address: address.addressLine1,
       city: address.city
     });
+
+    this.dataService.facInfoPhysicalAddress = address.addressLine1;
+    this.dataService.facInfoCity = address.city;
   }
   mailingAddressSelected(address: Address){    
     console.log(address);
@@ -187,5 +190,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
       mailingAddress: address.addressLine1,
       mailingCity: address.city
     });
+    this.dataService.facInfoMailAddress = address.addressLine1;
+    this.dataService.facInfoMailCity = address.city;
   }
 }
