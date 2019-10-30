@@ -39,6 +39,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
 
   ngOnInit() {
     this.facilityForm = this.initialize();
+    this.updateMailingValidity(this.dataService.facInfoIsSameMailingAddress);
   }
 
   private initialize() {
@@ -80,7 +81,6 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
     );
 
     this.showMailingAddress = !this.dataService.facInfoIsSameMailingAddress;
-    this.updateMailingValidity(this.dataService.facInfoIsSameMailingAddress);
     return form;
   }
 
