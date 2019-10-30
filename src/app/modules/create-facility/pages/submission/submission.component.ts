@@ -12,7 +12,7 @@ import { CreateFacilityDataService } from '../../services/create-facility-data.s
 })
 export class SubmissionComponent extends CreateFacilityForm implements OnInit {
 
-  constructor(protected router: Router, protected dataService: CreateFacilityDataService) {
+  constructor(protected router: Router, public dataService: CreateFacilityDataService) {
     super(router);
   }
 
