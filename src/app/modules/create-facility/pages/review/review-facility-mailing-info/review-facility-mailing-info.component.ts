@@ -26,33 +26,36 @@ export class ReviewFacilityMailingInfoComponent implements OnInit {
 
     const isSameMailing = this.dataService.facInfoIsSameMailingAddress;
 
-    const items = [
-      [
-        {
-          label: 'Mailing address',
-          value: isSameMailing ?
-            this.dataService.facInfoPhysicalAddress :
-            this.dataService.facInfoMailAddress,
-        },
-        {
-          label: 'Mailing city', value: isSameMailing ?
-            this.dataService.facInfoCity :
-            this.dataService.facInfoMailCity
-        },
-        {
-          label: 'Mailing province', value: isSameMailing ?
-            this.dataService.facInfoProvince :
-            this.dataService.facInfoMailProvince
-        },
-        {
-          label: 'Mailing postal code', value: isSameMailing ?
-            this.dataService.facInfoPostalCode :
-            this.dataService.facInfoMailPostalCode
-        }
-      ],
-    ];
-
-    this.review.hideReviewSection = isSameMailing;
+    const items =
+      isSameMailing ?
+        [
+          [
+            {
+              label: 'Is the mailing address the same as the Physical Facility Address?',
+              value: 'Yes',
+            }
+          ],
+        ] :
+        [
+          [
+            {
+              label: 'Mailing address',
+              value: this.dataService.facInfoMailAddress,
+            },
+            {
+              label: 'Mailing city', value:
+                this.dataService.facInfoMailCity
+            },
+            {
+              label: 'Mailing province', value:
+                this.dataService.facInfoMailProvince
+            },
+            {
+              label: 'Mailing postal code', value:
+                this.dataService.facInfoMailPostalCode
+            }
+          ],
+        ];
     this.review.sectionItems = items;
   }
 
