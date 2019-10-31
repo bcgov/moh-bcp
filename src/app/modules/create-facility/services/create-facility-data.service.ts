@@ -64,7 +64,7 @@ export class CreateFacilityDataService {
       this.pracNumber = '22278';
       this.emailAddress = 'a@example.com';
       this.confirmEmailAddress = 'a@example.com';
-      this.facAdminPhoneNumber = '1 (250) 555-5555';
+      this.facAdminPhoneNumber = '(250) 555-5555';
 
       // Following code is as per directions by Adam ref:bcp-68 18/10/2019 10:40AM
       // facility      
@@ -73,9 +73,9 @@ export class CreateFacilityDataService {
       this.facInfoCity = 'Victoria';
       this.facInfoProvince = 'British Columbia';
       this.facInfoPostalCode = 'V8J 8J8';
-      // this.facInfoPhoneNumber = '+1 (250) 555-1234';
+      // this.facInfoPhoneNumber = '(250) 555-1234';
       // this.facInfoPhoneExtension = '444'
-      this.facInfoFaxNumber = '+1 (250) 555-6666';
+      this.facInfoFaxNumber = '(250) 555-6666';
       this.facInfoEffectiveDate = new Date(2020, 4, 15);
 
       this.facInfoIsSameMailingAddress = false;
