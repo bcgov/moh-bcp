@@ -76,11 +76,8 @@
         <div class="form-group">
           <common-radio [radioLabels]="radioBtnLabels" formControlName="isSameMailingAddress"
             name="isSameMailingAddress" label="Is the mailing adderss the same as the Physical Facility Address?"
-            display="table-row-group" required="true">
+            display="table-row-group" required="true" errorMessageRequired="Please indicate if the mailing address is the same as the physical address" >
           </common-radio>
-          <!-- <common-error-container [displayError]="validFormControl(facilityForm,'isSameMailingAddress')">
-            Please indicate if the mailing address is the same as the physical address
-          </common-error-container> -->
         </div>
 
       </form>
@@ -138,11 +135,9 @@
       <form [formGroup]="facilityForm">
         <div class="form-group">
           <common-radio [radioLabels]="radioBtnLabels" formControlName="isQualifyForBCP" name="isQualifyForBCP"
-            label="Does your business qualify for the Business Cost Premium?" display="table-row-group">
+            label="Does your business qualify for the Business Cost Premium?" display="table-row-group"  
+            errorMessageRequired="Please indicate if your business qualifies for the Business Cost Premium">
           </common-radio>
-          <!-- <common-error-container [displayError]="validFormControl(facilityForm,'isQualifyForBCP')">
-            Please indicate if your business qualifies for the Business Cost Premium
-          </common-error-container> -->
         </div>
       </form>
     </div>
