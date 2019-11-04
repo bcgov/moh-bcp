@@ -34,7 +34,10 @@ export class ReviewApplicantComponent implements OnInit {
             { label: 'Facility administrator last name', value: this.dataService.facAdminLastName },
             { label: 'Medical Services Plan practitioner number', value: this.dataService.pracNumber },
             { label: 'Email address', value: this.dataService.emailAddress },
-            { label: 'Phone number', value: this.dataService.facAdminPhoneNumber + ' Ext. ' + this.dataService.facAdminExtension }
+
+            this.dataService.facAdminExtension ? 
+                { label: 'Phone number', value: this.dataService.facAdminPhoneNumber + ' Ext. ' + this.dataService.facAdminExtension }
+                : { label: 'Phone number', value: this.dataService.facAdminPhoneNumber }
         ],
     ];
     this.review.sectionItems = items;
