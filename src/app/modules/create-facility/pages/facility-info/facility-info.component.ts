@@ -189,15 +189,13 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
 
           if (res.returnCode === ReturnCodes.SUCCESS){
             this.handleAPIValidation(true);
-            this.navigate('register-facility/review');
           } else if (res.returnCode === ReturnCodes.WARNING || res.returnCode === ReturnCodes.FAILURE){
             // we treat near match or exact match the same
             this.handleAPIValidation(false);
-            this.navigate('register-facility/review');
           }
-
+          
+          this.navigate('register-facility/review');
           // TODO: Handle failure case, e.g. no backend, failed request, etc.
-
         });
     }
   }
