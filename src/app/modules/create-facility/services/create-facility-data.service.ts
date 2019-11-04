@@ -81,7 +81,7 @@ export class CreateFacilityDataService {
       this.facInfoFaxNumber = '(250) 555-6666';
       this.facInfoEffectiveDate = new Date(2020, 4, 15);
 
-      this.facInfoIsSameMailingAddress = false;
+      this.facInfoIsSameMailingAddress = true;
       this.facInfoIsQualifyForBCP = true;
       // mailing info
       this.facInfoMailAddress = '12345 Carson Street';
