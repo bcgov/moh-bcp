@@ -177,6 +177,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
     this.facilityForm.markAllAsTouched();
     // this.markAllInputsTouched();
     if (this.facilityForm.valid) {
+      this.loading = true;
 
       this.api.validateFacility({
         facilityName: this.dataService.facInfoFacilityName,
