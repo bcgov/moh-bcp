@@ -23,6 +23,7 @@
     "@angular/platform-browser-dynamic": "~8.2.9",
     "@angular/router": "~8.2.9",
     "@ng-select/ng-select": "^2.20.5",
+    "angular2-signaturepad": "^2.9.0",
     "angular2-text-mask": "^9.0.0",
     "angular2-uuid": "^1.1.1",
     "blueimp-load-image": "^2.24.0",
