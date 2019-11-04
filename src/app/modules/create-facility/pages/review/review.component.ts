@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { CreateFacilityForm } from '../../models/create-facility-form';
 import { CheckCompleteBaseService } from 'moh-common-lib';
 import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
+import { CreateFacilityDataService } from '../../services/create-facility-data.service';
 
 @Component({
   selector: 'app-review',
@@ -12,12 +13,16 @@ import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
 export class ReviewComponent extends CreateFacilityForm implements OnInit {
 
   confirmed : boolean = false;
-  constructor(protected router: Router, private pageCheckService: CheckCompleteBaseService) {
+  showDuplicateWarning = true;
+  constructor(protected router: Router, 
+              private pageCheckService: CheckCompleteBaseService,
+              private dataService: CreateFacilityDataService) {
     super(router);
    }
 
   ngOnInit() {
     this.pageCheckService.setPageIncomplete();
+    this.showDuplicateWarning = this.dataService.apiDuplicateWarning;
   }
 
 

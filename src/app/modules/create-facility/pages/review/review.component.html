@@ -3,6 +3,21 @@
   <h1>Review Application</h1>
   <p class="border-bottom">Review your application before submission</p>
 
+
+  <div class="message-container border-warning" *ngIf='showDuplicateWarning'>
+      <p class="confirm-icon--warning">
+        <i class="fa fa-2x fa-exclamation-circle text-warning pr-2" aria-label="warning"></i>
+      </p>
+      <span>
+        This Facility may already have a Facility Number. If you are certain this is the first time a Facility Number has been requested for this Facility you can continue to complete this registration. 
+        HIBC will process your application and <span class='font-weight-bold'>you will receive your Facility Number in the next two to three weeks.</span>
+      </span>
+    </div>
+
+  <div class='border-warning' >
+      
+  </div>
+
     <bcp-review-applicant></bcp-review-applicant>
     <bcp-review-facility></bcp-review-facility>
     <bcp-review-facility-mailing-info></bcp-review-facility-mailing-info>
