@@ -50,6 +50,9 @@ export class CreateFacilityDataService {
   // TODO: We must set this when user clicks the Declaration checkbox on the Review page.
   dateOfDeclaration: Date;
 
+  // API responses
+  apiDuplicateWarning: boolean = false;
+
   //#endregion
 
   constructor() {
@@ -68,11 +71,11 @@ export class CreateFacilityDataService {
 
       // Following code is as per directions by Adam ref:bcp-68 18/10/2019 10:40AM
       // facility      
-      this.facInfoFacilityName = 'Dr. Doe Medical Clinic';
+      this.facInfoFacilityName = 'HOGWARTS CLINIC';
       this.facInfoPhysicalAddress = '12345 Douglas Street';
       this.facInfoCity = 'Victoria';
       this.facInfoProvince = 'British Columbia';
-      this.facInfoPostalCode = 'V8J 8J8';
+      this.facInfoPostalCode = 'V8Z 3E6';
       // this.facInfoPhoneNumber = '(250) 555-1234';
       // this.facInfoPhoneExtension = '444'
       this.facInfoFaxNumber = '(250) 555-6666';

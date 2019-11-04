@@ -6,7 +6,7 @@ import { ValidatorFn, AbstractControl, NgControl } from '@angular/forms';
 import { CheckCompleteBaseService } from 'moh-common-lib';
 import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
 import { BCPApiService } from '../../../../services/bcp-api.service';
-import { ValidationResponse } from '../../models/create-facility-api-model';
+import { ValidationResponse, ReturnCodes } from '../../models/create-facility-api-model';
 
 @Component({
   selector: 'app-applicant-info',
@@ -63,14 +63,11 @@ export class ApplicantInfoComponent extends CreateFacilityForm implements OnInit
       }, this.dataService.applicationUUID).subscribe((res: ValidationResponse) => {
         console.log('apiService response', res);
 
-        if (!res.valid && res.error) {
-          this.handleError();
-        } else {
-          // Successful response
-          this.handleValidation(res.valid)
-          if (res.valid){
-            this.navigate(CREATE_FACILITY_PAGES.FACILITY_INFO.fullPath);
-          }
+        if (res.returnCode === ReturnCodes.SUCCESS){
+          this.handleValidation(true);
+          this.navigate(CREATE_FACILITY_PAGES.FACILITY_INFO.fullPath);
+        } else if (res.returnCode === ReturnCodes.FAILURE){
+          this.handleValidation(false);
         }
       }, error => {
         console.log('ARC apiService onerror', error);

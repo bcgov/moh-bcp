@@ -4,7 +4,7 @@ import { environment } from 'src/environments/environment';
 import { AbstractHttpService } from 'moh-common-lib';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { SplunkLoggerService } from './splunk-logger.service';
-import { ValidatePractitionerRequest, PractitionerValidationPartial } from '../modules/create-facility/models/create-facility-api-model';
+import { ValidatePractitionerRequest, PractitionerValidationPartial, FacilityValidationPartial } from '../modules/create-facility/models/create-facility-api-model';
 
 // TODO: Type Requests
 // TODO: Type responses
@@ -57,16 +57,13 @@ export class BCPApiService extends AbstractHttpService {
     return this.post(url, payload);
   }
 
-  validateFacility() {
+  validateFacility(facility: FacilityValidationPartial, applicationUUID: string) {
     // TODO: Log! Both on failure and success.
     // TODO: Get proper values
     const payload = {
-      facility: {
-        facilityName: "HOGWARasdfTS CLINIC",
-        postalCode: "V8Z3E6"
-      },
-      requestUUID: "000087",
-      applicationUUID: "bd11bbc5-f670-f654-9fb7-01a7cba689a8"
+      facility,
+      requestUUID: this.generateUUID(),
+      applicationUUID
     }
     const url = `${this.baseUrl}/validateFacility`;
 

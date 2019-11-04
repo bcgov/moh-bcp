@@ -7,6 +7,8 @@ import { BRITISH_COLUMBIA, CheckCompleteBaseService, Address } from 'moh-common-
 import { CreateFacilityDataService } from '../../services/create-facility-data.service';
 import { environment } from 'src/environments/environment';
 import { RandomObjects } from '../../models/i-dataform';
+import { BCPApiService } from '../../../../services/bcp-api.service';
+import { ValidationResponse, ReturnCodes } from '../../models/create-facility-api-model';
 
 @Component({
   selector: 'app-facility-info',
@@ -32,6 +34,8 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
     private pageCheckService: CheckCompleteBaseService,
     public dataService: CreateFacilityDataService,
     private fb: FormBuilder,
+    private api: BCPApiService,
+    private cdr: ChangeDetectorRef,
   ) {
     super(router);
     this.validFormControl = validMultiFormControl;
@@ -173,7 +177,27 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
     this.facilityForm.markAllAsTouched();
     // this.markAllInputsTouched();
     if (this.facilityForm.valid) {
-      this.navigate('register-facility/review');
+
+      this.api.validateFacility({
+        facilityName: this.dataService.facInfoFacilityName,
+        // API expects postalCode without any spaces in it
+        postalCode: this.dataService.facInfoPostalCode.replace(' ', '')
+      }, this.dataService.applicationUUID)
+        .subscribe((res: ValidationResponse) => {
+          console.log('validateFacility response', res);
+
+          if (res.returnCode === ReturnCodes.SUCCESS){
+            this.handleAPIValidation(true);
+            this.navigate('register-facility/review');
+          } else if (res.returnCode === ReturnCodes.WARNING || res.returnCode === ReturnCodes.FAILURE){
+            // we treat near match or exact match the same
+            this.handleAPIValidation(false);
+            this.navigate('register-facility/review');
+          }
+
+          // TODO: Handle failure case, e.g. no backend, failed request, etc.
+
+        });
     }
   }
   physicalAddress: any = null;
@@ -199,5 +223,19 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
     this.dataService.facInfoMailAddress = address.addressLine1;
     this.dataService.facInfoMailCity = address.city;
     this.mailingAddress = address;
+  }
+
+
+  handleAPIValidation(isValid: boolean) {
+    this.loading = false;
+    this.cdr.detectChanges();
+    this.dataService.apiDuplicateWarning = !isValid;
+    if (isValid){
+      this.pageCheckService.setPageComplete();
+    }
+    else {
+      this.pageCheckService.setPageIncomplete();
+    }
+
   }
 }
