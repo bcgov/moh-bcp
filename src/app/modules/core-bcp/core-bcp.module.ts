@@ -5,12 +5,14 @@ import { PractitionerNumberComponent } from './practitioner-number/practitioner-
 import { FormsModule } from '@angular/forms';
 import { ValidatePractitionerNumberDirective } from './practitioner-number/validate-practitioner-number.directive';
 import { ReviewContainerComponent } from './review-container/review-container.component';
-
+import { SignaturePadModule } from 'angular2-signaturepad';
+import { SignatureComponent } from './components/signature/signature.component';
 
 const exportables = [
   PractitionerNumberComponent,
   ValidatePractitionerNumberDirective,
   ReviewContainerComponent,
+  SignatureComponent
 ];
 
 @NgModule({
@@ -18,7 +20,8 @@ const exportables = [
   imports: [
     CommonModule,
     SharedCoreModule,
-    FormsModule
+    FormsModule,
+    SignaturePadModule
   ],
   exports: [
     SharedCoreModule,

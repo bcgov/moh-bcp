@@ -1,0 +1,15 @@
+
+<div class="card" [ngClass]="{'border-danger': showDemoError}">
+
+    <signature-pad [options]="signaturePadOptions"
+                   (onBeginEvent)="drawStart()"
+                   (onEndEvent)="drawComplete()"></signature-pad>
+
+    <div class="card-body">
+        <button class="btn btn-default" (click)='clear()'>Clear Signature</button>
+        <common-error-container [displayError]='showDemoError'>Signature is required</common-error-container>
+    </div>
+    
+</div>
+
+<p (click)='showDemoError = !showDemoError'>(show errors)</p>
