@@ -12,7 +12,7 @@ export class SignatureComponent implements OnInit {
 
   @ViewChild(SignaturePad, {static: true}) signaturePad: SignaturePad;
  
-  private signaturePadOptions: Object = { // passed through to szimek/signature_pad constructor
+  public signaturePadOptions: Object = { // passed through to szimek/signature_pad constructor
     'minWidth': 5,
     // 'maxWidth': 200,
     'canvasWidth': 500,
