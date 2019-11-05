@@ -42,13 +42,6 @@ export class ReviewFacilityComponent implements OnInit {
         { label: 'Effective date', value: dateString }
       ],
     ];
-
-    if (this.dataService.facInfoIsSameMailingAddress) {
-      items[0].push(
-        { label: 'Mailing Address', value: 'same as Facility address' }
-      );
-    }
-
     this.review.sectionItems = items;
   }
 
