@@ -30,11 +30,19 @@
       <div class="row col-md-12 ml-0 pl-0 align-items-left">
         I understand that MSP is a public system based on trust, but also that my claims are subject to audit and financial recovery for claims contrary to the Medicare Protection Act (the “Act”). I undertake to not submit false or misleading claims information, and acknowledge that doing so is an offence under the Act and may be an offence under the Criminal Code of Canada. Further, I agree that I will meet the requirements of the Act and related Payment Schedule regarding claims for payment, including that prior to submitting a claim, I must create: (a) an adequate medical record, if I am a medical practitioner; or (b) an adequate clinical record, if I am a health care practitioner.
       </div>
-      <common-checkbox 
-                        (dataChange)="toggleValidation($event)"
-                         class='mt-4 pl-4'
-                         label='I confirm that I have read and agree to the above statement'>
-      </common-checkbox>
+      <div class="row col-md-12 ml-0 pl-0 align-items-left">
+        <common-checkbox 
+                          (dataChange)="toggleValidation($event)"
+                          class='mt-4 pl-4'
+                          label='I confirm that I have read and agree to the above statement'>
+        </common-checkbox>
+      </div>
+      <div class="row col-md-12 ml-4 pl-0 align-items-left">
+        <common-error-container [displayError]="displayError">
+          You <b>MUST</b> agree to the statement to continue with your submission
+        </common-error-container>
+      </div>
+  
 
       
     </div>
@@ -43,5 +51,5 @@
 
 </common-page-framework>
 
-<common-form-action-bar [defaultColor]='false' widthOption='extra-width-mobile-only'  [canContinue]='canContinue()' (btnClick)="continue()"  submitLabel="Submit" >
+<common-form-action-bar [defaultColor]='false' widthOption='extra-width-mobile-only'  (btnClick)="continue()"  submitLabel="Submit" >
 </common-form-action-bar>
