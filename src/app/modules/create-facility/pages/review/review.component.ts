@@ -12,6 +12,7 @@ import { CreateFacilityDataService } from '../../services/create-facility-data.s
 })
 export class ReviewComponent extends CreateFacilityForm implements OnInit {
 
+  displayError : boolean = false;
   confirmed : boolean = false;
   showDuplicateWarning = true;
   constructor(protected router: Router, 
@@ -30,12 +31,14 @@ export class ReviewComponent extends CreateFacilityForm implements OnInit {
     console.log(data as boolean);
     
     this.confirmed = data as boolean;
+    this.displayError = !this.confirmed;
   }
 
   canContinue(){
     // TODO : Write! By Defualt this just returns this.form.valid, But if we do
     // not want to setup a form, we must modify this to just ensure the
     // "Authorization of Submission" checkbox is written.
+    this.displayError = !this.confirmed;
     return this.confirmed;
   }
 
