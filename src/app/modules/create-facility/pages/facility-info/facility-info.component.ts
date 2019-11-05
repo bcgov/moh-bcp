@@ -84,7 +84,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
       value => this.updateMailingValidity(value)
     );
 
-    this.showMailingAddress = !this.dataService.facInfoIsSameMailingAddress;
+    this.showMailingAddress = this.dataService.facInfoIsSameMailingAddress? !this.dataService.facInfoIsSameMailingAddress: false;
     this.physicalAddress = { addressLine1: this.dataService.facInfoPhysicalAddress };
     this.mailingAddress = { addressLine1: this.dataService.facInfoMailAddress };
     return form;
@@ -111,7 +111,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
   //   return commonDateFormat;
   // }
 
-  updateMailingValidity(isRequired: boolean): void {
+  updateMailingValidity(isRequired: boolean | null): void {
     const address = this.facilityForm.get('mailingAddress');
     const city = this.facilityForm.get('mailingCity');
     const province = this.facilityForm.get('mailingProvince');
@@ -137,13 +137,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
     province.updateValueAndValidity();
     postalCode.updateValueAndValidity();
 
-    this.showMailingAddress = !isRequired;
-    this.facilityForm.patchValue({
-      mailingAddress: null,
-      mailingCity: null,
-      mailingPostalCode: null
-    });
-
+    this.showMailingAddress = !(isRequired ===null) ? !isRequired : false;
     this.facilityForm.updateValueAndValidity({ onlySelf: false });
   }
 
