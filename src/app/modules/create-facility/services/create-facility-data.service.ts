@@ -37,7 +37,7 @@ export class CreateFacilityDataService {
   // facInfoPhoneExtension: string;
   facInfoFaxNumber: string;
   facInfoEffectiveDate: Date;
-  facInfoIsSameMailingAddress: boolean;
+  facInfoIsSameMailingAddress: boolean | null = null;
   facInfoIsQualifyForBCP: boolean;
 
   // mailing info
