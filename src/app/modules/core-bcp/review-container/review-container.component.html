@@ -1,7 +1,7 @@
 <!--#region Section  -->
 
 <!--Section - Heading-->
-<div class="row col-md-12 ml-0 pl-0 pr-0 align-items-center border-bottom" *ngIf="!hideReviewSection">
+<div class="row col-md-12 ml-0 pl-0 pr-0 mb-0 pb-0 align-items-center border-bottom" *ngIf="!hideReviewSection">
   <div class="col-md-6 pl-0">
     <h2>{{header}}</h2>
   </div>
@@ -13,9 +13,9 @@
 </div>
 
 <!--Section - Content -->
-<div *ngIf="!hideReviewSection && !showCheckBoxList" class='col-md-12 ml-2 pl-2 mt-2' style="background-color:#F2F2F2">
-  <div *ngFor="let form of sectionItems; let formIndex=index" class="pb-2">
-    <div class="row" *ngFor="let item of form; let i=index">
+<div *ngIf="!hideReviewSection && !showCheckBoxList" class='col-md-12 ml-0 pl-4 pt-4 pb-4 mt-0' style="background-color:#F2F2F2">
+  <div *ngFor="let form of sectionItems; let formIndex=index" >
+    <div class="row mb-2" *ngFor="let item of form; let i=index">
       <div class='col-md-4'>
         {{item.label}}:
       </div>
@@ -29,8 +29,8 @@
 <!--#endregion -->
 
 <!--Section - Content -->
-<div *ngIf="!hideReviewSection && showCheckBoxList" class='col-md-12 ml-2 pl-2 mt-2' style="background-color:#F2F2F2">
-  <div *ngFor="let form of sectionItems; let formIndex=index" class="pb-2">
+<div *ngIf="!hideReviewSection && showCheckBoxList" class='col-md-12 ml-0 pl-2 mt-0' style="background-color:#F2F2F2">
+  <div *ngFor="let form of sectionItems; let formIndex=index" class="pl-2 pb-2">
     <div class="row" *ngFor="let item of form; let i=index">
       <div class='col-md-12'>
        <span [innerHTML]="item.label"> </span>
