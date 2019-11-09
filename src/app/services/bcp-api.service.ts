@@ -5,6 +5,7 @@ import { AbstractHttpService } from 'moh-common-lib';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { SplunkLoggerService } from './splunk-logger.service';
 import { ValidatePractitionerRequest, PractitionerValidationPartial, FacilityValidationPartial } from '../modules/create-facility/models/create-facility-api-model';
+import { CreateFacilityDataService } from '../modules/create-facility/services/create-facility-data.service';
 
 // TODO: Type Requests
 // TODO: Type responses
@@ -20,7 +21,9 @@ export class BCPApiService extends AbstractHttpService {
   public baseUrl = environment.api.base;
 
   // Do NOT add data-services here.  It should be passed data as parameters, and not require services.  
-  constructor(protected http: HttpClient, private logger: SplunkLoggerService) {
+  constructor(protected http: HttpClient, private logger: SplunkLoggerService,
+    private dataService: CreateFacilityDataService
+    ) {
     super(http);
   }
 
@@ -51,6 +54,8 @@ export class BCPApiService extends AbstractHttpService {
       requestUUID: this.generateUUID(),
       applicationUUID
     };
+    this.dataService.jsonApplicantValidation.request = payload;
+
     const url = `${this.baseUrl}/validatePractitioner`;
 
 
@@ -65,12 +70,29 @@ export class BCPApiService extends AbstractHttpService {
       requestUUID: this.generateUUID(),
       applicationUUID
     }
+
+    this.dataService.jsonFacilityValidation.request = payload;
+
     const url = `${this.baseUrl}/validateFacility`;
 
 
     return this.post(url, payload);
   }
 
+  
+  createFacility(jsonPayLoad: any) {
+    const requestUUID = this.generateUUID()
+    const payload = {
+      createFacilitySubmission: jsonPayLoad,
+      requestUUID: requestUUID,
+      applicationUUID: requestUUID
+    }
+    
+    this.dataService.jsonCreateFacility.request = payload;    
+
+    const url = `${this.baseUrl}/createFacility`;
+    return this.post(url, payload);
+  }
 
 }
 
