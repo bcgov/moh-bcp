@@ -62,7 +62,8 @@ export class ApplicantInfoComponent extends CreateFacilityForm implements OnInit
         number: this.dataService.pracNumber,
       }, this.dataService.applicationUUID).subscribe((res: ValidationResponse) => {
         console.log('apiService response', res);
-
+        this.dataService.jsonApplicantValidation.response = res;
+        
         if (res.returnCode === ReturnCodes.SUCCESS){
           this.handleValidation(true);
           this.navigate(CREATE_FACILITY_PAGES.FACILITY_INFO.fullPath);
