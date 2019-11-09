@@ -10,6 +10,11 @@ import { UUID } from 'angular2-uuid';
 })
 export class CreateFacilityDataService {
 
+  // Response from Middleware for final request
+  requestResponse: any = null;
+
+  //#region Create Facility
+
   applicationUUID: string = UUID.UUID();
 
   // Home
@@ -23,18 +28,13 @@ export class CreateFacilityDataService {
   facAdminPhoneNumber: string;
   facAdminExtension: string;
 
-  //#region Facility Info
-
   // Following code is as per directions by Adam ref:bcp-68 18/10/2019 10:40AM
-
   // facility info
   facInfoFacilityName: string;
   facInfoPhysicalAddress: string;
   facInfoCity: string;
   facInfoProvince: string;
   facInfoPostalCode: string;
-  // facInfoPhoneNumber: string;
-  // facInfoPhoneExtension: string;
   facInfoFaxNumber: string;
   facInfoEffectiveDate: Date;
   facInfoIsSameMailingAddress: boolean | null = null;
@@ -46,12 +46,16 @@ export class CreateFacilityDataService {
   facInfoMailProvince: string;
   facInfoMailPostalCode: string
 
-  // review page
-  // TODO: We must set this when user clicks the Declaration checkbox on the Review page.
+  // review page  
   dateOfDeclaration: Date;
 
   // API responses
   apiDuplicateWarning: boolean = false;
+
+  dateOfAcceptance: Date = null;
+  dateOfSubmission: Date = null
+
+  validateFacilityMessage: string;
 
   //#endregion
 
@@ -62,41 +66,116 @@ export class CreateFacilityDataService {
 
     if (environment.useDummyData) {
       // Name and PracNumber will pass backend validation in TEST
-      this.facAdminFirstName = 'Harry';
-      this.facAdminLastName = 'Potter';
-      this.pracNumber = '22278';
-      this.emailAddress = 'a@example.com';
-      this.confirmEmailAddress = 'a@example.com';
-      this.facAdminPhoneNumber = '(250) 555-5555';
+      this.facAdminFirstName = 'TEST';
+      this.facAdminLastName = 'PRIVATEPRACTICE';
+      this.pracNumber = '89902';
+      this.emailAddress = 'test@privatepractice.com';
+      this.confirmEmailAddress = 'test@privatepractice.com';
+      this.facAdminPhoneNumber = '(222) 222-2221';
 
       // Following code is as per directions by Adam ref:bcp-68 18/10/2019 10:40AM
       // facility      
-      this.facInfoFacilityName = 'HOGWARTS CLINIC';
+      this.facInfoFacilityName = 'TODS OF FACILITY';
       this.facInfoPhysicalAddress = '12345 Douglas Street';
       this.facInfoCity = 'Victoria';
-      this.facInfoProvince = 'British Columbia';
-      this.facInfoPostalCode = 'V8Z 3E6';
+      this.facInfoProvince = 'BC';
+      this.facInfoPostalCode = 'V8R3C2';
       // this.facInfoPhoneNumber = '(250) 555-1234';
       // this.facInfoPhoneExtension = '444'
-      this.facInfoFaxNumber = '(250) 555-6666';
-      this.facInfoEffectiveDate = new Date(2020, 4, 15);
+      this.facInfoFaxNumber = '(222) 222-2222';
+      this.facInfoEffectiveDate = new Date(2020, 0, 10);
 
       this.facInfoIsSameMailingAddress = true;
       this.facInfoIsQualifyForBCP = true;
       // mailing info
       this.facInfoMailAddress = '12345 Carson Street';
       this.facInfoMailCity = 'Victoria';
-      this.facInfoMailProvince = 'British Columbia';
+      this.facInfoMailProvince = 'BC'; // 'British Columbia';
       this.facInfoMailPostalCode = 'V8J 8J8'
-      
+
       // Review page
       this.dateOfDeclaration = new Date();
     }
   }
 
   // Potentially abstract formatting into separate service if it grows beyond this method
-  formatDate(inputDate): string {
-    return format(inputDate, 'MMMM dd, yyyy');
+  formatDate(inputDate): string {    
+    return inputDate? format(inputDate, 'MMMM dd, yyyy'): null;
   }
+
+  //#region JSON Payload
+
+  getJSONPayload() {
+
+    const jsonPayLoad: any =
+    {
+      "informationConsentAgreement": this.informationCollectionNoticeConsent,
+      "administrator": {
+        "firstName": this.facAdminFirstName,
+        "lastName": this.facAdminLastName,
+        "pracNumber": this.pracNumber,
+        "email": this.emailAddress,
+        "phoneNumber": this.facAdminPhoneNumber.replace(' ', '').replace('(', '').replace(')', '').replace('-','')
+      },
+      "facility": {
+        "name": this.facInfoFacilityName,
+        "address": this.facInfoPhysicalAddress,
+        "city": this.facInfoCity,
+        "postalCode": this.facInfoPostalCode.replace(' ', ''),
+        "faxNumber": this.facInfoFaxNumber.replace(' ', '').replace('(', '').replace(')', '').replace('-',''),
+        "province": this.facInfoProvince,
+        "effectiveDate": this.getJSONDate(this.facInfoEffectiveDate), //this.facInfoEffectiveDate, // "2020-11-10",
+        "qualifiesForBCP": this.facInfoIsQualifyForBCP,
+        // todo: mailing address
+        // "mailingAddress": {
+        //   "address": this.facInfoMailAddress? this.facInfoMailAddress : this.facInfoPhysicalAddress,
+        //   "city": this.facInfoMailCity ? this.facInfoMailCity :this.facInfoCity ,
+        //   "province": this.facInfoMailProvince? this.facInfoMailProvince: this.facInfoProvince,
+        //   "postalCode": this.facInfoMailPostalCode? this.facInfoMailPostalCode.replace(' ','') : this.facInfoPostalCode.replace(' ',''),
+        // }
+      },
+      "declarationText": "I understand that MSP is a public system based on trust, but also that my claims are subject to audit and financial recovery for claims contrary to the Medicare Protection Act (the “Act”). I undertake to not submit false or misleading claims information, and acknowledge that doing so is an offence under the Act and may be an offence under the Criminal Code of Canada. Further, I agree that I will meet the requirements of the Act and related Payment Schedule regarding claims for payment, including that prior to submitting a claim, I must create: (a) an adequate medical record, if I am a medical practitioner; or (b) an adequate clinical record, if I am a health care practitioner.",
+      "dateOfAcceptance": this.dateOfAcceptance ? this.getJSONDate(this.dateOfAcceptance) : "",
+      // TODO : that should be from validation - for happy path it fixed to EXACT Match temporariliy
+      "validateFacilityMessage": this.validateFacilityMessage
+    }
+
+    return jsonPayLoad;
+  }
+
+  // date format required as per Adam`s designed JSON Schema
+  getJSONDate(date: Date) {
+    const month = (date.getMonth()+1)<10? `0${(date.getMonth()+1)}`:`${(date.getMonth()+1)}`;
+    const day = (date.getDate()+1)<10? `0${(date.getDate()+1)}`:`${(date.getDate()+1)}`;
+    const val = `${date.getFullYear()}-${month}-${day}`;
+    return val;
+  }
+
+  json: any;
+
+
+
+  //#endregion
+
+  //#region Validation
+
+  // Response from Middleware for final request
+
+  jsonApplicantValidation = {
+    request: null,
+    response: null
+  };
+
+  jsonFacilityValidation = {
+    request: null,
+    response: null
+  };
+
+  jsonCreateFacility = {
+    request: null,
+    response: null
+  };
+
+  //#region Validation
 
 }
