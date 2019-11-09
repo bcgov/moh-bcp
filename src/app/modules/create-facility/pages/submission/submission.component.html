@@ -19,10 +19,10 @@
 
       <div class="row">
         <div class="col-6">Date of Submission</div>
-        <div class="col-6 font-weight-bold">January 1, 2020</div>
+        <div class="col-6 font-weight-bold">{{dataService.formatDate(dataService.dateOfSubmission)}}</div>
 
         <div class="col-6">Reference Number</div>
-        <div class="col-6 font-weight-bold">N/A</div>
+        <div class="col-6 font-weight-bold">{{dataService.jsonCreateFacility.response?.referenceNumber}}</div>
 
         <div class="col-6">Facility Number</div>
         <div class="col-6 font-weight-bold {{isUnderReview ? 'text-primary' : ''}} "> {{facilityNumberText}} </div>
@@ -145,5 +145,13 @@
     </div>
 
   </common-confirm-template>
+
+  
+  <div class="border border-warning p-4">
+    <h3>Technical Information - temporary available to reference</h3>
+      <h3>1:Applicant-Validation:</h3><pre><code>{{ dataService.jsonApplicantValidation | json }}</code></pre><hr/>
+      <h3>2:Facility-Validation:</h3><pre><code>{{ dataService.jsonFacilityValidation | json }}</code></pre><hr/>
+      <h3>3:Facility-Creation:</h3><pre><code>{{ dataService.jsonCreateFacility | json }}</code></pre><hr/>
+    </div>
 
 </common-page-framework>
