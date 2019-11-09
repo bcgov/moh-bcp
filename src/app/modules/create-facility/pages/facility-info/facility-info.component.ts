@@ -94,6 +94,16 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
       }
     );
 
+    form.get('mailingAddress').valueChanges.subscribe(
+      value => {
+        console.log('%c ADDRESS changed: %o', 'color:red', value) 
+        if(!value) {
+          this.mailingAddress = null;
+          this.dataService.facInfoMailAddress = null;
+        }
+      }
+    );
+
     this.showMailingAddress = this.dataService.facInfoIsSameMailingAddress? !this.dataService.facInfoIsSameMailingAddress: false;
     this.physicalAddress = { addressLine1: this.dataService.facInfoPhysicalAddress };
     this.mailingAddress = { addressLine1: this.dataService.facInfoMailAddress };
