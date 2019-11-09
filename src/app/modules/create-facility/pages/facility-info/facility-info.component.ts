@@ -84,6 +84,16 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
       value => this.updateMailingValidity(value)
     );
 
+    form.get('address').valueChanges.subscribe(
+      value => {
+        console.log('%c ADDRESS changed: %o', 'color:red', value) 
+        if(!value) {
+          this.physicalAddress = null;
+          this.dataService.facInfoPhysicalAddress = null;
+        }
+      }
+    );
+
     this.showMailingAddress = this.dataService.facInfoIsSameMailingAddress? !this.dataService.facInfoIsSameMailingAddress: false;
     this.physicalAddress = { addressLine1: this.dataService.facInfoPhysicalAddress };
     this.mailingAddress = { addressLine1: this.dataService.facInfoMailAddress };
@@ -179,7 +189,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
         postalCode: this.dataService.facInfoPostalCode.replace(' ', '')
       }, this.dataService.applicationUUID)
         .subscribe((res: ValidationResponse) => {
-          console.log('validateFacility response', res);
+          this.dataService.jsonFacilityValidation.response = res;
 
           if (res.returnCode === ReturnCodes.SUCCESS){
             this.handleAPIValidation(true);
@@ -187,7 +197,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
             // we treat near match or exact match the same
             this.handleAPIValidation(false);
           }
-          
+          this.dataService.validateFacilityMessage = res.message;
           this.navigate('register-facility/review');
           // TODO: Handle failure case, e.g. no backend, failed request, etc.
         });
@@ -208,7 +218,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
 
   mailingAddress:any = null;
   mailingAddressSelected(address: Address){    
-    console.log(address);
+    //console.log('%c ADDRESS: %o', 'color:red', address);
     this.facilityForm.patchValue({
       mailingAddress: address.addressLine1,
       mailingCity: address.city
