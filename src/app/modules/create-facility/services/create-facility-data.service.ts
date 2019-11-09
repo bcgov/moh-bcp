@@ -133,6 +133,10 @@ export class CreateFacilityDataService {
       "validateFacilityMessage": this.validateFacilityMessage
     }
 
+    if (this.facAdminExtension && this.facAdminExtension.length>0) {
+      jsonPayLoad.administrator.extension = this.facAdminExtension;
+    }
+
     if (this.facInfoIsSameMailingAddress === false) {
       jsonPayLoad.facility.mailingAddress = {
         "address": this.facInfoMailAddress ? this.facInfoMailAddress : this.facInfoPhysicalAddress,
