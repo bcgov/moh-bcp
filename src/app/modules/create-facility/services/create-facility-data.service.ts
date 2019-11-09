@@ -99,8 +99,8 @@ export class CreateFacilityDataService {
   }
 
   // Potentially abstract formatting into separate service if it grows beyond this method
-  formatDate(inputDate): string {    
-    return inputDate? format(inputDate, 'MMMM dd, yyyy'): null;
+  formatDate(inputDate): string {
+    return inputDate ? format(inputDate, 'MMMM dd, yyyy') : null;
   }
 
   //#region JSON Payload
@@ -115,24 +115,17 @@ export class CreateFacilityDataService {
         "lastName": this.facAdminLastName,
         "pracNumber": this.pracNumber,
         "email": this.emailAddress,
-        "phoneNumber": this.facAdminPhoneNumber.replace(' ', '').replace('(', '').replace(')', '').replace('-','')
+        "phoneNumber": this.facAdminPhoneNumber.replace(' ', '').replace('(', '').replace(')', '').replace('-', '')
       },
       "facility": {
         "name": this.facInfoFacilityName,
         "address": this.facInfoPhysicalAddress,
         "city": this.facInfoCity,
         "postalCode": this.facInfoPostalCode.replace(' ', ''),
-        "faxNumber": this.facInfoFaxNumber.replace(' ', '').replace('(', '').replace(')', '').replace('-',''),
+        "faxNumber": this.facInfoFaxNumber.replace(' ', '').replace('(', '').replace(')', '').replace('-', ''),
         "province": this.facInfoProvince,
         "effectiveDate": this.getJSONDate(this.facInfoEffectiveDate), //this.facInfoEffectiveDate, // "2020-11-10",
         "qualifiesForBCP": this.facInfoIsQualifyForBCP,
-        // todo: mailing address
-        // "mailingAddress": {
-        //   "address": this.facInfoMailAddress? this.facInfoMailAddress : this.facInfoPhysicalAddress,
-        //   "city": this.facInfoMailCity ? this.facInfoMailCity :this.facInfoCity ,
-        //   "province": this.facInfoMailProvince? this.facInfoMailProvince: this.facInfoProvince,
-        //   "postalCode": this.facInfoMailPostalCode? this.facInfoMailPostalCode.replace(' ','') : this.facInfoPostalCode.replace(' ',''),
-        // }
       },
       "declarationText": "I understand that MSP is a public system based on trust, but also that my claims are subject to audit and financial recovery for claims contrary to the Medicare Protection Act (the “Act”). I undertake to not submit false or misleading claims information, and acknowledge that doing so is an offence under the Act and may be an offence under the Criminal Code of Canada. Further, I agree that I will meet the requirements of the Act and related Payment Schedule regarding claims for payment, including that prior to submitting a claim, I must create: (a) an adequate medical record, if I am a medical practitioner; or (b) an adequate clinical record, if I am a health care practitioner.",
       "dateOfAcceptance": this.dateOfAcceptance ? this.getJSONDate(this.dateOfAcceptance) : "",
@@ -140,13 +133,22 @@ export class CreateFacilityDataService {
       "validateFacilityMessage": this.validateFacilityMessage
     }
 
+    if (this.facInfoIsSameMailingAddress === false) {
+      jsonPayLoad.facility.mailingAddress = {
+        "address": this.facInfoMailAddress ? this.facInfoMailAddress : this.facInfoPhysicalAddress,
+        "city": this.facInfoMailCity ? this.facInfoMailCity : this.facInfoCity,
+        "province": this.facInfoMailProvince ? this.facInfoMailProvince : this.facInfoProvince,
+        "postalCode": this.facInfoMailPostalCode ? this.facInfoMailPostalCode.replace(' ', '') : this.facInfoPostalCode.replace(' ', ''),
+      };
+    }
+
     return jsonPayLoad;
   }
 
   // date format required as per Adam`s designed JSON Schema
   getJSONDate(date: Date) {
-    const month = (date.getMonth()+1)<10? `0${(date.getMonth()+1)}`:`${(date.getMonth()+1)}`;
-    const day = (date.getDate()+1)<10? `0${(date.getDate()+1)}`:`${(date.getDate()+1)}`;
+    const month = (date.getMonth() + 1) < 10 ? `0${(date.getMonth() + 1)}` : `${(date.getMonth() + 1)}`;
+    const day = (date.getDate() + 1) < 10 ? `0${(date.getDate() + 1)}` : `${(date.getDate() + 1)}`;
     const val = `${date.getFullYear()}-${month}-${day}`;
     return val;
   }
