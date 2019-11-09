@@ -27,7 +27,6 @@ export class ReviewComponent extends CreateFacilityForm implements OnInit {
   ngOnInit() {
     this.pageCheckService.setPageIncomplete();
     this.showDuplicateWarning = this.dataService.apiDuplicateWarning;
-    this.toggleValidation(true);  
   }
 
 
