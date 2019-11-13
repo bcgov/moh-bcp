@@ -54,4 +54,4 @@ if (environment.bypassGuards) {
     });
 }
 
-export const createFacilityPageRoutes = defaultPages
+export const createFacilityPageRoutes = defaultPages;
