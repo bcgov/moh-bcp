@@ -12,12 +12,12 @@ export class SplunkLoggerService extends CommonLogger {
   constructor(protected http: HttpClient) {
     super(http);
     this.setURL(environment.api.splunk);
-    this.programName = 'bcp'
+    this.programName = 'bcp';
     // generate session per refresh as no state persists.
     this.applicationId = UUID.UUID();
    }
 
-   public log(message: BCPLogMessage){
+   public log(message: BCPLogMessage) {
     return this._log( message );
    }
 }
