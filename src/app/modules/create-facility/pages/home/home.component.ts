@@ -27,7 +27,7 @@ export class HomeComponent extends CreateFacilityForm implements OnInit, AfterVi
     super(router);
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.checkPageService.setPageIncomplete();
   }
 
@@ -55,12 +55,12 @@ export class HomeComponent extends CreateFacilityForm implements OnInit, AfterVi
   hasCaptchaToken(): boolean {
     return this.ApiService.hasToken;
   }
-  
+
   handleToken(token: string): void {
     this.ApiService.setToken(token);
   }
 
-  debug(a){
+  debug(a) {
     console.log('debug', a);
   }
 }

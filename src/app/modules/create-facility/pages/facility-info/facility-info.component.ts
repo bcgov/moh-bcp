@@ -17,18 +17,6 @@ import { ValidationResponse, ReturnCodes } from '../../models/create-facility-ap
 })
 export class FacilityInfoComponent extends CreateFacilityForm implements OnInit {
 
-  showMailingAddress: boolean = false;
-  facilityForm: FormGroup;
-  mailingForm: FormGroup;
-
-  validFormControl: (fg: FormGroup, name: string) => boolean;
-  json: (formValues: any) => any;
-  radioBtnLabels = [ // TODO: Can be removed - radio button default to these labels
-    { label: 'No', value: false },
-    { label: 'Yes', value: true },
-  ];
-
-
   constructor(
     protected router: Router,
     private pageCheckService: CheckCompleteBaseService,
@@ -40,6 +28,16 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
     super(router);
     this.validFormControl = validMultiFormControl;
   }
+
+  showMailingAddress: boolean = false;
+  facilityForm: FormGroup;
+  mailingForm: FormGroup;
+
+  validFormControl: (fg: FormGroup, name: string) => boolean;
+  json: (formValues: any) => any;
+  physicalAddress: any = null;
+
+  mailingAddress: any = null;
 
   ngOnInit() {
     this.facilityForm = this.initialize();
@@ -86,8 +84,8 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
 
     form.get('address').valueChanges.subscribe(
       value => {
-        console.log('%c ADDRESS changed: %o', 'color:red', value)
-        if(!value) {
+        console.log('%c ADDRESS changed: %o', 'color:red', value);
+        if (!value) {
           this.physicalAddress = null;
           this.dataService.facInfoPhysicalAddress = null;
         }
@@ -96,15 +94,15 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
 
     form.get('mailingAddress').valueChanges.subscribe(
       value => {
-        console.log('%c ADDRESS changed: %o', 'color:red', value)
-        if(!value) {
+        console.log('%c ADDRESS changed: %o', 'color:red', value);
+        if (!value) {
           this.mailingAddress = null;
           this.dataService.facInfoMailAddress = null;
         }
       }
     );
 
-    this.showMailingAddress = this.dataService.facInfoIsSameMailingAddress? !this.dataService.facInfoIsSameMailingAddress: false;
+    this.showMailingAddress = this.dataService.facInfoIsSameMailingAddress ? !this.dataService.facInfoIsSameMailingAddress : false;
     this.physicalAddress = { addressLine1: this.dataService.facInfoPhysicalAddress };
     this.mailingAddress = { addressLine1: this.dataService.facInfoMailAddress };
     return form;
@@ -157,7 +155,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
     province.updateValueAndValidity();
     postalCode.updateValueAndValidity();
 
-    this.showMailingAddress = !(isRequired ===null) ? !isRequired : false;
+    this.showMailingAddress = !(isRequired === null) ? !isRequired : false;
     this.facilityForm.updateValueAndValidity({ onlySelf: false });
   }
 
@@ -166,7 +164,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
 
     const fd = this.facilityForm.value;
     this.dataService.facInfoFacilityName = fd.facilityName;
-    this.dataService.facInfoPhysicalAddress = this.physicalAddress? this.physicalAddress.addressLine1: fd.address;
+    this.dataService.facInfoPhysicalAddress = this.physicalAddress ? this.physicalAddress.addressLine1 : fd.address;
     this.dataService.facInfoCity = fd.city;
     this.dataService.facInfoProvince = fd.province;
     this.dataService.facInfoPostalCode = fd.postalCode;
@@ -175,7 +173,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
     this.dataService.facInfoIsQualifyForBCP = fd.isQualifyForBCP;
     this.dataService.facInfoEffectiveDate = fd.effectiveDate;
 
-    this.dataService.facInfoMailAddress = this.mailingAddress? this.mailingAddress.addressLine1: fd.mailingAddress;
+    this.dataService.facInfoMailAddress = this.mailingAddress ? this.mailingAddress.addressLine1 : fd.mailingAddress;
     this.dataService.facInfoMailCity = fd.mailingCity;
     this.dataService.facInfoMailProvince = fd.mailingProvince;
     this.dataService.facInfoMailPostalCode = fd.mailingPostalCode;
@@ -201,9 +199,9 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
         .subscribe((res: ValidationResponse) => {
           this.dataService.jsonFacilityValidation.response = res;
 
-          if (res.returnCode === ReturnCodes.SUCCESS){
+          if (res.returnCode === ReturnCodes.SUCCESS) {
             this.handleAPIValidation(true);
-          } else if (res.returnCode === ReturnCodes.WARNING || res.returnCode === ReturnCodes.FAILURE){
+          } else if (res.returnCode === ReturnCodes.WARNING || res.returnCode === ReturnCodes.FAILURE) {
             // we treat near match or exact match the same
             this.handleAPIValidation(false);
           }
@@ -213,8 +211,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
         });
     }
   }
-  physicalAddress: any = null;
-  physicalAddressSelected(address: Address){
+  physicalAddressSelected(address: Address) {
     console.log(address);
     this.facilityForm.patchValue({
       address: address.addressLine1,
@@ -225,10 +222,8 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
     this.dataService.facInfoCity = address.city;
     this.physicalAddress = address;
   }
-
-  mailingAddress:any = null;
-  mailingAddressSelected(address: Address){
-    //console.log('%c ADDRESS: %o', 'color:red', address);
+  mailingAddressSelected(address: Address) {
+    // console.log('%c ADDRESS: %o', 'color:red', address);
     this.facilityForm.patchValue({
       mailingAddress: address.addressLine1,
       mailingCity: address.city
@@ -243,10 +238,9 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
     this.loading = false;
     this.cdr.detectChanges();
     this.dataService.apiDuplicateWarning = !isValid;
-    if (isValid){
+    if (isValid) {
       this.pageCheckService.setPageComplete();
-    }
-    else {
+    } else {
       this.pageCheckService.setPageIncomplete();
     }
 
