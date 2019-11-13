@@ -18,9 +18,9 @@ export class ReviewComponent extends CreateFacilityForm implements OnInit {
   confirmed: boolean = false;
   showDuplicateWarning = true;
   constructor(protected router: Router,
-    private pageCheckService: CheckCompleteBaseService,
-    private dataService: CreateFacilityDataService,
-    private api: BCPApiService) {
+              private pageCheckService: CheckCompleteBaseService,
+              private dataService: CreateFacilityDataService,
+              private api: BCPApiService) {
     super(router);
    }
 
@@ -32,13 +32,15 @@ export class ReviewComponent extends CreateFacilityForm implements OnInit {
 
   toggleValidation(data) {
     console.log(data as boolean);
-    
+
     this.confirmed = data as boolean;
     this.displayError = !this.confirmed;
-    this.confirmed && this.confirmed==true? this.dataService.dateOfAcceptance = (new Date()) : null;
+
+    // TODO:  Inquire with Adam - what is this statment doing?? Are we to be setting the date of
+    this.confirmed && this.confirmed === true ? this.dataService.dateOfAcceptance = (new Date()) : null;
   }
 
-  canContinue(){
+  canContinue() {
     // TODO : Write! By Defualt this just returns this.form.valid, But if we do
     // not want to setup a form, we must modify this to just ensure the
     // "Authorization of Submission" checkbox is written.
@@ -47,7 +49,7 @@ export class ReviewComponent extends CreateFacilityForm implements OnInit {
   }
 
   continue() {
-    
+
     if (this.canContinue()) {
       this.submit();
       // this.pageCheckService.setPageComplete();
@@ -57,18 +59,18 @@ export class ReviewComponent extends CreateFacilityForm implements OnInit {
   }
 
   submit() {
-    this.loading = true
+    this.loading = true;
     this.dataService.dateOfSubmission = (new Date());
     const jsonPayLoad = this.dataService.getJSONPayload();
     this.api.createFacility(jsonPayLoad)
       .subscribe((res: ValidationResponse) => {
         this.dataService.jsonCreateFacility.response = res;
-        
+
         if (res.returnCode === ReturnCodes.SUCCESS) {
 
           // this.pageCheckService.setPageComplete();
           // // this.navigate(CREATE_FACILITY_PAGES.SUBMISSION.fullPath);
-          
+
         } else if (res.returnCode === ReturnCodes.WARNING || res.returnCode === ReturnCodes.FAILURE) {
           // we treat near match or exact match the same
           // this.handleAPIValidation(false);

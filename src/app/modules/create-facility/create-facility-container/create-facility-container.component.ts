@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Container, CheckCompleteBaseService } from 'moh-common-lib';
 import { createFacilityPageRoutes } from '../create-facility-page-routing';
 import { environment } from 'src/environments/environment';
@@ -16,15 +16,15 @@ import { SplunkLoggerService } from 'src/app/services/splunk-logger.service';
   templateUrl: './create-facility-container.component.html',
   styleUrls: ['./create-facility-container.component.scss']
 })
-export class CreateFacilityContainerComponent extends Container implements OnInit {
+export class CreateFacilityContainerComponent extends Container implements OnInit, OnDestroy {
 
   hideStepper = false;
   routerSubscription: Subscription;
 
   constructor(private checkPageService: CheckCompleteBaseService,
-    private headerService: HeaderService,
-    private router: Router,
-    private splunkLogger: SplunkLoggerService) {
+              private headerService: HeaderService,
+              private router: Router,
+              private splunkLogger: SplunkLoggerService) {
     super();
 
     // 'Submission' should not be in the stepper.
@@ -44,7 +44,7 @@ export class CreateFacilityContainerComponent extends Container implements OnIni
     });
     this.checkPageService.bypassGuards = environment.bypassGuards;
     this.checkPageService.startUrl = `/${CREATE_FACILITY}/home`;
-    this.headerService.setTitle('Application for Medical Services Plan Facility Number')
+    this.headerService.setTitle('Application for Medical Services Plan Facility Number');
   }
 
   ngOnInit() {
@@ -59,27 +59,27 @@ export class CreateFacilityContainerComponent extends Container implements OnIni
       this.splunkLogger.log({
         event: 'navigation',
         url: this.router.url
-      })
+      });
     });
 
     this.setStepperVisibility();
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.routerSubscription.unsubscribe();
   }
 
-  setStepperVisibility(){
+  setStepperVisibility() {
     this.hideStepper = this.router.url.includes(CREATE_FACILITY_PAGES.SUBMISSION.path);
     // console.log('url', this.router.url, 'hideStepper', this.hideStepper);
     console.log({
       url: this.router.url,
       check: `${this.router.url}.includes('${CREATE_FACILITY_PAGES.SUBMISSION.path}')`,
       val: this.router.url.includes(CREATE_FACILITY_PAGES.SUBMISSION.path),
-    })
+    });
   }
 
-  logPage(){
+  logPage() {
     // this.splunkLogger.log()
   }
 
