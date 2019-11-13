@@ -43,6 +43,7 @@ let defaultPages: Routes = [
   },
 ];
 
+// TODO: Not required, needs to be setup correctly.
 // Ths bit of code is super helpful for local dev.  It lets us refresh on
 // route-guarded pages directly (i.e. don't have to navigate back to page).
 if (environment.bypassGuards) {

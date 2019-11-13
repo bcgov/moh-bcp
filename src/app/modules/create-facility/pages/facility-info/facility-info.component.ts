@@ -23,7 +23,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
 
   validFormControl: (fg: FormGroup, name: string) => boolean;
   json: (formValues: any) => any;
-  radioBtnLabels = [
+  radioBtnLabels = [ // TODO: Can be removed - radio button default to these labels
     { label: 'No', value: false },
     { label: 'Yes', value: true },
   ];
@@ -86,7 +86,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
 
     form.get('address').valueChanges.subscribe(
       value => {
-        console.log('%c ADDRESS changed: %o', 'color:red', value) 
+        console.log('%c ADDRESS changed: %o', 'color:red', value)
         if(!value) {
           this.physicalAddress = null;
           this.dataService.facInfoPhysicalAddress = null;
@@ -96,7 +96,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
 
     form.get('mailingAddress').valueChanges.subscribe(
       value => {
-        console.log('%c ADDRESS changed: %o', 'color:red', value) 
+        console.log('%c ADDRESS changed: %o', 'color:red', value)
         if(!value) {
           this.mailingAddress = null;
           this.dataService.facInfoMailAddress = null;
@@ -214,7 +214,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
     }
   }
   physicalAddress: any = null;
-  physicalAddressSelected(address: Address){    
+  physicalAddressSelected(address: Address){
     console.log(address);
     this.facilityForm.patchValue({
       address: address.addressLine1,
@@ -227,7 +227,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
   }
 
   mailingAddress:any = null;
-  mailingAddressSelected(address: Address){    
+  mailingAddressSelected(address: Address){
     //console.log('%c ADDRESS: %o', 'color:red', address);
     this.facilityForm.patchValue({
       mailingAddress: address.addressLine1,
