@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ROUTES_FACILITY } from '../../../models/routes.constants';
 import { ReviewContainerComponent } from 'src/app/modules/core-bcp/review-container/review-container.component';
 import { CreateFacilityDataService } from '../../../services/create-facility-data.service';
+import { getProvinceDescription } from 'moh-common-lib';
 
 @Component({
   selector: 'bcp-review-facility-mailing-info',
@@ -48,7 +49,7 @@ export class ReviewFacilityMailingInfoComponent implements OnInit {
             },
             {
               label: 'Mailing province', value:
-                this.dataService.facInfoMailProvince
+                getProvinceDescription(this.dataService.facInfoMailProvince)
             },
             {
               label: 'Mailing postal code', value:

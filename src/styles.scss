@@ -67,6 +67,23 @@ label:not(.no-bold) {
     font-weight: bold;
 }
 
+// Required for the ng-select module that are within province/country
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+.ng-select.ng-select-disabled {
+  &>.ng-select-container {
+    background-color: $gray-200;
+  }
+
+  .ng-arrow-wrapper {
+    display: none;
+  }
+}
+
+.ng-select {
+  min-width: 10rem;
+}
+
 .modal-header-primary {
     background: $color-primary;
 

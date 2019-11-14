@@ -1,8 +1,11 @@
 import { Validators, FormGroup } from '@angular/forms';
+import { commonValidatePostalcode, commonValidateCity } from 'moh-common-lib';
 
 
 export function validMultiFormControl(fg: FormGroup, name: string) {
-    if (fg.controls[name].pristine && fg.controls[name].untouched ) return false;
+    if (fg.controls[name].pristine && fg.controls[name].untouched ) {
+      return false;
+    }
     return fg.controls[name].invalid;
 }
 
@@ -36,11 +39,13 @@ export const cCreateFacilityValidators = {
             Validators.required
         ],
         city: [
-            Validators.required
+            Validators.required,
+            commonValidateCity
         ],
-        province: [Validators.required],
+        // province: [Validators.required], - read only
         postalCode: [
-            Validators.required
+            Validators.required,
+            commonValidatePostalcode( true, true )
         ],
     }
 };
