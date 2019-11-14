@@ -1,12 +1,10 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CreateFacilityForm } from '../../models/create-facility-form';
 import { Router } from '@angular/router';
-import { FormGroup, FormArray, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { cCreateFacilityValidators, validMultiFormControl } from '../../models/validators';
-import { BRITISH_COLUMBIA, CheckCompleteBaseService, Address } from 'moh-common-lib';
+import { CheckCompleteBaseService, Address, getProvinceDescription } from 'moh-common-lib';
 import { CreateFacilityDataService } from '../../services/create-facility-data.service';
-import { environment } from 'src/environments/environment';
-import { RandomObjects } from '../../models/i-dataform';
 import { BCPApiService } from '../../../../services/bcp-api.service';
 import { ValidationResponse, ReturnCodes } from '../../models/create-facility-api-model';
 
@@ -52,14 +50,14 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
       ],
       address: [this.dataService.facInfoPhysicalAddress, cCreateFacilityValidators.address.streetAddress],
       city: [this.dataService.facInfoCity, cCreateFacilityValidators.address.city],
-      province: [BRITISH_COLUMBIA],
+     //  province: [{value: this.dataService.facInfoProvince, disabled: true}],
       postalCode: [this.dataService.facInfoPostalCode, cCreateFacilityValidators.address.postalCode],
 
       // Phone number and extensions has been removed
       // phoneNumber: [this.dataService.facInfoPhoneNumber, cCreateFacilityValidators.facilityDetail.phoneNumber],
       // phoneExtension: [this.dataService.facInfoPhoneExtension],
 
-      faxNumber: [this.dataService.facInfoFaxNumber, cCreateFacilityValidators.facilityDetail.faxNumber],
+      faxNumber: [this.dataService.facInfoFaxNumber],
       isSameMailingAddress: [this.dataService.facInfoIsSameMailingAddress, cCreateFacilityValidators.facilityDetail.isSameMailingAddress],
       isQualifyForBCP: [this.dataService.facInfoIsQualifyForBCP, cCreateFacilityValidators.facilityDetail.isQualifyForBCP],
 
@@ -73,7 +71,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
 
       mailingAddress: [this.dataService.facInfoMailAddress, cCreateFacilityValidators.address.streetAddress],
       mailingCity: [this.dataService.facInfoMailCity, cCreateFacilityValidators.address.city],
-      mailingProvince: [BRITISH_COLUMBIA],
+     // mailingProvince: [{value: this.dataService.facInfoMailProvince, disabled: true}],
       mailingPostalCode: [this.dataService.facInfoMailPostalCode, cCreateFacilityValidators.address.postalCode],
 
     });
@@ -132,17 +130,17 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
   updateMailingValidity(isRequired: boolean | null): void {
     const address = this.facilityForm.get('mailingAddress');
     const city = this.facilityForm.get('mailingCity');
-    const province = this.facilityForm.get('mailingProvince');
+    // const province = this.facilityForm.get('mailingProvince'); read only field
     const postalCode = this.facilityForm.get('mailingPostalCode');
     if (!isRequired) {
       address.setValidators(Validators.required);
       city.setValidators(Validators.required);
-      province.setValidators(Validators.required);
+      // province.setValidators(Validators.required); read only field
       postalCode.setValidators(Validators.required);
     } else {
       address.clearValidators();
       city.clearValidators();
-      province.clearValidators();
+      // province.clearValidators(); - read only field
       postalCode.clearValidators();
 
       address.patchValue(null);
@@ -152,7 +150,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
 
     address.updateValueAndValidity();
     city.updateValueAndValidity();
-    province.updateValueAndValidity();
+    // province.updateValueAndValidity(); read only field
     postalCode.updateValueAndValidity();
 
     this.showMailingAddress = !(isRequired === null) ? !isRequired : false;
@@ -166,7 +164,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
     this.dataService.facInfoFacilityName = fd.facilityName;
     this.dataService.facInfoPhysicalAddress = this.physicalAddress ? this.physicalAddress.addressLine1 : fd.address;
     this.dataService.facInfoCity = fd.city;
-    this.dataService.facInfoProvince = fd.province;
+    // this.dataService.facInfoProvince = fd.province;
     this.dataService.facInfoPostalCode = fd.postalCode;
     this.dataService.facInfoFaxNumber = fd.faxNumber;
     this.dataService.facInfoIsSameMailingAddress = fd.isSameMailingAddress;
@@ -175,7 +173,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
 
     this.dataService.facInfoMailAddress = this.mailingAddress ? this.mailingAddress.addressLine1 : fd.mailingAddress;
     this.dataService.facInfoMailCity = fd.mailingCity;
-    this.dataService.facInfoMailProvince = fd.mailingProvince;
+    // this.dataService.facInfoMailProvince = fd.mailingProvince;
     this.dataService.facInfoMailPostalCode = fd.mailingPostalCode;
   }
 
@@ -244,5 +242,14 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
       this.pageCheckService.setPageIncomplete();
     }
 
+  }
+
+  // Read-only fields
+  get facInfoProvince() {
+    return getProvinceDescription(this.dataService.facInfoProvince);
+  }
+
+  get facInfoMailProvince() {
+    return getProvinceDescription(this.dataService.facInfoMailProvince);
   }
 }

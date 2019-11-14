@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import format from 'date-fns/format';
 import { UUID } from 'angular2-uuid';
+import { BRITISH_COLUMBIA } from 'moh-common-lib';
 
 
 
@@ -74,7 +75,7 @@ export class CreateFacilityDataService {
   facInfoFacilityName: string;
   facInfoPhysicalAddress: string;
   facInfoCity: string;
-  facInfoProvince: string;
+  facInfoProvince: string = BRITISH_COLUMBIA;
   facInfoPostalCode: string;
   facInfoFaxNumber: string;
   facInfoEffectiveDate: Date;
@@ -84,7 +85,7 @@ export class CreateFacilityDataService {
   // mailing info
   facInfoMailAddress: string;
   facInfoMailCity: string;
-  facInfoMailProvince: string;
+  facInfoMailProvince: string = BRITISH_COLUMBIA;
   facInfoMailPostalCode: string;
 
   // review page
@@ -128,6 +129,20 @@ export class CreateFacilityDataService {
     return inputDate ? format(inputDate, 'MMMM dd, yyyy') : null;
   }
 
+  // strip characters used for displaying
+  private stripPhoneFormatting( str: string ) {
+    if ( str ) {
+      return str.replace(' ', '').replace('(', '').replace(')', '').replace('-', '');
+    }
+    return 'N/A';
+  }
+
+  private stripSpaces( str: string ) {
+    if ( str ) {
+      return str.replace(' ', '');
+    }
+  }
+
   //#region JSON Payload
 
   getJSONPayload() {
@@ -139,14 +154,14 @@ export class CreateFacilityDataService {
         lastName: this.facAdminLastName,
         pracNumber: this.pracNumber,
         email: this.emailAddress,
-        phoneNumber: this.facAdminPhoneNumber.replace(' ', '').replace('(', '').replace(')', '').replace('-', '')
+        phoneNumber: this.stripPhoneFormatting( this.facAdminPhoneNumber )
       },
       facility: {
         name: this.facInfoFacilityName,
         address: this.facInfoPhysicalAddress,
         city: this.facInfoCity,
-        postalCode: this.facInfoPostalCode.replace(' ', ''),
-        faxNumber: this.facInfoFaxNumber.replace(' ', '').replace('(', '').replace(')', '').replace('-', ''),
+        postalCode: this.stripSpaces(this.facInfoPostalCode),
+        faxNumber: this.stripPhoneFormatting( this.facInfoFaxNumber),
         province: this.facInfoProvince,
         effectiveDate: this.getJSONDate(this.facInfoEffectiveDate), // this.facInfoEffectiveDate, // "2020-11-10",
         qualifiesForBCP: this.facInfoIsQualifyForBCP,
@@ -166,7 +181,8 @@ export class CreateFacilityDataService {
         address: this.facInfoMailAddress ? this.facInfoMailAddress : this.facInfoPhysicalAddress,
         city: this.facInfoMailCity ? this.facInfoMailCity : this.facInfoCity,
         province: this.facInfoMailProvince ? this.facInfoMailProvince : this.facInfoProvince,
-        postalCode: this.facInfoMailPostalCode ? this.facInfoMailPostalCode.replace(' ', '') : this.facInfoPostalCode.replace(' ', ''),
+        postalCode: this.facInfoMailPostalCode ? this.stripSpaces(this.facInfoMailPostalCode) :
+         this.stripSpaces(this.facInfoPostalCode),
       };
     }
 
