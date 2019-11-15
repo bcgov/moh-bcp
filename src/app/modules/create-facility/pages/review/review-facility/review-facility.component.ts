@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ReviewContainerComponent } from 'src/app/modules/core-bcp/review-container/review-container.component';
+import { ReviewContainerComponent } from 'src/app/modules/core-bcp/components/review-container/review-container.component';
 import { ROUTES_FACILITY } from '../../../models/routes.constants';
 import { CreateFacilityDataService } from '../../../services/create-facility-data.service';
 import { getProvinceDescription } from 'moh-common-lib';
+import { setNotApplicable } from '../../../../core-bcp/models/helperFunc';
 
 @Component({
   selector: 'bcp-review-facility',
@@ -41,7 +42,7 @@ export class ReviewFacilityComponent implements OnInit {
         { label: 'Province', value: getProvinceDescription(this.dataService.facInfoProvince) },
         { label: 'Postal code', value: this.dataService.facInfoPostalCode },
         // { label: 'Phone number', value: this.dataService.facInfoPhoneNumber },
-        { label: 'Fax number', value: this.dataService.facInfoFaxNumber },
+        { label: 'Fax number', value: setNotApplicable( this.dataService.facInfoFaxNumber ) },
         { label: 'Effective date', value: dateString }
       ],
     ];

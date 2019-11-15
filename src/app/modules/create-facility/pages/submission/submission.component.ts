@@ -16,7 +16,7 @@ export class SubmissionComponent extends CreateFacilityForm implements OnInit {
     super(router);
   }
 
-  templateStatus: ApiStatusCodes
+  templateStatus: ApiStatusCodes;
 
   /** An application is still a "success" even if it's under review */
   isUnderReview: boolean = false;
@@ -24,17 +24,19 @@ export class SubmissionComponent extends CreateFacilityForm implements OnInit {
   ngOnInit() {
   }
 
-  continue(){
+  continue() {
     console.log('TODO');
   }
 
-  get facilityNumberText(){
-    if (this.isUnderReview) return 'Under Review'
+  get facilityNumberText() {
+    if (this.isUnderReview) {
+      return 'Under Review';
+    }
     // todo - if response, show that.
     return 'N/A';
   }
 
-  print(event: Event){
+  print(event: Event) {
     window.print();
     event.stopPropagation();
     return false;

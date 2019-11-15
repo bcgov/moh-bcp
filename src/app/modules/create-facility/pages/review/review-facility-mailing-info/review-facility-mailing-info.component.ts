@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ROUTES_FACILITY } from '../../../models/routes.constants';
-import { ReviewContainerComponent } from 'src/app/modules/core-bcp/review-container/review-container.component';
+import { ReviewContainerComponent } from 'src/app/modules/core-bcp/components/review-container/review-container.component';
 import { CreateFacilityDataService } from '../../../services/create-facility-data.service';
 import { getProvinceDescription } from 'moh-common-lib';
 
