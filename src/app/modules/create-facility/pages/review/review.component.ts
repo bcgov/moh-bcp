@@ -88,4 +88,8 @@ export class ReviewComponent extends CreateFacilityForm implements OnInit {
     this.loading = false;
   }
 
+  log(x){
+    console.log('reviewLog', x);
+  }
+
 }

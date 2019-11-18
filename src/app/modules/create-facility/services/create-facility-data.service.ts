@@ -57,6 +57,9 @@ export class CreateFacilityDataService {
 
   validateFacilityMessage: string;
 
+  // This should be the actual image, as a dataURL.  We store it as a string / base64.
+  signature: any;
+
   //#endregion
 
   constructor() {

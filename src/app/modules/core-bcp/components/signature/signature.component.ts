@@ -1,19 +1,30 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation, Output } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation, Output, forwardRef } from '@angular/core';
 import { SignaturePad } from 'angular2-signaturepad/signature-pad';
 import { ModalDirective } from 'ngx-bootstrap';
-
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'bcp-signature',
   templateUrl: './signature.component.html',
   styleUrls: ['./signature.component.scss'],
   encapsulation: ViewEncapsulation.None,
+  providers: [
+    { 
+      provide: NG_VALUE_ACCESSOR,
+      multi: true,
+      useExisting: forwardRef(() => SignatureComponent),
+    }
+  ]
 })
 export class SignatureComponent implements OnInit {
   showDemoError = false;
 
   @ViewChild(SignaturePad, {static: true}) signaturePad: SignaturePad;
   @ViewChild('signatureModal', {static: true}) public modal: ModalDirective;
+
+   // Required for implementing ControlValueAccessor
+   _onChange = (_: any) => {};
+   _onTouched = (_?: any) => {};
 
   public image;
  
@@ -53,10 +64,29 @@ export class SignatureComponent implements OnInit {
   acceptModal(){
     this.image = this.signaturePad.toDataURL();
     this.modal.hide();
+    this._onChange(this.image);
     // TODO - Output the image (or use controlvalueaccessor?)
   }
 
   cancelModal(){
     this.modal.hide();
+  }
+
+
+  // Register change function
+  registerOnChange( fn: any ): void {
+    this._onChange = fn;
+  }
+
+  // Register touched function
+  registerOnTouched( fn: any ): void {
+    this._onTouched = fn;
+  }
+
+  writeValue(val: any): void {
+    if (val){
+      this.image = val;
+      this.signaturePad.fromDataURL(val);
+    }
   }
 }
