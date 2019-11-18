@@ -1,62 +1,55 @@
-<!-- 
-<div class="card signature-display" [ngClass]="{'border-danger': showDemoError}">
+<div class="card signature-display"
+     [ngClass]="{'border-danger': showDemoError}">
 
-        <img [src]='image' *ngIf='image'>
-        
-        <div class="card-body">
-        <button class="btn btn-default mx-2" (click)='open()'>Add Signature</button>
-        <button class="btn btn-default mx-2" (click)='clear()'>Clear Signature</button>
+    <img [src]='image'
+         *ngIf='image'>
+
+    <div class="card-body">
+        <button class="btn btn-primary mx-2"
+                (click)='open()'>Sign</button>
+        <!-- <button class="btn btn-default mx-2" (click)='clear()'>Clear Signature</button> -->
         <common-error-container [displayError]='showDemoError'>Signature is required</common-error-container>
     </div>
-    
-</div> 
-<p (click)='showDemoError = !showDemoError'>(show errors)</p> -->
 
-
-<!-- <p class="h2">Signature here</p> -->
-<div><img [src]='image' *ngIf='image'></div>
-
-<!-- <div class="dotted-line"></div> -->
-<button class="btn btn-default mx-2" (click)='open()'>Sign</button>
+</div>
+<p (click)='showDemoError = !showDemoError'>(show errors)</p>
 
 
 
 
-
-
-<div bsModal #signatureModal="bs-modal"
+<div bsModal
+     #signatureModal="bs-modal"
      class="modal"
      role="dialog"
      aria-labelledby="samplesModalTitle"
      aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header modal-header-primary">
-        <h2 class="modal-title pull-left" id="samplesModalTitle">Signature</h2>
-      </div>
+    <div class="modal-dialog modal-lg"
+         role="document">
+        <div class="modal-content">
+            <div class="modal-header modal-header-primary">
+                <h2 class="modal-title pull-left"
+                    id="samplesModalTitle">Signature</h2>
+            </div>
 
-      <div class="modal-body">
-        <signature-pad [options]="signaturePadOptions"
-            (onBeginEvent)="drawStart()"
-            (onEndEvent)="drawComplete()"></signature-pad>
-        <div class="dotted-line"></div>
-      </div>
+            <div class="modal-body">
+                <signature-pad [options]="signaturePadOptions"></signature-pad>
+                <div class="dotted-line"></div>
+            </div>
 
-      <div class="modal-footer">
-        <button class="btn btn-primary pull-right"
-                type="submit"
-                (click)="acceptModal()">Accept</button>
-        
-        <button class="btn btn-default pull-right"
-                type="submit"
-                (click)="cancelModal()">Cancel</button>
+            <div class="modal-footer d-block">
+                <button class="btn btn-primary pull-right"
+                        type="submit"
+                        (click)="acceptModal()">Accept</button>
 
-        <button class="btn btn-default pull-left"
-                type="submit"
-                (click)="clear()">Clear</button>
-      </div>
+                <button class="btn btn-default pull-right"
+                        type="submit"
+                        (click)="cancelModal()">Cancel</button>
 
+                <button class="btn btn-default"
+                        type="submit"
+                        (click)="clear()">Clear</button>
+            </div>
+
+        </div>
     </div>
-  </div>
 </div>
-
