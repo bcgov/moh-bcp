@@ -7,6 +7,7 @@ import { ValidatePractitionerNumberDirective } from './practitioner-number/valid
 import { ReviewContainerComponent } from './review-container/review-container.component';
 import { SignaturePadModule } from 'angular2-signaturepad';
 import { SignatureComponent } from './components/signature/signature.component';
+import { ModalModule } from 'ngx-bootstrap';
 
 const exportables = [
   PractitionerNumberComponent,
@@ -21,7 +22,8 @@ const exportables = [
     CommonModule,
     SharedCoreModule,
     FormsModule,
-    SignaturePadModule
+    SignaturePadModule,
+    ModalModule.forRoot(),
   ],
   exports: [
     SharedCoreModule,

@@ -1,19 +1,24 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation, Output } from '@angular/core';
 import { SignaturePad } from 'angular2-signaturepad/signature-pad';
+import { ModalDirective } from 'ngx-bootstrap';
 
 
 @Component({
   selector: 'bcp-signature',
   templateUrl: './signature.component.html',
-  styleUrls: ['./signature.component.scss']
+  styleUrls: ['./signature.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class SignatureComponent implements OnInit {
   showDemoError = false;
 
   @ViewChild(SignaturePad, {static: true}) signaturePad: SignaturePad;
+  @ViewChild('signatureModal', {static: true}) public modal: ModalDirective;
+
+  public image;
  
   public signaturePadOptions: Object = { // passed through to szimek/signature_pad constructor
-    'minWidth': 5,
+    // 'minWidth': 5,
     // 'maxWidth': 200,
     'canvasWidth': 500,
     'canvasHeight': 200
@@ -34,7 +39,6 @@ export class SignatureComponent implements OnInit {
   }
  
   drawComplete() {
-    // TODO - Need to do an @Output() here.
     // will be notified of szimek/signature_pad's onEnd event
     // console.log(this.signaturePad.toDataURL());
   }
@@ -46,5 +50,23 @@ export class SignatureComponent implements OnInit {
 
   clear() {
     this.signaturePad.clear();
+    // this.image = null;
+  }
+
+  open(){
+    this.modal.show();
+    this.signaturePad.clear();
+    if (this.image) {
+      this.signaturePad.fromDataURL(this.image);
+    }
+  }
+  acceptModal(){
+    this.image = this.signaturePad.toDataURL();
+    this.modal.hide();
+    // TODO - Output the image (or use controlvalueaccessor?)
+  }
+
+  cancelModal(){
+    this.modal.hide();
   }
 }
