@@ -3,10 +3,11 @@ import { CreateFacilityForm } from '../../models/create-facility-form';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { cCreateFacilityValidators, validMultiFormControl } from '../../models/validators';
-import { CheckCompleteBaseService, Address, getProvinceDescription } from 'moh-common-lib';
+import { CheckCompleteBaseService, Address, getProvinceDescription, ErrorMessage } from 'moh-common-lib';
 import { CreateFacilityDataService } from '../../services/create-facility-data.service';
 import { BCPApiService } from '../../../../services/bcp-api.service';
 import { ValidationResponse, ReturnCodes } from '../../models/create-facility-api-model';
+import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
 
 @Component({
   selector: 'app-facility-info',
@@ -14,6 +15,19 @@ import { ValidationResponse, ReturnCodes } from '../../models/create-facility-ap
   styleUrls: ['./facility-info.component.scss']
 })
 export class FacilityInfoComponent extends CreateFacilityForm implements OnInit {
+
+  // Error Messages
+  qualifyBcpError: ErrorMessage = {
+    required: 'Please indicate if your business qualifies for the Business Cost Premium'
+  };
+
+  sameMailAddrError: ErrorMessage = {
+    required: 'Please indicate if the mailing address is the same as the physical address'
+  };
+
+
+  // Facility Effective Date can be on or after January 1, 1966
+  effectStartRange: Date = new Date( 1966, 0, 1 );
 
   constructor(
     protected router: Router,
@@ -32,9 +46,8 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
   mailingForm: FormGroup;
 
   validFormControl: (fg: FormGroup, name: string) => boolean;
-  json: (formValues: any) => any;
-  physicalAddress: any = null;
 
+  physicalAddress: any = null;
   mailingAddress: any = null;
 
   ngOnInit() {
@@ -44,36 +57,23 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
 
   private initialize() {
     const form = this.fb.group({
-      facilityName: [
-        this.dataService.facInfoFacilityName,
-        cCreateFacilityValidators.facilityDetail.facilityName,
-      ],
+      facilityName: [this.dataService.facInfoFacilityName, cCreateFacilityValidators.facilityDetail.facilityName],
+
+      // Facility address
       address: [this.dataService.facInfoPhysicalAddress, cCreateFacilityValidators.address.streetAddress],
       city: [this.dataService.facInfoCity, cCreateFacilityValidators.address.city],
-     //  province: [{value: this.dataService.facInfoProvince, disabled: true}],
       postalCode: [this.dataService.facInfoPostalCode, cCreateFacilityValidators.address.postalCode],
 
-      // Phone number and extensions has been removed
-      // phoneNumber: [this.dataService.facInfoPhoneNumber, cCreateFacilityValidators.facilityDetail.phoneNumber],
-      // phoneExtension: [this.dataService.facInfoPhoneExtension],
-
-      faxNumber: [this.dataService.facInfoFaxNumber],
+      faxNumber: [this.dataService.facInfoFaxNumber], // optional field
       isSameMailingAddress: [this.dataService.facInfoIsSameMailingAddress, cCreateFacilityValidators.facilityDetail.isSameMailingAddress],
       isQualifyForBCP: [this.dataService.facInfoIsQualifyForBCP, cCreateFacilityValidators.facilityDetail.isQualifyForBCP],
 
-      // effectiveDate: [this.getEffectiveDateInCommonDateFormat, cCreateFacilityValidators.facilityDetail.effectiveDate],
-      // common-date gives error if we provide date in simpledate format for initialization, changinging to null
-      // effectiveDate: [null, cCreateFacilityValidators.facilityDetail.effectiveDate],
       effectiveDate: [this.dataService.facInfoEffectiveDate, cCreateFacilityValidators.facilityDetail.effectiveDate],
-      // effectiveDate: [new Date()],
 
-
-
+      // Mailing address - populated only if mailing address is different from physical
       mailingAddress: [this.dataService.facInfoMailAddress, cCreateFacilityValidators.address.streetAddress],
       mailingCity: [this.dataService.facInfoMailCity, cCreateFacilityValidators.address.city],
-     // mailingProvince: [{value: this.dataService.facInfoMailProvince, disabled: true}],
       mailingPostalCode: [this.dataService.facInfoMailPostalCode, cCreateFacilityValidators.address.postalCode],
-
     });
 
     form.get('isSameMailingAddress').valueChanges.subscribe(
@@ -107,40 +107,17 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
   }
 
   //#region Mailing Address update data service effective date
-  // following code intentionally kept simple for maintenance
-
-  // public get getEffectiveDateInCommonDateFormat(): SimpleDate {
-
-  //   // issue with common-date. It does not set the common-date at all, in simpledate or initialization
-  //   // ref: bcp-16 #comment-24615
-  //   // https://github.com/bcgov/moh-common-styles/blob/master/projects/common/lib/models/simple-date.interface.ts
-  //   // https://github.com/bcgov/moh-common-styles/blob/master/projects/common/lib/components/date/date.component.ts
-
-  //   // tbr
-  //   const date = this.dataService.facInfoEffectiveDate? this.dataService.facInfoEffectiveDate : new Date();
-
-  //   const commonDateFormat = {
-  //     day: date.getDay(),
-  //     month: date.getMonth(),
-  //     year: date.getFullYear(),
-  //   }
-  //   return commonDateFormat;
-  // }
-
   updateMailingValidity(isRequired: boolean | null): void {
     const address = this.facilityForm.get('mailingAddress');
     const city = this.facilityForm.get('mailingCity');
-    // const province = this.facilityForm.get('mailingProvince'); read only field
     const postalCode = this.facilityForm.get('mailingPostalCode');
     if (!isRequired) {
       address.setValidators(Validators.required);
       city.setValidators(Validators.required);
-      // province.setValidators(Validators.required); read only field
       postalCode.setValidators(Validators.required);
     } else {
       address.clearValidators();
       city.clearValidators();
-      // province.clearValidators(); - read only field
       postalCode.clearValidators();
 
       address.patchValue(null);
@@ -150,7 +127,6 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
 
     address.updateValueAndValidity();
     city.updateValueAndValidity();
-    // province.updateValueAndValidity(); read only field
     postalCode.updateValueAndValidity();
 
     this.showMailingAddress = !(isRequired === null) ? !isRequired : false;
@@ -164,7 +140,6 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
     this.dataService.facInfoFacilityName = fd.facilityName;
     this.dataService.facInfoPhysicalAddress = this.physicalAddress ? this.physicalAddress.addressLine1 : fd.address;
     this.dataService.facInfoCity = fd.city;
-    // this.dataService.facInfoProvince = fd.province;
     this.dataService.facInfoPostalCode = fd.postalCode;
     this.dataService.facInfoFaxNumber = fd.faxNumber;
     this.dataService.facInfoIsSameMailingAddress = fd.isSameMailingAddress;
@@ -173,7 +148,6 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
 
     this.dataService.facInfoMailAddress = this.mailingAddress ? this.mailingAddress.addressLine1 : fd.mailingAddress;
     this.dataService.facInfoMailCity = fd.mailingCity;
-    // this.dataService.facInfoMailProvince = fd.mailingProvince;
     this.dataService.facInfoMailPostalCode = fd.mailingPostalCode;
   }
 
@@ -183,7 +157,8 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
     this.updateDataService();
 
 
-    // todo: fix common-components issues
+    // todo: fix common-components issues - Not issues as the abstract form is using Template Forms not Reactive
+    // note in common-library that this need to be addressed.
     this.facilityForm.markAllAsTouched();
     // this.markAllInputsTouched();
     if (this.facilityForm.valid) {
@@ -204,7 +179,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
             this.handleAPIValidation(false);
           }
           this.dataService.validateFacilityMessage = res.message;
-          this.navigate('register-facility/review');
+          this.navigate(CREATE_FACILITY_PAGES.REVIEW.fullPath);
           // TODO: Handle failure case, e.g. no backend, failed request, etc.
         });
     }

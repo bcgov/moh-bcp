@@ -21,4 +21,4 @@ export const CREATE_FACILITY_PAGES = {
         path: 'submission',
         fullPath: `${CREATE_FACILITY}/submission`
     },
-}
+};
