@@ -63,25 +63,10 @@
         </div>
 
         <div class="form-group">
-
-          <!--
-            issue with common-date. It does not set the common-date at all, in simpledate or initialization
-            ref: bcp-16 #comment-24615
-            https://github.com/bcgov/moh-common-styles/blob/master/projects/common/lib/components/date/date.component.ts
-            https://github.com/bcgov/moh-common-styles/blob/master/projects/common/lib/models/simple-date.interface.ts
-          -->
-
           <common-date name='effectiveDate'
                        label="Effective Date"
                        formControlName='effectiveDate'
-                       [restrictDate]="'future'"></common-date>
-
-          <!-- <common-date name='effectiveDate'
-                       label="Effective Date"
-                       [restrictDate]="'past'"
-                       formControlName='effectiveDate'
-                       [required]="true"
-                       ></common-date> -->
+                       [dateRangeStart]="effectStartRange"></common-date>
         </div>
 
         <div class="form-group">
@@ -89,7 +74,7 @@
                         name="isSameMailingAddress"
                         label="Is the mailing address the same as the Physical Facility Address?"
                         display="table-row-group"
-                        [errorMessage]="{required: 'Please indicate if the mailing address is the same as the physical address'}">
+                        [errorMessage]="sameMailAddrError">
           </common-radio>
         </div>
 
@@ -155,7 +140,7 @@
                         name="isQualifyForBCP"
                         label="Does your business qualify for the Business Cost Premium?"
                         display="table-row-group"
-                        [errorMessage]="{required: 'Please indicate if your business qualifies for the Business Cost Premium'}">
+                        [errorMessage]="qualifyBcpError">
           </common-radio>
         </div>
       </form>
