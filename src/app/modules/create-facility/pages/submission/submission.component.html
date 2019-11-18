@@ -18,14 +18,14 @@
       </div>
 
       <div class="row">
-        <div class="col-6">Date of Submission</div>
-        <div class="col-6 font-weight-bold">{{dataService.formatDate(dataService.dateOfSubmission)}}</div>
+        <div class='col-6 review-key'>Date of Submission</div>
+        <div class="col-6 review-value">{{dataService.formatDate(dataService.dateOfSubmission)}}</div>
 
-        <div class="col-6">Reference Number</div>
-        <div class="col-6 font-weight-bold">{{dataService.jsonCreateFacility.response?.referenceNumber}}</div>
+        <div class='col-6 review-key'>Reference Number</div>
+        <div class="col-6 review-value">{{dataService.jsonCreateFacility.response?.referenceNumber}}</div>
 
-        <div class="col-6">Facility Number</div>
-        <div class="col-6 font-weight-bold {{isUnderReview ? 'text-primary' : ''}} "> {{facilityNumberText}} </div>
+        <div class='col-6 review-key'>Facility Number</div>
+        <div class="col-6 review-value {{isUnderReview ? 'text-primary' : ''}} "> {{facilityNumberText}} </div>
       </div>
     </div>
 
@@ -53,91 +53,94 @@
         </common-page-section>
       </div>
 
+      <div class="print-only my-4">
+        <p>This application form is for new applicants who do not have a valid MSP facility number.</p>
+        <p>All information on this form must be authorized by the responsible principle practitioner of the facility (the Applicant). If there are any changes to this submission after it has been received, a new form must be completed and authorized by the Applicant.</p>
+      </div>
+
 
       <!-- Prinable section should have same contents as Review page
       TODO: Explore refactoring so we can actually just put Review component here and style it in print-css.  -->
       <div class="print-only">
 
-        <h3 class="border-bottom">Facility Administrator Info</h3>
-        <div class="row">
-          <div class="col-6">Facility administrator first name</div>
-          <div class="col-6 font-weight-bold">{{dataService.facAdminFirstName}}</div>
+        <h2 class="border-bottom">Facility Administrator Info</h2>
+        <div class="row print-review-row">
+          <div class='col-6 review-key'>Facility administrator first name</div>
+          <div class="col-6 review-value">{{dataService.facAdminFirstName}}</div>
 
-          <div class="col-6">Facility administrator last name</div>
-          <div class="col-6 font-weight-bold">{{dataService.facAdminLastName}}</div>
+          <div class='col-6 review-key'>Facility administrator last name</div>
+          <div class="col-6 review-value">{{dataService.facAdminLastName}}</div>
 
-          <div class="col-6">Medical Services plan practitioner number</div>
-          <div class="col-6 font-weight-bold">{{dataService.pracNumber}}</div>
+          <div class='col-6 review-key'>Medical Services plan practitioner number</div>
+          <div class="col-6 review-value">{{dataService.pracNumber}}</div>
 
-          <div class="col-6">Email address</div>
-          <div class="col-6 font-weight-bold">{{dataService.emailAddress}}</div>
+          <div class='col-6 review-key'>Email address</div>
+          <div class="col-6 review-value">{{dataService.emailAddress}}</div>
 
-          <div class="col-6">Phone number</div>
-          <div class="col-6 font-weight-bold">
+          <div class='col-6 review-key'>Phone number</div>
+          <div class="col-6 review-value">
             {{dataService.facAdminPhoneNumber}}
             {{dataService.facAdminExtension ? 'Ext. ' + dataService.facAdminExtension : ''}}
           </div>
         </div>
 
-        <h3 class="border-bottom">Facility Information</h3>
-        <div class="row">
-          <div class='col-6'>Facility name</div>
-          <div class='col-6 font-weight-bold'>{{dataService.facInfoFacilityName}}</div>
+        <h2 class="border-bottom">Facility Information</h2>
+        <div class="row print-review-row">
+          <div class='col-6 review-key'>Facility name</div>
+          <div class='col-6 review-value'>{{dataService.facInfoFacilityName}}</div>
 
-          <div class='col-6'>Physical address</div>
-          <div class='col-6 font-weight-bold'>{{dataService.facInfoPhysicalAddress}}</div>
+          <div class='col-6 review-key'>Physical address</div>
+          <div class='col-6 review-value'>{{dataService.facInfoPhysicalAddress}}</div>
 
-          <div class='col-6'>City</div>
-          <div class='col-6 font-weight-bold'>{{dataService.facInfoCity}}</div>
+          <div class='col-6 review-key'>City</div>
+          <div class='col-6 review-value'>{{dataService.facInfoCity}}</div>
 
-          <div class='col-6'>Province</div>
-          <div class='col-6 font-weight-bold'>{{dataService.facInfoProvince}}</div>
+          <div class='col-6 review-key'>Province</div>
+          <div class='col-6 review-value'>{{dataService.facInfoProvince}}</div>
 
-          <div class='col-6'>Postal code</div>
-          <div class='col-6 font-weight-bold'>{{dataService.facInfoPostalCode}}</div>
+          <div class='col-6 review-key'>Postal code</div>
+          <div class='col-6 review-value'>{{dataService.facInfoPostalCode}}</div>
 
-          <div class='col-6'>Fax number</div>
-          <div class='col-6 font-weight-bold'>{{dataService.facInfoFaxNumber}}</div>
+          <div class='col-6 review-key'>Fax number</div>
+          <div class='col-6 review-value'>{{dataService.facInfoFaxNumber}}</div>
 
-          <div class='col-6'>Effective date</div>
-          <div class='col-6 font-weight-bold'>{{dataService.formatDate(dataService.facInfoEffectiveDate)}}</div>
+          <div class='col-6 review-key'>Effective date</div>
+          <div class='col-6 review-value'>{{dataService.formatDate(dataService.facInfoEffectiveDate)}}</div>
         </div>
 
         <ng-container *ngIf="!dataService.facInfoIsSameMailingAddress">
           <h2 class="border-bottom">Facility Mailing Address</h2>
-          <div class="row">
-            <div class="col-6">Mailing Address</div>
-            <div class="col-6 font-weight-bold">{{dataService.facInfoMailAddress}}</div>
+          <div class="row print-review-row">
+            <div class='col-6 review-key'>Mailing Address</div>
+            <div class="col-6 review-value">{{dataService.facInfoMailAddress}}</div>
   
-            <div class="col-6">Mailing city</div>
-            <div class="col-6 font-weight-bold">{{dataService.facInfoMailCity}}</div>
+            <div class='col-6 review-key'>Mailing city</div>
+            <div class="col-6 review-value">{{dataService.facInfoMailCity}}</div>
   
-            <div class="col-6">Mailing Province</div>
-            <div class="col-6 font-weight-bold">{{dataService.facInfoMailProvince}}</div>
+            <div class='col-6 review-key'>Mailing Province</div>
+            <div class="col-6 review-value">{{dataService.facInfoMailProvince}}</div>
   
-            <div class="col-6">Mailing Postal</div>
-            <div class="col-6 font-weight-bold">{{dataService.facInfoMailPostal}}</div>
+            <div class='col-6 review-key'>Mailing Postal</div>
+            <div class="col-6 review-value">{{dataService.facInfoMailPostal}}</div>
           </div>
         </ng-container>
         
 
         <h2 class='border-bottom'>Business Cost Premium</h2>
-        <div class="row">
-          <div class="col-6">Does your business qualify for Business Cost Premium?</div>
-          <div class="col-6 font-weight-bold">{{dataService.facInfoIsQualifyForBCP ? 'Yes' : 'No' }}</div>
+        <div class="row print-review-row">
+          <div class='col-6 review-key'>Does your business qualify for Business Cost Premium?</div>
+          <div class="col-6 review-value">{{dataService.facInfoIsQualifyForBCP ? 'Yes' : 'No' }}</div>
         </div>
 
         <h2 class='border-bottom'>Declaration</h2>
-        <p class="font-italic">I understand that MSP is a public system based on trust, but also that my claims are subject to audit and financial recovery for claims contrary to the Medicare Protection Act (the ÂActÂ). I undertake to not submit false or misleading claims information, and acknowledge that doing so is an offence under the Act and may be an offence under the Criminal Code of Canada. Further, I agree that I will meet the requirements of the Act and related Payment Schedule regarding claims for payment, including that prior to submitting a claim, I must create: (a) an adequate medical record, if I am a medical practitioner; or (b) an adequate clinical record, if I am a health care practitioner.</p>
+        <p class="font-italic">I understand that MSP is a public system based on trust, but also that my claims are subject to audit and financial recovery for claims contrary to the Medicare Protection Act (the Act). I undertake to not submit false or misleading claims information, and acknowledge that doing so is an offence under the Act and may be an offence under the Criminal Code of Canada. Further, I agree that I will meet the requirements of the Act and related Payment Schedule regarding claims for payment, including that prior to submitting a claim, I must create: (a) an adequate medical record, if I am a medical practitioner; or (b) an adequate clinical record, if I am a health care practitioner.</p>
         
-        <common-checkbox [data]='true'
-                         class='pl-4'
-                         label='By checking this box I confirm that I am (or I have the authority) to submit this form as the principle practitioner of the facility (the "Applicant")'>
-        </common-checkbox>
+        <!-- TODO: PUT SIGNATURE HERE -->
+        <h2>signature goes here</h2>
         
-        <div class="row">
-          <div class="col-6">Date of Declaration</div>
-          <div class="col-6 font-weight-bold">{{dataService.formatDate(dataService.dateOfDeclaration)}}</div>
+        <div class="row print-review-row">
+          <div class='col-6 review-key'>Date of Declaration</div>
+          <div class="col-6 review-value">{{dataService.formatDate(dataService.dateOfDeclaration)}}</div>
         </div>
 
       </div>
@@ -147,11 +150,4 @@
   </common-confirm-template>
 
   
-  <div class="border border-warning p-4">
-    <h3>Technical Information - temporary available to reference</h3>
-      <h3>1:Applicant-Validation:</h3><pre><code>{{ dataService.jsonApplicantValidation | json }}</code></pre><hr/>
-      <h3>2:Facility-Validation:</h3><pre><code>{{ dataService.jsonFacilityValidation | json }}</code></pre><hr/>
-      <h3>3:Facility-Creation:</h3><pre><code>{{ dataService.jsonCreateFacility | json }}</code></pre><hr/>
-    </div>
-
 </common-page-framework>
