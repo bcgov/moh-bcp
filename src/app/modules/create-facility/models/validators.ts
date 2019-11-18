@@ -42,10 +42,9 @@ export const cCreateFacilityValidators = {
             Validators.required,
             commonValidateCity
         ],
-        // province: [Validators.required], - read only
         postalCode: [
             Validators.required,
-            commonValidatePostalcode( true, true )
+            commonValidatePostalcode( true, true ) // Must be BC Postal Code.
         ],
     }
 };
