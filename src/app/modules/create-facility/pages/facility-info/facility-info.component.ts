@@ -179,7 +179,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
             this.handleAPIValidation(false);
           }
           this.dataService.validateFacilityMessage = res.message;
-          this.navigate(CREATE_FACILITY_PAGES.REVIEW.fullPath);
+          this.navigate(CREATE_FACILITY_PAGES.REVIEW.fullpath);
           // TODO: Handle failure case, e.g. no backend, failed request, etc.
         });
     }

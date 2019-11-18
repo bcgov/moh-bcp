@@ -12,7 +12,7 @@ export class HeaderService {
 
   constructor() { }
 
-  setTitle(newTitle: string){
+  setTitle(newTitle: string) {
     this._title.next(newTitle);
   }
 }

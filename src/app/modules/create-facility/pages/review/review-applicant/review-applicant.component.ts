@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ReviewContainerComponent } from 'src/app/modules/core-bcp/components/review-container/review-container.component';
-import { ROUTES_FACILITY } from '../../../models/routes.constants';
 import { CreateFacilityDataService } from '../../../services/create-facility-data.service';
 import { setNotApplicable } from '../../../../core-bcp/models/helperFunc';
+import { CREATE_FACILITY_PAGES } from '../../../create-facility-route-constants';
 
 @Component({
   selector: 'bcp-review-applicant',
@@ -27,8 +27,8 @@ export class ReviewApplicantComponent implements OnInit {
       phoneNumberEntry.value = phoneNumberEntry.value.concat( ' Ext. ' + this.dataService.facAdminExtension );
     }
 
-    this.review.redirectPath = ROUTES_FACILITY.APPLICANT.fullpath;
-    this.review.header = ROUTES_FACILITY.APPLICANT.title;
+    this.review.redirectPath = CREATE_FACILITY_PAGES.FACILITY_ADMIN.fullpath;
+    this.review.header = CREATE_FACILITY_PAGES.FACILITY_ADMIN.title;
 
     const items = [
       [

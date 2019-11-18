@@ -20,26 +20,31 @@ let defaultPages: Routes = [
   {
     path: CREATE_FACILITY_PAGES.HOME.path,
     component: HomeComponent,
+    data: {title: CREATE_FACILITY_PAGES.HOME.title}
     // do NOT route-guard here, it's not necessary.
   },
   {
     path: CREATE_FACILITY_PAGES.FACILITY_ADMIN.path,
     component: ApplicantInfoComponent,
+    data: {title: CREATE_FACILITY_PAGES.FACILITY_ADMIN.title},
     canActivate: [RouteGuardService]
   },
   {
     path: CREATE_FACILITY_PAGES.FACILITY_INFO.path,
     component: FacilityInfoComponent,
+    data: {title: CREATE_FACILITY_PAGES.FACILITY_INFO.title},
     canActivate: [RouteGuardService]
   },
   {
     path: CREATE_FACILITY_PAGES.REVIEW.path,
     component: ReviewComponent,
+    data: {title: CREATE_FACILITY_PAGES.REVIEW.title},
     canActivate: [RouteGuardService]
   },
   {
     path: CREATE_FACILITY_PAGES.SUBMISSION.path,
     component: SubmissionComponent,
+    data: {title: CREATE_FACILITY_PAGES.SUBMISSION.title},
     canActivate: [RouteGuardService]
   },
 ];
