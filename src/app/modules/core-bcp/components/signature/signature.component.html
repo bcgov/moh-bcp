@@ -1,5 +1,5 @@
 <div class="card signature-display"
-     [ngClass]="{'border-danger': showDemoError}">
+     [ngClass]="{'border-danger': (controlDir.touched || controlDir.dirty) && controlDir?.errors?.required}">
 
     <img [src]='image'
          *ngIf='image'>
@@ -7,12 +7,12 @@
     <div class="card-body">
         <button class="btn btn-primary mx-2"
                 (click)='open()'>Sign</button>
-        <!-- <button class="btn btn-default mx-2" (click)='clear()'>Clear Signature</button> -->
-        <common-error-container [displayError]='showDemoError'>Signature is required</common-error-container>
+        <common-error-container [displayError]='(controlDir.touched || controlDir.dirty) && controlDir?.errors?.required'>
+            Signature is required
+        </common-error-container>
     </div>
 
 </div>
-<p (click)='showDemoError = !showDemoError'>(show errors)</p>
 
 
 
@@ -32,7 +32,8 @@
             </div>
 
             <div class="modal-body">
-                <signature-pad [options]="signaturePadOptions"></signature-pad>
+                <signature-pad [options]="signaturePadOptions"
+                               (onEndEvent)='drawComplete()'></signature-pad>
                 <div class="dotted-line"></div>
             </div>
 

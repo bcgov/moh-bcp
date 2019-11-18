@@ -1,20 +1,20 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation, Output, forwardRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation, Output, forwardRef, Optional, Self } from '@angular/core';
 import { SignaturePad } from 'angular2-signaturepad/signature-pad';
 import { ModalDirective } from 'ngx-bootstrap';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 
 @Component({
   selector: 'bcp-signature',
   templateUrl: './signature.component.html',
   styleUrls: ['./signature.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  providers: [
-    { 
-      provide: NG_VALUE_ACCESSOR,
-      multi: true,
-      useExisting: forwardRef(() => SignatureComponent),
-    }
-  ]
+  // providers: [
+  //   { 
+  //     provide: NG_VALUE_ACCESSOR,
+  //     multi: true,
+  //     useExisting: forwardRef(() => SignatureComponent),
+  //   }
+  // ]
 })
 export class SignatureComponent implements OnInit {
   showDemoError = false;
@@ -27,16 +27,20 @@ export class SignatureComponent implements OnInit {
    _onTouched = (_?: any) => {};
 
   public image;
+
+  private blankCanvas = true;
  
   public signaturePadOptions: Object = { // passed through to szimek/signature_pad constructor
-    // 'minWidth': 5,
-    // 'maxWidth': 200,
     'canvasWidth': 500,
     'canvasHeight': 200
   };
  
-  constructor() {
-    // no-op
+  constructor( @Optional() @Self() public controlDir: NgControl ) {
+    // super();
+    if ( controlDir ) {
+      console.log('sig controldir', controlDir);
+      controlDir.valueAccessor = this;
+    }
   }
 
   ngOnInit() {
@@ -48,10 +52,15 @@ export class SignatureComponent implements OnInit {
     this.signaturePad.set('minWidth', 5); // set szimek/signature_pad options at runtime
     this.signaturePad.clear(); // invoke functions from szimek/signature_pad API
   }
+
+  drawComplete(){
+    this.blankCanvas = false;
+  }
  
 
   clear() {
     this.signaturePad.clear();
+    this.blankCanvas = true;
   }
 
   open(){
@@ -62,14 +71,20 @@ export class SignatureComponent implements OnInit {
     }
   }
   acceptModal(){
-    this.image = this.signaturePad.toDataURL();
+    if (!this.blankCanvas){
+      this.image = this.signaturePad.toDataURL();
+    } else {
+      this.image = null;
+    }
+
     this.modal.hide();
     this._onChange(this.image);
-    // TODO - Output the image (or use controlvalueaccessor?)
+    this._onTouched();
   }
 
   cancelModal(){
     this.modal.hide();
+    this._onTouched();
   }
 
 
