@@ -36,8 +36,9 @@ export class ReviewComponent extends CreateFacilityForm implements OnInit {
     this.confirmed = data as boolean;
     this.displayError = !this.confirmed;
 
-    // TODO:  Inquire with Adam - what is this statment doing?? Are we to be setting the date of
-    this.confirmed && this.confirmed === true ? this.dataService.dateOfAcceptance = (new Date()) : null;
+    if ( this.confirmed && this.confirmed === true  ) {
+      this.dataService.dateOfAcceptance = (new Date());
+    }
   }
 
   canContinue() {

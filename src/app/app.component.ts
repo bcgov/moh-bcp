@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HeaderService } from './services/header.service';
 import * as version from '../version.GENERATED';
 
@@ -7,7 +7,7 @@ import * as version from '../version.GENERATED';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'moh-bcp';
 
   constructor(private headerService: HeaderService) {

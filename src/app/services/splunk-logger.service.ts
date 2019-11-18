@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { CommonLogger, CommonLogMessage } from 'moh-common-lib';
-import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+import { CommonLogger } from 'moh-common-lib';
 import { UUID } from 'angular2-uuid';
+import { environment } from '../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 
+// Uses the CommonLogger, and the CommonLogEvents
 @Injectable({
   providedIn: 'root'
 })
@@ -16,14 +17,4 @@ export class SplunkLoggerService extends CommonLogger {
     // generate session per refresh as no state persists.
     this.applicationId = UUID.UUID();
    }
-
-   public log(message: BCPLogMessage) {
-    return this._log( message );
-   }
-}
-
-
-export interface BCPLogMessage extends CommonLogMessage {
-  event: 'navigation' | 'error' | 'submission';
-  [key: string]: any;
 }

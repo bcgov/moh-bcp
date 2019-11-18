@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Container, CheckCompleteBaseService } from 'moh-common-lib';
+import { Container, CheckCompleteBaseService, CommonLogEvents } from 'moh-common-lib';
 import { createFacilityPageRoutes } from '../create-facility-page-routing';
 import { environment } from 'src/environments/environment';
-import { CREATE_FACILITY, CREATE_FACILITY_PAGES } from '../create-facility-route-constants';
+import { CREATE_FACILITY_PAGES } from '../create-facility-route-constants';
 import { HeaderService } from 'src/app/services/header.service';
-import { Routes, Router, NavigationEnd, NavigationStart } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { Route } from '@angular/compiler/src/core';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -29,7 +29,7 @@ export class CreateFacilityContainerComponent extends Container implements OnIni
 
     // 'Submission' should not be in the stepper.
     const pageRoutesWithoutSubmission = createFacilityPageRoutes
-      .filter(x => x.path !== 'submission');
+      .filter(x => x.path !== CREATE_FACILITY_PAGES.SUBMISSION.path);
 
     this.setProgressSteps((pageRoutesWithoutSubmission as Route[]));
     // this.setProgressSteps( (createFacilityPageRoutes as Route[]) );
@@ -43,7 +43,7 @@ export class CreateFacilityContainerComponent extends Container implements OnIni
       };
     });
     this.checkPageService.bypassGuards = environment.bypassGuards;
-    this.checkPageService.startUrl = `/${CREATE_FACILITY}/home`;
+    this.checkPageService.startUrl = CREATE_FACILITY_PAGES.HOME.fullPath;
     this.headerService.setTitle('Application for Medical Services Plan Facility Number');
   }
 
@@ -52,12 +52,12 @@ export class CreateFacilityContainerComponent extends Container implements OnIni
     this.routerSubscription = this.router.events
     .pipe(
       filter(event => event instanceof NavigationEnd)
-    ).subscribe(event => {
+    ).subscribe(() => {
       // console.log('nav', this.router.url);
       this.setStepperVisibility();
 
       this.splunkLogger.log({
-        event: 'navigation',
+        event: CommonLogEvents.navigation,
         url: this.router.url
       });
     });
@@ -78,10 +78,5 @@ export class CreateFacilityContainerComponent extends Container implements OnIni
       val: this.router.url.includes(CREATE_FACILITY_PAGES.SUBMISSION.path),
     });
   }
-
-  logPage() {
-    // this.splunkLogger.log()
-  }
-
 }
 

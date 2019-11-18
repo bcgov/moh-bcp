@@ -100,7 +100,6 @@
   <common-page-section layout="tips">
     <div class="form-group col-sm-8 p-sm-0" *ngIf="showMailingAddress">
 
-
       <form [formGroup]="facilityForm">
 
         <div class="form-group">
@@ -112,10 +111,10 @@
           Facility Mailing Address is a required field
         </common-error-container>
 
-        <common-error-container [displayError]="facilityForm.controlsthis.dataService.facInfoFaxNumber?.mailingAddress?.errors?.maxlength">
+        <common-error-container [displayError]="facilityForm.controls.facInfoFaxNumber?.mailingAddress?.errors?.maxlength">
           Facility Mailing Address max length must be 60 or fewer characters.
         </common-error-container>
-        </div>this.dataService.facInfoFaxNumber
+        </div>
 
 
         <div class="form-group">

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AbstractHttpService } from 'moh-common-lib';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
@@ -15,15 +14,16 @@ import { CreateFacilityDataService } from '../modules/create-facility/services/c
   providedIn: 'root'
 })
 export class BCPApiService extends AbstractHttpService {
-  protected _headers: HttpHeaders;
-  private token: string;
-  public hasToken = false;
-  public baseUrl = environment.api.base;
 
-  // Do NOT add data-services here.  It should be passed data as parameters, and not require services.  
-  constructor(protected http: HttpClient, private logger: SplunkLoggerService,
-    private dataService: CreateFacilityDataService
-    ) {
+  protected _headers: HttpHeaders;
+
+  hasToken = false;
+  baseUrl = environment.api.base;
+
+  // Do NOT add data-services here.  It should be passed data as parameters, and not require services.
+  constructor(protected http: HttpClient,
+              private logger: SplunkLoggerService,
+              private dataService: CreateFacilityDataService) {
     super(http);
   }
 
@@ -33,11 +33,10 @@ export class BCPApiService extends AbstractHttpService {
     // TODO: Improve / reduce logging here once done development.
     console.log('BCP API ERRROR', error);
     throw new Error('BCP API Error');
-
   }
 
   setToken(token: string) {
-    this.token = token;
+
     this._headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Response-Type': 'application/json',
@@ -69,7 +68,7 @@ export class BCPApiService extends AbstractHttpService {
       facility,
       requestUUID: this.generateUUID(),
       applicationUUID
-    }
+    };
 
     this.dataService.jsonFacilityValidation.request = payload;
 
@@ -79,16 +78,16 @@ export class BCPApiService extends AbstractHttpService {
     return this.post(url, payload);
   }
 
-  
+
   createFacility(jsonPayLoad: any) {
-    const requestUUID = this.generateUUID()
+    const requestUUID = this.generateUUID();
     const payload = {
       createFacilitySubmission: jsonPayLoad,
-      requestUUID: requestUUID,
+      requestUUID,
       applicationUUID: requestUUID
-    }
-    
-    this.dataService.jsonCreateFacility.request = payload;    
+    };
+
+    this.dataService.jsonCreateFacility.request = payload;
 
     const url = `${this.baseUrl}/createFacility`;
     return this.post(url, payload);
@@ -97,23 +96,25 @@ export class BCPApiService extends AbstractHttpService {
 }
 
 
-//validate pracName and number
-//payload
+// validate pracName and number
+// payload
+/*
 const payload = {
   firstName: 'Bob',
   lastName: 'Smith',
   number: '12345',
   requestID: '<uuid from front-end for logging>'
-}
+};
 
 
 const successResponse = {
   valid: true,
   requestID: '<same uuid from payload>'
-}
+};
 
 const failureResponse = {
   valid: false,
   requestID: '<same uuid from payload>'
-}
+};
+*/
 
