@@ -43,12 +43,13 @@ export class CreateFacilityContainerComponent extends Container implements OnIni
       };
     });
     this.checkPageService.bypassGuards = environment.bypassGuards;
-    this.checkPageService.startUrl = CREATE_FACILITY_PAGES.HOME.fullPath;
+    this.checkPageService.startUrl = CREATE_FACILITY_PAGES.HOME.fullpath;
     this.headerService.setTitle('Application for Medical Services Plan Facility Number');
   }
 
   ngOnInit() {
 
+    /*
     this.routerSubscription = this.router.events
     .pipe(
       filter(event => event instanceof NavigationEnd)
@@ -63,12 +64,14 @@ export class CreateFacilityContainerComponent extends Container implements OnIni
     });
 
     this.setStepperVisibility();
+    */
   }
 
   ngOnDestroy() {
     this.routerSubscription.unsubscribe();
   }
 
+  /*
   setStepperVisibility() {
     this.hideStepper = this.router.url.includes(CREATE_FACILITY_PAGES.SUBMISSION.path);
     // console.log('url', this.router.url, 'hideStepper', this.hideStepper);
@@ -78,5 +81,5 @@ export class CreateFacilityContainerComponent extends Container implements OnIni
       val: this.router.url.includes(CREATE_FACILITY_PAGES.SUBMISSION.path),
     });
   }
+  */
 }
-

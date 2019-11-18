@@ -48,7 +48,7 @@ export class HomeComponent extends CreateFacilityForm implements OnInit, AfterVi
   continue() {
     if (this.canContinue()) {
       this.checkPageService.setPageComplete();
-      this.navigate(CREATE_FACILITY_PAGES.FACILITY_ADMIN.fullPath);
+      this.navigate(CREATE_FACILITY_PAGES.FACILITY_ADMIN.fullpath);
     }
   }
 

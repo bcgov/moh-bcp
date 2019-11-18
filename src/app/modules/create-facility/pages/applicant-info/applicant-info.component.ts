@@ -32,24 +32,6 @@ export class ApplicantInfoComponent extends CreateFacilityForm implements OnInit
     this.pageCheckService.setPageIncomplete();
   }
 
-  showEmailMismatchError(): boolean {
-    // Haven't initialized yet
-    if (!this.form.controls.emailConfirm || !this.form.controls.email) {
-      return null;
-    }
-
-    // Both inputs must be touched before we will show the error.
-    if (!this.form.controls.emailConfirm.touched || !this.form.controls.email.touched) {
-      return false;
-    }
-
-    return this.dataService.emailAddress !== this.dataService.confirmEmailAddress;
-  }
-
-  canContinue() {
-    return this.form.valid && !this.showEmailMismatchError();
-  }
-
   continue() {
     this.markAllInputsTouched();
 
@@ -63,11 +45,11 @@ export class ApplicantInfoComponent extends CreateFacilityForm implements OnInit
       }, this.dataService.applicationUUID).subscribe((res: ValidationResponse) => {
         console.log('apiService response', res);
         this.dataService.jsonApplicantValidation.response = res;
-        
-        if (res.returnCode === ReturnCodes.SUCCESS){
+
+        if (res.returnCode === ReturnCodes.SUCCESS) {
           this.handleValidation(true);
-          this.navigate(CREATE_FACILITY_PAGES.FACILITY_INFO.fullPath);
-        } else if (res.returnCode === ReturnCodes.FAILURE){
+          this.navigate(CREATE_FACILITY_PAGES.FACILITY_INFO.fullpath);
+        } else if (res.returnCode === ReturnCodes.FAILURE) {
           this.handleValidation(false);
         } else {
           // fall-through case, likely an error
@@ -85,17 +67,6 @@ export class ApplicantInfoComponent extends CreateFacilityForm implements OnInit
 
   }
 
-  showEmailError(controlKey: 'email' | 'emailConfirm', errorName: 'required' | 'invalidEmail') {
-    const control: AbstractControl = this.form.controls[controlKey];
-    if (control &&
-      control.touched &&
-      control.errors &&
-      control.errors[errorName]) {
-      return true;
-    }
-    return false;
-  }
-
   private handleError(): void {
     this.systemDownError = true;
     this.loading = false;
@@ -108,10 +79,9 @@ export class ApplicantInfoComponent extends CreateFacilityForm implements OnInit
     this.systemDownError = false;
     this.cdr.detectChanges();
 
-    if (isValid){
+    if (isValid) {
       this.pageCheckService.setPageComplete();
-    }
-    else {
+    } else {
       this.pageCheckService.setPageIncomplete();
     }
 

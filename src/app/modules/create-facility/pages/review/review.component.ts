@@ -54,7 +54,7 @@ export class ReviewComponent extends CreateFacilityForm implements OnInit {
     if (this.canContinue()) {
       this.submit();
       // this.pageCheckService.setPageComplete();
-      // this.navigate(CREATE_FACILITY_PAGES.SUBMISSION.fullPath);
+      // this.navigate(CREATE_FACILITY_PAGES.SUBMISSION.fullpath);
       // TODO: - API Request / Submission
     }
   }
@@ -70,7 +70,7 @@ export class ReviewComponent extends CreateFacilityForm implements OnInit {
         if (res.returnCode === ReturnCodes.SUCCESS) {
 
           // this.pageCheckService.setPageComplete();
-          // // this.navigate(CREATE_FACILITY_PAGES.SUBMISSION.fullPath);
+          // // this.navigate(CREATE_FACILITY_PAGES.SUBMISSION.fullpath);
 
         } else if (res.returnCode === ReturnCodes.WARNING || res.returnCode === ReturnCodes.FAILURE) {
           // we treat near match or exact match the same
@@ -80,7 +80,7 @@ export class ReviewComponent extends CreateFacilityForm implements OnInit {
         // this.navigate('register-facility/review');
         // TODO: Handle failure case, e.g. no backend, failed request, etc.
         this.pageCheckService.setPageComplete();
-        this.navigate(CREATE_FACILITY_PAGES.SUBMISSION.fullPath);
+        this.navigate(CREATE_FACILITY_PAGES.SUBMISSION.fullpath);
       }, error => {
         console.log('ARC apiService onerror', error);
         this.handleError();
