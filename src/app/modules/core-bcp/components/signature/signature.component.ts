@@ -38,19 +38,9 @@ export class SignatureComponent implements OnInit {
     this.signaturePad.clear(); // invoke functions from szimek/signature_pad API
   }
  
-  drawComplete() {
-    // will be notified of szimek/signature_pad's onEnd event
-    // console.log(this.signaturePad.toDataURL());
-  }
- 
-  drawStart() {
-    // will be notified of szimek/signature_pad's onBegin event
-    console.log('begin drawing');
-  }
 
   clear() {
     this.signaturePad.clear();
-    // this.image = null;
   }
 
   open(){
