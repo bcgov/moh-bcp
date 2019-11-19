@@ -6,6 +6,7 @@ import { ReviewComponent } from './pages/review/review.component';
 import { SubmissionComponent } from './pages/submission/submission.component';
 import { RouteGuardService } from 'moh-common-lib';
 import { environment } from '../../../environments/environment';
+import { CREATE_FACILITY_PAGES } from './create-facility-route-constants';
 
 
 
@@ -17,32 +18,38 @@ let defaultPages: Routes = [
     // do NOT route-guard here, it's not necessary.
   },
   {
-    path: 'home',
+    path: CREATE_FACILITY_PAGES.HOME.path,
     component: HomeComponent,
+    data: {title: CREATE_FACILITY_PAGES.HOME.title}
     // do NOT route-guard here, it's not necessary.
   },
   {
-    path: 'facility-administrator',
+    path: CREATE_FACILITY_PAGES.FACILITY_ADMIN.path,
     component: ApplicantInfoComponent,
+    data: {title: CREATE_FACILITY_PAGES.FACILITY_ADMIN.title},
     canActivate: [RouteGuardService]
   },
   {
-    path: 'facility-info',
+    path: CREATE_FACILITY_PAGES.FACILITY_INFO.path,
     component: FacilityInfoComponent,
+    data: {title: CREATE_FACILITY_PAGES.FACILITY_INFO.title},
     canActivate: [RouteGuardService]
   },
   {
-    path: 'review',
+    path: CREATE_FACILITY_PAGES.REVIEW.path,
     component: ReviewComponent,
+    data: {title: CREATE_FACILITY_PAGES.REVIEW.title},
     canActivate: [RouteGuardService]
   },
   {
-    path: 'submission',
+    path: CREATE_FACILITY_PAGES.SUBMISSION.path,
     component: SubmissionComponent,
+    data: {title: CREATE_FACILITY_PAGES.SUBMISSION.title},
     canActivate: [RouteGuardService]
   },
 ];
 
+// TODO: Not required, needs to be setup correctly - shared component needs to be.
 // Ths bit of code is super helpful for local dev.  It lets us refresh on
 // route-guarded pages directly (i.e. don't have to navigate back to page).
 if (environment.bypassGuards) {
@@ -53,4 +60,4 @@ if (environment.bypassGuards) {
     });
 }
 
-export const createFacilityPageRoutes = defaultPages
+export const createFacilityPageRoutes = defaultPages;
