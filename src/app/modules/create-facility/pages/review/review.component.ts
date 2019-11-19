@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CreateFacilityForm } from '../../models/create-facility-form';
-import { CheckCompleteBaseService } from 'moh-common-lib';
+import { CheckCompleteBaseService, CommonLogEvents } from 'moh-common-lib';
 import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
 import { CreateFacilityDataService } from '../../services/create-facility-data.service';
 import { BCPApiService } from 'src/app/services/bcp-api.service';
 import { ValidationResponse, ReturnCodes } from '../../models/create-facility-api-model';
+import { SplunkLoggerService } from '../../../../services/splunk-logger.service';
 
 @Component({
   selector: 'app-review',
@@ -20,7 +21,8 @@ export class ReviewComponent extends CreateFacilityForm implements OnInit {
   constructor(protected router: Router,
               private pageCheckService: CheckCompleteBaseService,
               private dataService: CreateFacilityDataService,
-              private api: BCPApiService) {
+              private api: BCPApiService,
+              private splunkLoggerService: SplunkLoggerService) {
     super(router);
    }
 
@@ -61,23 +63,20 @@ export class ReviewComponent extends CreateFacilityForm implements OnInit {
 
   submit() {
     this.loading = true;
-    this.dataService.dateOfSubmission = (new Date());
+    this.dataService.dateOfSubmission = new Date();
     const jsonPayLoad = this.dataService.getJSONPayload();
     this.api.createFacility(jsonPayLoad)
       .subscribe((res: ValidationResponse) => {
         this.dataService.jsonCreateFacility.response = res;
 
-        if (res.returnCode === ReturnCodes.SUCCESS) {
+        this.splunkLoggerService.log({
+          event: CommonLogEvents.submission,
+          requestUuid: res.requestUUID,
+          applicationUUID: res.applicationUUID,
+          success: res.returnCode === ReturnCodes.SUCCESS
+        });
 
-          // this.pageCheckService.setPageComplete();
-          // // this.navigate(CREATE_FACILITY_PAGES.SUBMISSION.fullpath);
-
-        } else if (res.returnCode === ReturnCodes.WARNING || res.returnCode === ReturnCodes.FAILURE) {
-          // we treat near match or exact match the same
-          // this.handleAPIValidation(false);
-        }
         this.loading = false;
-        // this.navigate('register-facility/review');
         // TODO: Handle failure case, e.g. no backend, failed request, etc.
         this.pageCheckService.setPageComplete();
         this.navigate(CREATE_FACILITY_PAGES.SUBMISSION.fullpath);

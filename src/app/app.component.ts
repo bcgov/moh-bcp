@@ -47,7 +47,6 @@ export class AppComponent implements OnInit {
       filter(route => route.outlet === 'primary'),
       mergeMap(route => route.data)
     ).subscribe((data: { title?: string }) => {
-      console.log( data );
       this.setTitle(data.title);
       this.splunkLogger.log({
         event: CommonLogEvents.navigation,

@@ -23,7 +23,7 @@ export class CreateFacilityDataService {
       this.facAdminFirstName = 'TEST';
       this.facAdminLastName = 'PRIVATEPRACTICE';
       this.pracNumber = '89902';
-      this.emailAddress = 'test@privatepractice.com'; // optional field
+     // this.emailAddress = 'test@privatepractice.com'; // optional field
       this.facAdminPhoneNumber = '(222) 222-2221';
 
       // Following code is as per directions by Adam ref:bcp-68 18/10/2019 10:40AM
@@ -35,7 +35,7 @@ export class CreateFacilityDataService {
       this.facInfoPostalCode = 'V8R3C2';
       // this.facInfoPhoneNumber = '(250) 555-1234';
       // this.facInfoPhoneExtension = '444'
-      this.facInfoFaxNumber = '(222) 222-2222'; // optional field
+      //this.facInfoFaxNumber = '(222) 222-2222'; // optional field
       this.facInfoEffectiveDate = new Date(2020, 0, 10);
 
       this.facInfoIsSameMailingAddress = true;
@@ -132,13 +132,14 @@ export class CreateFacilityDataService {
     if ( str ) {
       return str.replace(' ', '').replace('(', '').replace(')', '').replace('-', '');
     }
-    return 'N/A';
+    return '';
   }
 
   private stripSpaces( str: string ) {
     if ( str ) {
       return str.replace(' ', '');
     }
+    return '';
   }
 
   //#region JSON Payload
@@ -151,7 +152,7 @@ export class CreateFacilityDataService {
         firstName: this.facAdminFirstName,
         lastName: this.facAdminLastName,
         pracNumber: this.pracNumber,
-        email: this.emailAddress,
+        email: this.emailAddress ? this.emailAddress : null,
         phoneNumber: this.stripPhoneFormatting( this.facAdminPhoneNumber )
       },
       facility: {
@@ -159,7 +160,7 @@ export class CreateFacilityDataService {
         address: this.facInfoPhysicalAddress,
         city: this.facInfoCity,
         postalCode: this.stripSpaces(this.facInfoPostalCode),
-        faxNumber: this.stripPhoneFormatting( this.facInfoFaxNumber),
+        faxNumber: this.stripPhoneFormatting(this.facInfoFaxNumber),
         province: this.facInfoProvince,
         effectiveDate: this.getJSONDate(this.facInfoEffectiveDate), // this.facInfoEffectiveDate, // "2020-11-10",
         qualifiesForBCP: this.facInfoIsQualifyForBCP,

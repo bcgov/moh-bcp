@@ -41,7 +41,6 @@ export class ReviewFacilityComponent implements OnInit {
         { label: 'City', value: this.dataService.facInfoCity },
         { label: 'Province', value: getProvinceDescription(this.dataService.facInfoProvince) },
         { label: 'Postal code', value: this.dataService.facInfoPostalCode },
-        // { label: 'Phone number', value: this.dataService.facInfoPhoneNumber },
         { label: 'Fax number', value: setNotApplicable( this.dataService.facInfoFaxNumber ) },
         { label: 'Effective date', value: dateString }
       ],

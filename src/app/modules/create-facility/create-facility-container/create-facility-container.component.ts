@@ -23,8 +23,7 @@ export class CreateFacilityContainerComponent extends Container implements OnIni
 
   constructor(private checkPageService: CheckCompleteBaseService,
               private headerService: HeaderService,
-              private router: Router,
-              private splunkLogger: SplunkLoggerService) {
+              private router: Router) {
     super();
 
     // 'Submission' should not be in the stepper.
@@ -49,37 +48,25 @@ export class CreateFacilityContainerComponent extends Container implements OnIni
 
   ngOnInit() {
 
-    /*
+    // TODO: When fix route guards for application this logic can be removed
     this.routerSubscription = this.router.events
     .pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
-      // console.log('nav', this.router.url);
       this.setStepperVisibility();
-
-      this.splunkLogger.log({
-        event: CommonLogEvents.navigation,
-        url: this.router.url
-      });
     });
-
-    this.setStepperVisibility();
-    */
   }
 
   ngOnDestroy() {
     this.routerSubscription.unsubscribe();
   }
 
-  /*
   setStepperVisibility() {
     this.hideStepper = this.router.url.includes(CREATE_FACILITY_PAGES.SUBMISSION.path);
-    // console.log('url', this.router.url, 'hideStepper', this.hideStepper);
     console.log({
       url: this.router.url,
       check: `${this.router.url}.includes('${CREATE_FACILITY_PAGES.SUBMISSION.path}')`,
       val: this.router.url.includes(CREATE_FACILITY_PAGES.SUBMISSION.path),
     });
   }
-  */
 }
