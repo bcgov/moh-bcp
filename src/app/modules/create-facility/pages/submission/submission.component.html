@@ -19,7 +19,7 @@
 
       <div class="row">
         <div class="col-6">Date of Submission</div>
-        <div class="col-6 font-weight-bold">{{dataService.formatDate(dataService.dateOfSubmission)}}</div>
+        <div class="col-6 font-weight-bold">{{submissionDate}}</div>
 
         <div class="col-6">Reference Number</div>
         <div class="col-6 font-weight-bold">{{dataService.jsonCreateFacility.response?.referenceNumber}}</div>
@@ -100,7 +100,7 @@
           <div class='col-6 font-weight-bold'>{{dataService.facInfoFaxNumber}}</div>
 
           <div class='col-6'>Effective date</div>
-          <div class='col-6 font-weight-bold'>{{dataService.formatDate(dataService.facInfoEffectiveDate)}}</div>
+          <div class='col-6 font-weight-bold'>{{facInfoEffectiveDate}}</div>
         </div>
 
         <ng-container *ngIf="!dataService.facInfoIsSameMailingAddress">
@@ -137,7 +137,7 @@
 
         <div class="row">
           <div class="col-6">Date of Declaration</div>
-          <div class="col-6 font-weight-bold">{{dataService.formatDate(dataService.dateOfDeclaration)}}</div>
+          <div class="col-6 font-weight-bold">{{dateOfDeclaration}}</div>
         </div>
 
       </div>
