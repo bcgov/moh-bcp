@@ -1,6 +1,6 @@
 <common-page-framework layout='blank'>
 
-  <common-confirm-template>
+  <common-confirm-template [displayIcon]="displayIcon">
 
     <div confirmationTitle>
       <button (click)="print($event)" class="btn btn-clear float-right print-hide">
@@ -14,7 +14,7 @@
 
     <div message>
       <div>
-        <h2 class='mt-2'>Your application has been submitted</h2>
+        <h2 class='mt-2'>{{confirmationMessage}}</h2>
       </div>
 
       <div class="row">
@@ -108,18 +108,18 @@
           <div class="row">
             <div class="col-6">Mailing Address</div>
             <div class="col-6 font-weight-bold">{{dataService.facInfoMailAddress}}</div>
-  
+
             <div class="col-6">Mailing city</div>
             <div class="col-6 font-weight-bold">{{dataService.facInfoMailCity}}</div>
-  
+
             <div class="col-6">Mailing Province</div>
             <div class="col-6 font-weight-bold">{{dataService.facInfoMailProvince}}</div>
-  
+
             <div class="col-6">Mailing Postal</div>
             <div class="col-6 font-weight-bold">{{dataService.facInfoMailPostal}}</div>
           </div>
         </ng-container>
-        
+
 
         <h2 class='border-bottom'>Business Cost Premium</h2>
         <div class="row">
@@ -129,12 +129,12 @@
 
         <h2 class='border-bottom'>Declaration</h2>
         <p class="font-italic">I understand that MSP is a public system based on trust, but also that my claims are subject to audit and financial recovery for claims contrary to the Medicare Protection Act (the ÂActÂ). I undertake to not submit false or misleading claims information, and acknowledge that doing so is an offence under the Act and may be an offence under the Criminal Code of Canada. Further, I agree that I will meet the requirements of the Act and related Payment Schedule regarding claims for payment, including that prior to submitting a claim, I must create: (a) an adequate medical record, if I am a medical practitioner; or (b) an adequate clinical record, if I am a health care practitioner.</p>
-        
+
         <common-checkbox [data]='true'
                          class='pl-4'
                          label='By checking this box I confirm that I am (or I have the authority) to submit this form as the principle practitioner of the facility (the "Applicant")'>
         </common-checkbox>
-        
+
         <div class="row">
           <div class="col-6">Date of Declaration</div>
           <div class="col-6 font-weight-bold">{{dataService.formatDate(dataService.dateOfDeclaration)}}</div>
@@ -146,7 +146,7 @@
 
   </common-confirm-template>
 
-  
+
   <div class="border border-warning p-4">
     <h3>Technical Information - temporary available to reference</h3>
       <h3>1:Applicant-Validation:</h3><pre><code>{{ dataService.jsonApplicantValidation | json }}</code></pre><hr/>

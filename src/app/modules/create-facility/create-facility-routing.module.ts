@@ -11,7 +11,7 @@ const createFacilityPageRoutesWithRedirct: Routes = [
     redirectTo: CREATE_FACILITY_PAGES.HOME.path,
     pathMatch: 'full',
   }
-]
+];
 
 /** The top-level routes, including container, we pass to Angular  */
 export const createFacilityRoutes: Routes = [
@@ -20,7 +20,7 @@ export const createFacilityRoutes: Routes = [
     component: CreateFacilityContainerComponent,
     children: createFacilityPageRoutesWithRedirct,
   }
-]
+];
 
 @NgModule({
   imports: [RouterModule.forChild(createFacilityRoutes)],

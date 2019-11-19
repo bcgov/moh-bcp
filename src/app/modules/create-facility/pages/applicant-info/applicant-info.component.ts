@@ -33,7 +33,8 @@ export class ApplicantInfoComponent extends CreateFacilityForm implements OnInit
   }
 
   continue() {
-    this.markAllInputsTouched();
+    this.markAllInputsTouched();    console.log( 'this.dataService.facInfoProvince: ', this.dataService.facInfoProvince );
+
 
     if (this.canContinue()) {
       this.loading = true;
@@ -55,9 +56,6 @@ export class ApplicantInfoComponent extends CreateFacilityForm implements OnInit
           // fall-through case, likely an error
           this.handleValidation(false);
         }
-
-
-
       }, error => {
         console.log('ARC apiService onerror', error);
         this.handleError();

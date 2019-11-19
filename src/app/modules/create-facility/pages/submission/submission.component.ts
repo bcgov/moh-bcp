@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { ApiStatusCodes } from 'moh-common-lib';
 import { CreateFacilityDataService } from '../../services/create-facility-data.service';
 
+
+// TODO: Class should extend Base not CreateFaciityForm - this is a confirmation page
+// should probably be renamed to confirmation
 @Component({
   selector: 'app-submission',
   templateUrl: './submission.component.html',
@@ -12,16 +15,29 @@ import { CreateFacilityDataService } from '../../services/create-facility-data.s
 })
 export class SubmissionComponent extends CreateFacilityForm implements OnInit {
 
-  constructor(protected router: Router, public dataService: CreateFacilityDataService) {
-    super(router);
-  }
-
-  templateStatus: ApiStatusCodes;
+  // default icon - if return code < 0 then its an error
+  displayIcon: ApiStatusCodes = ApiStatusCodes.ERROR;
 
   /** An application is still a "success" even if it's under review */
   isUnderReview: boolean = false;
 
+  constructor(protected router: Router,
+              public dataService: CreateFacilityDataService) {
+    super(router);
+  }
+
   ngOnInit() {
+
+    // Set icon to be displayed
+    if (this.dataService.jsonCreateFacility.response &&
+        this.dataService.jsonCreateFacility.response.returnCode >= ApiStatusCodes.SUCCESS) {
+      this.displayIcon = this.dataService.jsonCreateFacility.response.returnCode;
+    }
+  }
+
+  get confirmationMessage() {
+    return this.displayIcon === ApiStatusCodes.SUCCESS ?
+      'Your application has been submitted' : 'Your application failed to be submitted';
   }
 
   continue() {
