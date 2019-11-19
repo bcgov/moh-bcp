@@ -47,6 +47,7 @@ export class AppComponent implements OnInit {
       filter(route => route.outlet === 'primary'),
       mergeMap(route => route.data)
     ).subscribe((data: { title?: string }) => {
+      console.log( 'data title: ', data.title );
       this.setTitle(data.title);
       this.splunkLogger.log({
         event: CommonLogEvents.navigation,
@@ -59,10 +60,12 @@ export class AppComponent implements OnInit {
   /** Set the page title. Includes basic formatting and fallback */
   private setTitle(title?: string) {
     if (title) {
-      this.titleService.setTitle(`${this.title} | ${title}`);
+      this.titleService.setTitle(`Business Cost Premiums | ${title}`);
     } else {
       // Default title
       this.titleService.setTitle(this.title);
     }
+
+    console.log( 'Title from service: ', this.titleService.getTitle() );
   }
 }

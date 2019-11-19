@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment';
 import { format } from 'date-fns';
 import { UUID } from 'angular2-uuid';
 import { BRITISH_COLUMBIA } from 'moh-common-lib';
+import { convertToJSONDate, stripPhoneFormatting, stripPostalCodeSpaces } from '../../core-bcp/models/helperFunc';
 
 
 
@@ -99,8 +100,6 @@ export class CreateFacilityDataService {
 
   json: any;
 
-
-
   //#endregion
 
   //#region Validation
@@ -122,26 +121,6 @@ export class CreateFacilityDataService {
     response: null
   };
 
-  // Potentially abstract formatting into separate service if it grows beyond this method
-  formatDate(inputDate): string {
-    return inputDate ? format(inputDate, 'MMMM dd, yyyy') : null;
-  }
-
-  // strip characters used for displaying
-  private stripPhoneFormatting( str: string ) {
-    if ( str ) {
-      return str.replace(' ', '').replace('(', '').replace(')', '').replace('-', '');
-    }
-    return null;
-  }
-
-  private stripSpaces( str: string ) {
-    if ( str ) {
-      return str.replace(' ', '');
-    }
-    return null;
-  }
-
   //#region JSON Payload
 
   getJSONPayload() {
@@ -153,20 +132,20 @@ export class CreateFacilityDataService {
         lastName: this.facAdminLastName,
         pracNumber: this.pracNumber,
         email: this.emailAddress ? this.emailAddress : null,
-        phoneNumber: this.stripPhoneFormatting( this.facAdminPhoneNumber )
+        phoneNumber: stripPhoneFormatting( this.facAdminPhoneNumber )
       },
       facility: {
         name: this.facInfoFacilityName,
         address: this.facInfoPhysicalAddress,
         city: this.facInfoCity,
-        postalCode: this.stripSpaces(this.facInfoPostalCode),
-        faxNumber: this.stripPhoneFormatting(this.facInfoFaxNumber),
+        postalCode: stripPostalCodeSpaces(this.facInfoPostalCode),
+        faxNumber: stripPhoneFormatting(this.facInfoFaxNumber),
         province: this.facInfoProvince,
-        effectiveDate: this.convertDateToString(this.facInfoEffectiveDate), // "2020-11-10",
+        effectiveDate: convertToJSONDate(this.facInfoEffectiveDate), // "2020-11-10",
         qualifiesForBCP: this.facInfoIsQualifyForBCP,
       },
       declarationText: 'I understand that MSP is a public system based on trust, but also that my claims are subject to audit and financial recovery for claims contrary to the Medicare Protection Act (the “Act”). I undertake to not submit false or misleading claims information, and acknowledge that doing so is an offence under the Act and may be an offence under the Criminal Code of Canada. Further, I agree that I will meet the requirements of the Act and related Payment Schedule regarding claims for payment, including that prior to submitting a claim, I must create: (a) an adequate medical record, if I am a medical practitioner; or (b) an adequate clinical record, if I am a health care practitioner.',
-      dateOfAcceptance: this.convertDateToString(this.dateOfAcceptance),
+      dateOfAcceptance: convertToJSONDate(this.dateOfAcceptance),
       // TODO : that should be from validation - for happy path it fixed to EXACT Match temporariliy
       validateFacilityMessage: this.validateFacilityMessage
     };
@@ -180,19 +159,12 @@ export class CreateFacilityDataService {
         address: this.facInfoMailAddress ? this.facInfoMailAddress : this.facInfoPhysicalAddress,
         city: this.facInfoMailCity ? this.facInfoMailCity : this.facInfoCity,
         province: this.facInfoMailProvince ? this.facInfoMailProvince : this.facInfoProvince,
-        postalCode: this.facInfoMailPostalCode ? this.stripSpaces(this.facInfoMailPostalCode) :
-         this.stripSpaces(this.facInfoPostalCode),
+        postalCode: this.facInfoMailPostalCode ? stripPostalCodeSpaces(this.facInfoMailPostalCode) :
+        stripPostalCodeSpaces(this.facInfoPostalCode),
       };
     }
 
     return jsonPayLoad;
-  }
-
-  convertDateToString( dt: Date ) {
-    if ( dt ) {
-      return format( dt, 'yyyy-MM-dd' );
-    }
-    return null;
   }
 
   //#region Validation
