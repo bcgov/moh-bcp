@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ROUTES_FACILITY } from '../../../models/routes.constants';
-import { ReviewContainerComponent } from 'src/app/modules/core-bcp/review-container/review-container.component';
+import { ReviewContainerComponent } from 'src/app/modules/core-bcp/components/review-container/review-container.component';
 import { CreateFacilityDataService } from '../../../services/create-facility-data.service';
+import { getProvinceDescription } from 'moh-common-lib';
+import { CREATE_FACILITY_PAGES } from '../../../create-facility-route-constants';
 
 @Component({
   selector: 'bcp-review-facility-mailing-info',
@@ -21,7 +22,7 @@ export class ReviewFacilityMailingInfoComponent implements OnInit {
 
   reviewItems() {
 
-    this.review.redirectPath = ROUTES_FACILITY.FACILITY.fullpath;
+    this.review.redirectPath = CREATE_FACILITY_PAGES.FACILITY_INFO.fullpath;
     this.review.header = 'Facility Mailing Address';
 
     const isSameMailing = this.dataService.facInfoIsSameMailingAddress;
@@ -48,7 +49,7 @@ export class ReviewFacilityMailingInfoComponent implements OnInit {
             },
             {
               label: 'Mailing province', value:
-                this.dataService.facInfoMailProvince
+                getProvinceDescription(this.dataService.facInfoMailProvince)
             },
             {
               label: 'Mailing postal code', value:
