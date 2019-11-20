@@ -27,6 +27,10 @@ export class HomeComponent extends CreateFacilityForm implements OnInit, AfterVi
     super(router);
   }
 
+  get pageTitle() {
+    return CREATE_FACILITY_PAGES.HOME.title;
+  }
+
   ngOnInit() {
     this.checkPageService.setPageIncomplete();
   }

@@ -50,6 +50,10 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
   physicalAddress: any = null;
   mailingAddress: any = null;
 
+  get pageTitle() {
+    return CREATE_FACILITY_PAGES.FACILITY_INFO.title;
+  }
+
   ngOnInit() {
     this.facilityForm = this.initialize();
     this.updateMailingValidity(this.dataService.facInfoIsSameMailingAddress);

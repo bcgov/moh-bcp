@@ -31,6 +31,10 @@ export class ReviewComponent extends CreateFacilityForm implements OnInit {
     this.showDuplicateWarning = this.dataService.apiDuplicateWarning;
   }
 
+  get pageTitle() {
+    return CREATE_FACILITY_PAGES.REVIEW.title;
+  }
+
 
   toggleValidation(data) {
     console.log(data as boolean);

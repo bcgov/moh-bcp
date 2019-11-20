@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ApiStatusCodes } from 'moh-common-lib';
 import { CreateFacilityDataService } from '../../services/create-facility-data.service';
 import { formatDateForDisplay } from '../../../core-bcp/models/helperFunc';
+import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
 
 
 // TODO: Class should extend Base not CreateFaciityForm - this is a confirmation page
@@ -70,6 +71,11 @@ export class SubmissionComponent extends CreateFacilityForm implements OnInit {
 
   get dateOfDeclaration() {
     return formatDateForDisplay(this.dataService.dateOfDeclaration);
+  }
+
+  // Title for route
+  get pageTitle() {
+    return CREATE_FACILITY_PAGES.SUBMISSION.title;
   }
 
 }
