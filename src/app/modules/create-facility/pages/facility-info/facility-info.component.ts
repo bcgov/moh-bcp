@@ -3,11 +3,13 @@ import { CreateFacilityForm } from '../../models/create-facility-form';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { cCreateFacilityValidators, validMultiFormControl } from '../../models/validators';
-import { CheckCompleteBaseService, Address, getProvinceDescription, ErrorMessage } from 'moh-common-lib';
+import { CheckCompleteBaseService, Address, getProvinceDescription, ErrorMessage, CommonLogEvents } from 'moh-common-lib';
 import { CreateFacilityDataService } from '../../services/create-facility-data.service';
 import { BCPApiService } from '../../../../services/bcp-api.service';
 import { ValidationResponse, ReturnCodes } from '../../models/create-facility-api-model';
 import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
+import { stripPostalCodeSpaces } from '../../../core-bcp/models/helperFunc';
+import { SplunkLoggerService } from '../../../../services/splunk-logger.service';
 
 @Component({
   selector: 'app-facility-info',
@@ -36,7 +38,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
     private fb: FormBuilder,
     private api: BCPApiService,
     private cdr: ChangeDetectorRef,
-  ) {
+    private splunkLoggerService: SplunkLoggerService) {
     super(router);
     this.validFormControl = validMultiFormControl;
   }
@@ -171,10 +173,17 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
       this.api.validateFacility({
         facilityName: this.dataService.facInfoFacilityName,
         // API expects postalCode without any spaces in it
-        postalCode: this.dataService.facInfoPostalCode.replace(' ', '')
+        postalCode: stripPostalCodeSpaces(this.dataService.facInfoPostalCode)
       }, this.dataService.applicationUUID)
         .subscribe((res: ValidationResponse) => {
           this.dataService.jsonFacilityValidation.response = res;
+
+          this.splunkLoggerService.log(
+              this.dataService.getSubmissionLogObject<ValidationResponse>(
+                'Validate Facility',
+                this.dataService.jsonFacilityValidation.response
+              )
+          );
 
           if (res.returnCode === ReturnCodes.SUCCESS) {
             this.handleAPIValidation(true);

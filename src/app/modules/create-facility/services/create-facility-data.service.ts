@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { format } from 'date-fns';
 import { UUID } from 'angular2-uuid';
-import { BRITISH_COLUMBIA } from 'moh-common-lib';
+import { BRITISH_COLUMBIA, CommonLogEvents, CommonLogMessage } from 'moh-common-lib';
 import { convertToJSONDate, stripPhoneFormatting, stripPostalCodeSpaces } from '../../core-bcp/models/helperFunc';
+import { BaseResponse, ReturnCodes } from '../models/create-facility-api-model';
 
 
 
@@ -24,7 +25,7 @@ export class CreateFacilityDataService {
       this.facAdminFirstName = 'TEST';
       this.facAdminLastName = 'PRIVATEPRACTICE';
       this.pracNumber = '89902';
-      // this.emailAddress = 'test@privatepractice.com'; // optional field
+      this.emailAddress = 'test@privatepractice.com'; // optional field
       this.facAdminPhoneNumber = '(222) 222-2221';
 
       // Following code is as per directions by Adam ref:bcp-68 18/10/2019 10:40AM
@@ -36,7 +37,7 @@ export class CreateFacilityDataService {
       this.facInfoPostalCode = 'V8R3C2';
       // this.facInfoPhoneNumber = '(250) 555-1234';
       // this.facInfoPhoneExtension = '444'
-      // this.facInfoFaxNumber = '(222) 222-2222'; // optional field
+      this.facInfoFaxNumber = '(222) 222-2222'; // optional field
       this.facInfoEffectiveDate = new Date(2020, 0, 10);
 
       this.facInfoIsSameMailingAddress = true;
@@ -169,4 +170,13 @@ export class CreateFacilityDataService {
 
   //#region Validation
 
+  // TODO: Verify with Adam that this information is OK to be logged - Did not see PI data in responses
+  getSubmissionLogObject<T extends BaseResponse>(requestType: string, res: T ): CommonLogMessage {
+    return {
+      event: CommonLogEvents.submission,
+      request: requestType,
+      success: res.returnCode === ReturnCodes.SUCCESS || res.returnCode === ReturnCodes.WARNING,
+      response: res
+    };
+  }
 }

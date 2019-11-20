@@ -2,10 +2,11 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CreateFacilityForm } from '../../models/create-facility-form';
 import { Router } from '@angular/router';
 import { CreateFacilityDataService } from '../../services/create-facility-data.service';
-import { CheckCompleteBaseService } from 'moh-common-lib';
+import { CheckCompleteBaseService, CommonLogEvents } from 'moh-common-lib';
 import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
 import { BCPApiService } from '../../../../services/bcp-api.service';
 import { ValidationResponse, ReturnCodes } from '../../models/create-facility-api-model';
+import { SplunkLoggerService } from '../../../../services/splunk-logger.service';
 
 @Component({
   selector: 'app-applicant-info',
@@ -23,7 +24,8 @@ export class ApplicantInfoComponent extends CreateFacilityForm implements OnInit
     public dataService: CreateFacilityDataService,
     private cdr: ChangeDetectorRef,
     private pageCheckService: CheckCompleteBaseService,
-    private apiService: BCPApiService) {
+    private apiService: BCPApiService,
+    private splunkLoggerService: SplunkLoggerService) {
     super(router);
   }
 
@@ -36,7 +38,7 @@ export class ApplicantInfoComponent extends CreateFacilityForm implements OnInit
   }
 
   continue() {
-    this.markAllInputsTouched();    console.log( 'this.dataService.facInfoProvince: ', this.dataService.facInfoProvince );
+    this.markAllInputsTouched();
 
 
     if (this.canContinue()) {
@@ -48,7 +50,16 @@ export class ApplicantInfoComponent extends CreateFacilityForm implements OnInit
         number: this.dataService.pracNumber,
       }, this.dataService.applicationUUID).subscribe((res: ValidationResponse) => {
         console.log('apiService response', res);
+
         this.dataService.jsonApplicantValidation.response = res;
+
+        this.splunkLoggerService.log(
+          this.dataService.getSubmissionLogObject<ValidationResponse>(
+            'Validate Pracitioner',
+            this.dataService.jsonApplicantValidation.response
+          )
+        );
+
 
         if (res.returnCode === ReturnCodes.SUCCESS) {
           this.handleValidation(true);
