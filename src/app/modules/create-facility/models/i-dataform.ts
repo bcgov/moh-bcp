@@ -21,7 +21,7 @@ export interface IApplicant {
     extension?;
 }
 
-export interface IFacilityInfo { 
+export interface IFacilityInfo {
     facilityName?;
     physicalAddress?;
     city?;
@@ -37,7 +37,7 @@ export interface IFacilityInfo {
         mailing_province?;
         mailing_postalCode?;
     };
-    isQualifyForBCP?;    
+    isQualifyForBCP?;
 }
 
 export class RandomObjects {
@@ -51,8 +51,8 @@ export class RandomObjects {
                 'Dr. Doe Medical Clinic' +
                 RandomObjects.addSpaces,
             physicalAddress:
-                RandomObjects.addSpaces +                
-                '12345 Douglas Street' + 
+                RandomObjects.addSpaces +
+                '12345 Douglas Street' +
                 prefix +
                 RandomObjects.addSpaces,
             city:
@@ -93,10 +93,10 @@ export class RandomObjects {
                 'Doe' +
                 RandomObjects.addSpaces,
 
-            mspPractisionerNumber:'123456',
-            email: 
+            mspPractisionerNumber: '123456',
+            email:
                 prefix + 'jane.doe@test.com',
-            confirmEmail: 
+            confirmEmail:
                 prefix + 'jane.doe@test.com',
             // formGroupEmail: {
             //     email: prefix + 'user@users.com',
