@@ -11,6 +11,7 @@ export const environment = {
     splunk: '/bcp/api/logging'
   },
   links: {
-    tbd: 'google.com'
+    tbd: 'google.com',
+    hibc: 'JavaScript:Void(0);' // TODO: Need link
   }
 };
