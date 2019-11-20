@@ -40,6 +40,10 @@ app-submission {
 
   // Save ink, no need for dark blue.
   body, h1, h2, h3 {
-    color: black !important
+    color: black !important;
   }
+  h2 { font-weight: bold; }
+  .print-review-row > div { margin-top: 0.5rem; }
+  .review-key {font-weight: 100}
+  .review-value {font-weight: 400}
 }
