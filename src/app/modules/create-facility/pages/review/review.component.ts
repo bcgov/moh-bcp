@@ -1,12 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CreateFacilityForm } from '../../models/create-facility-form';
-import { CheckCompleteBaseService, CommonLogEvents } from 'moh-common-lib';
+import { CheckCompleteBaseService } from 'moh-common-lib';
 import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
 import { CreateFacilityDataService } from '../../services/create-facility-data.service';
 import { BCPApiService } from 'src/app/services/bcp-api.service';
-import { ValidationResponse, ReturnCodes, CreateResponse } from '../../models/create-facility-api-model';
+import { CreateResponse } from '../../models/create-facility-api-model';
 import { SplunkLoggerService } from '../../../../services/splunk-logger.service';
+import { ValidationResponse, ReturnCodes } from '../../models/create-facility-api-model';
+import { SignatureComponent } from '../../../core-bcp/components/signature/signature.component';
+import { NgControl } from '@angular/forms';
 
 @Component({
   selector: 'app-review',
@@ -18,6 +21,9 @@ export class ReviewComponent extends CreateFacilityForm implements OnInit {
   displayError: boolean = false;
   confirmed: boolean = false;
   showDuplicateWarning = true;
+
+  @ViewChild(SignatureComponent, {static: true}) signature: SignatureComponent;
+
   constructor(protected router: Router,
               private pageCheckService: CheckCompleteBaseService,
               private dataService: CreateFacilityDataService,
@@ -56,7 +62,8 @@ export class ReviewComponent extends CreateFacilityForm implements OnInit {
   }
 
   continue() {
-
+    this.signature._onTouched();
+    
     if (this.canContinue()) {
       this.submit();
       // this.pageCheckService.setPageComplete();
@@ -92,6 +99,10 @@ export class ReviewComponent extends CreateFacilityForm implements OnInit {
 
   private handleError(): void {
     this.loading = false;
+  }
+
+  log(x){
+    console.log('reviewLog', x);
   }
 
 }
