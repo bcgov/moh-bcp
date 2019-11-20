@@ -6,11 +6,11 @@ const { SpecReporter } = require('jasmine-spec-reporter');
 exports.config = {
   allScriptsTimeout: 11000,
   specs: [
-    'e2e/register-facility/src/bcp-reg-facility-happy-path.e2e-spec.ts'
+    './src/bcp-reg-facility-happy-path.e2e-spec.ts'
   ],
-  capabilities: {
+  multiCapabilities: [{
     'browserName': 'chrome'
-  },
+  }],
   directConnect: true,
   baseUrl: 'http://localhost:4200/',
   framework: 'jasmine',

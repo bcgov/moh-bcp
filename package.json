@@ -9,7 +9,10 @@
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "e2e-protractor": "npx protractor",
+    "e2e:bcp": "npm run e2e-protractor -- e2e/register-facility/protractor.bcp.conf.js",
+    "webdriver-update": "webdriver-manager update"
   },
   "private": true,
   "dependencies": {
