@@ -3,7 +3,7 @@ import { CreateFacilityForm } from '../../models/create-facility-form';
 import { Router } from '@angular/router';
 import { ApiStatusCodes } from 'moh-common-lib';
 import { CreateFacilityDataService } from '../../services/create-facility-data.service';
-import { formatDateForDisplay } from '../../../core-bcp/models/helperFunc';
+import { formatDateForDisplay, setNotApplicable } from '../../../core-bcp/models/helperFunc';
 import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
 
 
@@ -34,24 +34,39 @@ export class SubmissionComponent extends CreateFacilityForm implements OnInit {
     if (this.dataService.jsonCreateFacility.response &&
         this.dataService.jsonCreateFacility.response.returnCode >= ApiStatusCodes.SUCCESS) {
       this.displayIcon = this.dataService.jsonCreateFacility.response.returnCode;
+      this.isUnderReview = (this.displayIcon === ApiStatusCodes.WARNING);
     }
   }
 
   get confirmationMessage() {
-    return this.displayIcon === ApiStatusCodes.SUCCESS ?
-      'Your application has been submitted' : 'Your application failed to be submitted';
+    let confirmMessage = 'Your application has been submitted';
+    if (this.displayIcon === ApiStatusCodes.WARNING) {
+      confirmMessage = 'Your application has been submitted but you will need to ' +
+        'contact HIBC for the Facility Number.';
+    } else if (this.displayIcon === ApiStatusCodes.ERROR) {
+      confirmMessage = 'Sorry, there was an error processing your application. ' +
+        'Please try again. If you continue to receive this error please contact HIBC.';
+    }
+
+    return confirmMessage;
   }
 
+  get isError() {
+    return this.displayIcon === ApiStatusCodes.ERROR;
+  }
+
+  // TODO: Remove not a form.
   continue() {
     console.log('TODO');
   }
 
   get facilityNumberText() {
+
     if (this.isUnderReview) {
-      return 'Under Review';
+      return 'Contact HIBC';
     }
-    // todo - if response, show that.
-    return 'N/A';
+    // TODO - Is facility # considered PI Data?
+    return setNotApplicable(this.dataService.jsonCreateFacility.response.facilityNumber);
   }
 
   print(event: Event) {

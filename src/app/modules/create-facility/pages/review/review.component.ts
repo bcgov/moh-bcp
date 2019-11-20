@@ -10,6 +10,7 @@ import { SplunkLoggerService } from '../../../../services/splunk-logger.service'
 import { ValidationResponse, ReturnCodes } from '../../models/create-facility-api-model';
 import { SignatureComponent } from '../../../core-bcp/components/signature/signature.component';
 import { NgControl } from '@angular/forms';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-review',
@@ -21,6 +22,8 @@ export class ReviewComponent extends CreateFacilityForm implements OnInit {
   displayError: boolean = false;
   confirmed: boolean = false;
   showDuplicateWarning = true;
+
+  links = environment.links;
 
   @ViewChild(SignatureComponent, {static: true}) signature: SignatureComponent;
 
@@ -63,7 +66,7 @@ export class ReviewComponent extends CreateFacilityForm implements OnInit {
 
   continue() {
     this.signature._onTouched();
-    
+
     if (this.canContinue()) {
       this.submit();
       // this.pageCheckService.setPageComplete();
@@ -101,7 +104,7 @@ export class ReviewComponent extends CreateFacilityForm implements OnInit {
     this.loading = false;
   }
 
-  log(x){
+  log(x) {
     console.log('reviewLog', x);
   }
 

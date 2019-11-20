@@ -46,4 +46,5 @@ export interface ValidationResponse extends BaseResponse {
 
 export interface CreateResponse extends BaseResponse {
   referenceNumber: string;
+  facilityNumber?: string; // Depending on scenario, this field will be populated
 }
