@@ -5,7 +5,7 @@ import { CheckCompleteBaseService, CommonLogEvents } from 'moh-common-lib';
 import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
 import { CreateFacilityDataService } from '../../services/create-facility-data.service';
 import { BCPApiService } from 'src/app/services/bcp-api.service';
-import { ValidationResponse, ReturnCodes } from '../../models/create-facility-api-model';
+import { ValidationResponse, ReturnCodes, CreateResponse } from '../../models/create-facility-api-model';
 import { SplunkLoggerService } from '../../../../services/splunk-logger.service';
 
 @Component({
@@ -71,14 +71,14 @@ export class ReviewComponent extends CreateFacilityForm implements OnInit {
     const jsonPayLoad = this.dataService.getJSONPayload();
     this.api.createFacility(jsonPayLoad)
       .subscribe((res: ValidationResponse) => {
-        this.dataService.jsonCreateFacility.response = res;
 
-        this.splunkLoggerService.log({
-          event: CommonLogEvents.submission,
-          requestUuid: res.requestUUID,
-          applicationUUID: res.applicationUUID,
-          success: res.returnCode === ReturnCodes.SUCCESS
-        });
+        this.dataService.jsonCreateFacility.response = res;
+        this.splunkLoggerService.log(
+          this.dataService.getSubmissionLogObject<CreateResponse>(
+            'Create Facility',
+            this.dataService.jsonCreateFacility.response
+          )
+        );
 
         this.loading = false;
         // TODO: Handle failure case, e.g. no backend, failed request, etc.
