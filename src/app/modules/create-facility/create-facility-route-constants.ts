@@ -4,7 +4,7 @@ export const CREATE_FACILITY_PAGES = {
     HOME: {
         path: 'home',
         fullpath: `${CREATE_FACILITY}/home`,
-        title: 'Home'
+        title: 'Application for Medical Services Plan Facility Number'
     },
     FACILITY_ADMIN: {
         path: 'facility-administrator',

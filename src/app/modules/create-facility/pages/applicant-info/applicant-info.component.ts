@@ -2,7 +2,6 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CreateFacilityForm } from '../../models/create-facility-form';
 import { Router } from '@angular/router';
 import { CreateFacilityDataService } from '../../services/create-facility-data.service';
-import { ValidatorFn, AbstractControl, NgControl } from '@angular/forms';
 import { CheckCompleteBaseService } from 'moh-common-lib';
 import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
 import { BCPApiService } from '../../../../services/bcp-api.service';
@@ -30,6 +29,10 @@ export class ApplicantInfoComponent extends CreateFacilityForm implements OnInit
 
   ngOnInit() {
     this.pageCheckService.setPageIncomplete();
+  }
+
+  get pageTitle() {
+    return CREATE_FACILITY_PAGES.FACILITY_ADMIN.title;
   }
 
   continue() {
