@@ -5,8 +5,14 @@
          *ngIf='image'>
 
     <div class="card-body">
-        <button class="btn btn-primary mx-2"
+        <i aria-hidden="true" class="fa fa-pencil fa-2x d-inline-block upload-icon" tabindex="0"></i>
+        <p class="h2 text-dark d-inline-block">Add your signature</p>
+        <button class="btn btn-primary ml-4 d-block"
                 (click)='open()'>Sign</button>
+
+
+        <span *ngIf='controlDir?.touched && controlDir?.valid'>Success!</span>
+
         <common-error-container [displayError]='(controlDir.touched || controlDir.dirty) && controlDir?.errors?.required'>
             Signature is required
         </common-error-container>
