@@ -26,7 +26,7 @@ export class ReviewComponent extends CreateFacilityForm implements OnInit {
 
   constructor(protected router: Router,
               private pageCheckService: CheckCompleteBaseService,
-              private dataService: CreateFacilityDataService,
+              public dataService: CreateFacilityDataService,
               private api: BCPApiService,
               private splunkLoggerService: SplunkLoggerService) {
     super(router);
