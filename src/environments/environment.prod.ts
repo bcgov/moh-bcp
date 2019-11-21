@@ -5,6 +5,9 @@ export const environment = {
   // TODO: REVERT THIS! ENABLED ONLY FOR EASY UX REVIEW FOR JEFF
   bypassGuards: false,
   useDummyData: false,
+
+
+  useMockBackend: false,
   api: {
     base: '/bcp/api/bcpIntegration',
     captcha: '/bcp/api/captcha',
