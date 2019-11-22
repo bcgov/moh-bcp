@@ -22,6 +22,7 @@ export class ReviewFacilityMailingInfoComponent implements OnInit {
 
   reviewItems() {
 
+    this.review.displayPrintView = this.dataService.isPrintView;
     this.review.redirectPath = CREATE_FACILITY_PAGES.FACILITY_INFO.fullpath;
     this.review.header = 'Facility Mailing Address';
 

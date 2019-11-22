@@ -27,6 +27,7 @@ export class ReviewApplicantComponent implements OnInit {
       phoneNumberEntry.value = phoneNumberEntry.value.concat( ' Ext. ' + this.dataService.facAdminExtension );
     }
 
+    this.review.displayPrintView = this.dataService.isPrintView;
     this.review.redirectPath = CREATE_FACILITY_PAGES.FACILITY_ADMIN.fullpath;
     this.review.header = CREATE_FACILITY_PAGES.FACILITY_ADMIN.title;
 

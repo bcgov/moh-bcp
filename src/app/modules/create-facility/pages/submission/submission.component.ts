@@ -36,6 +36,9 @@ export class SubmissionComponent extends CreateFacilityForm implements OnInit {
       this.displayIcon = this.dataService.jsonCreateFacility.response.returnCode;
       this.isUnderReview = (this.displayIcon === ApiStatusCodes.WARNING);
     }
+
+    // Set isPrintView to true
+    this.dataService.isPrintView = true;
   }
 
   get confirmationMessage() {

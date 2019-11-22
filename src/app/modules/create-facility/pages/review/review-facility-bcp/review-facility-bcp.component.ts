@@ -21,6 +21,7 @@ export class ReviewFacilityBcpComponent implements OnInit {
 
   reviewItems() {
 
+    this.review.displayPrintView = this.dataService.isPrintView;
     this.review.redirectPath = CREATE_FACILITY_PAGES.FACILITY_INFO.fullpath;
     this.review.header = 'Business Cost Premium';
 

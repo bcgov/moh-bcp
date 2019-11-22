@@ -24,6 +24,7 @@ export class ReviewFacilityComponent implements OnInit {
 
     console.log( 'this.dataService.facInfoProvince: ', this.dataService.facInfoProvince );
 
+    this.review.displayPrintView = this.dataService.isPrintView;
     this.review.redirectPath = CREATE_FACILITY_PAGES.FACILITY_INFO.fullpath;
     this.review.header = CREATE_FACILITY_PAGES.FACILITY_INFO.title;
 
