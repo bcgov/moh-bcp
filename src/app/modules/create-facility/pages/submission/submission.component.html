@@ -61,8 +61,9 @@
 
       <!-- Prinable section should have same contents as Review page
       TODO: Explore refactoring so we can actually just put Review component here and style it in print-css.  -->
-      <div class="print-only">
+      <div class="print-only col-12">
 
+  <!--
         <h2 class="border-bottom">Facility Administrator Info</h2>
         <div class="row print-review-row">
           <div class='col-6 review-key'>Facility administrator first name</div>
@@ -125,12 +126,17 @@
           </div>
         </ng-container>
 
-
         <h2 class='border-bottom'>Business Cost Premium</h2>
         <div class="row print-review-row">
           <div class='col-6 review-key'>Does your business qualify for Business Cost Premium?</div>
           <div class="col-6 review-value">{{dataService.facInfoIsQualifyForBCP ? 'Yes' : 'No' }}</div>
         </div>
+      -->
+
+        <bcp-review-applicant></bcp-review-applicant>
+        <bcp-review-facility></bcp-review-facility>
+        <bcp-review-facility-mailing-info></bcp-review-facility-mailing-info>
+        <bcp-review-facility-bcp></bcp-review-facility-bcp>
 
         <h2 class='border-bottom'>Declaration</h2>
         <p class="font-italic">I understand that MSP is a public system based on trust, but also that my claims are subject to audit and financial recovery for claims contrary to the Medicare Protection Act (the Act). I undertake to not submit false or misleading claims information, and acknowledge that doing so is an offence under the Act and may be an offence under the Criminal Code of Canada. Further, I agree that I will meet the requirements of the Act and related Payment Schedule regarding claims for payment, including that prior to submitting a claim, I must create: (a) an adequate medical record, if I am a medical practitioner; or (b) an adequate clinical record, if I am a health care practitioner.</p>

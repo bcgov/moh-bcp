@@ -38,6 +38,9 @@ export class ReviewComponent extends CreateFacilityForm implements OnInit {
   ngOnInit() {
     this.pageCheckService.setPageIncomplete();
     this.showDuplicateWarning = this.dataService.apiDuplicateWarning;
+
+    // Set isPrintView to false
+    this.dataService.isPrintView = false;
   }
 
   get pageTitle() {

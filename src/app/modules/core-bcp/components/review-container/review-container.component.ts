@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
-// import { ROUTES_UPDATE } from '../../routing/routes.constants';
 
 @Component({
     selector: 'bcp-review-container',
@@ -13,6 +12,9 @@ export class ReviewContainerComponent implements OnInit {
     @Input() redirectPath: string | null;
     @Input() sectionItems: any | null;
     @Input() showCheckBoxList: boolean = false;
+
+    // Display as print view - no icons, no grey boxes
+    @Input() displayPrintView: boolean = false;
 
     constructor(private router: Router) {}
 

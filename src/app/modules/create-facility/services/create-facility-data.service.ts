@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { format } from 'date-fns';
 import { UUID } from 'angular2-uuid';
 import { BRITISH_COLUMBIA, CommonLogEvents, CommonLogMessage } from 'moh-common-lib';
 import { convertToJSONDate, stripPhoneFormatting, stripPostalCodeSpaces } from '../../core-bcp/models/helperFunc';
@@ -25,7 +24,7 @@ export class CreateFacilityDataService {
       this.facAdminFirstName = 'TEST';
       this.facAdminLastName = 'PRIVATEPRACTICE';
       this.pracNumber = '89902';
-      this.emailAddress = 'test@privatepractice.com'; // optional field
+      // this.emailAddress = 'test@privatepractice.com'; // optional field
       this.facAdminPhoneNumber = '(222) 222-2221';
 
       // Following code is as per directions by Adam ref:bcp-68 18/10/2019 10:40AM
@@ -37,7 +36,7 @@ export class CreateFacilityDataService {
       this.facInfoPostalCode = 'V8R3C2';
       // this.facInfoPhoneNumber = '(250) 555-1234';
       // this.facInfoPhoneExtension = '444'
-      this.facInfoFaxNumber = '(222) 222-2222'; // optional field
+      // this.facInfoFaxNumber = '(222) 222-2222'; // optional field
       this.facInfoEffectiveDate = new Date(2020, 0, 10);
 
       this.facInfoIsSameMailingAddress = true;
@@ -99,6 +98,12 @@ export class CreateFacilityDataService {
 
   validateFacilityMessage: string;
 
+  /* Used to switch review contents to a view to be printed (i.e. no edit icons,
+   *  or grey background)
+   */
+  isPrintView: boolean = false;
+
+  // TODO: Figure out where this variable is used
   json: any;
 
   // This should be the actual image, as a dataURL.  We store it as a string / base64.
@@ -148,6 +153,7 @@ export class CreateFacilityDataService {
         effectiveDate: convertToJSONDate(this.facInfoEffectiveDate), // "2020-11-10",
         qualifiesForBCP: this.facInfoIsQualifyForBCP,
       },
+      // TODO: Should this be a constant somewhere?  I assume that is this on a page somewhere and should be the same.
       declarationText: 'I understand that MSP is a public system based on trust, but also that my claims are subject to audit and financial recovery for claims contrary to the Medicare Protection Act (the “Act”). I undertake to not submit false or misleading claims information, and acknowledge that doing so is an offence under the Act and may be an offence under the Criminal Code of Canada. Further, I agree that I will meet the requirements of the Act and related Payment Schedule regarding claims for payment, including that prior to submitting a claim, I must create: (a) an adequate medical record, if I am a medical practitioner; or (b) an adequate clinical record, if I am a health care practitioner.',
       dateOfAcceptance: convertToJSONDate(this.dateOfAcceptance),
       // TODO : that should be from validation - for happy path it fixed to EXACT Match temporariliy
@@ -173,8 +179,7 @@ export class CreateFacilityDataService {
 
   //#region Validation
 
-  // TODO: Verify with Adam that this information is OK to be logged - Did not see PI data in responses
-  getSubmissionLogObject<T extends BaseResponse>(requestType: string, res: T ): CommonLogMessage {
+   getSubmissionLogObject<T extends BaseResponse>(requestType: string, res: T ): CommonLogMessage {
     return {
       event: CommonLogEvents.submission,
       request: requestType,
