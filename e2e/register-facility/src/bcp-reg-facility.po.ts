@@ -25,6 +25,11 @@ export function getJSONData() {
 export class BCPBasePage extends AbstractTestPage {
 
     protected jsonData = getJSONData();
+    protected index: number;
+    
+    setIndex(index: number){
+        this.index = index;
+    }
 
     navigateTo() {
         return browser.get('');
@@ -61,7 +66,8 @@ export class BCPHomePage extends BCPBasePage {
         element(by.css('button[type="submit"]')).click();
     }
     
-    fillPage() {
+    fillPage(index: number) {
+        this.setIndex(index);
         this.typeCaptcha();
         this.checkConsent();
         this.clickModalContinue();
@@ -75,14 +81,15 @@ export class BCPAdminPage extends BCPBasePage {
       return browser.get('/bcp/register-facility/facility-administrator');
     }
 
-    fillPage() {
-        this.typeText('Facility administrator first name', this.jsonData.facilityAdminFirstName);
-        this.typeText('Facility administrator last name', this.jsonData.facilityAdminLastName);
-        this.typeText('Medical services plan practitioner number', this.jsonData.MSPPractitionerNum);
-        this.typeText('Email', this.jsonData.emailAdd);
-        this.typeText('Confirm email address', this.jsonData.confirmEmailAdd);
-        this.typeText('Phone Number', this.jsonData.phoneNum);
-        this.typeText('Extension', this.jsonData.extension);
+    fillPage(index: number) {
+        this.setIndex(index);
+        this.typeText('Facility administrator first name', this.jsonData[this.index].facilityAdminFirstName);
+        this.typeText('Facility administrator last name', this.jsonData[this.index].facilityAdminLastName);
+        this.typeText('Medical services plan practitioner number', this.jsonData[this.index].MSPPractitionerNum);
+        this.typeText('Email', this.jsonData[this.index].emailAdd);
+        this.typeText('Confirm email address', this.jsonData[this.index].confirmEmailAdd);
+        this.typeText('Phone Number', this.jsonData[this.index].phoneNum);
+        this.typeText('Extension', this.jsonData[this.index].extension);
         this.clickContinue();
     }
 }
@@ -108,26 +115,27 @@ export class BCPInfoPage extends BCPBasePage {
         element(by.cssContainingText('legend', `${legendVal}`)).element(by.xpath('../..')).element(by.css(`input[id^="year"]`)).sendKeys(year);
     }
 
-    fillPage() {
-        this.typeText('Facility Name', this.jsonData.facilityName);
-        this.typeText('Physical Address', this.jsonData.address);
-        this.typeText('City', this.jsonData.city);
-        this.typeText('Postal Code', this.jsonData.postal);
-        this.typeText('Fax Number', this.jsonData.faxNum);
+    fillPage(index: number) {
+        this.setIndex(index);
+        this.typeText('Facility Name', this.jsonData[this.index].facilityName);
+        this.typeText('Physical Address', this.jsonData[this.index].address);
+        this.typeText('City', this.jsonData[this.index].city);
+        this.typeText('Postal Code', this.jsonData[this.index].postal);
+        this.typeText('Fax Number', this.jsonData[this.index].faxNum);
 
-        var effectiveDate = this.jsonData.effectiveDate;
+        var effectiveDate = this.jsonData[this.index].effectiveDate;
         const year = effectiveDate.split('-')[0];
         const month = effectiveDate.split('-')[1];
         const day = effectiveDate.split('-')[2];
         this.typeDate('Effective Date', year, month, day);
         this.scrollDown();
-        this.clickOption('Is the mailing address the same as the Physical Facility Address?', this.jsonData.hasSameMailingAddress.toString());
-        if(!this.jsonData.hasSameMailingAddress){
-            this.typeText('Mailing Address', this.jsonData.mailingAddress);
-            this.typeMailingCity(this.jsonData.mailingCity);
-            this.typeMailingPostal(this.jsonData.mailingPostal);
+        this.clickOption('Is the mailing address the same as the Physical Facility Address?', this.jsonData[this.index].hasSameMailingAddress.toString());
+        if(!this.jsonData[this.index].hasSameMailingAddress){
+            this.typeText('Mailing Address', this.jsonData[this.index].mailingAddress);
+            this.typeMailingCity(this.jsonData[this.index].mailingCity);
+            this.typeMailingPostal(this.jsonData[this.index].mailingPostal);
         }
-        this.clickOption('Does your business qualify for the Business Cost Premium?', this.jsonData.qualifyForBCP.toString());
+        this.clickOption('Does your business qualify for the Business Cost Premium?', this.jsonData[this.index].qualifyForBCP.toString());
         this.clickContinue();
     }
 }
@@ -150,7 +158,8 @@ export class BCPReviewPage extends BCPBasePage {
         element(by.css('canvas')).click();
     }
 
-    fillPage() {
+    fillPage(index: number) {
+        this.setIndex(index);
         this.scrollDown();
         this.clickConfirm('I confirm that I have read and agree to the above statement');
         this.writeSignature();
