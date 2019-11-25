@@ -27,8 +27,8 @@ app-submission {
 }
 
 
-// .print-only {display: none;}
-// @media print {
+.print-only {display: none;}
+@media print {
   .print-only {display: block; }
   .print-hide {display: none;}
   header {
@@ -46,4 +46,4 @@ app-submission {
   .print-review-row > div { margin-top: 0.5rem; }
   .review-key {font-weight: 100}
   .review-value {font-weight: 400}
-// }
+}
