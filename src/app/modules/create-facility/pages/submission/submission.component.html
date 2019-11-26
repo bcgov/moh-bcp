@@ -1,4 +1,5 @@
-<common-page-framework layout='blank'>
+<common-page-framework layout='blank' [ngClass]='{"print-mode": printMode}'>
+
 
   <common-confirm-template [displayIcon]="displayIcon">
 
@@ -9,7 +10,7 @@
              aria-hidden="true"></i>
         </strong>
       </button>
-      <h1 class='border-bottom'>{{pageTitle}}</h1>
+      <h1 class='border-bottom'>{{pageTitle}}</h1>`
     </div>
 
     <div message>

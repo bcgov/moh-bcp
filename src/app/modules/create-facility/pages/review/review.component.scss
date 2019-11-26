@@ -22,3 +22,18 @@
     margin-left: 0.5rem;
   }
   
+
+#screenshot-area {
+  height: 100%;
+  // display: none;
+  // width: 30000px;
+  // height: 1000px;
+
+  // #screenshot-wrapper {display: none;}
+  // #screenshot-wrapper {
+  //   height: 1px;
+  //   overflow: hidden;
+  // }
+}
+
+.html2canvas-container { width: 1024px !important; height: 2500px !important; }

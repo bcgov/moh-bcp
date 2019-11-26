@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import { CreateFacilityForm } from '../../models/create-facility-form';
 import { Router } from '@angular/router';
 import { ApiStatusCodes } from 'moh-common-lib';
@@ -16,6 +16,8 @@ import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
   encapsulation: ViewEncapsulation.None, // for print css
 })
 export class SubmissionComponent extends CreateFacilityForm implements OnInit {
+
+  @Input() printMode: boolean = false;
 
   // default icon - if return code < 0 then its an error
   displayIcon: ApiStatusCodes = ApiStatusCodes.ERROR;

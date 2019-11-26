@@ -57,6 +57,15 @@
     <h2 class="border-bottom">Signtaure</h2>
     <bcp-signature name='signature' [(ngModel)]='dataService.signature' required></bcp-signature>
 
+
+    <h2>Screnshot dev</h2>
+    <common-button (click)="screenshot()">Screenshot</common-button>
+    <div id="screenshot-area" #screenshotArea class='html2canvas-container'>
+      <div id='screenshot-wrapper'>
+        <app-submission [printMode]='true'></app-submission>
+      </div>
+    </div>
+
 </common-page-framework>
 
 <common-form-action-bar [defaultColor]='false' widthOption='extra-width-mobile-only'  (btnClick)="continue()"  submitLabel="Submit" [isLoading]='loading' >
