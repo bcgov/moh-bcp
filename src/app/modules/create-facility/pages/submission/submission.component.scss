@@ -34,10 +34,13 @@ app-submission {
   .print-only {display: block; }
   .print-hide {display: none;}
   header {
-    background-color: white;
+    background-color: white !important;
     .title {color: black !important;}
     .header-logo {content:url("../../../../../assets/logo_print.png"); }
     border-bottom: 0 !important;
+
+    // centre the header
+    > div > div.d-flex.flex-wrap { margin: 2em auto 0 !important; }
   }
 
   // Save ink, no need for dark blue.
@@ -48,35 +51,14 @@ app-submission {
   .print-review-row > div { margin-top: 0.5rem; }
   .review-key {font-weight: 100}
   .review-value {font-weight: 400}
+  common-core-breadcrumb, .navbar { display: none; }
 }
 
 
-@media print {
+// @media print {
   @include printStyles();
-}
+// }
 
 .print-mode {
   .print-only {display: block !important;}
 }
-
-// .print-mode {
-//   // @include printStyles();
-//   .print-only {display: block; }
-//   .print-hide {display: none;}
-//   header {
-//     background-color: white;
-//     .title {color: black !important;}
-//     .header-logo {content:url("../../../../../assets/logo_print.png"); }
-//     border-bottom: 0 !important;
-//   }
-
-//   // Save ink, no need for dark blue.
-//   body, h1, h2, h3 {
-//     color: black !important;
-//   }
-//   h2 { font-weight: bold; }
-//   .print-review-row > div { margin-top: 0.5rem; }
-//   .review-key {font-weight: 100}
-//   .review-value {font-weight: 400}
-  
-// }
