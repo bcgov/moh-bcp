@@ -1,0 +1,38 @@
+# Readme
+
+Image microservice should be moved to a separate repo once mature.
+
+
+## Notes
+
+
+### Options:
+
+* Puppetteer - share styles and some markup (wouldn't include angular app, just enough styles for page)
+    Pro: easier to edit, uses overlapping technology (any angular dev could jump in and make tweaks)
+    Con: harder to setup puppeteer
+    todo - look at ability to strip all styles from current review page and pull it down
+
+
+
+
+### Estimate
+
+    - Template setup - 4 days
+    - RESTful interface - 2 day
+        - requires image upload for signature
+    - Image generation - 1 day
+    - OpenShift config / depoyment - 3 days
+
+
+
+#### Features / design
+
+
+    {
+        templateVersion: "1",
+        header: "Application for Medical Services Plan",
+        confirmationMessage: "blah"
+        confirmationIconType: "lorem"
+        confirmationStatus: "success" | "warning"
+    }
