@@ -68,6 +68,11 @@
                        formControlName='effectiveDate'
                        [dateRangeStart]="effectStartRange"></common-date>
         </div>
+        <div *ngIf="isEffectiveDateWarning" class="text-primary">
+          NOTE: The Effective Date you have provided is in the future. Claims submitted by
+          practitioners at the clinic must be after this date.
+        </div>
+
 
         <div class="form-group">
           <common-radio formControlName="isSameMailingAddress"

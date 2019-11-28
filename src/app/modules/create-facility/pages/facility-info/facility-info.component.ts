@@ -10,6 +10,7 @@ import { ValidationResponse, ReturnCodes } from '../../models/create-facility-ap
 import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
 import { stripPostalCodeSpaces } from '../../../core-bcp/models/helperFunc';
 import { SplunkLoggerService } from '../../../../services/splunk-logger.service';
+import { startOfToday, addYears, compareAsc } from 'date-fns';
 
 @Component({
   selector: 'app-facility-info',
@@ -30,6 +31,10 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
 
   // Facility Effective Date can be on or after January 1, 1966
   effectStartRange: Date = new Date( 1966, 0, 1 );
+  isEffectiveDateWarning: boolean = false;
+
+  // After this date a warning is displayed
+  private _effectiveDateThreshold = addYears( startOfToday(), 1 );
 
   constructor(
     protected router: Router,
@@ -102,6 +107,14 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
         if (!value) {
           this.mailingAddress = null;
           this.dataService.facInfoMailAddress = null;
+        }
+      }
+    );
+
+    form.get('effectiveDate').valueChanges.subscribe(
+      value => {
+        if (value) {
+          this.isEffectiveDateWarning = compareAsc( value, this._effectiveDateThreshold ) > 0 ? true : false;
         }
       }
     );
