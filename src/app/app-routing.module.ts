@@ -10,7 +10,13 @@ const routes: Routes = [
   {
     path: 'register-facility',
     loadChildren: () => import('./modules/create-facility/create-facility.module').then(m => m.CreateFacilityModule)
+  },
+  /*
+  {
+    path: 'practitioner-assignment',
+    loadChilder: app/modules/pracitioner-assignment/practitioner-assignement#PractitionerAssignmentModule
   }
+  */
 ];
 
 @NgModule({
