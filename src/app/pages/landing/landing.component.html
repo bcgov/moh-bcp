@@ -1,11 +1,18 @@
 <common-page-framework>
   <h1>Home Page</h1>
-  <section>
+  <div class="row p-2">
     <a [routerLink]="registerFacility">
       <button class="btn btn-block btn-lg btn-secondary">
         Register Facility
       </button>
     </a>
-  </section>
+  </div>
+  <div class="row p-2">
+    <a [routerLink]="practitionerAssignment">
+      <button class="btn btn-block btn-lg btn-secondary">
+        Practitioner Assignment to Facility
+      </button>
+    </a>
+  </div>
 </common-page-framework>
 

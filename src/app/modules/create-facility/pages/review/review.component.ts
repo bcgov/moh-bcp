@@ -7,9 +7,8 @@ import { CreateFacilityDataService } from '../../services/create-facility-data.s
 import { BCPApiService } from 'src/app/services/bcp-api.service';
 import { CreateResponse } from '../../models/create-facility-api-model';
 import { SplunkLoggerService } from '../../../../services/splunk-logger.service';
-import { ValidationResponse, ReturnCodes } from '../../models/create-facility-api-model';
+import { ValidationResponse } from '../../models/create-facility-api-model';
 import { SignatureComponent } from '../../../core-bcp/components/signature/signature.component';
-import { NgControl } from '@angular/forms';
 import { environment } from '../../../../../environments/environment';
 
 @Component({

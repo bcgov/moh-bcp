@@ -17,7 +17,6 @@ if ( environment.useMockBackend ) {
   providerList.push( fakeBackendProvider );
 }
 
-
 @NgModule({
   declarations: [
     AppComponent,
