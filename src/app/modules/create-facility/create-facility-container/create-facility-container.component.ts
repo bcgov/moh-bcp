@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Container, CheckCompleteBaseService } from 'moh-common-lib';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Container, CheckCompleteBaseService, CommonLogEvents } from 'moh-common-lib';
 import { createFacilityPageRoutes } from '../create-facility-page-routing';
 import { environment } from 'src/environments/environment';
-import { CREATE_FACILITY, CREATE_FACILITY_PAGES } from '../create-facility-route-constants';
+import { CREATE_FACILITY_PAGES } from '../create-facility-route-constants';
 import { HeaderService } from 'src/app/services/header.service';
-import { Routes, Router, NavigationEnd, NavigationStart } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { Route } from '@angular/compiler/src/core';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -16,20 +16,19 @@ import { SplunkLoggerService } from 'src/app/services/splunk-logger.service';
   templateUrl: './create-facility-container.component.html',
   styleUrls: ['./create-facility-container.component.scss']
 })
-export class CreateFacilityContainerComponent extends Container implements OnInit {
+export class CreateFacilityContainerComponent extends Container implements OnInit, OnDestroy {
 
   hideStepper = false;
   routerSubscription: Subscription;
 
   constructor(private checkPageService: CheckCompleteBaseService,
-    private headerService: HeaderService,
-    private router: Router,
-    private splunkLogger: SplunkLoggerService) {
+              private headerService: HeaderService,
+              private router: Router) {
     super();
 
     // 'Submission' should not be in the stepper.
     const pageRoutesWithoutSubmission = createFacilityPageRoutes
-      .filter(x => x.path !== 'submission');
+      .filter(x => x.path !== CREATE_FACILITY_PAGES.SUBMISSION.path);
 
     this.setProgressSteps((pageRoutesWithoutSubmission as Route[]));
     // this.setProgressSteps( (createFacilityPageRoutes as Route[]) );
@@ -43,45 +42,31 @@ export class CreateFacilityContainerComponent extends Container implements OnIni
       };
     });
     this.checkPageService.bypassGuards = environment.bypassGuards;
-    this.checkPageService.startUrl = `/${CREATE_FACILITY}/home`;
-    this.headerService.setTitle('Application for Medical Services Plan Facility Number')
+    this.checkPageService.startUrl = CREATE_FACILITY_PAGES.HOME.fullpath;
+    this.headerService.setTitle('Application for Medical Services Plan Facility Number');
   }
 
   ngOnInit() {
 
+    // TODO: When fix route guards for application this logic can be removed
     this.routerSubscription = this.router.events
     .pipe(
       filter(event => event instanceof NavigationEnd)
-    ).subscribe(event => {
-      // console.log('nav', this.router.url);
+    ).subscribe(() => {
       this.setStepperVisibility();
-
-      this.splunkLogger.log({
-        event: 'navigation',
-        url: this.router.url
-      })
     });
-
-    this.setStepperVisibility();
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.routerSubscription.unsubscribe();
   }
 
-  setStepperVisibility(){
+  setStepperVisibility() {
     this.hideStepper = this.router.url.includes(CREATE_FACILITY_PAGES.SUBMISSION.path);
-    // console.log('url', this.router.url, 'hideStepper', this.hideStepper);
     console.log({
       url: this.router.url,
       check: `${this.router.url}.includes('${CREATE_FACILITY_PAGES.SUBMISSION.path}')`,
       val: this.router.url.includes(CREATE_FACILITY_PAGES.SUBMISSION.path),
-    })
+    });
   }
-
-  logPage(){
-    // this.splunkLogger.log()
-  }
-
 }
-

@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedCoreModule } from 'moh-common-lib';
-import { PractitionerNumberComponent } from './practitioner-number/practitioner-number.component';
+import { PractitionerNumberComponent } from './components/practitioner-number/practitioner-number.component';
 import { FormsModule } from '@angular/forms';
-import { ValidatePractitionerNumberDirective } from './practitioner-number/validate-practitioner-number.directive';
-import { ReviewContainerComponent } from './review-container/review-container.component';
+import { ValidatePractitionerNumberDirective } from './components/practitioner-number/validate-practitioner-number.directive';
+import { ReviewContainerComponent } from './components/review-container/review-container.component';
 import { SignaturePadModule } from 'angular2-signaturepad';
 import { SignatureComponent } from './components/signature/signature.component';
+import { ModalModule } from 'ngx-bootstrap';
 
 const exportables = [
   PractitionerNumberComponent,
@@ -21,7 +22,8 @@ const exportables = [
     CommonModule,
     SharedCoreModule,
     FormsModule,
-    SignaturePadModule
+    SignaturePadModule,
+    ModalModule.forRoot(),
   ],
   exports: [
     SharedCoreModule,

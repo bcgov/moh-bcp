@@ -3,22 +3,27 @@ export const CREATE_FACILITY = 'register-facility';
 export const CREATE_FACILITY_PAGES = {
     HOME: {
         path: 'home',
-        fullPath: `${CREATE_FACILITY}/home`
+        fullpath: `${CREATE_FACILITY}/home`,
+        title: 'Application for Medical Services Plan Facility Number'
     },
     FACILITY_ADMIN: {
         path: 'facility-administrator',
-        fullPath: `${CREATE_FACILITY}/facility-administrator`
+        fullpath: `${CREATE_FACILITY}/facility-administrator`,
+        title: 'Facility Administrator Information'
     },
     FACILITY_INFO: {
         path: 'facility-info',
-        fullPath: `${CREATE_FACILITY}/facility-info`
+        fullpath: `${CREATE_FACILITY}/facility-info`,
+        title: 'Facility Information'
     },
     REVIEW: {
         path: 'review',
-        fullPath: `${CREATE_FACILITY}/review`
+        fullpath: `${CREATE_FACILITY}/review`,
+        title: 'Review Application'
     },
     SUBMISSION: {
         path: 'submission',
-        fullPath: `${CREATE_FACILITY}/submission`
+        fullpath: `${CREATE_FACILITY}/submission`,
+        title: 'Confirmation of Submission'
     },
-}
+};

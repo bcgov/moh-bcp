@@ -1,5 +1,5 @@
 <common-page-framework layout='blank'>
-  <h1>Facility Information</h1>
+  <h1>{{pageTitle}}</h1>
   <p class="border-bottom">
     To qualify a Facility must be location in British Columbia.
   </p>
@@ -10,15 +10,18 @@
         <div class="form-group">
           <!-- Facility Name -->
           <label class="control-label" for="facilityName">Facility Name</label>
-          <input id="facilityName" formControlName="facilityName" class="form-control" required="true" maxlength="70">
+          <input id="facilityName" formControlName="facilityName" class="form-control" maxlength="70">
           <common-error-container [displayError]="validFormControl(facilityForm,'facilityName')">
             Facility Name is a required field
           </common-error-container>
         </div>
 
         <div class="form-group">
-          <!-- Physical Address-->
-          <common-geocoder-input label='Physical Address' formControlName="address" maxlength="60" (addressChange)="physicalAddressSelected($event)">
+          <!-- Physical Address -TODO: Fix bug does not always save  -->
+          <common-geocoder-input label='Physical Address'
+                                 formControlName="address"
+                                 maxlength="60"
+                                 (addressChange)="physicalAddressSelected($event)">
           </common-geocoder-input>
 
           <common-error-container
@@ -33,60 +36,59 @@
 
         <div class="form-group">
           <!-- City -->
-          <common-city name='facilityCity' formControlName="city" required="true" [maxlen]="30"></common-city>
+          <common-city name='facilityCity'
+                       formControlName="city"
+                       placeholder=""
+                       [maxlength]="30"></common-city>
+        </div>
+
+        <!-- Province is read only just display on screen -->
+        <div>
+          <div class='label'>Province</div>
+          <div class='pb-2'>{{facInfoProvince}}</div>
         </div>
 
         <div class="form-group">
-          <!-- Province -->
-          <common-province name='facilityProvince' label='Province' placeholder='' formControlName='province' disabled>
-          </common-province>
+          <!-- Postal Code has masks by default not maxlength required-->
+          <common-postal-code name='facilityPostalCode'
+                              label='Postal Code'
+                              formControlName='postalCode'></common-postal-code>
         </div>
 
         <div class="form-group">
-          <!-- Postal Code -->
-          <common-postal-code name='facilityPostalCode' label='Postal Code' formControlName='postalCode' required="true"
-            [maxlength]="10"></common-postal-code>
+          <common-phone-number name='facilityFaxNumber'
+                               label='Fax Number (optional)'
+                               formControlName='faxNumber'
+                               [allowInternational]='false'></common-phone-number>
         </div>
 
         <div class="form-group">
-          <common-phone-number name='facilityFaxNumber' label='Fax Number' formControlName='faxNumber'
-            [allowInternational]='false' required></common-phone-number>
-        </div>
-
-        <div class="form-group">
-
-          <!-- 
-            issue with common-date. It does not set the common-date at all, in simpledate or initialization
-            ref: bcp-16 #comment-24615
-            https://github.com/bcgov/moh-common-styles/blob/master/projects/common/lib/components/date/date.component.ts
-            https://github.com/bcgov/moh-common-styles/blob/master/projects/common/lib/models/simple-date.interface.ts 
-          -->
-
-          <common-date name='effectiveDate' label="Effective Date" [restrictDate]="'future'"
-            formControlName='effectiveDate' [required]="true" ></common-date>
-
-          <!-- <common-date name='effectiveDate'
+          <common-date name='effectiveDate'
                        label="Effective Date"
-                       [restrictDate]="'past'"
                        formControlName='effectiveDate'
-                       [required]="true"
-                       ></common-date> -->
+                       [dateRangeStart]="effectStartRange"></common-date>
         </div>
 
         <div class="form-group">
-          <common-radio [radioLabels]="radioBtnLabels" formControlName="isSameMailingAddress"
-            name="isSameMailingAddress" label="Is the mailing address the same as the Physical Facility Address?"
-            display="table-row-group" required="true" errorMessageRequired="Please indicate if the mailing address is the same as the physical address" >
+          <common-radio formControlName="isSameMailingAddress"
+                        name="isSameMailingAddress"
+                        label="Is the mailing address the same as the Physical Facility Address?"
+                        display="table-row-group"
+                        [errorMessage]="sameMailAddrError">
           </common-radio>
         </div>
 
       </form>
     </div>
+
+    <aside>
+      <h2>Tip</h2>
+      <p>Effective date - is the date at which the facility is beginning operations.</p>
+    </aside>
   </common-page-section>
   <h2 class='border-bottom' *ngIf="showMailingAddress">Facility Mailing Address</h2>
   <common-page-section layout="tips">
     <div class="form-group col-sm-8 p-sm-0" *ngIf="showMailingAddress">
-
 
       <form [formGroup]="facilityForm">
 
@@ -99,26 +101,31 @@
           Facility Mailing Address is a required field
         </common-error-container>
 
-        <common-error-container [displayError]="facilityForm.controls?.mailingAddress?.errors?.maxlength">
+        <common-error-container [displayError]="facilityForm.controls.facInfoFaxNumber?.mailingAddress?.errors?.maxlength">
           Facility Mailing Address max length must be 60 or fewer characters.
         </common-error-container>
         </div>
 
 
         <div class="form-group">
-          <common-city label='City' value='' name="mailingCity" formControlName="mailingCity" required="true"
-            [maxlength]="30"></common-city>
+          <common-city label='City'
+                       name="mailingCity"
+                       formControlName="mailingCity"
+                       placeholder=""
+                       [maxlength]="30"></common-city>
         </div>
 
-        <div class="form-group">
-          <common-province name="mailingProvince" label='Province' placeholder='' formControlName='mailingProvince'
-            disabled>
-          </common-province>
+        <!-- Province is read only just display on screen -->
+        <div>
+          <div class='label'>Province</div>
+          <div class='pb-2'>{{facInfoMailProvince}}</div>
         </div>
 
-        <div class="form-group">
-          <common-postal-code name="mailingPostalCode" label='Postal Code' value='' formControlName="mailingPostalCode"
-            class="pt-1" required="true" [maxlength]="10">
+        <div class="form-group pt-1">
+          <!-- Postal Code component defaults to Canadian-->
+          <common-postal-code name="mailingPostalCode"
+                              label='Postal Code'
+                              formControlName="mailingPostalCode">
           </common-postal-code>
         </div>
 
@@ -134,9 +141,11 @@
     <div class="form-group col-sm-8 p-sm-0">
       <form [formGroup]="facilityForm">
         <div class="form-group">
-          <common-radio [radioLabels]="radioBtnLabels" formControlName="isQualifyForBCP" name="isQualifyForBCP"
-            label="Does your business qualify for the Business Cost Premium?" display="table-row-group"  
-            errorMessageRequired="Please indicate if your business qualifies for the Business Cost Premium">
+          <common-radio formControlName="isQualifyForBCP"
+                        name="isQualifyForBCP"
+                        label="Does your business qualify for the Business Cost Premium?"
+                        display="table-row-group"
+                        [errorMessage]="qualifyBcpError">
           </common-radio>
         </div>
       </form>
@@ -149,6 +158,8 @@
   </common-page-section>
 </common-page-framework>
 
-<common-form-action-bar [defaultColor]='true' widthOption='extra-width-mobile-only' [isLoading]='loading'
-  (btnClick)="continue()">
+<common-form-action-bar [defaultColor]='true'
+                        widthOption='extra-width-mobile-only'
+                        [isLoading]='loading'
+                        (btnClick)="continue()">
 </common-form-action-bar>

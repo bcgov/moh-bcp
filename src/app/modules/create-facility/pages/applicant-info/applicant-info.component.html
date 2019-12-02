@@ -1,5 +1,5 @@
 <common-page-framework layout='blank'>
-  <h1>Facility Administrator Information </h1>
+  <h1>{{pageTitle}}</h1>
   <p>In order to apply for a Medical Services Plan Facility Number the Facility Administrator must
     by an active medical practitioner that is registered with the College of Physicians and Surgeons of British
     Columbia. </p>
@@ -46,25 +46,10 @@
 
       <div class="form-group">
         <common-email name='email'
-                      required
+                      label='Email address (optional)'
                       [maxlength]="50"
-                      [(ngModel)]='dataService.emailAddress'
-                      commonValidateEmail></common-email>
+                      [(ngModel)]='dataService.emailAddress'></common-email>
       </div>
-
-      <div class="form-group">
-        <common-email name='emailConfirm'
-                      required
-                      label='Confirm email address'
-                      [maxlength]="50"
-                      [(ngModel)]='dataService.confirmEmailAddress'
-                      commonValidateEmail></common-email>
-
-        <common-error-container [displayError]='showEmailMismatchError()'>
-          This email address does not match the original email provided.
-        </common-error-container>
-      </div>
-
 
       <div class="form-group row">
         <div class="col-10">

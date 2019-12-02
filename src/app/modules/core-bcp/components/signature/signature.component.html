@@ -1,15 +1,62 @@
+<div class="card signature-display"
+     [ngClass]="{'border-danger': (controlDir.touched || controlDir.dirty) && controlDir?.errors?.required}">
 
-<div class="card" [ngClass]="{'border-danger': showDemoError}">
-
-    <signature-pad [options]="signaturePadOptions"
-                   (onBeginEvent)="drawStart()"
-                   (onEndEvent)="drawComplete()"></signature-pad>
+    <img [src]='image'
+         *ngIf='image'>
 
     <div class="card-body">
-        <button class="btn btn-default" (click)='clear()'>Clear Signature</button>
-        <common-error-container [displayError]='showDemoError'>Signature is required</common-error-container>
+        <i aria-hidden="true" class="fa fa-pencil fa-2x d-inline-block upload-icon" tabindex="0"></i>
+        <p class="h2 text-dark d-inline-block">Add your signature</p>
+        <button class="btn btn-primary ml-4 d-block"
+                (click)='open()'>Sign</button>
+
+
+        <span *ngIf='controlDir?.touched && controlDir?.valid'>Success!</span>
+
+        <common-error-container [displayError]='(controlDir.touched || controlDir.dirty) && controlDir?.errors?.required'>
+            Signature is required
+        </common-error-container>
     </div>
-    
+
 </div>
 
-<p (click)='showDemoError = !showDemoError'>(show errors)</p>
+
+
+
+<div bsModal
+     #signatureModal="bs-modal"
+     class="modal"
+     role="dialog"
+     aria-labelledby="samplesModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg"
+         role="document">
+        <div class="modal-content">
+            <div class="modal-header modal-header-primary">
+                <h2 class="modal-title pull-left"
+                    id="samplesModalTitle">Signature</h2>
+            </div>
+
+            <div class="modal-body">
+                <signature-pad [options]="signaturePadOptions"
+                               (onEndEvent)='drawComplete()'></signature-pad>
+                <div class="dotted-line"></div>
+            </div>
+
+            <div class="modal-footer d-block">
+                <button class="btn btn-primary pull-right"
+                        type="submit"
+                        (click)="acceptModal()">Accept</button>
+
+                <button class="btn btn-default pull-right"
+                        type="submit"
+                        (click)="cancelModal()">Cancel</button>
+
+                <button class="btn btn-default"
+                        type="submit"
+                        (click)="clear()">Clear</button>
+            </div>
+
+        </div>
+    </div>
+</div>

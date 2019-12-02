@@ -22,13 +22,13 @@ export class PractitionerNumberComponent implements ControlValueAccessor, OnInit
 
 
   inputChange(evt) {
-    if (evt.target){
+    if (evt.target) {
       this.onChange(evt.target.value);
     }
   }
 
-  onBlur(evt){
-    if (evt.target){
+  onBlur(evt) {
+    if (evt.target) {
       this.onTouched(evt.target.value);
     }
   }

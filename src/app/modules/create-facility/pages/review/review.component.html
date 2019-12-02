@@ -1,6 +1,6 @@
 <common-page-framework layout='blank'>
 
-  <h1>Review Application</h1>
+  <h1>{{pageTitle}}</h1>
   <p class="border-bottom">Review your application before submission</p>
 
 
@@ -9,13 +9,15 @@
         <i class="fa fa-2x fa-exclamation-circle text-warning pr-2" aria-label="warning"></i>
       </p>
       <span>
-        This Facility may already have a Facility Number. If you are certain this is the first time a Facility Number has been requested for this Facility you can continue to complete this registration. 
-        HIBC will process your application and <span class='font-weight-bold'>you will receive your Facility Number in the next two to three weeks.</span>
+        This Facility may already have a Facility Number. If you are certain this is the first time
+        a Facility Number has been requested for this facility continue to submit this form and
+        contact <a href="{{links.hibc}}" target="_blank">Health Insurance BC</a> and provide the
+        reference number that will be provided once you have submitted your request.
       </span>
     </div>
 
   <div class='border-warning' >
-      
+
   </div>
 
     <bcp-review-applicant></bcp-review-applicant>
@@ -26,15 +28,21 @@
     <div class="row col-md-12 ml-0 pl-0 align-items-center">
       <div class="col-md-12 pl-0">
         <h2 class="border-bottom">Declaration</h2>
-      </div>      
-      <div class="row col-md-12 ml-0 pl-0 align-items-left">
-        I understand that MSP is a public system based on trust, but also that my claims are subject to audit and financial recovery for claims contrary to the Medicare Protection Act (the “Act”). I undertake to not submit false or misleading claims information, and acknowledge that doing so is an offence under the Act and may be an offence under the Criminal Code of Canada. Further, I agree that I will meet the requirements of the Act and related Payment Schedule regarding claims for payment, including that prior to submitting a claim, I must create: (a) an adequate medical record, if I am a medical practitioner; or (b) an adequate clinical record, if I am a health care practitioner.
       </div>
       <div class="row col-md-12 ml-0 pl-0 align-items-left">
-        <common-checkbox 
-                          (dataChange)="toggleValidation($event)"
-                          class='mt-4 pl-4'
-                          label='I confirm that I have read and agree to the above statement'>
+        I understand that MSP is a public system based on trust, but also that my claims are
+        subject to audit and financial recovery for claims contrary to the Medicare Protection
+        Act (the “Act”). I undertake to not submit false or misleading claims information, and
+        acknowledge that doing so is an offence under the Act and may be an offence under the
+        Criminal Code of Canada. Further, I agree that I will meet the requirements of the Act
+        and related Payment Schedule regarding claims for payment, including that prior to submitting
+        a claim, I must create: (a) an adequate medical record, if I am a medical practitioner; or
+        (b) an adequate clinical record, if I am a health care practitioner.
+      </div>
+      <div class="row col-md-12 ml-0 pl-0 align-items-left">
+        <common-checkbox (dataChange)="toggleValidation($event)"
+                         class='mt-4 pl-4'
+                         label='I confirm that I have read and agree to the above statement'>
         </common-checkbox>
       </div>
       <div class="row col-md-12 ml-4 pl-0 align-items-left">
@@ -42,12 +50,12 @@
           You <b>MUST</b> agree to the statement to continue with your submission
         </common-error-container>
       </div>
-  
 
-      
+
+
     </div>
     <h2 class="border-bottom">Signtaure</h2>
-    <bcp-signature></bcp-signature>
+    <bcp-signature name='signature' [(ngModel)]='dataService.signature' required></bcp-signature>
 
 </common-page-framework>
 

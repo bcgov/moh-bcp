@@ -5,12 +5,16 @@ export const environment = {
   // TODO: REVERT THIS! ENABLED ONLY FOR EASY UX REVIEW FOR JEFF
   bypassGuards: false,
   useDummyData: false,
+
+
+  useMockBackend: false,
   api: {
     base: '/bcp/api/bcpIntegration',
     captcha: '/bcp/api/captcha',
     splunk: '/bcp/api/logging'
   },
   links: {
-    tbd: 'google.com'
+    tbd: 'google.com',
+    hibc: 'JavaScript:Void(0);' // TODO: Need link
   }
 };

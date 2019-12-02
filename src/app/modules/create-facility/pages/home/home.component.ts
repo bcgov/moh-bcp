@@ -27,7 +27,11 @@ export class HomeComponent extends CreateFacilityForm implements OnInit, AfterVi
     super(router);
   }
 
-  ngOnInit(){
+  get pageTitle() {
+    return CREATE_FACILITY_PAGES.HOME.title;
+  }
+
+  ngOnInit() {
     this.checkPageService.setPageIncomplete();
   }
 
@@ -48,19 +52,19 @@ export class HomeComponent extends CreateFacilityForm implements OnInit, AfterVi
   continue() {
     if (this.canContinue()) {
       this.checkPageService.setPageComplete();
-      this.navigate(CREATE_FACILITY_PAGES.FACILITY_ADMIN.fullPath);
+      this.navigate(CREATE_FACILITY_PAGES.FACILITY_ADMIN.fullpath);
     }
   }
 
   hasCaptchaToken(): boolean {
     return this.ApiService.hasToken;
   }
-  
+
   handleToken(token: string): void {
     this.ApiService.setToken(token);
   }
 
-  debug(a){
+  debug(a) {
     console.log('debug', a);
   }
 }
