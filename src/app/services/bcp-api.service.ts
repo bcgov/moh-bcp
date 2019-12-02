@@ -110,7 +110,7 @@ export class BCPApiService extends AbstractHttpService {
     // TODO: Make non-hardcoded.
     url += `?attachmentdocumenttype=SIGNATURE&programArea=CLAIMS&contentType=1`;
 
-    return this.uploadAttachment(url, attachment, applicationUUID);
+    return this.uploadAttachment(url, attachment);
   }
 
 
