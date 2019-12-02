@@ -47,8 +47,6 @@ export class BCPApiService extends AbstractHttpService {
   }
 
   validatePractitioner(practitioner: PractitionerValidationPartial, applicationUUID) {
-    // TODO: Log! Both on failure and success.
-    // TODO: Get proper values
     const payload: ValidatePractitionerRequest = {
       practitioner,
       requestUUID: this.generateUUID(),
@@ -63,8 +61,6 @@ export class BCPApiService extends AbstractHttpService {
   }
 
   validateFacility(facility: FacilityValidationPartial, applicationUUID: string) {
-    // TODO: Log! Both on failure and success.
-    // TODO: Get proper values
     const payload = {
       facility,
       requestUUID: this.generateUUID(),
@@ -87,7 +83,7 @@ export class BCPApiService extends AbstractHttpService {
    * @param applicationUUID Shared UUID to use across requests.
    */
   createFacility(jsonPayLoad, signature: CommonImage, applicationUUID) {
-    return this.uploadAttachment(signature, applicationUUID)
+    return this.uploadSignature(signature, applicationUUID)
       .pipe(
         flatMap(attachRes => this.submitFacilityJson(jsonPayLoad, applicationUUID)),
         catchError(this.handleError.bind(this))
@@ -108,48 +104,34 @@ export class BCPApiService extends AbstractHttpService {
     return this.post(url, payload);
   }
 
-
-  // TODO: Move this into Common lib?
-  private uploadAttachment(attachment: CommonImage, applicationUUID) {
+  private uploadSignature(attachment: CommonImage, applicationUUID) {
     let url = `${environment.api.attachment}/${applicationUUID}/attachments/${attachment.uuid}`;
 
     // TODO: Make non-hardcoded.
     url += `?attachmentdocumenttype=SIGNATURE&programArea=CLAIMS&contentType=1`;
 
-    const options = {headers: this._headers, responseType: 'text' as 'text'};
-
-    const binary = atob(attachment.fileContent.split(',')[1]);
-    const array = [];
-    for (let i = 0; i < binary.length; i++) {
-        array.push(binary.charCodeAt(i));
-    }
-    const blob = new Blob([new Uint8Array(array)], {type: attachment.contentType});
-
-    return this.http.post(url, blob, options);
+    return this.uploadAttachment(url, attachment, applicationUUID);
   }
 
+
+  // TODO: Move this into Common lib?
+  // TODO: REMOVE
+  // private uploadAttachmentOld(attachment: CommonImage, applicationUUID) {
+  //   let url = `${environment.api.attachment}/${applicationUUID}/attachments/${attachment.uuid}`;
+
+  //   // TODO: Make non-hardcoded.
+  //   url += `?attachmentdocumenttype=SIGNATURE&programArea=CLAIMS&contentType=1`;
+
+  //   const options = {headers: this._headers, responseType: 'text' as 'text'};
+
+  //   const binary = atob(attachment.fileContent.split(',')[1]);
+  //   const array = [];
+  //   for (let i = 0; i < binary.length; i++) {
+  //       array.push(binary.charCodeAt(i));
+  //   }
+  //   const blob = new Blob([new Uint8Array(array)], {type: attachment.contentType});
+
+  //   return this.http.post(url, blob, options);
+  // }
+
 }
-
-
-// validate pracName and number
-// payload
-/*
-const payload = {
-  firstName: 'Bob',
-  lastName: 'Smith',
-  number: '12345',
-  requestID: '<uuid from front-end for logging>'
-};
-
-
-const successResponse = {
-  valid: true,
-  requestID: '<same uuid from payload>'
-};
-
-const failureResponse = {
-  valid: false,
-  requestID: '<same uuid from payload>'
-};
-*/
-
