@@ -39,6 +39,7 @@ export class SignatureComponent implements AfterViewInit {
   ngAfterViewInit() {
     // this.signaturePad is now available
     this.signaturePad.set('minWidth', 5); // set szimek/signature_pad options at runtime
+    this.signaturePad.set('backgroundColor', 'white');
     this.signaturePad.clear(); // invoke functions from szimek/signature_pad API
   }
 
@@ -61,7 +62,7 @@ export class SignatureComponent implements AfterViewInit {
   }
   acceptModal(){
     if (!this.blankCanvas){
-      this.image = this.createCommonImage(this.signaturePad.toDataURL());
+      this.image = this.createCommonImage(this.signaturePad.toDataURL('image/jpeg'));
     } else {
       this.image = null;
     }
