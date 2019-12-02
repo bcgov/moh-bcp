@@ -13,8 +13,8 @@ import { CommonImage } from 'moh-common-lib';
 export class SignatureComponent implements AfterViewInit {
   showDemoError = false;
 
-  @ViewChild(SignaturePad, {static: true}) signaturePad: SignaturePad;
-  @ViewChild('signatureModal', {static: true}) public modal: ModalDirective;
+  @ViewChild(SignaturePad, { static: true }) signaturePad: SignaturePad;
+  @ViewChild('signatureModal', { static: true }) public modal: ModalDirective;
 
   public image: CommonImage;
   private blankCanvas = true;
@@ -25,12 +25,12 @@ export class SignatureComponent implements AfterViewInit {
   };
 
   // Required for implementing ControlValueAccessor
-  _onChange = (_: any) => {};
-  _onTouched = (_?: any) => {};
- 
-  constructor( @Optional() @Self() public controlDir: NgControl ) {
+  _onChange = (_: any) => { };
+  _onTouched = (_?: any) => { };
+
+  constructor(@Optional() @Self() public controlDir: NgControl) {
     // super();
-    if ( controlDir ) {
+    if (controlDir) {
       console.log('sig controldir', controlDir);
       controlDir.valueAccessor = this;
     }
@@ -43,7 +43,7 @@ export class SignatureComponent implements AfterViewInit {
     this.signaturePad.clear(); // invoke functions from szimek/signature_pad API
   }
 
-  drawComplete(){
+  drawComplete() {
     this.blankCanvas = false;
   }
 
@@ -53,15 +53,15 @@ export class SignatureComponent implements AfterViewInit {
     this.blankCanvas = true;
   }
 
-  open(){
+  open() {
     this.modal.show();
     this.signaturePad.clear();
     if (this.image) {
       this.signaturePad.fromDataURL(this.image.fileContent);
     }
   }
-  acceptModal(){
-    if (!this.blankCanvas){
+  acceptModal() {
+    if (!this.blankCanvas) {
       this.image = this.createCommonImage(this.signaturePad.toDataURL('image/jpeg'));
     } else {
       this.image = null;
@@ -72,24 +72,24 @@ export class SignatureComponent implements AfterViewInit {
     this._onTouched();
   }
 
-  cancelModal(){
+  cancelModal() {
     this.modal.hide();
     this._onTouched();
   }
 
 
   // Register change function
-  registerOnChange( fn: any ): void {
+  registerOnChange(fn: any): void {
     this._onChange = fn;
   }
 
   // Register touched function
-  registerOnTouched( fn: any ): void {
+  registerOnTouched(fn: any): void {
     this._onTouched = fn;
   }
 
   writeValue(val: any): void {
-    if (val){
+    if (val) {
       this.image = val;
       this.signaturePad.fromDataURL(val);
     }
