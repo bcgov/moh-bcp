@@ -86,8 +86,7 @@ export class BCPAdminPage extends BCPBasePage {
         this.typeText('Facility administrator first name', this.jsonData[this.index].facilityAdminFirstName);
         this.typeText('Facility administrator last name', this.jsonData[this.index].facilityAdminLastName);
         this.typeText('Medical services plan practitioner number', this.jsonData[this.index].MSPPractitionerNum);
-        this.typeText('Email', this.jsonData[this.index].emailAdd);
-        this.typeText('Confirm email address', this.jsonData[this.index].confirmEmailAdd);
+        this.typeText('Email address (optional)', this.jsonData[this.index].emailAdd);
         this.typeText('Phone Number', this.jsonData[this.index].phoneNum);
         this.typeText('Extension', this.jsonData[this.index].extension);
         this.clickContinue();
@@ -155,7 +154,9 @@ export class BCPReviewPage extends BCPBasePage {
     }
 
     writeSignature(){
+        element(by.cssContainingText('button', 'Sign')).click();
         element(by.css('canvas')).click();
+        element(by.cssContainingText('button', 'Accept')).click();
     }
 
     fillPage(index: number) {
