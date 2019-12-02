@@ -1,6 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ApplicantInfoComponent } from './applicant-info.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+
 
 describe('ApplicantInfoComponent', () => {
   let component: ApplicantInfoComponent;
@@ -8,7 +13,9 @@ describe('ApplicantInfoComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ApplicantInfoComponent ]
+      imports: [ FormsModule, RouterTestingModule, HttpClientTestingModule ],
+      declarations: [ ApplicantInfoComponent ],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     })
     .compileComponents();
   }));

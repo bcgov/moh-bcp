@@ -1,5 +1,5 @@
 <div class="card signature-display"
-     [ngClass]="{'border-danger': (controlDir.touched || controlDir.dirty) && controlDir?.errors?.required}">
+     [ngClass]="{'border-danger': (controlDir?.touched || controlDir?.dirty) && controlDir?.errors?.required}">
 
     <img [src]='image'
          *ngIf='image'>
@@ -13,7 +13,7 @@
 
         <span *ngIf='controlDir?.touched && controlDir?.valid'>Success!</span>
 
-        <common-error-container [displayError]='(controlDir.touched || controlDir.dirty) && controlDir?.errors?.required'>
+        <common-error-container [displayError]='(controlDir?.touched || controlDir?.dirty) && controlDir?.errors?.required'>
             Signature is required
         </common-error-container>
     </div>
