@@ -10,6 +10,7 @@ import { SubmissionComponent } from './pages/submission/submission.component';
 import { RegistrationContainerComponent } from './components/registration-container/registration-container.component';
 import { PractitionerAssignmentComponent } from './pages/practitioner-assignment/practitioner-assignment.component';
 import { CoreBCPModule } from '../core-bcp/core-bcp.module';
+import { ReviewPractitionerInfoComponent } from './pages/review/review-practitioner-info/review-practitioner-info';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { CoreBCPModule } from '../core-bcp/core-bcp.module';
     ReviewComponent,
     SubmissionComponent,
     RegistrationContainerComponent,
+    ReviewPractitionerInfoComponent
     ],
   imports: [
     CommonModule,

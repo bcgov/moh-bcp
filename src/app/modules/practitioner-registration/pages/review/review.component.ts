@@ -16,6 +16,8 @@ export class ReviewComponent extends RegistrationForm implements OnInit {
     super(registrationContainerService, router);
   }
 
+  pageTitle: string = "Review Request";
+
   ngOnInit() {
     this.registrationContainerService.$submitLabelSubject.next('Submit');
     this.registrationContainerService.$useDefaultColorSubject.next(false);
