@@ -6,6 +6,7 @@ import { SplunkLoggerService } from './splunk-logger.service';
 import { ValidatePractitionerRequest, PractitionerValidationPartial, FacilityValidationPartial } from '../modules/create-facility/models/create-facility-api-model';
 import { CreateFacilityDataService } from '../modules/create-facility/services/create-facility-data.service';
 import { flatMap, catchError } from 'rxjs/operators';
+import { BCPDocumentTypes } from '../modules/core-bcp/models/documentTypes';
 
 // TODO: Type Requests
 // TODO: Type responses
@@ -85,17 +86,19 @@ export class BCPApiService extends AbstractHttpService {
   createFacility(jsonPayLoad, signature: CommonImage, applicationUUID) {
     return this.uploadSignature(signature, applicationUUID)
       .pipe(
-        flatMap(attachRes => this.submitFacilityJson(jsonPayLoad, applicationUUID)),
+        flatMap(attachRes => this.submitFacilityJson(jsonPayLoad, applicationUUID, signature)),
         catchError(this.handleError.bind(this))
       );
   }
 
-  private submitFacilityJson(jsonPayLoad: any, applicationUUID: string) {
+  private submitFacilityJson(jsonPayLoad: any, applicationUUID: string, signature: CommonImage<BCPDocumentTypes> ) {
     const requestUUID = this.generateUUID();
+    jsonPayLoad.attachments = signature.toJSON();
     const payload = {
       createFacilitySubmission: jsonPayLoad,
       requestUUID,
-      applicationUUID
+      applicationUUID,
+      // attachments: signature.toJSON()
     };
 
     this.dataService.jsonCreateFacility.request = payload;
@@ -104,34 +107,12 @@ export class BCPApiService extends AbstractHttpService {
     return this.post(url, payload);
   }
 
-  private uploadSignature(attachment: CommonImage, applicationUUID) {
+  private uploadSignature(attachment: CommonImage<BCPDocumentTypes>, applicationUUID) {
     let url = `${environment.api.attachment}/${applicationUUID}/attachments/${attachment.uuid}`;
 
-    // TODO: Make non-hardcoded.
     url += `?attachmentdocumenttype=SIGNATURE&programArea=CLAIMS&contentType=1`;
 
     return this.uploadAttachment(url, attachment);
   }
-
-
-  // TODO: Move this into Common lib?
-  // TODO: REMOVE
-  // private uploadAttachmentOld(attachment: CommonImage, applicationUUID) {
-  //   let url = `${environment.api.attachment}/${applicationUUID}/attachments/${attachment.uuid}`;
-
-  //   // TODO: Make non-hardcoded.
-  //   url += `?attachmentdocumenttype=SIGNATURE&programArea=CLAIMS&contentType=1`;
-
-  //   const options = {headers: this._headers, responseType: 'text' as 'text'};
-
-  //   const binary = atob(attachment.fileContent.split(',')[1]);
-  //   const array = [];
-  //   for (let i = 0; i < binary.length; i++) {
-  //       array.push(binary.charCodeAt(i));
-  //   }
-  //   const blob = new Blob([new Uint8Array(array)], {type: attachment.contentType});
-
-  //   return this.http.post(url, blob, options);
-  // }
 
 }
