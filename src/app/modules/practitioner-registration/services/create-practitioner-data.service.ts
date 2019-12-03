@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
+import { CommonImage } from 'moh-common-lib';
 
 @Injectable({
   providedIn: 'root'
@@ -45,4 +46,6 @@ export class CreatePractitionerDataService {
   pracAttachmentType: string;
   pracAttachmentEffectiveDate: string;
   pracAttachmentCancellationDate: string;
+
+  signature: CommonImage;
 }

@@ -3,6 +3,7 @@ import { RegistrationForm } from '../../models/registration-form';
 import { RegistrationContainerService } from '../../services/registration-container.service';
 import { Router } from '@angular/router';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration-route-constants';
+import { CreatePractitionerDataService } from '../../services/create-practitioner-data.service';
 
 @Component({
   selector: 'bcp-review',
@@ -11,8 +12,9 @@ import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration
 })
 export class ReviewComponent extends RegistrationForm implements OnInit {
 
-  constructor( protected registrationContainerService: RegistrationContainerService,
-               protected router: Router ) {
+  constructor(public dataService: CreatePractitionerDataService,
+    protected registrationContainerService: RegistrationContainerService,
+    protected router: Router) {
     super(registrationContainerService, router);
   }
 
