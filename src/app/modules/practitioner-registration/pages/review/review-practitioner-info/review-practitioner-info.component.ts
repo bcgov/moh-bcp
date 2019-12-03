@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ReviewContainerComponent } from 'src/app/modules/core-bcp/components/review-container/review-container.component';
 import { CreatePractitionerDataService } from '../../../services/create-practitioner-data.service';
-import { getProvinceDescription } from 'moh-common-lib';
-import { setNotApplicable } from '../../../../core-bcp/models/helperFunc';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../../practitioner-registration-route-constants';
 
 @Component({
@@ -30,7 +28,7 @@ export class ReviewPractitionerInfoComponent implements OnInit {
         { label: 'First name', value: this.dataService.pracInfoFirstName, },
         { label: 'Last name', value: this.dataService.pracInfoLastName },
         { label: 'Medical Services Plan practitioner number', value: this.dataService.pracInfoMSPPracNumber },
-        { label: 'Email address (optional)', value: getProvinceDescription(this.dataService.pracInfoEmail) },
+        { label: 'Email address (optional)', value: this.dataService.pracInfoEmail },
         { label: 'Phone number', value: this.dataService.pracInfoPhoneNumber },
       ],
     ];
