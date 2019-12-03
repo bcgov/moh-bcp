@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReviewFacilityComponent } from './review-facility.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
-fdescribe('ReviewFacilityComponent', () => {
+describe('ReviewFacilityComponent', () => {
   let component: ReviewFacilityComponent;
   let fixture: ComponentFixture<ReviewFacilityComponent>;
 

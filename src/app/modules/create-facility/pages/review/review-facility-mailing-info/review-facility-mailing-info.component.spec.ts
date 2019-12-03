@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ReviewFacilityMailingInfoComponent } from './review-facility-mailing-info.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('ReviewFacilityMailingInfoComponent', () => {
   let component: ReviewFacilityMailingInfoComponent;
@@ -8,7 +9,8 @@ describe('ReviewFacilityMailingInfoComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ReviewFacilityMailingInfoComponent ]
+      declarations: [ ReviewFacilityMailingInfoComponent ],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     })
     .compileComponents();
   }));
