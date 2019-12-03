@@ -93,12 +93,11 @@ export class BCPApiService extends AbstractHttpService {
 
   private submitFacilityJson(jsonPayLoad: any, applicationUUID: string, signature: CommonImage<BCPDocumentTypes> ) {
     const requestUUID = this.generateUUID();
-    jsonPayLoad.attachments = signature.toJSON();
     const payload = {
       createFacilitySubmission: jsonPayLoad,
       requestUUID,
       applicationUUID,
-      // attachments: signature.toJSON()
+      attachments: [signature.toJSON()]
     };
 
     this.dataService.jsonCreateFacility.request = payload;
