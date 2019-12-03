@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { UUID } from 'angular2-uuid';
-import { BRITISH_COLUMBIA, CommonLogEvents, CommonLogMessage } from 'moh-common-lib';
+import { BRITISH_COLUMBIA, CommonLogEvents, CommonLogMessage, CommonImage } from 'moh-common-lib';
 import { convertToJSONDate, stripPhoneFormatting, stripPostalCodeSpaces } from '../../core-bcp/models/helperFunc';
 import { BaseResponse, ReturnCodes } from '../models/create-facility-api-model';
 
@@ -106,8 +106,7 @@ export class CreateFacilityDataService {
   // TODO: Figure out where this variable is used
   json: any;
 
-  // This should be the actual image, as a dataURL.  We store it as a string / base64.
-  signature: any;
+  signature: CommonImage;
 
   //#endregion
 

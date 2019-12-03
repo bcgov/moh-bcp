@@ -11,7 +11,8 @@ export const environment = {
   api: {
     base: '/bcp/api/bcpIntegration',
     captcha: '/bcp/api/captcha',
-    splunk: '/bcp/api/logging'
+    splunk: '/bcp/api/logging',
+    attachment: '/bcp/api/bcpAttachment'
   },
   links: {
     tbd: 'google.com',

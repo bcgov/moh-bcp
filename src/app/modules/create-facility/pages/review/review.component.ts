@@ -81,7 +81,8 @@ export class ReviewComponent extends CreateFacilityForm implements OnInit {
     this.loading = true;
     this.dataService.dateOfSubmission = new Date();
     const jsonPayLoad = this.dataService.getJSONPayload();
-    this.api.createFacility(jsonPayLoad)
+    // this.api.createFacility(jsonPayLoad, this.dataService.applicationUUID)
+    this.api.createFacility(jsonPayLoad, this.dataService.signature, this.dataService.applicationUUID)
       .subscribe((res: ValidationResponse) => {
 
         this.dataService.jsonCreateFacility.response = res;

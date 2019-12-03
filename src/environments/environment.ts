@@ -6,12 +6,13 @@ export const environment = {
   production: false,
   bypassModal: false,
   bypassGuards: true,
-  useDummyData: false,
+  useDummyData: true,
   useMockBackend: false,
   api: {
     base: '/bcp/api/bcpIntegration',
     captcha: '/bcp/api/captcha',
-    splunk: '/bcp/api/logging'
+    splunk: '/bcp/api/logging',
+    attachment: '/bcp/api/bcpAttachment'
   },
   links: {
     tbd: 'google.com',

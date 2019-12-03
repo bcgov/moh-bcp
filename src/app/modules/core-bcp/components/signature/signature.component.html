@@ -1,7 +1,7 @@
 <div class="card signature-display"
      [ngClass]="{'border-danger': (controlDir.touched || controlDir.dirty) && controlDir?.errors?.required}">
 
-    <img [src]='image'
+    <img [src]='image.fileContent'
          *ngIf='image'>
 
     <div class="card-body">
