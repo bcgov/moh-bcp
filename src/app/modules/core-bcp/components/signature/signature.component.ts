@@ -3,6 +3,7 @@ import { SignaturePad } from 'angular2-signaturepad/signature-pad';
 import { ModalDirective } from 'ngx-bootstrap';
 import { NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { CommonImage } from 'moh-common-lib';
+import { BCPDocumentTypes } from '../../models/documentTypes';
 
 @Component({
   selector: 'bcp-signature',
@@ -95,7 +96,10 @@ export class SignatureComponent implements AfterViewInit {
     }
   }
 
-  private createCommonImage(image): CommonImage {
-    return new CommonImage(image);
+  private createCommonImage(image): CommonImage<BCPDocumentTypes> {
+    const common = new CommonImage<BCPDocumentTypes>(image);
+    common.contentType = 'image/jpeg';
+    common.documentType = BCPDocumentTypes.Signature;
+    return common;
   }
 }
