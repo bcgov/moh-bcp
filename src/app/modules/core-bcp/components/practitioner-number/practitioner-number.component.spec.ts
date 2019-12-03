@@ -1,5 +1,5 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { SharedCoreModule } from 'moh-common-lib';
 
 import { PractitionerNumberComponent } from './practitioner-number.component';
 
@@ -9,8 +9,8 @@ describe('PractitionerNumberComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PractitionerNumberComponent ],
-      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+      imports: [ SharedCoreModule ],
+      declarations: [ PractitionerNumberComponent ]
     })
     .compileComponents();
   }));

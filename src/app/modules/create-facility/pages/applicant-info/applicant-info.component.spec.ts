@@ -1,10 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ApplicantInfoComponent } from './applicant-info.component';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { CoreBCPModule } from '../../../core-bcp/core-bcp.module';
 
 
 describe('ApplicantInfoComponent', () => {
@@ -13,9 +13,8 @@ describe('ApplicantInfoComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ FormsModule, RouterTestingModule, HttpClientTestingModule ],
-      declarations: [ ApplicantInfoComponent ],
-      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+      imports: [ FormsModule, RouterTestingModule, HttpClientTestingModule, CoreBCPModule ],
+      declarations: [ ApplicantInfoComponent ]
     })
     .compileComponents();
   }));

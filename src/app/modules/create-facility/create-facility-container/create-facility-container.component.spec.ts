@@ -1,6 +1,6 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { SharedCoreModule } from 'moh-common-lib';
 
 import { CreateFacilityContainerComponent } from './create-facility-container.component';
 
@@ -10,9 +10,8 @@ describe('CreateFacilityContainerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ RouterTestingModule ],
-      declarations: [ CreateFacilityContainerComponent ],
-      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+      imports: [ RouterTestingModule, SharedCoreModule ],
+      declarations: [ CreateFacilityContainerComponent ]
     })
     .compileComponents();
   }));

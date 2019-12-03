@@ -1,10 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FacilityInfoComponent } from './facility-info.component';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { SharedCoreModule } from 'moh-common-lib';
 
 
 describe('FacilityInfoComponent', () => {
@@ -13,9 +13,8 @@ describe('FacilityInfoComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ HttpClientTestingModule, ReactiveFormsModule, RouterTestingModule ],
+      imports: [ HttpClientTestingModule, ReactiveFormsModule, RouterTestingModule, SharedCoreModule ],
       declarations: [ FacilityInfoComponent ],
-      schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
       providers: [ FormBuilder ],
     })
     .compileComponents();

@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SubmissionComponent } from './submission.component';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
+import { SharedCoreModule } from 'moh-common-lib';
 
 describe('SubmissionComponent', () => {
   let component: SubmissionComponent;
@@ -10,9 +10,8 @@ describe('SubmissionComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ RouterTestingModule ],
-      declarations: [ SubmissionComponent ],
-      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+      imports: [ RouterTestingModule, SharedCoreModule ],
+      declarations: [ SubmissionComponent ]
     })
     .compileComponents();
   }));

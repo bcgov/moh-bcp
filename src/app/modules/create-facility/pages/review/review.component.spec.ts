@@ -1,7 +1,7 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { CoreBCPModule } from '../../../core-bcp/core-bcp.module';
 
 import { ReviewComponent } from './review.component';
 
@@ -11,9 +11,8 @@ describe('ReviewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ HttpClientTestingModule, RouterTestingModule ],
-      declarations: [ ReviewComponent ],
-      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+      imports: [ CoreBCPModule, HttpClientTestingModule, RouterTestingModule ],
+      declarations: [ ReviewComponent ]
     })
     .compileComponents();
   }));
