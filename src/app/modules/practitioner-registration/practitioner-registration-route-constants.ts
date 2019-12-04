@@ -18,7 +18,7 @@ export const PRACTITIONER_REGISTRATION_PAGES = {
     },
     PRACTITIONER_ASSIGN: {
       path: 'practitioner-assign',
-      fullpath: `${BCP_ROUTES.PRACTITIONER_REGISTRATION}/practitioner-assignnpm`,
+      fullpath: `${BCP_ROUTES.PRACTITIONER_REGISTRATION}/practitioner-assign`,
       title: 'Practitioner Assignment'
   },
     REVIEW: {

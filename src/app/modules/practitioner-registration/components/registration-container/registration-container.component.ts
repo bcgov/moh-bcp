@@ -1,41 +1,56 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { Container } from 'moh-common-lib';
-import { Router } from '@angular/router';
 import { pages } from '../../practitioner-registration-page-routes';
+import { HeaderService } from '../../../../services/header.service';
+import { RegistrationContainerService } from '../../services/registration-container.service';
 
 @Component({
   selector: 'bcp-registration-container',
   templateUrl: './registration-container.component.html',
   styleUrls: ['./registration-container.component.scss']
 })
-export class RegistrationContainerComponent extends Container implements OnInit {
+export class RegistrationContainerComponent extends Container implements OnInit, AfterViewInit {
 
-  /**  Flag to indicate whether to show loading spinner or not */
-  isLoading = false;
+  useDefaultColor: boolean = true;
+  submitLabel: string = 'Continue';
+  isLoading: boolean = false;
 
-  constructor( private router: Router ) {
+  constructor( private headerService: HeaderService,
+               private registrationContainerService: RegistrationContainerService ) {
     super();
+    this.headerService.setTitle('Practitioner Assignment to Medical Services Plan Facility for Business Cost Premium');
   }
 
   ngOnInit() {
     this.setProgressSteps( pages );
   }
 
+  ngAfterViewInit() {
+    this.registrationContainerService.$useDefaultColor
+    .subscribe(
+      (async (defaultColor) => {
+        this.useDefaultColor = await defaultColor;
+        console.log( 'defaultColor: ', this.useDefaultColor );
+      }));
 
+    this.registrationContainerService.$submitLabel
+      .subscribe(
+        (async (label) => {
+          this.submitLabel = await label;
+          console.log( 'button label: ', this.submitLabel );
+        }));
 
-  get submitLabel() {
-    /*const index = this.stateSvc.findIndex( this.router.url );
-    return this.stateSvc.finAssistApp.pageStatus[index ? index - 1 : 0].btnLabel;*/
-    return 'Continue';
-  }
-
-  get useDefaultColor() {
-  /*  const index = this.stateSvc.findIndex( this.router.url );
-    return this.stateSvc.finAssistApp.pageStatus[index ? index - 1 : 0].btnDefaultColor; */
-    return true;
+    this.registrationContainerService.$isLoading
+      .subscribe(
+        (async (isLoading) => {
+          this.isLoading = await isLoading;
+          console.log( 'isLoading: ', this.isLoading );
+        }));
   }
 
   continue() {
-    return true;
+    console.log( 'continue: button clicked' );
+    this.registrationContainerService.$continueBtnSubject.next();
   }
+
 }
