@@ -2,8 +2,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SharedCoreModule } from 'moh-common-lib';
 
 import { PractitionerNumberComponent } from './practitioner-number.component';
+import { NgControl } from '@angular/forms';
 
-describe('PractitionerNumberComponent', () => {
+fdescribe('PractitionerNumberComponent', () => {
   let component: PractitionerNumberComponent;
   let fixture: ComponentFixture<PractitionerNumberComponent>;
 
@@ -23,5 +24,12 @@ describe('PractitionerNumberComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should display error for invalid entries', () => {
+    component.pracNumber = "ab c";
+    fixture.detectChanges();
+    const errorContainerEl = fixture.debugElement.nativeElement.querySelector('common-error-container');
+    expect(errorContainerEl).toBeTruthy();
   });
 });

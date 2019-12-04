@@ -8,6 +8,7 @@ describe('setNotApplicable', () => {
     it('should return N/A for undefined value', () => {
         expect(setNotApplicable(undefined)).toEqual("N/A");
         expect(setNotApplicable(null)).toEqual("N/A");
+        expect(setNotApplicable('')).toEqual("N/A");
     });
 });
 
@@ -15,7 +16,9 @@ describe('setNotApplicable', () => {
 describe('formatDateForDisplay', () => {
     it('should return date in readable format', () => {
         expect(formatDateForDisplay(new Date("January 1, 2019"))).toEqual("January 01, 2019");
+        expect(formatDateForDisplay(new Date("January 10, 2019"))).toEqual("January 10, 2019");
         expect(formatDateForDisplay(new Date("December 1, 2019"))).toEqual("December 01, 2019");
+        expect(formatDateForDisplay(new Date("February 29, 2020"))).toEqual("February 29, 2020");
     });
 
     it('should return null when value is undefined', () => {
