@@ -47,5 +47,7 @@ export class CreatePractitionerDataService {
   pracAttachmentEffectiveDate: string;
   pracAttachmentCancellationDate: string;
 
+  isAccepted: boolean;
   signature: CommonImage;
+  dateOfAcceptance: Date;
 }
