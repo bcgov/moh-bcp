@@ -1,1 +1,77 @@
-<p>practitioner-info works!</p>
+<h1>{{pageTitle}}</h1>
+<p>You must be an active practitioner in the province of British Columbia and at the facility of practice you are responsible for some or all of the lease, rental, or ownership costs of that office.</p>
+<hr>
+
+<common-page-section>
+    <form [formGroup]="pracGroup" novalidate>
+    <div class="form-group">
+        <common-name label='First name'
+                    name='pracInfoFirstName'
+                    formControlName='pracInfoFirstName'
+                    commonValidateName
+                    maxlen=15
+                    required></common-name>
+        <common-error-container [displayError]='showValidationError'>
+        {{ validationErrorMessage }}
+        </common-error-container>
+    </div>
+
+    <div class="form-group">
+        <common-name label='Last name'
+                    name='pracInfoLastName'
+                    formControlName='pracInfoLastName'
+                    commonValidateName
+                    maxlen=15
+                    required></common-name>
+        <common-error-container [displayError]='showValidationError'>
+        {{ validationErrorMessage }}
+        </common-error-container>
+    </div>
+
+    <div class="form-group">
+        <bcp-practitioner-number name='pracInfoMSPPracNumber'
+                                formControlName='pracInfoMSPPracNumber'
+                                required
+                                bcpValidatePractitionerNumber></bcp-practitioner-number>
+        <common-error-container [displayError]='showValidationError'>
+        {{ validationErrorMessage }}
+        </common-error-container>
+    </div>
+
+    <div class="form-group">
+        <common-email name='pracInfoEmail'
+                    formControlName='pracInfoEmail'
+                    label='Email address (optional)'
+                    [maxlength]="50"></common-email>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-10">
+        <common-phone-number name='pracInfoPhoneNumber'
+                                formControlName='pracInfoPhoneNumber'
+                                label='Phone number'
+                                [allowInternational]='false'
+                                required></common-phone-number>
+        </div>
+
+        <div class="col-2">
+        <label for='extension'>
+            Extension
+        </label>
+        <input name='pracInfoPhoneNumberExt'
+                formControlName='pracInfoPhoneNumberExt'
+                type="text"
+                class='form-control'
+                id='pracInfoPhoneNumberExt'
+                [attr.maxlength]="4">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <common-phone-number name='pracInfoFaxNumber'
+            formControlName='pracInfoFaxNumber'
+            label='Fax number (optional)'
+            [allowInternational]='false'></common-phone-number>
+    </div>
+    </form>
+</common-page-section>

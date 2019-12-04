@@ -33,7 +33,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CoreBCPModule,
     FormsModule,
     PractitionerAssignmentRoutingModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ]
 })
 export class PractitionerRegistrationModule { }
