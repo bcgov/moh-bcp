@@ -4,7 +4,7 @@ import { SharedCoreModule } from 'moh-common-lib';
 import { PractitionerNumberComponent } from './practitioner-number.component';
 import { NgControl } from '@angular/forms';
 
-fdescribe('PractitionerNumberComponent', () => {
+describe('PractitionerNumberComponent', () => {
   let component: PractitionerNumberComponent;
   let fixture: ComponentFixture<PractitionerNumberComponent>;
 
