@@ -203,3 +203,7 @@ button.disabled {
 input[type=number] {
     -moz-appearance:textfield;
 }
+
+.no-bullets {
+    list-style-type: none;
+}
