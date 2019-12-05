@@ -4,6 +4,7 @@ import { RegistrationForm } from '../../models/registration-form';
 import { RegistrationContainerService } from '../../services/registration-container.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CreatePractitionerDataService } from '../../services/create-practitioner-data.service';
 
 @Component({
   selector: 'bcp-practitioner-info',
@@ -18,17 +19,10 @@ export class PractitionerInfoComponent extends RegistrationForm implements OnIni
 
   constructor( protected registrationContainerService: RegistrationContainerService,
                protected router: Router,
-               private fb: FormBuilder) {
+               private fb: FormBuilder,
+               public dataService: CreatePractitionerDataService) {
     super(registrationContainerService, router);
   }
-
-  pracInfoFirstName: string = 'First Name';
-  pracInfoLastName: string = 'Last Name';
-  pracInfoMSPPracNumber: string = '123';
-  pracInfoEmail: string = 'name@example.com';
-  pracInfoPhoneNumber: string = '234 567-8901';
-  pracInfoPhoneNumberExt: string = '234';
-  pracInfoFaxNumber: string = '789 456-1230';
 
   ngOnInit() {
     this.registrationContainerService.$submitLabelSubject.next('Continue');
@@ -36,13 +30,13 @@ export class PractitionerInfoComponent extends RegistrationForm implements OnIni
     super.ngOnInit();
 
     this.pracGroup = this.fb.group({
-      pracInfoFirstName: [this.pracInfoFirstName, [Validators.required]],
-      pracInfoLastName: [this.pracInfoLastName, [Validators.required]],
-      pracInfoMSPPracNumber: [this.pracInfoMSPPracNumber, [Validators.required]],
-      pracInfoEmail: [this.pracInfoEmail, [Validators.email]],
-      pracInfoPhoneNumber: [this.pracInfoPhoneNumber, [Validators.required]],
-      pracInfoPhoneNumberExt: [this.pracInfoPhoneNumberExt, [Validators.required]],
-      pracInfoFaxNumber: [this.pracInfoFaxNumber],
+      pracInfoFirstName: [this.dataService.pracInfoFirstName, [Validators.required]],
+      pracInfoLastName: [this.dataService.pracInfoLastName, [Validators.required]],
+      pracInfoMSPPracNumber: [this.dataService.pracInfoMSPPracNumber, [Validators.required]],
+      pracInfoEmail: [this.dataService.pracInfoEmail, [Validators.email]],
+      pracInfoPhoneNumber: [this.dataService.pracInfoPhoneNumber, [Validators.required]],
+      pracInfoPhoneNumberExt: [this.dataService.pracInfoPhoneNumberExt, [Validators.required]],
+      pracInfoFaxNumber: [this.dataService.pracInfoFaxNumber],
     });
   }
 

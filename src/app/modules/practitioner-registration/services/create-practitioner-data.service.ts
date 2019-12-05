@@ -13,7 +13,9 @@ export class CreatePractitionerDataService {
       this.pracInfoLastName = 'Doe';
       this.pracInfoMSPPracNumber = '12345';
       this.pracInfoEmail = 'john.doe@example.com';
-      this.pracInfoPhoneNumber = '123 456-7890'
+      this.pracInfoPhoneNumber = '234 567-8901';
+      this.pracInfoPhoneNumberExt = '123';
+      this.pracInfoFaxNumber = '456 789-1230';
 
       this.pracFacilityName = 'Medical Facility';
       this.pracFacilityNumber = '12345';
@@ -34,6 +36,8 @@ export class CreatePractitionerDataService {
   pracInfoMSPPracNumber: string;
   pracInfoEmail: string;
   pracInfoPhoneNumber: string;
+  pracInfoPhoneNumberExt: string;
+  pracInfoFaxNumber: string;
 
   pracFacilityName: string;
   pracFacilityNumber: string;
