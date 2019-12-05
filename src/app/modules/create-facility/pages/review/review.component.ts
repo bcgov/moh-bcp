@@ -46,26 +46,6 @@ export class ReviewComponent extends CreateFacilityForm implements OnInit {
     return CREATE_FACILITY_PAGES.REVIEW.title;
   }
 
-
-  toggleValidation(data) {
-    console.log(data as boolean);
-
-    this.confirmed = data as boolean;
-    this.displayError = !this.confirmed;
-
-    if ( this.confirmed && this.confirmed === true  ) {
-      this.dataService.dateOfAcceptance = (new Date());
-    }
-  }
-
-  canContinue() {
-    // TODO : Write! By Defualt this just returns this.form.valid, But if we do
-    // not want to setup a form, we must modify this to just ensure the
-    // "Authorization of Submission" checkbox is written.
-    this.displayError = !this.confirmed;
-    return this.confirmed;
-  }
-
   continue() {
     this.signature._onTouched();
 

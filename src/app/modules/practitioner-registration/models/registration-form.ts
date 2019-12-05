@@ -1,6 +1,6 @@
 import { AbstractReactForm } from 'moh-common-lib';
 
-import { OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import { OnInit, OnDestroy } from '@angular/core';
 import { RegistrationContainerService } from '../services/registration-container.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
