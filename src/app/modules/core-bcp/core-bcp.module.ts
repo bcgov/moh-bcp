@@ -9,8 +9,10 @@ import { SignaturePadModule } from 'angular2-signaturepad';
 import { SignatureComponent } from './components/signature/signature.component';
 import { ModalModule } from 'ngx-bootstrap';
 import { CorePractitionerInfoComponent } from './components/core-practitioner-info/core-practitioner-info.component';
+import { CoreFacilityInfoComponent } from './components/core-facility-info/core-facility-info.component';
 
 const exportables = [
+  CoreFacilityInfoComponent,
   CorePractitionerInfoComponent,
   PractitionerNumberComponent,
   ValidatePractitionerNumberDirective,

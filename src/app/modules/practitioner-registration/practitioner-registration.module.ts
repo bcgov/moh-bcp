@@ -14,6 +14,7 @@ import { ReviewPractitionerInfoComponent } from './pages/review/review-practitio
 import { ReviewPractitionerAttachmentComponent } from './pages/review/review-practitioner-attachment/review-practitioner-attachment.component';
 import { ReviewPractitionerFacilityComponent } from './pages/review/review-practitioner-facility/review-practitioner-facility.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedCoreModule } from 'moh-common-lib';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CoreBCPModule,
     FormsModule,
     PractitionerAssignmentRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedCoreModule,
   ]
 })
 export class PractitionerRegistrationModule { }

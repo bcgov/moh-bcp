@@ -43,7 +43,7 @@ export class CreatePractitionerDataService {
   pracFacilityNumber: string;
   pracFacilityAddress: string;
   pracFacilityCity: string;
-  pracFacilityProvince: string;
+  pracFacilityProvince: string = 'BC';
   pracFacilityPostalCode: string;
   pracFacilityFax: string;
 

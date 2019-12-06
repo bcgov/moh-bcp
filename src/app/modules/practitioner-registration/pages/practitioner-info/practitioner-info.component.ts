@@ -50,6 +50,6 @@ export class PractitionerInfoComponent extends RegistrationForm implements OnIni
   continue() {
     console.log('Continue: Practitioner Info');
     console.log("Items", this.formGroup.value);
-    //this.navigate(PRACTITIONER_REGISTRATION_PAGES.FACILITY_INFO.fullpath);
+    this.navigate(PRACTITIONER_REGISTRATION_PAGES.FACILITY_INFO.fullpath);
   }
 }

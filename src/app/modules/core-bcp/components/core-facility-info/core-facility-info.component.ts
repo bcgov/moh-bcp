@@ -2,22 +2,21 @@ import { Component, OnInit, Input, Self, Optional } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, NgControl } from '@angular/forms';
 import { ErrorMessage } from 'moh-common-lib';
 
-export interface CorePractitionerInfoFormItems {
-  firstName: string;
-  lastName: string;
-  mspPracNumber: string,
-  email: string,
-  phoneNumber: string,
-  phoneNumberExt: string,
-  faxNumber?: string
+export interface CoreFacilityInfoFormItems {
+  name: string;
+  mspNumber: string;
+  address: string;
+  city: string;
+  province: string;
+  postalCode: string;
 }
 
 @Component({
-  selector: 'bcp-core-practitioner-info',
-  templateUrl: './core-practitioner-info.component.html',
-  styleUrls: ['./core-practitioner-info.component.scss']
+  selector: 'bcp-core-facility-info',
+  templateUrl: './core-facility-info.component.html',
+  styleUrls: ['./core-facility-info.component.scss']
 })
-export class CorePractitionerInfoComponent implements OnInit {
+export class CoreFacilityInfoComponent implements OnInit {
 
   //formGroup: FormGroup;
   _defaultErrMsg: ErrorMessage = null;
@@ -26,10 +25,12 @@ export class CorePractitionerInfoComponent implements OnInit {
   @Input()
   public showFaxNumber: boolean;
   
-  public items: CorePractitionerInfoFormItems;
+  public items: CoreFacilityInfoFormItems;
   public formGroup: FormGroup;
+  public province: string;
 
-  constructor(@Optional() @Self() public controlDir: NgControl, private fb: FormBuilder) {
+  constructor( @Optional() @Self() public controlDir: NgControl,
+               private fb: FormBuilder ) {
     if (controlDir) {
       console.log('sig controldir', controlDir);
       controlDir.valueAccessor = this;
@@ -51,14 +52,13 @@ export class CorePractitionerInfoComponent implements OnInit {
 
   private initForm() {
     this.formGroup = this.fb.group({
-      firstName: [this.items.firstName, [Validators.required]],
-      lastName: [this.items.lastName, [Validators.required]],
-      mspPracNumber: [this.items.mspPracNumber, [Validators.required]],
-      email: [this.items.email, [Validators.email]],
-      phoneNumber: [this.items.phoneNumber, [Validators.required]],
-      phoneNumberExt: [this.items.phoneNumberExt],
-      faxNumber: [this.items.faxNumber],
+      name: [this.items.name, [Validators.required]],
+      mspNumber: [this.items.mspNumber, [Validators.required]],
+      address: [this.items.address, [Validators.required]],
+      city: [this.items.city, [Validators.required]],
+      postalCode: [this.items.postalCode, [Validators.required]],
     });
+    this.province = this.items.province;
   }
 
   // Register change function
@@ -71,7 +71,7 @@ export class CorePractitionerInfoComponent implements OnInit {
     this._onTouched = fn;
   }
 
-  writeValue(val: CorePractitionerInfoFormItems): void {
+  writeValue(val: CoreFacilityInfoFormItems): void {
     if (val) {
       console.log("writeValue: ", val);
       this.items = val;
