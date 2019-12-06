@@ -23,9 +23,9 @@ export class CreatePractitionerDataService {
       this.pracFacilityPostalCode = 'V8L 1A1';
       this.pracFacilityFax = '123 456-7890';
 
-      this.pracAttachmentType = 'PDF';
-      this.pracAttachmentEffectiveDate = 'April 15, 2020';
-      this.pracAttachmentCancellationDate = 'April 15, 2021';
+      this.pracAttachmentType = 'new';
+      this.pracAttachmentPrimaryDate = new Date('April 1, 2020');
+      this.pracAttachmentSecondaryDate = new Date('April 1, 2021');
     }
   }
 
@@ -44,8 +44,8 @@ export class CreatePractitionerDataService {
   pracFacilityFax: string;
 
   pracAttachmentType: string;
-  pracAttachmentEffectiveDate: string;
-  pracAttachmentCancellationDate: string;
+  pracAttachmentPrimaryDate: Date;
+  pracAttachmentSecondaryDate: Date;
 
   isAccepted: boolean;
   signature: CommonImage;

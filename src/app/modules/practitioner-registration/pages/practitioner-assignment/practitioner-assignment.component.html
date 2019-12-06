@@ -1,1 +1,36 @@
-<p>practitioner-assignment works!</p>
+<h1>{{pageTitle}}</h1>
+<hr/>
+
+<form [formGroup]="formGroup">
+  
+  <div class="form-group">
+    <common-radio formControlName="attachmentType"
+                  name="attachmentType"
+                  label="What change are you making for Business Cost Premium to the facility?"
+                  [radioLabels]='radioItems' 
+                  display="table-row-group"
+                  (ngModelChange)='changeAttachmentType($event)'
+                  [errorMessage]="sameMailAddrError">
+    </common-radio>
+  </div>
+
+  <div *ngFor='let item of radioItems'>
+    
+    <div class="form-group">
+      <common-date *ngIf='item.showPrimaryDate && dataService.pracAttachmentType == item.value'
+                  label='{{item.primaryDateLabel}}' 
+                  name="primaryDate"
+                  formControlName="primaryDate">
+      </common-date>
+    </div>
+
+    <div class="form-group">
+      <common-date *ngIf='item.showSecondaryDate && dataService.pracAttachmentType == item.value'
+                  label='{{item.secondaryDateLabel}}' 
+                  name="secondaryDate"
+                  formControlName="secondaryDate">
+      </common-date>
+    </div>
+
+  </div>
+</form>
