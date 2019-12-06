@@ -5,6 +5,7 @@ import { RegistrationContainerService } from '../../services/registration-contai
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CreatePractitionerDataService } from '../../services/create-practitioner-data.service';
+import { CorePractitionerInfoFormItems } from '../../../core-bcp/components/core-practitioner-info/core-practitioner-info.component';
 
 @Component({
   selector: 'bcp-practitioner-info',
@@ -15,6 +16,7 @@ export class PractitionerInfoComponent extends RegistrationForm implements OnIni
 
   pageTitle: string = 'Practitioner Information';
   pracGroup: FormGroup;
+  formItems: CorePractitionerInfoFormItems;
 
 
   constructor( protected registrationContainerService: RegistrationContainerService,
@@ -29,19 +31,20 @@ export class PractitionerInfoComponent extends RegistrationForm implements OnIni
     this.registrationContainerService.$useDefaultColorSubject.next(true);
     super.ngOnInit();
 
-    this.pracGroup = this.fb.group({
-      pracInfoFirstName: [this.dataService.pracInfoFirstName, [Validators.required]],
-      pracInfoLastName: [this.dataService.pracInfoLastName, [Validators.required]],
-      pracInfoMSPPracNumber: [this.dataService.pracInfoMSPPracNumber, [Validators.required]],
-      pracInfoEmail: [this.dataService.pracInfoEmail, [Validators.email]],
-      pracInfoPhoneNumber: [this.dataService.pracInfoPhoneNumber, [Validators.required]],
-      pracInfoPhoneNumberExt: [this.dataService.pracInfoPhoneNumberExt, [Validators.required]],
-      pracInfoFaxNumber: [this.dataService.pracInfoFaxNumber],
+    this.formItems = {
+      firstName: this.dataService.pracInfoFirstName,
+      lastName: this.dataService.pracInfoLastName
+    }
+
+    this.formGroup = this.fb.group({
+      pracInfo: [this.formItems] 
     });
+
   }
 
   continue() {
-    console.log( 'Continue: Practitioner Info');
-    this.navigate(PRACTITIONER_REGISTRATION_PAGES.FACILITY_INFO.fullpath);
+    console.log('Continue: Practitioner Info');
+    console.log("Items", this.formGroup.value);
+    //this.navigate(PRACTITIONER_REGISTRATION_PAGES.FACILITY_INFO.fullpath);
   }
 }
