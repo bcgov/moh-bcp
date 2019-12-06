@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { UUID } from 'angular2-uuid';
 import { BRITISH_COLUMBIA, CommonLogEvents, CommonLogMessage, CommonImage } from 'moh-common-lib';
-import { convertToJSONDate, stripPhoneFormatting, stripPostalCodeSpaces } from '../../core-bcp/models/helperFunc';
+import { convertToJSONDate, stripPhoneFormatting, stripPostalCodeSpaces, prepareDeclarationTextForAPI } from '../../core-bcp/models/helperFunc';
 import { BaseResponse, ReturnCodes } from '../models/create-facility-api-model';
 
 
@@ -129,17 +129,7 @@ export class CreateFacilityDataService {
     response: null
   };
 
-  //#region JSON Payload
-
-  // readonly declarationText = `I understand that:
-  // \t i. this is a legal document and I represent that the information that I have provided on this document is true to the best of my knowledge;
-  // \t ii. MSP is a public system based on trust, but also that claims, including those portions relating to the Business Cost Premium, are subject to audit and financial recovery for claims made contrary to the Medicare Protection Act (the Act);
-  // \t iii. submitting false or misleading claims information is an offence under the Act and may be an offence under the Criminal Code of Canada;
-  // \t iv. the Business Cost Premium applies to Eligible Fees claimed by Eligible Physicians for services that are provided in a community-based office that has been issued an MSP Facility Number.  Eligible Physicians are those who are responsible to pay for some or all of the lease, rental, or ownership costs of the community-based office that has been issued an MSP Facility Number.  Eligible Physicians, including Administrators who wish to attach, must apply separately to be attached to the MSP Facility Number for this facility to claim the Business Cost Premium on Eligible Fees for services provided at this facility by submitting a Practitioner Attachment to MSP Facility for Business Cost Premium Form.
-  // \t v. (a) any MSP Facility Number issued to this facility is specific to this facility and to the physical address of this facility; (b) the MSP Facility Number issued to this facility will be used to calculate the applicable Business Cost Premium on Eligible Fees payable to Eligible Physicians providing services at this facility;  and (c)  Physicians who do not meet the criteria to be Eligible Physicians or who are not entitled to bill Eligible Fees for this facility are not to be attached to the MSP Facility Number assigned to this facility; and
-  // \t vi. If the facility set out in this document is provided with an MSP Facility Number, then I, as "Administrator" may be subsequently provided with information from the applications of practitioners requesting attachment to such MSP Facility Number for the purpose of confirming whether such attachments are valid and accord with the requirements set out in paragraphs iv. and v. above.`;
-
-
+  // constant?
   readonly declarationText = `I understand that:
   <ol class='no-bullets'>
     <li>i. this is a legal document and I represent that the information that I have provided on this document is true to the best of my knowledge;</li>
@@ -151,10 +141,7 @@ export class CreateFacilityDataService {
   </ol>`;
 
   get declarationTextForAPI() {
-    let text =  this.declarationText.replace(/(?:<\/li>|<ol class='no-bullets'>|<\/ol>)/g, ''); // remove html characters
-    text =  text.replace(/(<li>)/g, '\t'); // add \t characters for each bulleted item
-
-    return text;
+    return prepareDeclarationTextForAPI(this.declarationText);
   }
 
   getJSONPayload() {
