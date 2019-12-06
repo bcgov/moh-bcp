@@ -19,7 +19,6 @@ export interface CorePractitionerInfoFormItems {
 })
 export class CorePractitionerInfoComponent implements OnInit {
 
-  //formGroup: FormGroup;
   _defaultErrMsg: ErrorMessage = null;
   label: string = null;
 
