@@ -15,7 +15,7 @@ import { CorePractitionerInfoFormItems } from '../../../core-bcp/components/core
 export class PractitionerInfoComponent extends RegistrationForm implements OnInit{
 
   pageTitle: string = 'Practitioner Information';
-  pracGroup: FormGroup;
+  formGroup: FormGroup;
   formItems: CorePractitionerInfoFormItems;
 
 
@@ -33,7 +33,12 @@ export class PractitionerInfoComponent extends RegistrationForm implements OnIni
 
     this.formItems = {
       firstName: this.dataService.pracInfoFirstName,
-      lastName: this.dataService.pracInfoLastName
+      lastName: this.dataService.pracInfoLastName,
+      mspPracNumber: this.dataService.pracInfoMSPPracNumber,
+      email: this.dataService.pracInfoEmail,
+      phoneNumber: this.dataService.pracInfoPhoneNumber,
+      phoneNumberExt: this.dataService.pracInfoPhoneNumberExt,
+      faxNumber: this.dataService.pracInfoFaxNumber
     }
 
     this.formGroup = this.fb.group({
