@@ -1,19 +1,21 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { CreateFacilityForm } from '../../models/create-facility-form';
 import { Router } from '@angular/router';
 import { CreateFacilityDataService } from '../../services/create-facility-data.service';
-import { CheckCompleteBaseService, CommonLogEvents } from 'moh-common-lib';
 import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
 import { BCPApiService } from '../../../../services/bcp-api.service';
 import { ValidationResponse, ReturnCodes } from '../../models/create-facility-api-model';
 import { SplunkLoggerService } from '../../../../services/splunk-logger.service';
+import { FormBuilder, Validators } from '@angular/forms';
+import { validatePractitionerNumber } from '../../../core-bcp/components/practitioner-number/validate-practitioner-number.directive';
+import { PageStateService } from 'moh-common-lib';
 
 @Component({
   selector: 'app-applicant-info',
   templateUrl: './applicant-info.component.html',
   styleUrls: ['./applicant-info.component.scss']
 })
-export class ApplicantInfoComponent extends CreateFacilityForm implements OnInit {
+export class ApplicantInfoComponent extends CreateFacilityForm implements OnInit, AfterViewInit {
   public loading = false;
   public systemDownError = false;
   public showValidationError = false;
@@ -21,16 +23,41 @@ export class ApplicantInfoComponent extends CreateFacilityForm implements OnInit
 
   constructor(
     protected router: Router,
+    private pageStateService: PageStateService,
     public dataService: CreateFacilityDataService,
+    private fb: FormBuilder,
     private cdr: ChangeDetectorRef,
-    private pageCheckService: CheckCompleteBaseService,
     private apiService: BCPApiService,
     private splunkLoggerService: SplunkLoggerService) {
     super(router);
   }
 
   ngOnInit() {
-    this.pageCheckService.setPageIncomplete();
+    this.pageStateService.setPageIncomplete();
+
+    this.formGroup = this.fb.group({
+      facAdminFirstName: [this.dataService.facAdminFirstName, Validators.required],
+      facAdminLastName: [this.dataService.facAdminLastName, Validators.required],
+      pracNumber: [this.dataService.pracNumber, [Validators.required, validatePractitionerNumber]],
+      email: [this.dataService.emailAddress], // optional field
+      phoneNumber: [this.dataService.facAdminPhoneNumber, Validators.required],
+      extension: [this.dataService.facAdminExtension], // optional field
+    });
+  }
+
+  ngAfterViewInit() {
+    this.formGroup.valueChanges.subscribe( val => {
+
+      console.log( 'on Change: ', val );
+
+      // Update data service values
+      this.dataService.facAdminFirstName = val.facAdminFirstName;
+      this.dataService.facAdminLastName = val.facAdminLastName;
+      this.dataService.pracNumber = val.pracNumber;
+      this.dataService.emailAddress = val.email;
+      this.dataService.facAdminPhoneNumber = val.phoneNumber;
+      this.dataService.facAdminExtension = val.extension;
+    });
   }
 
   get pageTitle() {
@@ -42,6 +69,7 @@ export class ApplicantInfoComponent extends CreateFacilityForm implements OnInit
 
 
     if (this.canContinue()) {
+      this.pageStateService.setPageComplete();
       this.loading = true;
 
       this.apiService.validatePractitioner({
@@ -90,13 +118,6 @@ export class ApplicantInfoComponent extends CreateFacilityForm implements OnInit
     this.loading = false;
     this.systemDownError = false;
     this.cdr.detectChanges();
-
-    if (isValid) {
-      this.pageCheckService.setPageComplete();
-    } else {
-      this.pageCheckService.setPageIncomplete();
-    }
-
   }
 
 }

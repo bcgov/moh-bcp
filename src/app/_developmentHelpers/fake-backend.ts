@@ -27,7 +27,6 @@ export class FakeBackendInterceptor implements HttpInterceptor  {
 
       if ( 'POST' === request.method ) {
         let payload = null;
-
         console.log( 'Post method' );
 
         if (request.url.includes( 'validatePractitioner' )) {
@@ -44,6 +43,8 @@ export class FakeBackendInterceptor implements HttpInterceptor  {
           console.log( 'Fake-backend for create facility' );
           payload = this.fakebackendService.createFacility( request );
         }
+
+        // TODO: add bcpAttachment request to back-end
 
         if (request.url.includes( 'logging' )) {
           console.log( 'Fake-backend for logging - nothing logged' );

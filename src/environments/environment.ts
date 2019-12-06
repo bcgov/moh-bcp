@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   bypassModal: false,
-  bypassGuards: false,
+  bypassGuards: true,
   useDummyData: false,
   useMockBackend: false,
   api: {

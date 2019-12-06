@@ -1,10 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { CreateFacilityForm } from '../../models/create-facility-form';
-import { Router } from '@angular/router';
-import { ApiStatusCodes } from 'moh-common-lib';
 import { CreateFacilityDataService } from '../../services/create-facility-data.service';
 import { formatDateForDisplay, setNotApplicable } from '../../../core-bcp/models/helperFunc';
 import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
+import { Base, ApiStatusCodes, PageStateService } from 'moh-common-lib';
 
 
 // TODO: Class should extend Base not CreateFaciityForm - this is a confirmation page
@@ -15,7 +13,7 @@ import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
   styleUrls: ['./submission.component.scss'],
   encapsulation: ViewEncapsulation.None, // for print css
 })
-export class SubmissionComponent extends CreateFacilityForm implements OnInit {
+export class SubmissionComponent extends Base implements OnInit {
 
   // default icon - if return code < 0 then its an error
   displayIcon: ApiStatusCodes = ApiStatusCodes.ERROR;
@@ -23,12 +21,14 @@ export class SubmissionComponent extends CreateFacilityForm implements OnInit {
   /** An application is still a "success" even if it's under review */
   isUnderReview: boolean = false;
 
-  constructor(protected router: Router,
-              public dataService: CreateFacilityDataService) {
-    super(router);
+  constructor(public dataService: CreateFacilityDataService,
+              private pageStateService: PageStateService) {
+    super();
   }
 
   ngOnInit() {
+
+    this.pageStateService.clearCompletePages();
 
     // Set icon to be displayed
     if (this.dataService.jsonCreateFacility.response &&
@@ -56,11 +56,6 @@ export class SubmissionComponent extends CreateFacilityForm implements OnInit {
 
   get isError() {
     return this.displayIcon === ApiStatusCodes.ERROR;
-  }
-
-  // TODO: Remove not a form.
-  continue() {
-    console.log('TODO');
   }
 
   get facilityNumberText() {

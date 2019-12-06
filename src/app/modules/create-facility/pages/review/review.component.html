@@ -1,6 +1,6 @@
 <common-page-framework layout='blank'>
 
-  <form #formRef="ngForm" novalidate>
+  <form [formGroup]='formGroup'>
     <h1>{{pageTitle}}</h1>
     <p class="border-bottom">Review your application before submission</p>
 
@@ -42,7 +42,7 @@
     </div>
 
     <h2 class="border-bottom">Signtaure</h2>
-    <bcp-signature name='signature' [(ngModel)]='dataService.signature' required></bcp-signature>
+    <bcp-signature name='signature' formControlName='signature'></bcp-signature>
   </form>
 </common-page-framework>
 
