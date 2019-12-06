@@ -68,6 +68,7 @@ export class ReviewComponent extends CreateFacilityForm implements OnInit {
 
   continue() {
     this.signature._onTouched();
+    console.log(this.dataService.declarationTextForAPI);
 
     if (this.canContinue()) {
       this.submit();
