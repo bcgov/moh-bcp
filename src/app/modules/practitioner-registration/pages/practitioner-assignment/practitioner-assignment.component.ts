@@ -9,10 +9,10 @@ import { CreatePractitionerDataService } from '../../services/create-practitione
 interface RadioItem {
   label: string;
   value: string;
-  showPrimaryDate: boolean;
-  showSecondaryDate: boolean;
-  primaryDateLabel: string;
-  secondaryDateLabel: string;
+  showEffectiveDate: boolean;
+  showExpirationDate: boolean;
+  effectiveDateLabel: string;
+  expirationDateLabel: string;
 }
 
 @Component({
@@ -40,50 +40,50 @@ export class PractitionerAssignmentComponent extends RegistrationForm implements
 
     this.formGroup = this.fb.group({
       attachmentType: [this.dataService.pracAttachmentType],
-      primaryDate: [this.dataService.pracAttachmentPrimaryDate],
-      secondaryDate: [this.dataService.pracAttachmentSecondaryDate]
+      effectiveDate: [this.dataService.pracAttachmentEffectiveDate],
+      expirationDate: [this.dataService.pracAttachmentExpirationDate]
     });
 
     this.radioItems = [
       {
         label: 'New assignment',
         value: 'new',
-        showPrimaryDate: true,
-        showSecondaryDate: false,
-        primaryDateLabel: 'What is the effective date for the new assignment?',
-        secondaryDateLabel: null,
+        showEffectiveDate: true,
+        showExpirationDate: false,
+        effectiveDateLabel: 'What is the effective date for the new assignment?',
+        expirationDateLabel: null,
       },
       {
         label: 'Cancel the assignment',
         value: 'cancel',
-        showPrimaryDate: true,
-        showSecondaryDate: false,
-        primaryDateLabel: 'What date should the assignment be removed?',
-        secondaryDateLabel: null,
+        showEffectiveDate: true,
+        showExpirationDate: false,
+        effectiveDateLabel: 'What date should the assignment be removed?',
+        expirationDateLabel: null,
       },
       {
         label: 'Change the assignment date',
         value: 'change-date',
-        showPrimaryDate: true,
-        showSecondaryDate: false,
-        primaryDateLabel: 'What is the new effective date for the assignment?',
-        secondaryDateLabel: null,
+        showEffectiveDate: true,
+        showExpirationDate: false,
+        effectiveDateLabel: 'What is the new effective date for the assignment?',
+        expirationDateLabel: null,
       },
       {
         label: 'Change the cancellation date',
         value: 'change-cancel-date',
-        showPrimaryDate: true,
-        showSecondaryDate: false,
-        primaryDateLabel: 'When should the practitioner assignment to the facility be removed?',
-        secondaryDateLabel: null,
+        showEffectiveDate: true,
+        showExpirationDate: false,
+        effectiveDateLabel: 'When should the practitioner assignment to the facility be removed?',
+        expirationDateLabel: null,
       },
       {
         label: 'Locum assignment',
         value: 'locum',
-        showPrimaryDate: true,
-        showSecondaryDate: true,
-        primaryDateLabel: 'What is the effective date for the locum?',
-        secondaryDateLabel: 'What is the cancellation date for the locum?',
+        showEffectiveDate: true,
+        showExpirationDate: true,
+        effectiveDateLabel: 'What is the effective date for the locum?',
+        expirationDateLabel: 'What is the cancellation date for the locum?',
       },
     ];
   }
