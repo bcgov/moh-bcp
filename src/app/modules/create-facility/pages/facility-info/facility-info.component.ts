@@ -3,7 +3,7 @@ import { CreateFacilityForm } from '../../models/create-facility-form';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { cCreateFacilityValidators, validMultiFormControl } from '../../models/validators';
-import { CheckCompleteBaseService, Address, getProvinceDescription, ErrorMessage, CommonLogEvents } from 'moh-common-lib';
+import { Address, getProvinceDescription, ErrorMessage } from 'moh-common-lib';
 import { CreateFacilityDataService } from '../../services/create-facility-data.service';
 import { BCPApiService } from '../../../../services/bcp-api.service';
 import { ValidationResponse, ReturnCodes } from '../../models/create-facility-api-model';
@@ -11,6 +11,7 @@ import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
 import { stripPostalCodeSpaces } from '../../../core-bcp/models/helperFunc';
 import { SplunkLoggerService } from '../../../../services/splunk-logger.service';
 import { startOfToday, addYears, compareAsc } from 'date-fns';
+import { PageStateService } from 'moh-common-lib';
 
 @Component({
   selector: 'app-facility-info',
@@ -38,7 +39,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
 
   constructor(
     protected router: Router,
-    private pageCheckService: CheckCompleteBaseService,
+    private pageStateService: PageStateService,
     public dataService: CreateFacilityDataService,
     private fb: FormBuilder,
     private api: BCPApiService,
@@ -62,6 +63,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
   }
 
   ngOnInit() {
+    this.pageStateService.setPageIncomplete();
     this.facilityForm = this.initialize();
     this.updateMailingValidity(this.dataService.facInfoIsSameMailingAddress);
   }
@@ -181,6 +183,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
     this.facilityForm.markAllAsTouched();
     // this.markAllInputsTouched();
     if (this.facilityForm.valid) {
+      this.pageStateService.setPageComplete();
       this.loading = true;
 
       this.api.validateFacility({
@@ -237,12 +240,6 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
     this.loading = false;
     this.cdr.detectChanges();
     this.dataService.apiDuplicateWarning = !isValid;
-    if (isValid) {
-      this.pageCheckService.setPageComplete();
-    } else {
-      this.pageCheckService.setPageIncomplete();
-    }
-
   }
 
   // Read-only fields

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { ConsentModalComponent, CheckCompleteBaseService } from 'moh-common-lib';
+import { ConsentModalComponent, PageStateService } from 'moh-common-lib';
 import { CreateFacilityDataService } from '../../services/create-facility-data.service';
 import { CreateFacilityForm } from '../../models/create-facility-form';
 import { Router } from '@angular/router';
@@ -22,7 +22,7 @@ export class HomeComponent extends CreateFacilityForm implements OnInit, AfterVi
 
   constructor(private dataService: CreateFacilityDataService,
               protected router: Router,
-              private checkPageService: CheckCompleteBaseService,
+              private pageStateService: PageStateService,
               private ApiService: BCPApiService) {
     super(router);
   }
@@ -32,8 +32,9 @@ export class HomeComponent extends CreateFacilityForm implements OnInit, AfterVi
   }
 
   ngOnInit() {
-    this.checkPageService.setPageIncomplete();
+    this.pageStateService.setPageIncomplete();
   }
+
 
   ngAfterViewInit() {
     if (!this.dataService.informationCollectionNoticeConsent) {
@@ -50,8 +51,9 @@ export class HomeComponent extends CreateFacilityForm implements OnInit, AfterVi
   }
 
   continue() {
+
     if (this.canContinue()) {
-      this.checkPageService.setPageComplete();
+      this.pageStateService.setPageComplete();
       this.navigate(CREATE_FACILITY_PAGES.FACILITY_ADMIN.fullpath);
     }
   }

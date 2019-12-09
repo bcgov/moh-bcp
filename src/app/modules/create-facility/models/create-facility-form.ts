@@ -1,8 +1,10 @@
-import { AbstractForm } from 'moh-common-lib';
+import { AbstractReactForm } from 'moh-common-lib';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
+import { PageStateService } from 'moh-common-lib';
+import { OnInit } from '@angular/core';
 
-export class CreateFacilityForm extends AbstractForm {
+export class CreateFacilityForm extends AbstractReactForm {
   links = environment.links;
 
   constructor(protected router: Router) {
@@ -16,6 +18,6 @@ export class CreateFacilityForm extends AbstractForm {
    *  next page as ordered in routes file.
    */
   continue() {
-    console.log('TODO - override this function in your page.');
+    console.log('AbstractReactForm -continue ');
   }
 }

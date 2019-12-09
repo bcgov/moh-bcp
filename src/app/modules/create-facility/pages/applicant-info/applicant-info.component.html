@@ -7,16 +7,13 @@
 
   <common-page-section>
 
-    <form #formRef='ngForm'
-          novalidate>
+    <form [formGroup]="formGroup">
 
       <div class="form-group">
         <common-name label='Facility administrator first name'
                      name='facAdminFirstName'
-                     [(ngModel)]='dataService.facAdminFirstName'
-                     commonValidateName
-                     maxlen=15
-                     required></common-name>
+                     formControlName='facAdminFirstName'
+                     maxlen=15></common-name>
         <common-error-container [displayError]='showValidationError'>
           {{ validationErrorMessage }}
         </common-error-container>
@@ -25,10 +22,8 @@
       <div class="form-group">
         <common-name label='Facility administrator last name'
                      name='facAdminLastName'
-                     [(ngModel)]='dataService.facAdminLastName'
-                     commonValidateName
-                     maxlen=15
-                     required></common-name>
+                     formControlName='facAdminLastName'
+                     maxlen=15></common-name>
         <common-error-container [displayError]='showValidationError'>
           {{ validationErrorMessage }}
         </common-error-container>
@@ -36,9 +31,7 @@
 
       <div class="form-group">
         <bcp-practitioner-number name='pracNumber'
-                                 required
-                                 bcpValidatePractitionerNumber
-                                 [(ngModel)]='dataService.pracNumber'></bcp-practitioner-number>
+                                 formControlName='pracNumber'></bcp-practitioner-number>
         <common-error-container [displayError]='showValidationError'>
           {{ validationErrorMessage }}
         </common-error-container>
@@ -46,18 +39,17 @@
 
       <div class="form-group">
         <common-email name='email'
+                      formControlName='email'
                       label='Email address (optional)'
-                      [maxlength]="50"
-                      [(ngModel)]='dataService.emailAddress'></common-email>
+                      [maxlength]="50"></common-email>
       </div>
 
       <div class="form-group row">
         <div class="col-10">
           <common-phone-number name='phoneNumber'
+                               formControlName='phoneNumber'
                                label='Phone Number'
-                               [(ngModel)]='dataService.facAdminPhoneNumber'
-                               [allowInternational]='false'
-                               required></common-phone-number>
+                               [allowInternational]='false'></common-phone-number>
         </div>
 
         <div class="col-2">
@@ -65,11 +57,9 @@
             Extension
           </label>
           <input name='extension'
+                 formControlName='extension'
                  type="text"
-                 class='form-control'
-                 id='extension'
-                 [attr.maxlength]="4"
-                 [(ngModel)]='dataService.facAdminExtension'>
+                 [attr.maxlength]="4">
         </div>
       </div>
 
