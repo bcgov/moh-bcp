@@ -50,6 +50,7 @@ export class CreatePractitionerDataService {
   pracAttachmentType: string;
   pracAttachmentEffectiveDate: Date;
   pracAttachmentExpirationDate: Date;
+  pracAttachmentCancellationDate: Date;
 
   isAccepted: boolean;
   signature: CommonImage;

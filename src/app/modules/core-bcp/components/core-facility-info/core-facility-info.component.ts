@@ -24,7 +24,11 @@ export class CoreFacilityInfoComponent implements OnInit {
 
   @Input()
   public showFaxNumber: boolean;
-  
+
+  /** Show validationErrorMessage to user. Used when Validate Pracittioner check fails */
+  @Input() public showValidationError: boolean = false;
+  public validationErrorMessage: string = 'This field does not match our records.';
+
   public items: CoreFacilityInfoFormItems;
   public formGroup: FormGroup;
   public province: string;
