@@ -21,6 +21,8 @@ export class CorePractitionerInfoComponent implements OnInit {
 
   _defaultErrMsg: ErrorMessage = null;
   label: string = null;
+  showValidationError: boolean;
+  validationErrorMessage: string;
 
   @Input()
   public showFaxNumber: boolean;
