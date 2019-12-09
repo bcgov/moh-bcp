@@ -1,1 +1,9 @@
-<p>practitioner-info works!</p>
+<h1>{{pageTitle}}</h1>
+<p>You must be an active practitioner in the province of British Columbia and at the facility of practice you are responsible for some or all of the lease, rental, or ownership costs of that office.</p>
+<hr>
+
+<common-page-section>
+  <form [formGroup]='formGroup'>
+    <bcp-core-practitioner-info name='pracInfo' [showFaxNumber]='true' formControlName='pracInfo'></bcp-core-practitioner-info>
+  </form>
+</common-page-section>

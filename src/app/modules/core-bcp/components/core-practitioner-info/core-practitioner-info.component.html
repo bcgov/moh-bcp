@@ -1,0 +1,71 @@
+<form [formGroup]="formGroup" novalidate>
+    <div class="form-group">
+        <common-name label='First name'
+                    name='firstName'
+                    formControlName='firstName'
+                    commonValidateName
+                    maxlen=15
+                    required></common-name>
+        <common-error-container [displayError]='showValidationError'>
+        {{ validationErrorMessage }}
+        </common-error-container>
+    </div>
+
+    <div class="form-group">
+        <common-name label='Last name'
+                    name='lastName'
+                    formControlName='lastName'
+                    commonValidateName
+                    maxlen=15
+                    required></common-name>
+        <common-error-container [displayError]='showValidationError'>
+        {{ validationErrorMessage }}
+        </common-error-container>
+    </div>
+
+    <div class="form-group">
+        <bcp-practitioner-number name='MSPPracNumber'
+                                formControlName='mspPracNumber'
+                                required
+                                bcpValidatePractitionerNumber></bcp-practitioner-number>
+        <common-error-container [displayError]='showValidationError'>
+        {{ validationErrorMessage }}
+        </common-error-container>
+    </div>
+
+    <div class="form-group">
+        <common-email name='email'
+                    formControlName='email'
+                    label='Email address (optional)'
+                    [maxlength]="50"></common-email>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-10">
+        <common-phone-number name='phoneNumber'
+                                formControlName='phoneNumber'
+                                label='Phone number'
+                                [allowInternational]='false'
+                                required></common-phone-number>
+        </div>
+
+        <div class="col-2">
+        <label for='extension'>
+            Extension
+        </label>
+        <input name='phoneNumberExt'
+                formControlName='phoneNumberExt'
+                type="text"
+                class='form-control'
+                id='phoneNumberExt'
+                [attr.maxlength]="4">
+        </div>
+    </div>
+
+    <div class="form-group" *ngIf='showFaxNumber'>
+        <common-phone-number name='faxNumber'
+            formControlName='faxNumber'
+            label='Fax number (optional)'
+            [allowInternational]='false'></common-phone-number>
+    </div>
+</form>
