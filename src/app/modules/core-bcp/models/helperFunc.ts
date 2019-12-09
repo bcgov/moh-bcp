@@ -41,7 +41,6 @@ export function stripPostalCodeSpaces( str: string ) {
 
 export function prepareDeclarationTextForAPI( str: string): string {
   let text =  str.replace(/(?:<\/li>|<ol class='no-bullets'>|<\/ol>)/g, ''); // remove html characters
-  text =  text.replace(/(<li>)/g, '\t'); // add \t first line of each bulleted item
-  text =  text.replace(/(\ti?v?i{0,3}\.)/g, '$1\t'); // add \t character between roman numeral and first word
+  text =  text.replace(/<li>(i?v?i{0,3}\.)/g, '$1\t'); // add \t character between roman numeral and first word
   return text;
 }
