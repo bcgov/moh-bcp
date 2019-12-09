@@ -25,6 +25,7 @@ export class PractitionerAssignmentComponent extends RegistrationForm implements
   pageTitle: string = 'Practitioner Assignment';
   formGroup: FormGroup;
   radioItems: Array<RadioItem>;
+  sameMailAddrError: boolean = false;
 
   constructor( protected registrationContainerService: RegistrationContainerService,
                protected router: Router,
