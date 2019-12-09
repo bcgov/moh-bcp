@@ -1,6 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ApplicantInfoComponent } from './applicant-info.component';
+import { FormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { CoreBCPModule } from '../../../core-bcp/core-bcp.module';
+
 
 describe('ApplicantInfoComponent', () => {
   let component: ApplicantInfoComponent;
@@ -8,6 +13,7 @@ describe('ApplicantInfoComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ FormsModule, RouterTestingModule, HttpClientTestingModule, CoreBCPModule ],
       declarations: [ ApplicantInfoComponent ]
     })
     .compileComponents();

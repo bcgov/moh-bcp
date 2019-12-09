@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ReviewFacilityComponent } from './review-facility.component';
+import { CoreBCPModule } from '../../../../core-bcp/core-bcp.module';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ReviewFacilityComponent', () => {
   let component: ReviewFacilityComponent;
@@ -8,6 +10,7 @@ describe('ReviewFacilityComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ CoreBCPModule, RouterTestingModule ],
       declarations: [ ReviewFacilityComponent ]
     })
     .compileComponents();

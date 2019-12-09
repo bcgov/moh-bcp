@@ -18,8 +18,9 @@
 // Comment out unused component styles, so they won't be bundled in final CSS.
 // If they're ever used in the future we can just un-comment.
 
-@import "variables.scss";
+@import "./app/styles/variables.scss";
 @import "~bootstrap/scss/bootstrap";
+@import "~bootstrap/scss/_functions";
 
 @import "~font-awesome/scss/variables";
 @import "~font-awesome/scss/mixins";
@@ -41,7 +42,7 @@ $fa-font-path: '~font-awesome/fonts';
 @import "~font-awesome/scss/icons";
 @import "~font-awesome/scss/screen-reader";
 
-@import "overrides";
+@import "./app/styles/overrides";
 
 // Set a base font-size in px to ensure that we don't just use the browser's
 // default text size. We use rems for font-sizes everywhere else.

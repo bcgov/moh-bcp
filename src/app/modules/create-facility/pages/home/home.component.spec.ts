@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HomeComponent } from './home.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { SharedCoreModule } from 'moh-common-lib';
+import { CaptchaModule } from 'moh-common-lib/captcha';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -8,6 +12,7 @@ describe('HomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ HttpClientTestingModule, RouterTestingModule, SharedCoreModule, CaptchaModule ],
       declarations: [ HomeComponent ]
     })
     .compileComponents();
