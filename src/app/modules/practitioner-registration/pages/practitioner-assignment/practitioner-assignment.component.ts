@@ -3,7 +3,7 @@ import { RegistrationForm } from '../../models/registration-form';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration-route-constants';
 import { RegistrationContainerService } from '../../services/registration-container.service';
 import { Router } from '@angular/router';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CreatePractitionerDataService } from '../../services/create-practitioner-data.service';
 
 interface RadioItem {
@@ -40,9 +40,9 @@ export class PractitionerAssignmentComponent extends RegistrationForm implements
     super.ngOnInit();
 
     this.formGroup = this.fb.group({
-      attachmentType: [this.dataService.pracAttachmentType],
-      effectiveDate: [this.dataService.pracAttachmentEffectiveDate],
-      expirationDate: [this.dataService.pracAttachmentExpirationDate]
+      attachmentType: [this.dataService.pracAttachmentType, [Validators.required]],
+      effectiveDate: [this.dataService.pracAttachmentEffectiveDate, [Validators.required]],
+      expirationDate: [this.dataService.pracAttachmentExpirationDate, [Validators.required]]
     });
 
     this.radioItems = [
@@ -90,11 +90,22 @@ export class PractitionerAssignmentComponent extends RegistrationForm implements
   }
 
   continue() {
+    this.markAllInputsTouched();
+    
     console.log( 'Continue: Practitioner Assignment');
-    this.navigate(PRACTITIONER_REGISTRATION_PAGES.REVIEW.fullpath);
+    if (this.formGroup.valid) {
+      this.navigate(PRACTITIONER_REGISTRATION_PAGES.REVIEW.fullpath);
+    }
   }
 
   changeAttachmentType(value) {
     this.dataService.pracAttachmentType = value;
+
+    const groupItems = {
+      attachmentType: [this.dataService.pracAttachmentType, [Validators.required]],
+      effectiveDate: [this.dataService.pracAttachmentEffectiveDate, [Validators.required]],
+      expirationDate: [this.dataService.pracAttachmentExpirationDate, value == 'locum' ? [Validators.required] : null]
+    };
+    this.formGroup = this.fb.group(groupItems);
   }
 }

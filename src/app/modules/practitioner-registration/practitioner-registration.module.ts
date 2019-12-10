@@ -14,7 +14,16 @@ import { ReviewPractitionerInfoComponent } from './pages/review/review-practitio
 import { ReviewPractitionerAttachmentComponent } from './pages/review/review-practitioner-attachment/review-practitioner-attachment.component';
 import { ReviewPractitionerFacilityComponent } from './pages/review/review-practitioner-facility/review-practitioner-facility.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SharedCoreModule } from 'moh-common-lib';
+import {
+  SharedCoreModule,
+  DefaultPageGuardService,
+  AbstractPageGuardService,
+  LoadPageGuardService,
+  BYPASS_GUARDS,
+  START_PAGE_URL
+} from 'moh-common-lib';
+import { environment } from 'src/environments/environment';
+import { PRACTITIONER_REGISTRATION_PAGES } from './practitioner-registration-route-constants';
 
 @NgModule({
   declarations: [
@@ -36,6 +45,13 @@ import { SharedCoreModule } from 'moh-common-lib';
     PractitionerAssignmentRoutingModule,
     ReactiveFormsModule,
     SharedCoreModule,
+  ],
+  providers: [
+    { provide: BYPASS_GUARDS, useValue: environment.bypassGuards },
+    { provide: START_PAGE_URL, useValue: PRACTITIONER_REGISTRATION_PAGES.HOME.fullpath },
+    DefaultPageGuardService,
+    { provide: AbstractPageGuardService, useExisting: DefaultPageGuardService },
+    LoadPageGuardService,
   ]
 })
 export class PractitionerRegistrationModule { }
