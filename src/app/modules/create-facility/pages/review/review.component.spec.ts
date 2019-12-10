@@ -5,6 +5,7 @@ import { SharedCoreModule } from 'moh-common-lib';
 import { FormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap';
 import { SignaturePadModule } from 'angular2-signaturepad';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { ReviewApplicantComponent } from './review-applicant/review-applicant.component';
 import { ReviewFacilityComponent } from './review-facility/review-facility.component';
@@ -21,7 +22,7 @@ describe('ReviewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ FormsModule, HttpClientTestingModule, ModalModule, RouterTestingModule, SharedCoreModule, SignaturePadModule ],
+      imports: [ FormsModule, HttpClientTestingModule, ModalModule, RouterTestingModule, SharedCoreModule, SignaturePadModule, ReactiveFormsModule ],
       declarations: [
         ReviewComponent,
         ReviewFacilityComponent,
