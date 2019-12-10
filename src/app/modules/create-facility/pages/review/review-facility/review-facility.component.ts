@@ -35,7 +35,7 @@ export class ReviewFacilityComponent implements OnInit {
     const items = [
       [
         {
-          label: 'Facility Name',
+          label: 'Facility or practice name',
           value: this.dataService.facInfoFacilityName,
         },
         { label: 'Physical address', value: this.dataService.facInfoPhysicalAddress },

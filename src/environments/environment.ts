@@ -6,8 +6,8 @@ export const environment = {
   production: false,
   bypassModal: false,
   bypassGuards: true,
-  useDummyData: false,
-  useMockBackend: false,
+  useDummyData: true,
+  useMockBackend: true,
   api: {
     base: '/bcp/api/bcpIntegration',
     captcha: '/bcp/api/captcha',
