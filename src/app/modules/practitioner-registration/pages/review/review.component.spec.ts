@@ -29,4 +29,16 @@ describe('ReviewComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should navigate when form is valid', () => {
+    const markAllInputsTouchedSpy = jasmine.createSpy('markAllInputsTouched');
+    const navigateSpy = jasmine.createSpy('navigate');
+    const canContinueSpy = jasmine.createSpy('canContiue').and.returnValue(true);
+    Object.defineProperty(component, 'markAllInputsTouched', {value: markAllInputsTouchedSpy});
+    Object.defineProperty(component, 'navigate', {value: navigateSpy});
+    Object.defineProperty(component, 'canContinue', {value: canContinueSpy});
+    component.continue();
+    expect(markAllInputsTouchedSpy).not.toHaveBeenCalled();
+    expect(navigateSpy).toHaveBeenCalled();
+  });
 });
