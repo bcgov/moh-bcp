@@ -1,28 +1,29 @@
 import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
-import { Container } from 'moh-common-lib';
+import { Container, PageStateService } from 'moh-common-lib';
 import { pages } from '../../practitioner-registration-page-routes';
 import { HeaderService } from '../../../../services/header.service';
 import { RegistrationContainerService } from '../../services/registration-container.service';
+import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration-route-constants';
+
 
 @Component({
   selector: 'bcp-registration-container',
   templateUrl: './registration-container.component.html',
   styleUrls: ['./registration-container.component.scss']
 })
-export class RegistrationContainerComponent extends Container implements OnInit, AfterViewInit {
+export class RegistrationContainerComponent extends Container implements AfterViewInit {
 
   useDefaultColor: boolean = true;
   submitLabel: string = 'Continue';
   isLoading: boolean = false;
 
   constructor( private headerService: HeaderService,
-               private registrationContainerService: RegistrationContainerService ) {
+               private registrationContainerService: RegistrationContainerService,
+               private pageStateService: PageStateService ) {
     super();
+    this.setProgressSteps(pages);
+    this.pageStateService.setPages( pages, PRACTITIONER_REGISTRATION_PAGES );
     this.headerService.setTitle('Practitioner Assignment to Medical Services Plan Facility for Business Cost Premium');
-  }
-
-  ngOnInit() {
-    this.setProgressSteps( pages );
   }
 
   ngAfterViewInit() {

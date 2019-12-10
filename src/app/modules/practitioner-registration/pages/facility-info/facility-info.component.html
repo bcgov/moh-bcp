@@ -1,6 +1,4 @@
 <h1>{{pageTitle}}</h1>
 <hr>
 
-<form [formGroup]="formGroup">
-    <bcp-core-facility-info name='facInfo' formControlName='facInfo'></bcp-core-facility-info>
-</form>
+<bcp-core-facility-info name='facInfo' [formGroup]='formGroup'></bcp-core-facility-info>
