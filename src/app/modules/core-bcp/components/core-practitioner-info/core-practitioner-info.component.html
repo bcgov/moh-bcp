@@ -1,11 +1,10 @@
-<form [formGroup]="formGroup" novalidate>
+<form [(formGroup)]="formGroup" novalidate>
     <div class="form-group">
         <common-name label='First name'
                     name='firstName'
                     formControlName='firstName'
                     commonValidateName
-                    maxlen=15
-                    required></common-name>
+                    maxlen=15></common-name>
         <common-error-container [displayError]='showValidationError'>
         {{ validationErrorMessage }}
         </common-error-container>
@@ -16,8 +15,7 @@
                     name='lastName'
                     formControlName='lastName'
                     commonValidateName
-                    maxlen=15
-                    required></common-name>
+                    maxlen=1></common-name>
         <common-error-container [displayError]='showValidationError'>
         {{ validationErrorMessage }}
         </common-error-container>
@@ -45,8 +43,7 @@
         <common-phone-number name='phoneNumber'
                                 formControlName='phoneNumber'
                                 label='Phone number'
-                                [allowInternational]='false'
-                                required></common-phone-number>
+                                [allowInternational]='false'></common-phone-number>
         </div>
 
         <div class="col-2">

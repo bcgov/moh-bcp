@@ -31,25 +31,25 @@ export class PractitionerInfoComponent extends RegistrationForm implements OnIni
     this.registrationContainerService.$useDefaultColorSubject.next(true);
     super.ngOnInit();
 
-    this.formItems = {
-      firstName: this.dataService.pracInfoFirstName,
-      lastName: this.dataService.pracInfoLastName,
-      mspPracNumber: this.dataService.pracInfoMSPPracNumber,
-      email: this.dataService.pracInfoEmail,
-      phoneNumber: this.dataService.pracInfoPhoneNumber,
-      phoneNumberExt: this.dataService.pracInfoPhoneNumberExt,
-      faxNumber: this.dataService.pracInfoFaxNumber
-    }
-
     this.formGroup = this.fb.group({
-      pracInfo: [this.formItems] 
+      firstName: [this.dataService.pracInfoFirstName, [Validators.required]],
+      lastName: [this.dataService.pracInfoLastName, [Validators.required]],
+      mspPracNumber: [this.dataService.pracInfoMSPPracNumber, [Validators.required]],
+      email: [this.dataService.pracInfoEmail, [Validators.email]],
+      phoneNumber: [this.dataService.pracInfoPhoneNumber, [Validators.required]],
+      phoneNumberExt: [this.dataService.pracInfoPhoneNumberExt],
+      faxNumber: [this.dataService.pracInfoFaxNumber],
     });
-
   }
 
   continue() {
+    this.markAllInputsTouched();
+
     console.log('Continue: Practitioner Info');
     console.log("Items", this.formGroup.value);
-    this.navigate(PRACTITIONER_REGISTRATION_PAGES.FACILITY_INFO.fullpath);
+    
+    if (this.formGroup.valid) {
+      this.navigate(PRACTITIONER_REGISTRATION_PAGES.FACILITY_INFO.fullpath);
+    }
   }
 }

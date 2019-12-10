@@ -1,10 +1,9 @@
-<form [formGroup]="formGroup">
+<form [(formGroup)]="formGroup">
     <div class="form-group">
       <common-name label='Facility or practice name'
             name='name'
             formControlName='name'
-            commonValidateName
-            required></common-name>
+            commonValidateName></common-name>
       <common-error-container [displayError]='showValidationError'>
         {{ validationErrorMessage }}
       </common-error-container>
@@ -13,8 +12,7 @@
     <div class="form-group">
       <common-name label='Medical Services Plan facility number'
             name='mspNumber'
-            formControlName='mspNumber'
-            required></common-name>
+            formControlName='mspNumber'></common-name>
       <common-error-container [displayError]='showValidationError'>
         {{ validationErrorMessage }}
       </common-error-container>
@@ -23,8 +21,7 @@
     <div class="form-group">
       <common-name label='Physical address'
                   name='address'
-                  formControlName='address'
-                  required></common-name>
+                  formControlName='address'></common-name>
       <common-error-container [displayError]='showValidationError'>
         {{ validationErrorMessage }}
       </common-error-container>
@@ -39,7 +36,7 @@
   
     <div>
       <div class='label'>Province</div>
-      <div class='pb-2 mb-1'>{{province}}</div>
+      <div class='pb-2 mb-1'>{{formGroup.value.province}}</div>
     </div>
   
     <div class="form-group">

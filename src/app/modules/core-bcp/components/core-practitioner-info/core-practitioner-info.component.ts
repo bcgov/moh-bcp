@@ -17,10 +17,8 @@ export interface CorePractitionerInfoFormItems {
   templateUrl: './core-practitioner-info.component.html',
   styleUrls: ['./core-practitioner-info.component.scss']
 })
-export class CorePractitionerInfoComponent implements OnInit {
+export class CorePractitionerInfoComponent {
 
-  _defaultErrMsg: ErrorMessage = null;
-  label: string = null;
   showValidationError: boolean;
   validationErrorMessage: string;
 
@@ -28,39 +26,12 @@ export class CorePractitionerInfoComponent implements OnInit {
   public showFaxNumber: boolean;
   
   public items: CorePractitionerInfoFormItems;
+  
+  @Input()
   public formGroup: FormGroup;
-
-  constructor(@Optional() @Self() public controlDir: NgControl, private fb: FormBuilder) {
-    if (controlDir) {
-      console.log('sig controldir', controlDir);
-      controlDir.valueAccessor = this;
-    }
-  }
-
-  ngOnInit() {
-    this.initForm();
-    this.formGroup.valueChanges.subscribe(
-      value => {
-        console.log('%c Form changed: %o', 'color:red', value);
-        this._onChange(value);
-      }
-    );
-  }
 
   _onChange = (_: any) => { };
   _onTouched = (_?: any) => { };
-
-  private initForm() {
-    this.formGroup = this.fb.group({
-      firstName: [this.items.firstName, [Validators.required]],
-      lastName: [this.items.lastName, [Validators.required]],
-      mspPracNumber: [this.items.mspPracNumber, [Validators.required]],
-      email: [this.items.email, [Validators.email]],
-      phoneNumber: [this.items.phoneNumber, [Validators.required]],
-      phoneNumberExt: [this.items.phoneNumberExt],
-      faxNumber: [this.items.faxNumber],
-    });
-  }
 
   // Register change function
   registerOnChange(fn: any): void {
@@ -70,12 +41,5 @@ export class CorePractitionerInfoComponent implements OnInit {
   // Register touched function
   registerOnTouched(fn: any): void {
     this._onTouched = fn;
-  }
-
-  writeValue(val: CorePractitionerInfoFormItems): void {
-    if (val) {
-      console.log("writeValue: ", val);
-      this.items = val;
-    }
   }
 }
