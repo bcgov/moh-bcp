@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ReviewContainerComponent } from 'src/app/modules/core-bcp/components/review-container/review-container.component';
-import { CreateFacilityDataService } from '../../../services/create-facility-data.service';
-import { setNotApplicable } from '../../../../core-bcp/models/helperFunc';
-import { CREATE_FACILITY_PAGES } from '../../../create-facility-route-constants';
+import { CreateFacilityDataService } from '../../services/create-facility-data.service';
+import { setNotApplicable } from '../../../core-bcp/models/helperFunc';
+import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
 
 @Component({
   selector: 'bcp-review-applicant',
