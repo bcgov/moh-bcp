@@ -33,8 +33,8 @@ export class ReviewApplicantComponent implements OnInit {
 
     const items = [
       [
-        { label: 'Facility administrator first name', value: this.dataService.facAdminFirstName },
-        { label: 'Facility administrator last name', value: this.dataService.facAdminLastName },
+        { label: 'First name', value: this.dataService.facAdminFirstName },
+        { label: 'Last name', value: this.dataService.facAdminLastName },
         { label: 'Medical Services Plan practitioner number', value: this.dataService.pracNumber },
         { label: 'Email address', value: setNotApplicable( this.dataService.emailAddress  ) },
         phoneNumberEntry

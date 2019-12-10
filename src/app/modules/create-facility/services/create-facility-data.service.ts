@@ -48,7 +48,7 @@ export class CreateFacilityDataService {
       this.facInfoMailPostalCode = 'V8J 8J8';
 
       // Review page
-      this.dateOfDeclaration = new Date();
+      this.dateOfAcceptance = new Date();
     }
   }
 
@@ -87,12 +87,10 @@ export class CreateFacilityDataService {
   facInfoMailProvince: string = BRITISH_COLUMBIA;
   facInfoMailPostalCode: string;
 
-  // review page
-  dateOfDeclaration: Date;
-
   // API responses
   apiDuplicateWarning: boolean = false;
 
+  // Date user signs declaration
   dateOfAcceptance: Date = null;
   dateOfSubmission: Date = null;
 

@@ -82,8 +82,8 @@ export class SubmissionComponent extends Base implements OnInit {
     return formatDateForDisplay(this.dataService.facInfoEffectiveDate);
   }
 
-  get dateOfDeclaration() {
-    return formatDateForDisplay(this.dataService.dateOfDeclaration);
+  get dateOfAcceptance() {
+    return formatDateForDisplay(this.dataService.dateOfAcceptance);
   }
 
   // Title for route

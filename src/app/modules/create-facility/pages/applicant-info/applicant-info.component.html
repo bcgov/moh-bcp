@@ -10,20 +10,20 @@
     <form [formGroup]="formGroup">
 
       <div class="form-group">
-        <common-name label='Facility administrator first name'
+        <common-name label='First name'
                      name='facAdminFirstName'
                      formControlName='facAdminFirstName'
-                     maxlen=15></common-name>
+                     [maxlength]=15></common-name>
         <common-error-container [displayError]='showValidationError'>
           {{ validationErrorMessage }}
         </common-error-container>
       </div>
 
       <div class="form-group">
-        <common-name label='Facility administrator last name'
+        <common-name label='Last name'
                      name='facAdminLastName'
                      formControlName='facAdminLastName'
-                     maxlen=15></common-name>
+                     [maxlength]=15></common-name>
         <common-error-container [displayError]='showValidationError'>
           {{ validationErrorMessage }}
         </common-error-container>
@@ -48,7 +48,7 @@
         <div class="col-10">
           <common-phone-number name='phoneNumber'
                                formControlName='phoneNumber'
-                               label='Phone Number'
+                               label='Phone number'
                                [allowInternational]='false'></common-phone-number>
         </div>
 
@@ -64,16 +64,16 @@
       </div>
 
       <common-error-container [displayError]='systemDownError'>
-        Unable to continue, system down.  Please try again later.
+        Unable to continue, system down. Please try again later.
       </common-error-container>
 
     </form>
     <aside>
-      <h2>Tips</h2>
-      <p>A validation check will automatically be done using the following fields upon submission of this page:</p>
+      <h2>Tip</h2>
+      <p>A validation check will automatically be done using  the following fields upon submission of this page:</p>
       <ul>
-        <li>Facility Administrator First Name</li>
-        <li>Facility Administrator Last Name</li>
+        <li>First name</li>
+        <li>Last name</li>
         <li>Medical Services Plan Practitioner Number</li>
       </ul>
       <p>In order to apply for a Facility Number the Facility Administrator must be an Active medical practitioner.</p>

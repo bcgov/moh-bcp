@@ -9,7 +9,7 @@
 
         <div class="form-group">
           <!-- Facility Name -->
-          <label class="control-label" for="facilityName">Facility Name</label>
+          <label class="control-label" for="facilityName">Facility or practice name</label>
           <input id="facilityName" formControlName="facilityName" class="form-control" maxlength="70">
           <common-error-container [displayError]="validFormControl(facilityForm,'facilityName')">
             Facility Name is a required field
@@ -17,8 +17,7 @@
         </div>
 
         <div class="form-group">
-          <!-- Physical Address -TODO: Fix bug does not always save  -->
-          <common-geocoder-input label='Physical Address'
+          <common-geocoder-input label='Physical address'
                                  formControlName="address"
                                  maxlength="60"
                                  (addressChange)="physicalAddressSelected($event)">
@@ -51,20 +50,20 @@
         <div class="form-group">
           <!-- Postal Code has masks by default not maxlength required-->
           <common-postal-code name='facilityPostalCode'
-                              label='Postal Code'
+                              label='Postal code'
                               formControlName='postalCode'></common-postal-code>
         </div>
 
         <div class="form-group">
           <common-phone-number name='facilityFaxNumber'
-                               label='Fax Number (optional)'
+                               label='Fax number (optional)'
                                formControlName='faxNumber'
                                [allowInternational]='false'></common-phone-number>
         </div>
 
         <div class="form-group">
           <common-date name='effectiveDate'
-                       label="Effective Date"
+                       label="Effective date"
                        formControlName='effectiveDate'
                        [dateRangeStart]="effectStartRange"></common-date>
         </div>
@@ -98,7 +97,7 @@
       <form [formGroup]="facilityForm">
 
         <div class="form-group">
-          <common-geocoder-input label='Mailing Address' formControlName="mailingAddress" maxlength="60" (addressChange)="mailingAddressSelected($event)">
+          <common-geocoder-input label='Mailing address' formControlName="mailingAddress" maxlength="60" (addressChange)="mailingAddressSelected($event)">
           </common-geocoder-input>
 
         <common-error-container
@@ -129,7 +128,7 @@
         <div class="form-group pt-1">
           <!-- Postal Code component defaults to Canadian-->
           <common-postal-code name="mailingPostalCode"
-                              label='Postal Code'
+                              label='Postal code'
                               formControlName="mailingPostalCode">
           </common-postal-code>
         </div>
@@ -138,9 +137,17 @@
     </div>
   </common-page-section>
   <h2>Business Cost Premium</h2>
+  <p>
+    The Business Cost Premium applies to Eligible Fees claimed by Eligible Physicians for services
+    that are provided in a community-based office that has been issued an MSP Facility Number.
+    MSP Facility Numbers are issued to qualifying facilities, based on the physical location of the facility.
+  </p>
   <p class="border-bottom">
-    Business Cost Premium applies to services which are provided in community-based offices where the physician pays
-    towards rent or lease cost either directly or indirectly.
+    Eligible Physicians are those practitioners who are responsible to pay for some or all of
+    the lease, rental, or ownership costs of the community-based office that has been issued
+    an MSP Facility Number. Eligible Physicians must apply to be attached to the MSP Number
+    for a facility to claim the Business Cost Premium on Eligible Fees for services provided
+    at that facility.
   </p>
   <common-page-section layout="tips">
     <div class="form-group col-sm-8 p-sm-0">
@@ -157,8 +164,11 @@
     </div>
     <aside>
       <h2>Tip</h2>
-      <p>To register practitioners, complete the practitioner assignment to MSP facility for Business Cost Premium form
-        once you have been assigned a facility number.</p>
+      <p>
+        Practitioners must complete the Practitioner Attachment to Medical Services Plan
+        Facility for Business Cost Premium form using the facility number supplied upon
+        successful completion of this form.
+      </p>
     </aside>
   </common-page-section>
 </common-page-framework>
