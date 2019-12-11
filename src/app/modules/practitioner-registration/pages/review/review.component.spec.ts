@@ -30,6 +30,18 @@ describe('ReviewComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should mark inputs as touched if cannot continue form', () => {
+    const markAllInputsTouchedSpy = jasmine.createSpy('markAllInputsTouched');
+    const navigateSpy = jasmine.createSpy('navigate');
+    const canContinueSpy = jasmine.createSpy('canContiue').and.returnValue(false);
+    Object.defineProperty(component, 'markAllInputsTouched', {value: markAllInputsTouchedSpy});
+    Object.defineProperty(component, 'navigate', {value: navigateSpy});
+    Object.defineProperty(component, 'canContinue', {value: canContinueSpy});
+    component.continue();
+    expect(markAllInputsTouchedSpy).toHaveBeenCalled();
+    expect(navigateSpy).not.toHaveBeenCalled();
+  });
+
   it('should navigate when form is valid', () => {
     const markAllInputsTouchedSpy = jasmine.createSpy('markAllInputsTouched');
     const navigateSpy = jasmine.createSpy('navigate');
