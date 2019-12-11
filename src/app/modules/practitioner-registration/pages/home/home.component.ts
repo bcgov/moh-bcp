@@ -1,8 +1,8 @@
-import { Component, AfterViewInit, OnInit } from '@angular/core';
-import { RegistrationContainerService } from '../../services/registration-container.service';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration-route-constants';
 import { RegistrationForm } from '../../models/registration-form';
+import { ContainerService } from 'moh-common-lib';
 
 @Component({
   selector: 'bcp-home',
@@ -11,15 +11,14 @@ import { RegistrationForm } from '../../models/registration-form';
 })
 export class HomeComponent extends RegistrationForm implements OnInit {
 
-  constructor( protected registrationContainerService: RegistrationContainerService,
+  constructor( protected containerService: ContainerService,
                protected router: Router ) {
-    super(registrationContainerService, router);
+    super(containerService, router);
   }
 
   ngOnInit() {
-    this.registrationContainerService.$submitLabelSubject.next('Continue');
-    this.registrationContainerService.$useDefaultColorSubject.next(true);
-    super.ngOnInit();
+    this.containerService.setSubmitLabel();
+    this.containerService.setUseDefaultColor();
   }
 
   continue() {

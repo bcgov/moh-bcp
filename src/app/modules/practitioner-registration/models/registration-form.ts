@@ -1,31 +1,27 @@
-import { AbstractReactForm } from 'moh-common-lib';
-
-import { OnInit, OnDestroy } from '@angular/core';
-import { RegistrationContainerService } from '../services/registration-container.service';
-import { Subscription } from 'rxjs';
+import { AbstractReactForm , ContainerService} from 'moh-common-lib';
+import { OnDestroy, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
-export class RegistrationForm extends AbstractReactForm implements OnInit, OnDestroy {
+export class RegistrationForm extends AbstractReactForm implements AfterViewInit, OnDestroy {
 
-  protected subscriptions: Subscription[] = [];
+  private _subscription: Subscription;
 
-  constructor( protected registrationContainerService: RegistrationContainerService,
+  constructor( protected containerService: ContainerService,
                protected router: Router ) {
     super(router);
   }
 
-  ngOnInit() {
-    this.subscriptions.push(
-      this.registrationContainerService.$continueBtn.subscribe(
-        obs => {
-          console.log( 'continue button clicked' );
-          this.continue();
-        })
-      );
+  ngAfterViewInit() {
+    this._subscription = this.containerService.$continueBtn.subscribe(
+      (obs) => {
+        console.log( 'continue button clicked' );
+        this.continue();
+    });
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach( x => x.unsubscribe() );
+    this._subscription.unsubscribe();
   }
 
   continue() {

@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { RegistrationForm } from '../../models/registration-form';
-import { RegistrationContainerService } from '../../services/registration-container.service';
 import { Router } from '@angular/router';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration-route-constants';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CreatePractitionerDataService } from '../../services/create-practitioner-data.service';
-import { getProvinceDescription } from 'moh-common-lib';
+import { getProvinceDescription, ContainerService } from 'moh-common-lib';
 
 
 @Component({
@@ -18,17 +17,16 @@ export class FacilityInfoComponent extends RegistrationForm implements OnInit {
   pageTitle: string = 'Facility Information';
   formGroup: FormGroup;
 
-  constructor( protected registrationContainerService: RegistrationContainerService,
+  constructor( protected containerService: ContainerService,
                protected router: Router,
                private fb: FormBuilder,
                private dataService: CreatePractitionerDataService ) {
-    super(registrationContainerService, router);
+    super(containerService, router);
   }
 
   ngOnInit() {
-    this.registrationContainerService.$submitLabelSubject.next('Continue');
-    this.registrationContainerService.$useDefaultColorSubject.next(true);
-    super.ngOnInit();
+    this.containerService.setSubmitLabel();
+    this.containerService.setUseDefaultColor();
 
     this.formGroup = this.fb.group({
       name: [this.dataService.pracFacilityName, [Validators.required]],
