@@ -8,3 +8,24 @@
     <p>Practitioners may attach to more than one MSP Facility Number concurrently provided they qualify at each facility as an Eligible Practitioner. A separate form must be submitted for each MSP Facility Number that Eligible Physicians wish to attach to.</p>
     <p>You must complete all parts of this form.</p>
 </common-page-section>
+
+<common-consent-modal #bcpConsentModal
+                      [title]="'Information Collection Notice'"
+                      [processName]="'BCP'"
+                      [agreeLabel]="'I have read and understand this information'"
+                      [disableContinue]="!hasCaptchaToken()"
+                      (accept)="onAccept($event)">
+  <p><strong>Keep your personal information secure - especially when using a shared device like a computer at a library, school or café.</strong> To delete any information that was entered, either complete the application and submit it or, if you don't finish, close the web browser.</p>
+  <p><strong>Need to take a break and come back later?</strong> The data you enter on this form is saved locally to the computer or device you are using until you close the web browser or submit your application.</p>
+  <p>Personal information is collected under the authority of the <em>Medicare Protection Act</em> and section 26 (a), (c) and (e) of the <em>Freedom of Information and Protection of Privacy Act</em> for the purposes of administration of the Medical Services Plan. If you have any questions about the collection and use of your personal information, please contact 
+    <a href="http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us"
+    target="_blank">Health Insurance BC <i class="fa fa-external-link"
+      aria-hidden="true"></i></a>.</p>
+  
+
+
+  <common-captcha [apiBaseUrl]="captchaApiBaseUrl"
+                  [nonce]="nonce"
+                  (onValidToken)="handleToken($event)"></common-captcha>
+
+</common-consent-modal>
