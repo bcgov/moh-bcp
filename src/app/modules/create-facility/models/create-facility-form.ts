@@ -1,14 +1,29 @@
-import { AbstractReactForm } from 'moh-common-lib';
+import { AbstractReactForm, ContainerService } from 'moh-common-lib';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
-import { PageStateService } from 'moh-common-lib';
-import { OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { OnDestroy, AfterViewInit } from '@angular/core';
 
-export class CreateFacilityForm extends AbstractReactForm {
+export class CreateFacilityForm extends AbstractReactForm implements AfterViewInit, OnDestroy {
   links = environment.links;
 
-  constructor(protected router: Router) {
+  private _subscription: Subscription;
+
+  constructor(protected router: Router,
+              protected containerService: ContainerService) {
     super(router);
+  }
+
+  ngAfterViewInit() {
+    this._subscription = this.containerService.$continueBtn.subscribe(
+      (obs) => {
+        console.log( 'continue button clicked' );
+        this.continue();
+    });
+  }
+
+  ngOnDestroy() {
+    this._subscription.unsubscribe();
   }
 
   /**
@@ -18,6 +33,6 @@ export class CreateFacilityForm extends AbstractReactForm {
    *  next page as ordered in routes file.
    */
   continue() {
-    console.log('AbstractReactForm -continue ');
+    console.log('CreateFacilityForm - continue ');
   }
 }

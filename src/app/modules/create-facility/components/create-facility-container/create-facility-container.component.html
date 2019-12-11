@@ -6,3 +6,9 @@
 </common-core-breadcrumb>
 
 <router-outlet></router-outlet>
+
+<common-form-action-bar (btnClick)="continue()"
+                        [submitLabel]="submitLabel"
+                        [isLoading]="isLoading"
+                        [defaultColor]="useDefaultColor"
+                        widthOption='extra-width-mobile-only'></common-form-action-bar>

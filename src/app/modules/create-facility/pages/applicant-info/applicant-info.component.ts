@@ -8,7 +8,7 @@ import { ValidationResponse, ReturnCodes } from '../../models/create-facility-ap
 import { SplunkLoggerService } from '../../../../services/splunk-logger.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { validatePractitionerNumber } from '../../../core-bcp/components/practitioner-number/validate-practitioner-number.directive';
-import { PageStateService } from 'moh-common-lib';
+import { PageStateService, ContainerService } from 'moh-common-lib';
 
 @Component({
   selector: 'app-applicant-info',
@@ -16,7 +16,6 @@ import { PageStateService } from 'moh-common-lib';
   styleUrls: ['./applicant-info.component.scss']
 })
 export class ApplicantInfoComponent extends CreateFacilityForm implements OnInit, AfterViewInit {
-  public loading = false;
   public systemDownError = false;
   public showValidationError = false;
   public validationErrorMessage = 'This field does not match our records';
@@ -28,11 +27,15 @@ export class ApplicantInfoComponent extends CreateFacilityForm implements OnInit
     private fb: FormBuilder,
     private cdr: ChangeDetectorRef,
     private apiService: BCPApiService,
-    private splunkLoggerService: SplunkLoggerService) {
-    super(router);
+    private splunkLoggerService: SplunkLoggerService,
+    protected containerService: ContainerService) {
+    super(router, containerService);
   }
 
   ngOnInit() {
+    this.containerService.setSubmitLabel();
+    this.containerService.setUseDefaultColor();
+
     this.pageStateService.setPageIncomplete();
 
     this.formGroup = this.fb.group({
@@ -46,6 +49,7 @@ export class ApplicantInfoComponent extends CreateFacilityForm implements OnInit
   }
 
   ngAfterViewInit() {
+    super.ngAfterViewInit();
     this.formGroup.valueChanges.subscribe( val => {
 
       console.log( 'on Change: ', val );
@@ -70,7 +74,7 @@ export class ApplicantInfoComponent extends CreateFacilityForm implements OnInit
 
     if (this.canContinue()) {
       this.pageStateService.setPageComplete();
-      this.loading = true;
+      this.containerService.setIsLoading();
 
       this.apiService.validatePractitioner({
         firstName: this.dataService.facAdminFirstName,
@@ -109,13 +113,13 @@ export class ApplicantInfoComponent extends CreateFacilityForm implements OnInit
 
   private handleError(): void {
     this.systemDownError = true;
-    this.loading = false;
+    this.containerService.setIsLoading(false);
     this.cdr.detectChanges();
   }
 
   private handleValidation(isValid: boolean): void {
     this.showValidationError = !isValid;
-    this.loading = false;
+    this.containerService.setIsLoading(false);
     this.systemDownError = false;
     this.cdr.detectChanges();
   }

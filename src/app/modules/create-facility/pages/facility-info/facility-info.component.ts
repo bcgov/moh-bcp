@@ -3,7 +3,7 @@ import { CreateFacilityForm } from '../../models/create-facility-form';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { cCreateFacilityValidators, validMultiFormControl } from '../../models/validators';
-import { Address, getProvinceDescription, ErrorMessage } from 'moh-common-lib';
+import { Address, getProvinceDescription, ErrorMessage, ContainerService } from 'moh-common-lib';
 import { CreateFacilityDataService } from '../../services/create-facility-data.service';
 import { BCPApiService } from '../../../../services/bcp-api.service';
 import { ValidationResponse, ReturnCodes } from '../../models/create-facility-api-model';
@@ -44,8 +44,9 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
     private fb: FormBuilder,
     private api: BCPApiService,
     private cdr: ChangeDetectorRef,
-    private splunkLoggerService: SplunkLoggerService) {
-    super(router);
+    private splunkLoggerService: SplunkLoggerService,
+    protected containerService: ContainerService) {
+    super(router, containerService);
     this.validFormControl = validMultiFormControl;
   }
 
@@ -63,6 +64,9 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
   }
 
   ngOnInit() {
+    this.containerService.setSubmitLabel();
+    this.containerService.setUseDefaultColor();
+
     this.pageStateService.setPageIncomplete();
     this.facilityForm = this.initialize();
     this.updateMailingValidity(this.dataService.facInfoIsSameMailingAddress);
@@ -184,7 +188,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
     // this.markAllInputsTouched();
     if (this.facilityForm.valid) {
       this.pageStateService.setPageComplete();
-      this.loading = true;
+      this.containerService.setIsLoading();
 
       this.api.validateFacility({
         facilityName: this.dataService.facInfoFacilityName,
@@ -237,7 +241,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
 
 
   handleAPIValidation(isValid: boolean) {
-    this.loading = false;
+    this.containerService.setIsLoading(false);
     this.cdr.detectChanges();
     this.dataService.apiDuplicateWarning = !isValid;
   }

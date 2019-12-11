@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { ConsentModalComponent, PageStateService } from 'moh-common-lib';
+import { ConsentModalComponent, PageStateService, ContainerService } from 'moh-common-lib';
 import { CreateFacilityDataService } from '../../services/create-facility-data.service';
 import { CreateFacilityForm } from '../../models/create-facility-form';
 import { Router } from '@angular/router';
@@ -23,8 +23,9 @@ export class HomeComponent extends CreateFacilityForm implements OnInit, AfterVi
   constructor(private dataService: CreateFacilityDataService,
               protected router: Router,
               private pageStateService: PageStateService,
-              private ApiService: BCPApiService) {
-    super(router);
+              private ApiService: BCPApiService,
+              protected containerService: ContainerService) {
+    super(router, containerService);
   }
 
   get pageTitle() {
@@ -32,11 +33,15 @@ export class HomeComponent extends CreateFacilityForm implements OnInit, AfterVi
   }
 
   ngOnInit() {
+    this.containerService.setSubmitLabel();
+    this.containerService.setUseDefaultColor();
+
     this.pageStateService.setPageIncomplete();
   }
 
 
   ngAfterViewInit() {
+    super.ngAfterViewInit();
     if (!this.dataService.informationCollectionNoticeConsent) {
       this.bcpConsentModal.showFullSizeView();
     }
@@ -64,9 +69,5 @@ export class HomeComponent extends CreateFacilityForm implements OnInit, AfterVi
 
   handleToken(token: string): void {
     this.ApiService.setToken(token);
-  }
-
-  debug(a) {
-    console.log('debug', a);
   }
 }

@@ -30,7 +30,7 @@
         <h2 class="border-bottom">Declaration</h2>
       </div>
       <div class="row col-md-12 ml-0 pl-0 align-items-left" [innerHtml]='dataService.declarationText'>
-       
+
       </div>
     </div>
 
@@ -38,6 +38,3 @@
     <bcp-signature name='signature' formControlName='signature'></bcp-signature>
   </form>
 </common-page-framework>
-
-<common-form-action-bar [defaultColor]='false' widthOption='extra-width-mobile-only'  (btnClick)="continue()"  submitLabel="Submit" [isLoading]='loading' >
-</common-form-action-bar>

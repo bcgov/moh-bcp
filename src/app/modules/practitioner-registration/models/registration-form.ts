@@ -2,8 +2,11 @@ import { AbstractReactForm , ContainerService} from 'moh-common-lib';
 import { OnDestroy, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 
 export class RegistrationForm extends AbstractReactForm implements AfterViewInit, OnDestroy {
+
+  links = environment.links;
 
   private _subscription: Subscription;
 
