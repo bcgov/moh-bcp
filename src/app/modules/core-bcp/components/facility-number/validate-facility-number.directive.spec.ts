@@ -1,8 +1,8 @@
-import { ValidatePractitionerNumberDirective } from './validate-practitioner-number.directive';
+import { ValidateFacilityNumberDirective } from './validate-facility-number.directive';
 
-describe('ValidatePractitionerNumberDirective', () => {
+describe('ValidateFacilityNumberDirective', () => {
   it('should create an instance', () => {
-    const directive = new ValidatePractitionerNumberDirective();
+    const directive = new ValidateFacilityNumberDirective();
     expect(directive).toBeTruthy();
   });
 });

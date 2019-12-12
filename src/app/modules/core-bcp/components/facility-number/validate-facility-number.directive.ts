@@ -1,7 +1,7 @@
 import { Directive } from '@angular/core';
 import { ValidatorFn, AbstractControl, ValidationErrors, Validator, NG_VALIDATORS } from '@angular/forms';
 
-export const validatePractitionerNumber: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+export const validateFacilityNumber: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
   const criteria: RegExp = /^\w*$/;
 
   if (control.value) {
@@ -13,15 +13,15 @@ export const validatePractitionerNumber: ValidatorFn = (control: AbstractControl
 };
 
 @Directive({
-  selector: '[bcpValidatePractitionerNumber]',
-  providers: [{provide: NG_VALIDATORS, useExisting: ValidatePractitionerNumberDirective, multi: true}]
+  selector: '[bcpValidateFacilityNumber]',
+  providers: [{provide: NG_VALIDATORS, useExisting: ValidateFacilityNumberDirective, multi: true}]
 })
-export class ValidatePractitionerNumberDirective implements Validator {
+export class ValidateFacilityNumberDirective implements Validator {
 
   constructor() {
    }
   validate(control: AbstractControl): { [key: string]: any } | null {
-    return validatePractitionerNumber(control);
+    return validateFacilityNumber(control);
   }
 
 }

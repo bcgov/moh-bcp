@@ -1,23 +1,23 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SharedCoreModule } from 'moh-common-lib';
 
-import { PractitionerNumberComponent } from './practitioner-number.component';
+import { FacilityNumberComponent } from './facility-number.component';
 import { NgControl } from '@angular/forms';
 
 describe('PractitionerNumberComponent', () => {
-  let component: PractitionerNumberComponent;
-  let fixture: ComponentFixture<PractitionerNumberComponent>;
+  let component: FacilityNumberComponent;
+  let fixture: ComponentFixture<FacilityNumberComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ SharedCoreModule ],
-      declarations: [ PractitionerNumberComponent ]
+      declarations: [ FacilityNumberComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PractitionerNumberComponent);
+    fixture = TestBed.createComponent(FacilityNumberComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -27,7 +27,7 @@ describe('PractitionerNumberComponent', () => {
   });
 
   it('should display error for invalid entries', () => {
-    component.pracNumber = "ab c";
+    component.facNumber = "ab c";
     fixture.detectChanges();
     const errorContainerEl = fixture.debugElement.nativeElement.querySelector('common-error-container');
     expect(errorContainerEl).toBeTruthy();
