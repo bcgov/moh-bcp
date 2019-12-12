@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { RegistrationForm } from '../../models/registration-form';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration-route-constants';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CreatePractitionerDataService } from '../../services/create-practitioner-data.service';
-import { ContainerService } from 'moh-common-lib';
+import { ContainerService, PageStateService } from 'moh-common-lib';
+import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 
 interface RadioItem {
   label: string;
@@ -20,7 +20,7 @@ interface RadioItem {
   templateUrl: './practitioner-assignment.component.html',
   styleUrls: ['./practitioner-assignment.component.scss']
 })
-export class PractitionerAssignmentComponent extends RegistrationForm implements OnInit {
+export class PractitionerAssignmentComponent extends BcpBaseForm implements OnInit {
 
   pageTitle: string = 'Practitioner Assignment';
   formGroup: FormGroup;
@@ -29,14 +29,14 @@ export class PractitionerAssignmentComponent extends RegistrationForm implements
 
   constructor( protected containerService: ContainerService,
                protected router: Router,
+               protected pageStateService: PageStateService,
                private fb: FormBuilder,
                public dataService: CreatePractitionerDataService ) {
-    super(containerService, router);
+    super(router, containerService, pageStateService);
   }
 
   ngOnInit() {
-    this.containerService.setSubmitLabel();
-    this.containerService.setUseDefaultColor();
+    super.ngOnInit();
 
     this.formGroup = this.fb.group({
       attachmentType: [this.dataService.pracAttachmentType, [Validators.required]],

@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration-route-constants';
-import { RegistrationForm } from '../../models/registration-form';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CreatePractitionerDataService } from '../../services/create-practitioner-data.service';
 import { CorePractitionerInfoFormItems } from '../../../core-bcp/components/core-practitioner-info/core-practitioner-info.component';
-import { ContainerService } from 'moh-common-lib';
+import { ContainerService, PageStateService } from 'moh-common-lib';
+import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 
 @Component({
   selector: 'bcp-practitioner-info',
   templateUrl: './practitioner-info.component.html',
   styleUrls: ['./practitioner-info.component.scss']
 })
-export class PractitionerInfoComponent extends RegistrationForm implements OnInit {
+export class PractitionerInfoComponent extends BcpBaseForm implements OnInit {
 
   pageTitle: string = 'Practitioner Information';
   formGroup: FormGroup;
@@ -21,14 +21,14 @@ export class PractitionerInfoComponent extends RegistrationForm implements OnIni
 
   constructor( protected containerService: ContainerService,
                protected router: Router,
+               protected pageStateService: PageStateService,
                private fb: FormBuilder,
                public dataService: CreatePractitionerDataService) {
-    super(containerService, router);
+    super(router, containerService, pageStateService);
   }
 
   ngOnInit() {
-    this.containerService.setSubmitLabel();
-    this.containerService.setUseDefaultColor();
+    super.ngOnInit();
 
     this.formGroup = this.fb.group({
       firstName: [this.dataService.pracInfoFirstName, [Validators.required]],

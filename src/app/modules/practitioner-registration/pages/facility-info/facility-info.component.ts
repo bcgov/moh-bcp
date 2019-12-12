@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { RegistrationForm } from '../../models/registration-form';
 import { Router } from '@angular/router';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration-route-constants';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CreatePractitionerDataService } from '../../services/create-practitioner-data.service';
-import { getProvinceDescription, ContainerService } from 'moh-common-lib';
+import { getProvinceDescription, ContainerService, PageStateService } from 'moh-common-lib';
+import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 
 
 @Component({
@@ -12,21 +12,21 @@ import { getProvinceDescription, ContainerService } from 'moh-common-lib';
   templateUrl: './facility-info.component.html',
   styleUrls: ['./facility-info.component.scss']
 })
-export class FacilityInfoComponent extends RegistrationForm implements OnInit {
+export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
 
   pageTitle: string = 'Facility Information';
   formGroup: FormGroup;
 
   constructor( protected containerService: ContainerService,
                protected router: Router,
+               protected pageStateService: PageStateService,
                private fb: FormBuilder,
                private dataService: CreatePractitionerDataService ) {
-    super(containerService, router);
+    super(router, containerService, pageStateService);
   }
 
   ngOnInit() {
-    this.containerService.setSubmitLabel();
-    this.containerService.setUseDefaultColor();
+    super.ngOnInit();
 
     this.formGroup = this.fb.group({
       name: [this.dataService.pracFacilityName, [Validators.required]],
@@ -42,7 +42,7 @@ export class FacilityInfoComponent extends RegistrationForm implements OnInit {
     this.markAllInputsTouched();
 
     console.log( 'Continue: Facility Info');
-    console.log("Items", this.formGroup.value);
+    console.log('Items', this.formGroup.value);
     if (this.formGroup.valid) {
       this.navigate(PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_ASSIGN.fullpath);
     }

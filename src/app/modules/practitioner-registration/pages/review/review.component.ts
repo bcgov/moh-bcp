@@ -1,10 +1,10 @@
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import { RegistrationForm } from '../../models/registration-form';
 import { Router } from '@angular/router';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration-route-constants';
 import { CreatePractitionerDataService } from '../../services/create-practitioner-data.service';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ContainerService } from 'moh-common-lib';
+import { ContainerService, PageStateService } from 'moh-common-lib';
+import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 
 @Component({
   selector: 'bcp-review',
@@ -12,13 +12,14 @@ import { ContainerService } from 'moh-common-lib';
   styleUrls: ['./review.component.scss']
 })
 
-export class ReviewComponent extends RegistrationForm implements OnInit {
+export class ReviewComponent extends BcpBaseForm implements OnInit {
 
   constructor(public dataService: CreatePractitionerDataService,
               protected containerService: ContainerService,
               protected router: Router,
+              protected pageStateService: PageStateService,
               private fb: FormBuilder) {
-    super(containerService, router);
+    super(router, containerService, pageStateService);
   }
 
   pageTitle: string = 'Review Request';
@@ -26,6 +27,7 @@ export class ReviewComponent extends RegistrationForm implements OnInit {
   ngOnInit() {
     this.containerService.setSubmitLabel('Submit');
     this.containerService.setUseDefaultColor(false);
+    this.pageStateService.setPageIncomplete();
 
     this.formGroup = this.fb.group({
       signature: [this.dataService.signature, [Validators.required]]

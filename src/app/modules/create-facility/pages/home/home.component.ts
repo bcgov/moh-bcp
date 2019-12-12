@@ -1,27 +1,27 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { PageStateService, ContainerService } from 'moh-common-lib';
 import { CreateFacilityDataService } from '../../services/create-facility-data.service';
-import { CreateFacilityForm } from '../../models/create-facility-form';
 import { Router } from '@angular/router';
 import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
 
 import { BCPApiService } from '../../../../services/bcp-api.service';
+import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent extends CreateFacilityForm implements OnInit, AfterViewInit {
+export class HomeComponent extends BcpBaseForm implements OnInit, AfterViewInit {
 
   initialModalVisibility: boolean = false;
 
   constructor(private dataService: CreateFacilityDataService,
               protected router: Router,
-              private pageStateService: PageStateService,
+              protected pageStateService: PageStateService,
               private ApiService: BCPApiService,
               protected containerService: ContainerService) {
-    super(router, containerService);
+    super(router, containerService, pageStateService);
   }
 
   get pageTitle() {
@@ -29,10 +29,7 @@ export class HomeComponent extends CreateFacilityForm implements OnInit, AfterVi
   }
 
   ngOnInit() {
-    this.containerService.setSubmitLabel();
-    this.containerService.setUseDefaultColor();
-
-    this.pageStateService.setPageIncomplete();
+    super.ngOnInit();
     this.initialModalVisibility = !this.dataService.informationCollectionNoticeConsent;
   }
 
@@ -43,7 +40,6 @@ export class HomeComponent extends CreateFacilityForm implements OnInit, AfterVi
   continue() {
 
     if (this.canContinue()) {
-      this.pageStateService.setPageComplete();
       this.navigate(CREATE_FACILITY_PAGES.FACILITY_ADMIN.fullpath);
     }
   }

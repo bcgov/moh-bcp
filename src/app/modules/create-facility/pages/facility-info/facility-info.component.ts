@@ -1,5 +1,4 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { CreateFacilityForm } from '../../models/create-facility-form';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { cCreateFacilityValidators, validMultiFormControl } from '../../models/validators';
@@ -12,13 +11,14 @@ import { stripPostalCodeSpaces } from '../../../core-bcp/models/helperFunc';
 import { SplunkLoggerService } from '../../../../services/splunk-logger.service';
 import { startOfToday, addYears, compareAsc } from 'date-fns';
 import { PageStateService } from 'moh-common-lib';
+import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 
 @Component({
   selector: 'app-facility-info',
   templateUrl: './facility-info.component.html',
   styleUrls: ['./facility-info.component.scss']
 })
-export class FacilityInfoComponent extends CreateFacilityForm implements OnInit {
+export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
 
   // Error Messages
   qualifyBcpError: ErrorMessage = {
@@ -39,14 +39,14 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
 
   constructor(
     protected router: Router,
-    private pageStateService: PageStateService,
+    protected pageStateService: PageStateService,
     public dataService: CreateFacilityDataService,
     private fb: FormBuilder,
     private api: BCPApiService,
     private cdr: ChangeDetectorRef,
     private splunkLoggerService: SplunkLoggerService,
     protected containerService: ContainerService) {
-    super(router, containerService);
+    super(router, containerService, pageStateService);
     this.validFormControl = validMultiFormControl;
   }
 
@@ -64,10 +64,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
   }
 
   ngOnInit() {
-    this.containerService.setSubmitLabel();
-    this.containerService.setUseDefaultColor();
-
-    this.pageStateService.setPageIncomplete();
+    super.ngOnInit();
     this.facilityForm = this.initialize();
     this.updateMailingValidity(this.dataService.facInfoIsSameMailingAddress);
   }

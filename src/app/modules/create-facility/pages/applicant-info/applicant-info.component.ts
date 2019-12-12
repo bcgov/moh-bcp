@@ -1,5 +1,4 @@
 import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
-import { CreateFacilityForm } from '../../models/create-facility-form';
 import { Router } from '@angular/router';
 import { CreateFacilityDataService } from '../../services/create-facility-data.service';
 import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
@@ -8,34 +7,32 @@ import { ValidationResponse, ReturnCodes } from '../../models/create-facility-ap
 import { SplunkLoggerService } from '../../../../services/splunk-logger.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { PageStateService, ContainerService } from 'moh-common-lib';
+import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 
 @Component({
   selector: 'app-applicant-info',
   templateUrl: './applicant-info.component.html',
   styleUrls: ['./applicant-info.component.scss']
 })
-export class ApplicantInfoComponent extends CreateFacilityForm implements OnInit, AfterViewInit {
+export class ApplicantInfoComponent extends BcpBaseForm implements OnInit, AfterViewInit {
   public systemDownError = false;
   public showValidationError = false;
   public validationErrorMessage = 'This field does not match our records';
 
   constructor(
     protected router: Router,
-    private pageStateService: PageStateService,
+    protected pageStateService: PageStateService,
     public dataService: CreateFacilityDataService,
     private fb: FormBuilder,
     private cdr: ChangeDetectorRef,
     private apiService: BCPApiService,
     private splunkLoggerService: SplunkLoggerService,
     protected containerService: ContainerService) {
-    super(router, containerService);
+    super(router, containerService, pageStateService);
   }
 
   ngOnInit() {
-    this.containerService.setSubmitLabel();
-    this.containerService.setUseDefaultColor();
-
-    this.pageStateService.setPageIncomplete();
+    super.ngOnInit();
 
     this.formGroup = this.fb.group({
       facAdminFirstName: [this.dataService.facAdminFirstName, Validators.required],
@@ -50,8 +47,6 @@ export class ApplicantInfoComponent extends CreateFacilityForm implements OnInit
   ngAfterViewInit() {
     super.ngAfterViewInit();
     this.formGroup.valueChanges.subscribe( val => {
-
-      console.log( 'on Change: ', val );
 
       // Update data service values
       this.dataService.facAdminFirstName = val.facAdminFirstName;
@@ -72,7 +67,6 @@ export class ApplicantInfoComponent extends CreateFacilityForm implements OnInit
 
 
     if (this.canContinue()) {
-      this.pageStateService.setPageComplete();
       this.containerService.setIsLoading();
 
       this.apiService.validatePractitioner({

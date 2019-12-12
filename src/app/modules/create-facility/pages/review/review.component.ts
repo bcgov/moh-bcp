@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CreateFacilityForm } from '../../models/create-facility-form';
 import { PageStateService, ContainerService } from 'moh-common-lib';
 import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
 import { CreateFacilityDataService } from '../../services/create-facility-data.service';
@@ -10,25 +9,26 @@ import { SplunkLoggerService } from '../../../../services/splunk-logger.service'
 import { ValidationResponse } from '../../models/create-facility-api-model';
 import { SignatureComponent } from '../../../core-bcp/components/signature/signature.component';
 import { Validators, FormBuilder } from '@angular/forms';
+import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 
 @Component({
   selector: 'app-review',
   templateUrl: './review.component.html',
   styleUrls: ['./review.component.scss']
 })
-export class ReviewComponent extends CreateFacilityForm implements OnInit, AfterViewInit {
+export class ReviewComponent extends BcpBaseForm implements OnInit, AfterViewInit {
   showDuplicateWarning = true;
 
   @ViewChild(SignatureComponent, {static: true}) signature: SignatureComponent;
 
   constructor(protected router: Router,
-              private pageStateService: PageStateService,
+              protected pageStateService: PageStateService,
               public dataService: CreateFacilityDataService,
               private api: BCPApiService,
               private splunkLoggerService: SplunkLoggerService,
               private fb: FormBuilder,
               protected containerService: ContainerService) {
-    super(router, containerService);
+    super(router, containerService, pageStateService);
    }
 
   ngOnInit() {
@@ -49,9 +49,6 @@ export class ReviewComponent extends CreateFacilityForm implements OnInit, After
   ngAfterViewInit() {
     super.ngAfterViewInit();
     this.formGroup.valueChanges.subscribe( val => {
-
-      console.log( 'on Change: ', val );
-
       // Update data service values
       this.dataService.signature = val.signature;
       this.dataService.dateOfAcceptance = val.signature ? new Date() : null;
@@ -90,7 +87,6 @@ export class ReviewComponent extends CreateFacilityForm implements OnInit, After
 
         this.containerService.setIsLoading(false);
         // TODO: Handle failure case, e.g. no backend, failed request, etc.
-        this.pageStateService.setPageComplete();
         this.navigate(CREATE_FACILITY_PAGES.SUBMISSION.fullpath);
       }, error => {
         console.log('ARC apiService onerror', error);
@@ -101,9 +97,4 @@ export class ReviewComponent extends CreateFacilityForm implements OnInit, After
   private handleError(): void {
     this.containerService.setIsLoading(false);
   }
-
-  log(x) {
-    console.log('reviewLog', x);
-  }
-
 }
