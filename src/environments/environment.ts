@@ -16,7 +16,8 @@ export const environment = {
   },
   links: {
     tbd: 'google.com',
-    hibc: 'JavaScript:Void(0);' // TODO: Need link
+    hibc: 'JavaScript:Void(0);', // TODO: Need link
+    contactUs: 'http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us',
   }
 };
 

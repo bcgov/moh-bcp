@@ -14,7 +14,7 @@ import { environment } from '../../../../../environments/environment';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent extends RegistrationForm implements OnInit, AfterViewInit {
+export class HomeComponent extends RegistrationForm implements OnInit {
 
   @ViewChild('bcpConsentModal', { static: true }) bcpConsentModal: ConsentModalComponent;
   nonce: string = UUID.UUID();
@@ -33,24 +33,20 @@ export class HomeComponent extends RegistrationForm implements OnInit, AfterView
     super.ngOnInit();
   }
 
-  ngAfterViewInit() {
-    this.bcpConsentModal.showFullSizeView();
-  }
-
   continue() {
     console.log( 'Continue');
     this.navigate(PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_INFO.fullpath);
   }
 
-  hasCaptchaToken(): boolean {
+  hasToken(): boolean {
     return this.apiService.hasToken;
   }
 
-  onAccept(isChecked) {
+  accept(isChecked: boolean) {
     this.dataService.informationCollectionNoticeConsent = isChecked;
   }
 
-  handleToken(token: string): void {
+  setToken(token: string): void {
     this.apiService.setToken(token);
   }
 }

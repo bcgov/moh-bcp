@@ -22,7 +22,6 @@ import {
   BYPASS_GUARDS,
   START_PAGE_URL
 } from 'moh-common-lib';
-import { CaptchaModule } from 'moh-common-lib/captcha';
 import { environment } from 'src/environments/environment';
 import { PRACTITIONER_REGISTRATION_PAGES } from './practitioner-registration-route-constants';
 
@@ -40,7 +39,6 @@ import { PRACTITIONER_REGISTRATION_PAGES } from './practitioner-registration-rou
     ReviewPractitionerInfoComponent
   ],
   imports: [
-    CaptchaModule,
     CommonModule,
     CoreBCPModule,
     FormsModule,
