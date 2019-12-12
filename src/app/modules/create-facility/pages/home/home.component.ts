@@ -1,12 +1,10 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { ConsentModalComponent, PageStateService, ContainerService } from 'moh-common-lib';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { PageStateService, ContainerService } from 'moh-common-lib';
 import { CreateFacilityDataService } from '../../services/create-facility-data.service';
 import { CreateFacilityForm } from '../../models/create-facility-form';
 import { Router } from '@angular/router';
 import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
 
-import { UUID } from 'angular2-uuid';
-import { environment } from '../../../../../environments/environment';
 import { BCPApiService } from '../../../../services/bcp-api.service';
 
 @Component({
@@ -16,9 +14,7 @@ import { BCPApiService } from '../../../../services/bcp-api.service';
 })
 export class HomeComponent extends CreateFacilityForm implements OnInit, AfterViewInit {
 
-  @ViewChild('bcpConsentModal', { static: true }) bcpConsentModal: ConsentModalComponent;
-  nonce: string = UUID.UUID();
-  captchaApiBaseUrl = environment.api.captcha;
+  initialModalVisibility: boolean = false;
 
   constructor(private dataService: CreateFacilityDataService,
               protected router: Router,
@@ -37,18 +33,7 @@ export class HomeComponent extends CreateFacilityForm implements OnInit, AfterVi
     this.containerService.setUseDefaultColor();
 
     this.pageStateService.setPageIncomplete();
-  }
-
-
-  ngAfterViewInit() {
-    super.ngAfterViewInit();
-    if (!this.dataService.informationCollectionNoticeConsent) {
-      this.bcpConsentModal.showFullSizeView();
-    }
-  }
-
-  onAccept(bool) {
-    this.dataService.informationCollectionNoticeConsent = bool;
+    this.initialModalVisibility = !this.dataService.informationCollectionNoticeConsent;
   }
 
   canContinue() {
@@ -63,11 +48,15 @@ export class HomeComponent extends CreateFacilityForm implements OnInit, AfterVi
     }
   }
 
-  hasCaptchaToken(): boolean {
+  hasToken(): boolean {
     return this.ApiService.hasToken;
   }
 
-  handleToken(token: string): void {
+  accept(isChecked: boolean) {
+    this.dataService.informationCollectionNoticeConsent = isChecked;
+  }
+
+  setToken(token: string): void {
     this.ApiService.setToken(token);
   }
 }

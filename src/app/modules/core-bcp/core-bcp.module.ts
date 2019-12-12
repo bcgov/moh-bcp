@@ -9,10 +9,13 @@ import { SignatureComponent } from './components/signature/signature.component';
 import { ModalModule } from 'ngx-bootstrap';
 import { CorePractitionerInfoComponent } from './components/core-practitioner-info/core-practitioner-info.component';
 import { CoreFacilityInfoComponent } from './components/core-facility-info/core-facility-info.component';
+import { CoreConsentModalComponent } from './components/core-consent-modal/core-consent-modal.component';
+import { CaptchaModule } from 'moh-common-lib/captcha';
 
 const exportables = [
   CoreFacilityInfoComponent,
   CorePractitionerInfoComponent,
+  CoreConsentModalComponent,
   PractitionerNumberComponent,
   ReviewContainerComponent,
   SignatureComponent
@@ -21,6 +24,7 @@ const exportables = [
 @NgModule({
   declarations: [...exportables],
   imports: [
+    CaptchaModule,
     CommonModule,
     SharedCoreModule,
     FormsModule,
