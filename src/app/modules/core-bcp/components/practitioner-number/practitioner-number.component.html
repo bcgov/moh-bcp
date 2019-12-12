@@ -1,4 +1,4 @@
-<label for='pracNumber'>Medical services plan practitioner number</label>
+<label for='pracNumber'>{{label}}</label>
   <input type="text"
          class='form-control'
          name='pracNumber'
@@ -7,14 +7,13 @@
          (change)='inputChange($event)'
          (blur)='onBlur($event)'
          bcpValidatePractitionerNumber
-         [attr.maxlength]="5"
-         >
+         [attr.maxlength]="5">
 
 <common-error-container [displayError]="(controlDir?.dirty || controlDir?.touched) &&  controlDir?.errors">
   <div *ngIf="controlDir?.errors?.required">
-      Medical service plan practitioner number is required
-    </div>
-    <div *ngIf="controlDir?.errors?.invalidFormat && !controlDir?.errors?.required">
-      Medical service plan practitioner number is invalid format.  Please make sure it is alphanumeric and does not contain special characers or spaces.
+    {{_defaultErrMsg.required}}
+  </div>
+  <div *ngIf="controlDir?.errors?.invalidFormat && !controlDir?.errors?.required">
+    {{_defaultErrMsg.invalidFormat}}
   </div>
 </common-error-container>
