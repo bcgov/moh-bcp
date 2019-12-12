@@ -3,10 +3,9 @@
          class='form-control'
          name='pracNumber'
          id='pracNumber'
-         [(value)]='pracNumber'
+         [value]='pracNumber'
          (change)='inputChange($event)'
          (blur)='onBlur($event)'
-         bcpValidatePractitionerNumber
          [attr.maxlength]="5">
 
 <common-error-container [displayError]="(controlDir?.dirty || controlDir?.touched) &&  controlDir?.errors">

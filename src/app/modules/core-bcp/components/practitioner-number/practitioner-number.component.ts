@@ -32,7 +32,8 @@ export class PractitionerNumberComponent extends AbstractFormControl implements 
 
   inputChange(evt) {
     if (evt.target) {
-      this._onChange(evt.target.value);
+      this.pracNumber = evt.target.value;
+      this._onChange(this.pracNumber);
     }
   }
 
@@ -47,7 +48,6 @@ export class PractitionerNumberComponent extends AbstractFormControl implements 
   }
 
   private validateSelf(): ValidationErrors | null {
-
     if ( this.pracNumber ) {
       const criteria: RegExp = /^\w*$/;
       const result = criteria.test(this.pracNumber);

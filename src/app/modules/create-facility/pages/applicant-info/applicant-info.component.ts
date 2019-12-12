@@ -7,7 +7,6 @@ import { BCPApiService } from '../../../../services/bcp-api.service';
 import { ValidationResponse, ReturnCodes } from '../../models/create-facility-api-model';
 import { SplunkLoggerService } from '../../../../services/splunk-logger.service';
 import { FormBuilder, Validators } from '@angular/forms';
-import { validatePractitionerNumber } from '../../../core-bcp/components/practitioner-number/validate-practitioner-number.directive';
 import { PageStateService, ContainerService } from 'moh-common-lib';
 
 @Component({
@@ -41,7 +40,7 @@ export class ApplicantInfoComponent extends CreateFacilityForm implements OnInit
     this.formGroup = this.fb.group({
       facAdminFirstName: [this.dataService.facAdminFirstName, Validators.required],
       facAdminLastName: [this.dataService.facAdminLastName, Validators.required],
-      pracNumber: [this.dataService.pracNumber, [Validators.required, validatePractitionerNumber]],
+      pracNumber: [this.dataService.pracNumber, Validators.required],
       email: [this.dataService.emailAddress], // optional field
       phoneNumber: [this.dataService.facAdminPhoneNumber, Validators.required],
       extension: [this.dataService.facAdminExtension], // optional field
