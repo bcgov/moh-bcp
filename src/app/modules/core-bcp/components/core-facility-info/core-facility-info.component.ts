@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ErrorMessage } from 'moh-common-lib';
+import { ErrorMessage, Address } from 'moh-common-lib';
 
 @Component({
   selector: 'bcp-core-facility-info',
@@ -33,5 +33,12 @@ export class CoreFacilityInfoComponent {
   // Register touched function
   registerOnTouched(fn: any): void {
     this._onTouched = fn;
+  }
+
+  physicalAddressSelected(address: Address) {
+    this.formGroup.patchValue({
+      address: address.addressLine1,
+      city: address.city
+    });
   }
 }

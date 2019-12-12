@@ -10,18 +10,25 @@
     </div>
   
     <div class="form-group">
-      <common-name label='Medical Services Plan facility number'
-            name='mspNumber'
-            formControlName='mspNumber'></common-name>
+      <bcp-practitioner-number label='Medical Services Plan facility number'
+                               name='mspNumber'
+                               formControlName='mspNumber'></bcp-practitioner-number>
       <common-error-container [displayError]='showValidationError'>
         {{ validationErrorMessage }}
       </common-error-container>
     </div>
   
     <div class="form-group">
-      <common-name label='Physical address'
-                  name='address'
-                  formControlName='address'></common-name>
+      <common-geocoder-input label='Physical address'
+        formControlName="address"
+        maxlength="60"
+        (addressChange)="physicalAddressSelected($event)">
+      </common-geocoder-input>
+      <!-- Empty validation case is required here due to GeoCoderInput incompatibility. -->
+      <common-error-container
+        [displayError]="formGroup.controls?.address?.touched && formGroup.controls?.address?.errors?.required">
+        Facility Address is a required field
+      </common-error-container>
       <common-error-container [displayError]='showValidationError'>
         {{ validationErrorMessage }}
       </common-error-container>
