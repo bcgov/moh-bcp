@@ -8,3 +8,8 @@
     <p>Practitioners may attach to more than one MSP Facility Number concurrently provided they qualify at each facility as an Eligible Practitioner. A separate form must be submitted for each MSP Facility Number that Eligible Physicians wish to attach to.</p>
     <p>You must complete all parts of this form.</p>
 </common-page-section>
+
+<bcp-consent-modal (onAccept)='accept($event)'
+                   (onValidToken)='setToken($event)'
+                   [hasToken]='hasToken()'
+                   [initialVisibility]='initialModalVisibility'></bcp-consent-modal>
