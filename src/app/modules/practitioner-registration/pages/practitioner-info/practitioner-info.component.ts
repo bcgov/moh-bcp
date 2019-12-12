@@ -37,7 +37,6 @@ export class PractitionerInfoComponent extends BcpBaseForm implements OnInit {
       email: [this.dataService.pracInfoEmail, [Validators.email]],
       phoneNumber: [this.dataService.pracInfoPhoneNumber, [Validators.required]],
       phoneNumberExt: [this.dataService.pracInfoPhoneNumberExt],
-      faxNumber: [this.dataService.pracInfoFaxNumber],
     });
   }
 

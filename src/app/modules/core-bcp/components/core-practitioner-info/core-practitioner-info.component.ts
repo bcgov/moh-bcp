@@ -21,9 +21,6 @@ export class CorePractitionerInfoComponent {
   showValidationError: boolean;
   validationErrorMessage: string;
 
-  @Input()
-  public showFaxNumber: boolean;
-
   public items: CorePractitionerInfoFormItems;
 
   @Input()

@@ -30,8 +30,7 @@ export class ReviewPractitionerFacilityComponent implements OnInit {
         { label: 'City', value: this.dataService.pracFacilityCity },
         { label: 'Province', value: this.dataService.pracFacilityProvince },
         { label: 'Postal code', value: this.dataService.pracFacilityPostalCode },
-        { label: 'Fax number (optional)', value: this.dataService.pracFacilityFax }
-
+        { label: 'Fax number (optional)', value: this.dataService.pracFacilityFaxNumber }
       ],
     ];
     this.review.sectionItems = items;

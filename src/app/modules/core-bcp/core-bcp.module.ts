@@ -11,11 +11,13 @@ import { CorePractitionerInfoComponent } from './components/core-practitioner-in
 import { CoreFacilityInfoComponent } from './components/core-facility-info/core-facility-info.component';
 import { CoreConsentModalComponent } from './components/core-consent-modal/core-consent-modal.component';
 import { CaptchaModule } from 'moh-common-lib/captcha';
+import { FacilityNumberComponent } from './components/facility-number/facility-number.component';
 
 const exportables = [
   CoreFacilityInfoComponent,
   CorePractitionerInfoComponent,
   CoreConsentModalComponent,
+  FacilityNumberComponent,
   PractitionerNumberComponent,
   ReviewContainerComponent,
   SignatureComponent
