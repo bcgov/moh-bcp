@@ -19,6 +19,7 @@ export class HomeComponent extends RegistrationForm implements OnInit {
   @ViewChild('bcpConsentModal', { static: true }) bcpConsentModal: ConsentModalComponent;
   nonce: string = UUID.UUID();
   captchaApiBaseUrl = environment.api.captcha;
+  initialModalVisibility: boolean = false;
 
   constructor( protected registrationContainerService: RegistrationContainerService,
                protected router: Router,
@@ -31,6 +32,7 @@ export class HomeComponent extends RegistrationForm implements OnInit {
     this.registrationContainerService.$submitLabelSubject.next('Continue');
     this.registrationContainerService.$useDefaultColorSubject.next(true);
     super.ngOnInit();
+    this.initialModalVisibility = !this.dataService.informationCollectionNoticeConsent;
   }
 
   continue() {

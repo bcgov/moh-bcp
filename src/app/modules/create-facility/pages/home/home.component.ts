@@ -14,11 +14,9 @@ import { BCPApiService } from '../../../../services/bcp-api.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent extends CreateFacilityForm implements OnInit, AfterViewInit {
+export class HomeComponent extends CreateFacilityForm implements OnInit {
 
-  @ViewChild('bcpConsentModal', { static: true }) bcpConsentModal: ConsentModalComponent;
-  nonce: string = UUID.UUID();
-  captchaApiBaseUrl = environment.api.captcha;
+  initialModalVisibility: boolean = false;
 
   constructor(private dataService: CreateFacilityDataService,
               protected router: Router,
@@ -33,17 +31,7 @@ export class HomeComponent extends CreateFacilityForm implements OnInit, AfterVi
 
   ngOnInit() {
     this.pageStateService.setPageIncomplete();
-  }
-
-
-  ngAfterViewInit() {
-    if (!this.dataService.informationCollectionNoticeConsent) {
-      this.bcpConsentModal.showFullSizeView();
-    }
-  }
-
-  onAccept(bool) {
-    this.dataService.informationCollectionNoticeConsent = bool;
+    this.initialModalVisibility = !this.dataService.informationCollectionNoticeConsent;
   }
 
   canContinue() {
@@ -58,11 +46,15 @@ export class HomeComponent extends CreateFacilityForm implements OnInit, AfterVi
     }
   }
 
-  hasCaptchaToken(): boolean {
+  hasToken(): boolean {
     return this.ApiService.hasToken;
   }
 
-  handleToken(token: string): void {
+  accept(isChecked: boolean) {
+    this.dataService.informationCollectionNoticeConsent = isChecked;
+  }
+
+  setToken(token: string): void {
     this.ApiService.setToken(token);
   }
 

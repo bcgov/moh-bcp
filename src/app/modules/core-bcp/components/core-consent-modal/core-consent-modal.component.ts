@@ -11,15 +11,18 @@ import { ConsentModalComponent } from 'moh-common-lib';
 export class CoreConsentModalComponent implements AfterViewInit {
   captchaApiBaseUrl: string = environment.api.captcha;
   nonce: string = UUID.UUID();
-  contactUsLink: string = environment.links.contactUs;
+  contactUsLink: string = environment.links.hibc;
 
   @ViewChild('bcpConsentModal', { static: true }) bcpConsentModal: ConsentModalComponent;
   @Input() hasToken: boolean;
+  @Input() initialVisibility: boolean;
   @Output() onAccept: EventEmitter<boolean> = new EventEmitter<any>();
   @Output() onValidToken: EventEmitter<string> = new EventEmitter<any>();
 
   ngAfterViewInit() {
-    this.bcpConsentModal.showFullSizeView();
+    if (this.initialVisibility) {
+      this.bcpConsentModal.showFullSizeView();
+    }
   }
 
   accept(isChecked: boolean) {

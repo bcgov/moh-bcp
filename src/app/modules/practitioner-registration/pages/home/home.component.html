@@ -11,4 +11,5 @@
 
 <bcp-consent-modal (onAccept)='accept($event)'
                    (onValidToken)='setToken($event)'
-                   [hasToken]='hasToken()'></bcp-consent-modal>
+                   [hasToken]='hasToken()'
+                   [initialVisibility]='initialModalVisibility'></bcp-consent-modal>
