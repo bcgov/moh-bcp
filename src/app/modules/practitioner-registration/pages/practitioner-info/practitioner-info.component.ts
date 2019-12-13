@@ -7,6 +7,7 @@ import { CorePractitionerInfoFormItems } from '../../../core-bcp/components/core
 import { ContainerService, PageStateService } from 'moh-common-lib';
 import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 
+
 @Component({
   selector: 'bcp-practitioner-info',
   templateUrl: './practitioner-info.component.html',
@@ -16,8 +17,6 @@ export class PractitionerInfoComponent extends BcpBaseForm implements OnInit {
 
   pageTitle: string = 'Practitioner Information';
   formGroup: FormGroup;
-  formItems: CorePractitionerInfoFormItems;
-
 
   constructor( protected containerService: ContainerService,
                protected router: Router,
