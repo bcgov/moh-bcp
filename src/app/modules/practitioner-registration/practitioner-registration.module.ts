@@ -7,7 +7,7 @@ import { FacilityInfoComponent } from './pages/facility-info/facility-info.compo
 import { ReviewComponent } from './pages/review/review.component';
 import { SubmissionComponent } from './pages/submission/submission.component';
 import { RegistrationContainerComponent } from './components/registration-container/registration-container.component';
-import { PractitionerAssignmentComponent } from './pages/practitioner-assignment/practitioner-assignment.component';
+import { PractitionerAttachmentComponent } from './pages/practitioner-attachment/practitioner-attachment.component';
 import { CoreBCPModule } from '../core-bcp/core-bcp.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
@@ -31,7 +31,7 @@ import { environment } from '../../../environments/environment';
     HomeComponent,
     PractitionerInfoComponent,
     FacilityInfoComponent,
-    PractitionerAssignmentComponent,
+    PractitionerAttachmentComponent,
     ReviewComponent,
     SubmissionComponent,
     RegistrationContainerComponent,

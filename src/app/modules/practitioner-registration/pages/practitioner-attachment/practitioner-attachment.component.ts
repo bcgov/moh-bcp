@@ -13,9 +13,9 @@ interface RadioItem {
 }
 
 @Component({
-  selector: 'bcp-practitioner-assignment',
-  templateUrl: './practitioner-assignment.component.html',
-  styleUrls: ['./practitioner-assignment.component.scss']
+  selector: 'bcp-practitioner-attachment',
+  templateUrl: './practitioner-attachment.component.html',
+  styleUrls: ['./practitioner-attachment.component.scss']
 })
 export class PractitionerAssignmentComponent extends BcpBaseForm implements OnInit {
 
