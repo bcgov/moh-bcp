@@ -46,7 +46,7 @@ export class CreatePractitionerDataService {
   pracFacilityFax: string;
 
   pracAttachmentType: string;
-  pracNewAttachmentType: string;
+  pracNewAttachmentType: boolean;
   pracNewAttachmentEffectiveDate: Date;
   pracNewAttachmentCancelDate: Date;
   pracCancelAttachmentDate: Date;

@@ -16,7 +16,6 @@
   </div>
 
   <ng-container *ngIf='shouldShowNewSection'>
-    
     <div class="form-group">
       <common-radio formControlName="newAttachmentType"
                     name="newAttachmentType"
@@ -43,9 +42,7 @@
     </div>
   </ng-container>
 
-
-  
-  <ng-container *ngIf='dataService.pracAttachmentType === "cancel"'>
+  <ng-container *ngIf='shouldShowCancelSection'>
     <div class="form-group">
       <common-date label='Cancellation date for existing attachment'
                     name="cancelAttachmentDate"
@@ -54,7 +51,7 @@
     </div>
   </ng-container>
   
-  <ng-container *ngIf='dataService.pracAttachmentType === "change-date"'>
+  <ng-container *ngIf='shouldShowChangeSection'>
     <div class="form-group">
       <common-date label='New effective date for existing attachment (if applicable)'
                     name="changeAttachmentEffectiveDate"

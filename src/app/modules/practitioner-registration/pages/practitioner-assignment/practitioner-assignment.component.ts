@@ -5,15 +5,11 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CreatePractitionerDataService } from '../../services/create-practitioner-data.service';
 import { ContainerService, PageStateService } from 'moh-common-lib';
 import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
-import { PRACTITIONER_ASSIGNMENT } from '../../models/practitioner-assignment';
+import { PRACTITIONER_ATTACHMENT } from '../../models/practitioner-attachment';
 
 interface RadioItem {
   label: string;
   value: string;
-  showEffectiveDate: boolean;
-  showExpirationDate: boolean;
-  effectiveDateLabel: string;
-  expirationDateLabel: string;
 }
 
 @Component({
@@ -41,76 +37,48 @@ export class PractitionerAssignmentComponent extends BcpBaseForm implements OnIn
 
     this.radioItems = [
       {
-        label: PRACTITIONER_ASSIGNMENT.NEW.label,
-        value: PRACTITIONER_ASSIGNMENT.NEW.value,
-        showEffectiveDate: true,
-        showExpirationDate: false,
-        effectiveDateLabel: 'What is the effective date for the new assignment?',
-        expirationDateLabel: null,
+        label: PRACTITIONER_ATTACHMENT.NEW.label,
+        value: PRACTITIONER_ATTACHMENT.NEW.value,
       },
       {
-        label: PRACTITIONER_ASSIGNMENT.CANCEL.label,
-        value: PRACTITIONER_ASSIGNMENT.CANCEL.value,
-        showEffectiveDate: true,
-        showExpirationDate: false,
-        effectiveDateLabel: 'What date should the assignment be removed?',
-        expirationDateLabel: null,
+        label: PRACTITIONER_ATTACHMENT.CANCEL.label,
+        value: PRACTITIONER_ATTACHMENT.CANCEL.value,
       },
       {
-        label: PRACTITIONER_ASSIGNMENT.CHANGE_DATE.label,
-        value: PRACTITIONER_ASSIGNMENT.CHANGE_DATE.value,
-        showEffectiveDate: true,
-        showExpirationDate: false,
-        effectiveDateLabel: 'What is the new effective date for the assignment?',
-        expirationDateLabel: null,
+        label: PRACTITIONER_ATTACHMENT.CHANGE.label,
+        value: PRACTITIONER_ATTACHMENT.CHANGE.value,
       },
     ];
 
     this.initValidators();
-    this.formGroup.get('attachmentType').valueChanges.subscribe(
-      value => {
-        this.initValidators();
-      }
-    );
-    // this.formGroup.get('newAttachmentType').valueChanges.subscribe(
-    //   value => {
-    //     this.initValidators();
-    //   }
-    // );
   }
 
   initValidators() {
     const formGroupObj: any = {
-      attachmentType: [this.dataService.pracAttachmentType, [Validators.required]],
-      test: [this.dataService.pracCancelAttachmentDate, [Validators.required]],
+      attachmentType: [this.dataService.pracAttachmentType, [Validators.required]]
     };
+
+    if (this.dataService.pracAttachmentType == PRACTITIONER_ATTACHMENT.NEW.value) {
+      formGroupObj.newAttachmentType = [this.dataService.pracNewAttachmentType, Validators.required];
+
+      if (this.dataService.pracNewAttachmentType === true || this.dataService.pracNewAttachmentType === false) {
+        formGroupObj.newAttachmentEffectiveDate = [this.dataService.pracNewAttachmentEffectiveDate, Validators.required];
+      }
+      if (this.dataService.pracNewAttachmentType === true) {
+        formGroupObj.newAttachmentCancelDate = [this.dataService.pracNewAttachmentCancelDate, Validators.required];
+      }
+    }
+
+    if (this.dataService.pracAttachmentType == PRACTITIONER_ATTACHMENT.CANCEL.value) {
+      formGroupObj.cancelAttachmentDate = [this.dataService.pracCancelAttachmentDate, Validators.required];
+    }
+
+    if (this.dataService.pracAttachmentType == PRACTITIONER_ATTACHMENT.CHANGE.value) {
+      formGroupObj.changeAttachmentEffectiveDate = [this.dataService.pracChangeAttachmentEffectiveDate];
+      formGroupObj.changeAttachmentCancelDate = [this.dataService.pracChangeAttachmentCancelDate];
+    }
+
     this.formGroup = this.fb.group(formGroupObj);
-
-    const attachmentType = this.formGroup.get('attachmentType');
-
-    switch(attachmentType.value) {
-
-      case PRACTITIONER_ASSIGNMENT.NEW.value:
-        formGroupObj.newAttachmentType = [this.dataService.pracNewAttachmentType, Validators.required];
-        const newAttachmentType = this.formGroup.get('newAttachmentType');
-        
-        if (newAttachmentType && newAttachmentType.value === true) {
-          //if (this.formGroup.get('newAttachmentEffectiveDate') && this.formGroup.get('newAttachmentCancelDate')) {
-            
-            formGroupObj.newAttachmentEffectiveDate = [this.dataService.pracNewAttachmentEffectiveDate, Validators.required];
-            formGroupObj.newAttachmentCancelDate = [this.dataService.pracNewAttachmentCancelDate, Validators.required];
-          //}
-        } else if (newAttachmentType && newAttachmentType.value === false) {
-          formGroupObj.newAttachmentEffectiveDate = [this.dataService.pracNewAttachmentEffectiveDate, Validators.required];
-        }
-        this.formGroup = this.fb.group(formGroupObj);
-        break;
-
-      case PRACTITIONER_ASSIGNMENT.CANCEL.value:
-        formGroupObj.cancelAttachmentDate = [this.dataService.pracCancelAttachmentDate, Validators.required];
-        this.formGroup = this.fb.group(formGroupObj);
-        break;
-    };
   }
 
   continue() {
@@ -124,22 +92,23 @@ export class PractitionerAssignmentComponent extends BcpBaseForm implements OnIn
 
   changeAttachmentType(value) {
     this.dataService.pracAttachmentType = value;
-    /*
-    const groupItems = {
-      attachmentType: [this.dataService.pracAttachmentType, [Validators.required]],
-      newAttachmentType: [this.dataService.pracNewAttachmentType, [Validators.required]],
-      effectiveDate: [this.dataService.pracAttachmentEffectiveDate, [Validators.required]],
-      expirationDate: [this.dataService.pracAttachmentExpirationDate, value === 'locum' ? [Validators.required] : null]
-    };
-    this.formGroup = this.fb.group(groupItems);
-    */
+    this.initValidators();
   }
 
-  changeNewAttachmentType(value: string) {
+  changeNewAttachmentType(value: boolean) {
     this.dataService.pracNewAttachmentType = value;
+    this.initValidators();
   }
 
   get shouldShowNewSection() {
-    return this.dataService.pracAttachmentType === "new"
+    return this.dataService.pracAttachmentType === PRACTITIONER_ATTACHMENT.NEW.value;
+  }
+
+  get shouldShowCancelSection() {
+    return this.dataService.pracAttachmentType === PRACTITIONER_ATTACHMENT.CANCEL.value;
+  }
+
+  get shouldShowChangeSection() {
+    return this.dataService.pracAttachmentType === PRACTITIONER_ATTACHMENT.CHANGE.value
   }
 }
