@@ -1,4 +1,5 @@
 <h1>{{pageTitle}}</h1>
+<p>To add a new attachment, cancel an existing attachment, or change an existing attachment you must provide the appropriate effective or cancellation date.</p>
 <hr/>
 
 <form [formGroup]="formGroup">
@@ -14,23 +15,59 @@
     </common-radio>
   </div>
 
-  <div *ngFor='let item of radioItems'>
+  <ng-container *ngIf='shouldShowNewSection'>
     
     <div class="form-group">
-      <common-date *ngIf='item.showEffectiveDate && dataService.pracAttachmentType == item.value'
-                  label='{{item.effectiveDateLabel}}' 
-                  name="effectiveDate"
-                  formControlName="effectiveDate">
-      </common-date>
+      <common-radio formControlName="newAttachmentType"
+                    name="newAttachmentType"
+                    label="Is this attachment a Locum or temporary?"
+                    [radioLabels]='[{label:"Yes", value: true},{label: "No", value: false}]' 
+                    display="table-row-group"
+                    (ngModelChange)='changeNewAttachmentType($event)'
+                    [errorMessage]="sameMailAddrError">
+      </common-radio>
     </div>
 
+    <div class="form-group" *ngIf='dataService.pracNewAttachmentType === true || dataService.pracNewAttachmentType === false'>
+      <common-date label='Effective date for new attachment'
+                   name="newAttachmentEffectiveDate"
+                   formControlName="newAttachmentEffectiveDate">
+      </common-date>
+    </div>
+  
+    <div class="form-group" *ngIf='dataService.pracNewAttachmentType === true'>
+      <common-date label='Cancellation date for new attachment'
+                   name="newAttachmentCancelDate"
+                   formControlName="newAttachmentCancelDate">
+      </common-date>
+    </div>
+  </ng-container>
+
+
+  
+  <ng-container *ngIf='dataService.pracAttachmentType === "cancel"'>
     <div class="form-group">
-      <common-date *ngIf='item.showExpirationDate && dataService.pracAttachmentType == item.value'
-                  label='{{item.expirationDateLabel}}' 
-                  name="expirationDate"
-                  formControlName="expirationDate">
+      <common-date label='Cancellation date for existing attachment'
+                    name="cancelAttachmentDate"
+                    formControlName="cancelAttachmentDate">
       </common-date>
     </div>
-
-  </div>
+  </ng-container>
+  
+  <ng-container *ngIf='dataService.pracAttachmentType === "change-date"'>
+    <div class="form-group">
+      <common-date label='New effective date for existing attachment (if applicable)'
+                    name="changeAttachmentEffectiveDate"
+                    formControlName="changeAttachmentEffectiveDate">
+      </common-date>
+    </div>
+  
+    <div class="form-group">
+      <common-date label='New cancellation date for existing attachment (if applicable)'
+                    name="changeAttachmentCancelDate"
+                    formControlName="changeAttachmentCancelDate">
+      </common-date>
+    </div>
+  </ng-container>
+  
 </form>

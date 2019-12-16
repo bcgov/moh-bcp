@@ -25,8 +25,8 @@ export class ReviewPractitionerAttachmentComponent implements OnInit {
     const items = [
       [
         { label: 'What type of attachment(s) are you doing?', value: this.dataService.pracAttachmentType, },
-        { label: 'What is the effective date for the attachment?', value: this.dataService.pracAttachmentEffectiveDate },
-        { label: 'What is the cancellation date for the attachment?', value: this.dataService.pracAttachmentCancellationDate }
+        // { label: 'What is the effective date for the attachment?', value: this.dataService.pracAttachmentEffectiveDate },
+        // { label: 'What is the cancellation date for the attachment?', value: this.dataService.pracAttachmentCancellationDate }
       ],
     ];
     this.review.sectionItems = items;
