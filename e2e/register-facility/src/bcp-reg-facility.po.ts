@@ -1,6 +1,7 @@
 import { browser, by, element, protractor, Key } from 'protractor';
 import { AbstractTestPage } from "moh-common-lib/e2e";
 import * as fs from 'fs';
+import * as sampleFile from './bcp-sample-data.json'; 
 
 /**
  * This class is for GENERAL functions, and all those that target components
@@ -15,10 +16,9 @@ export function getJSONData() {
     if (input.toString() !== '') {
         const filename = input.toString().split('=')[1];
         const data = fs.readFileSync(filename, 'utf8');
-        const jsonData = JSON.parse(data);
-        return jsonData;
+        return JSON.parse(data);
     } else {
-        return null;
+        return sampleFile;
     }
 }
 
@@ -83,11 +83,11 @@ export class BCPAdminPage extends BCPBasePage {
 
     fillPage(index: number) {
         this.setIndex(index);
-        this.typeText('Facility administrator first name', this.jsonData[this.index].facilityAdminFirstName);
-        this.typeText('Facility administrator last name', this.jsonData[this.index].facilityAdminLastName);
+        this.typeText('First name', this.jsonData[this.index].facilityAdminFirstName);
+        this.typeText('Last name', this.jsonData[this.index].facilityAdminLastName);
         this.typeText('Medical services plan practitioner number', this.jsonData[this.index].MSPPractitionerNum);
         this.typeText('Email address (optional)', this.jsonData[this.index].emailAdd);
-        this.typeText('Phone Number', this.jsonData[this.index].phoneNum);
+        this.typeText('Phone number', this.jsonData[this.index].phoneNum);
         this.typeText('Extension', this.jsonData[this.index].extension);
         this.clickContinue();
     }
@@ -116,21 +116,21 @@ export class BCPInfoPage extends BCPBasePage {
 
     fillPage(index: number) {
         this.setIndex(index);
-        this.typeText('Facility Name', this.jsonData[this.index].facilityName);
-        this.typeText('Physical Address', this.jsonData[this.index].address);
+        this.typeText('Facility or practice name', this.jsonData[this.index].facilityName);
+        this.typeText('Physical address', this.jsonData[this.index].address);
         this.typeText('City', this.jsonData[this.index].city);
-        this.typeText('Postal Code', this.jsonData[this.index].postal);
-        this.typeText('Fax Number', this.jsonData[this.index].faxNum);
+        this.typeText('Postal code', this.jsonData[this.index].postal);
+        this.typeText('Fax number', this.jsonData[this.index].faxNum);
 
         var effectiveDate = this.jsonData[this.index].effectiveDate;
         const year = effectiveDate.split('-')[0];
         const month = effectiveDate.split('-')[1];
         const day = effectiveDate.split('-')[2];
-        this.typeDate('Effective Date', year, month, day);
+        this.typeDate('Effective date', year, month, day);
         this.scrollDown();
         this.clickOption('Is the mailing address the same as the Physical Facility Address?', this.jsonData[this.index].hasSameMailingAddress.toString());
         if(!this.jsonData[this.index].hasSameMailingAddress){
-            this.typeText('Mailing Address', this.jsonData[this.index].mailingAddress);
+            this.typeText('Mailing address', this.jsonData[this.index].mailingAddress);
             this.typeMailingCity(this.jsonData[this.index].mailingCity);
             this.typeMailingPostal(this.jsonData[this.index].mailingPostal);
         }
@@ -162,7 +162,7 @@ export class BCPReviewPage extends BCPBasePage {
     fillPage(index: number) {
         this.setIndex(index);
         this.scrollDown();
-        this.clickConfirm('I confirm that I have read and agree to the above statement');
+        // this.clickConfirm('I confirm that I have read and agree to the above statement');
         this.writeSignature();
         this.clickSubmit();
     }
