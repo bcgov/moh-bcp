@@ -5,13 +5,14 @@ import { cCreateFacilityValidators, validMultiFormControl } from '../../models/v
 import { Address, getProvinceDescription, ErrorMessage, ContainerService } from 'moh-common-lib';
 import { CreateFacilityDataService } from '../../services/create-facility-data.service';
 import { BCPApiService } from '../../../../services/bcp-api.service';
-import { ValidationResponse, ReturnCodes } from '../../models/create-facility-api-model';
 import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
 import { stripPostalCodeSpaces } from '../../../core-bcp/models/helperFunc';
 import { SplunkLoggerService } from '../../../../services/splunk-logger.service';
 import { startOfToday, addYears, compareAsc } from 'date-fns';
 import { PageStateService } from 'moh-common-lib';
 import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
+import { ValidationResponse, ReturnCodes } from '../../../core-bcp/models/base-api.model';
+import { CreateFacilityApiService } from '../../services/create-facility-api.service';
 
 @Component({
   selector: 'app-facility-info',
@@ -42,7 +43,7 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
     protected pageStateService: PageStateService,
     public dataService: CreateFacilityDataService,
     private fb: FormBuilder,
-    private api: BCPApiService,
+    private api: CreateFacilityApiService,
     private cdr: ChangeDetectorRef,
     private splunkLoggerService: SplunkLoggerService,
     protected containerService: ContainerService) {

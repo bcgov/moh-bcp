@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest } from '@angular/common/http';
-import { APIBase, ReturnCodes } from '../modules/create-facility/models/create-facility-api-model';
+import { ReturnCodes, APIBase } from '../modules/core-bcp/models/base-api.model';
 
 
 @Injectable({
