@@ -4,7 +4,6 @@ import { SharedCoreModule } from 'moh-common-lib';
 import { PractitionerNumberComponent } from './components/practitioner-number/practitioner-number.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ValidateFacilityNumberDirective } from './components/facility-number/validate-facility-number.directive';
-import { ValidatePractitionerNumberDirective } from './components/practitioner-number/validate-practitioner-number.directive';
 import { ReviewContainerComponent } from './components/review-container/review-container.component';
 import { SignaturePadModule } from 'angular2-signaturepad';
 import { SignatureComponent } from './components/signature/signature.component';
@@ -22,7 +21,6 @@ const exportables = [
   FacilityNumberComponent,
   PractitionerNumberComponent,
   ValidateFacilityNumberDirective,
-  ValidatePractitionerNumberDirective,
   ReviewContainerComponent,
   SignatureComponent
 ];
