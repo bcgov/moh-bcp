@@ -1,5 +1,6 @@
 // Protractor configuration file, see link for more information
 // https://github.com/angular/protractor/blob/master/lib/config.ts
+// https://moh-bcp-dev.pathfinder.gov.bc.ca
 
 const { SpecReporter } = require('jasmine-spec-reporter');
 
@@ -9,12 +10,7 @@ exports.config = {
     './src/bcp-reg-facility-happy-path.e2e-spec.ts'
   ],
   multiCapabilities: [{
-    browserName: 'firefox',
-    'moz:firefoxOptions': {
-      args: [
-        
-      ]
-    }
+    'browserName': 'firefox'
   }],
   directConnect: true,
   baseUrl: 'http://localhost:4200/',

@@ -21,4 +21,4 @@ jobs:
       run: |
         npm install
         npm run webdriver-update
-        npm run e2e:bcprf-firefox
+        npm run e2e:bcprf-firefox -- --configuration=ci
