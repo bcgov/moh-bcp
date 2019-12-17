@@ -12,6 +12,25 @@ interface RadioItem {
   value: string;
 }
 
+interface BaseFormGroup {
+  attachmentType: any;
+}
+
+interface NewFormGroup extends BaseFormGroup {
+  newAttachmentType: any;
+  newAttachmentEffectiveDate?: any;
+  newAttachmentCancelDate?: any;
+}
+
+interface CancelFormGroup extends BaseFormGroup {
+  cancelAttachmentDate: any;
+}
+
+interface ChangeFormGroup extends BaseFormGroup {
+  changeAttachmentEffectiveDate: any;
+  changeAttachmentCancelDate: any;
+}
+
 @Component({
   selector: 'bcp-practitioner-attachment',
   templateUrl: './practitioner-attachment.component.html',
@@ -54,31 +73,57 @@ export class PractitionerAssignmentComponent extends BcpBaseForm implements OnIn
   }
 
   initValidators() {
-    const formGroupObj: any = {
-      attachmentType: [this.dataService.pracAttachmentType, [Validators.required]]
-    };
+    switch (this.dataService.pracAttachmentType) {
+      case PRACTITIONER_ATTACHMENT.NEW.value:
+        this.formGroup = this.getFormGroupForNew();
+        break;
 
-    if (this.dataService.pracAttachmentType == PRACTITIONER_ATTACHMENT.NEW.value) {
-      formGroupObj.newAttachmentType = [this.dataService.pracNewAttachmentType, Validators.required];
+      case PRACTITIONER_ATTACHMENT.CANCEL.value:
+        this.formGroup = this.getFormGroupForCancel();
+        break;
 
-      if (this.dataService.pracNewAttachmentType === true || this.dataService.pracNewAttachmentType === false) {
-        formGroupObj.newAttachmentEffectiveDate = [this.dataService.pracNewAttachmentEffectiveDate, Validators.required];
-      }
-      if (this.dataService.pracNewAttachmentType === true) {
-        formGroupObj.newAttachmentCancelDate = [this.dataService.pracNewAttachmentCancelDate, Validators.required];
-      }
+      case PRACTITIONER_ATTACHMENT.CHANGE.value:
+        this.formGroup = this.getFormGroupForChange();
+        break;
+    }
+  }
+
+  private getBaseFormGroup(): BaseFormGroup {
+    return {
+      attachmentType: [this.dataService.pracAttachmentType, Validators.required]
+    }
+  }
+
+  private getFormGroupForNew(): FormGroup {
+    const formGroupObj: NewFormGroup = {
+      ...this.getBaseFormGroup(),
+      newAttachmentType: [this.dataService.pracNewAttachmentType, Validators.required]
     }
 
-    if (this.dataService.pracAttachmentType == PRACTITIONER_ATTACHMENT.CANCEL.value) {
-      formGroupObj.cancelAttachmentDate = [this.dataService.pracCancelAttachmentDate, Validators.required];
+    if (this.dataService.pracNewAttachmentType === true || this.dataService.pracNewAttachmentType === false) {
+      formGroupObj.newAttachmentEffectiveDate = [this.dataService.pracNewAttachmentEffectiveDate, Validators.required];
     }
-
-    if (this.dataService.pracAttachmentType == PRACTITIONER_ATTACHMENT.CHANGE.value) {
-      formGroupObj.changeAttachmentEffectiveDate = [this.dataService.pracChangeAttachmentEffectiveDate];
-      formGroupObj.changeAttachmentCancelDate = [this.dataService.pracChangeAttachmentCancelDate];
+    if (this.dataService.pracNewAttachmentType === true) {
+      formGroupObj.newAttachmentCancelDate = [this.dataService.pracNewAttachmentCancelDate, Validators.required];
     }
+    return this.fb.group(formGroupObj);
+  }
 
-    this.formGroup = this.fb.group(formGroupObj);
+  private getFormGroupForCancel(): FormGroup {
+    const formGroupObj: CancelFormGroup = {
+      ...this.getBaseFormGroup(),
+      cancelAttachmentDate: [this.dataService.pracCancelAttachmentDate, Validators.required]
+    }
+    return this.fb.group(formGroupObj);
+  }
+
+  private getFormGroupForChange(): FormGroup {
+    const formGroupObj: ChangeFormGroup = {
+      ...this.getBaseFormGroup(),
+      changeAttachmentEffectiveDate: [this.dataService.pracChangeAttachmentEffectiveDate],
+      changeAttachmentCancelDate: [this.dataService.pracChangeAttachmentCancelDate],
+    }
+    return this.fb.group(formGroupObj);
   }
 
   continue() {

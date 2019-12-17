@@ -11,15 +11,11 @@ export const PRACTITIONER_ATTACHMENT = {
     label: 'Change existing attachment',
     value: 'change',
   },
-  LOCUM: {
-    label: 'Locum assignment',
-    value: 'locum',
-  }
 };
 
 export const getAttachmentLabelByValue = (value) => {
   for(let type in PRACTITIONER_ATTACHMENT) {
-    if (PRACTITIONER_ATTACHMENT[type].value == value)  {
+    if (PRACTITIONER_ATTACHMENT[type].value === value)  {
       return PRACTITIONER_ATTACHMENT[type].label;
     }
   }
