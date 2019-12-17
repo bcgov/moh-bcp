@@ -9,7 +9,12 @@ exports.config = {
     './src/bcp-reg-facility-happy-path.e2e-spec.ts'
   ],
   multiCapabilities: [{
-    'browserName': 'firefox'
+    browserName: 'firefox',
+    'moz:firefoxOptions': {
+      args: [
+        
+      ]
+    }
   }],
   directConnect: true,
   baseUrl: 'http://localhost:4200/',
