@@ -20,5 +20,5 @@ jobs:
     - name: Run BCP e2e in Firefox
       run: |
         npm install
-        npm run webdriver-update
-        npm run e2e:bcprf-firefox -- --configuration=ci
+        # npm run webdriver-update
+        npm run e2e:bcprf-firefox
