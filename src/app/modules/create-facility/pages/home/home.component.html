@@ -31,11 +31,6 @@
 
 </common-page-framework>
 
-<common-form-action-bar [defaultColor]='true'
-                        widthOption='extra-width-mobile-only'
-                        (btnClick)="continue()">
-</common-form-action-bar>
-
 <bcp-consent-modal (onAccept)='accept($event)'
                    (onValidToken)='setToken($event)'
                    [hasToken]='hasToken()'
