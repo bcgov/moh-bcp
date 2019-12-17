@@ -1,23 +1,23 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ReviewFacilityMailingInfoComponent } from './review-facility-mailing-info.component';
-import { CoreBCPModule } from '../../../../core-bcp/core-bcp.module';
+import { ReviewFacilityComponent } from './review-facility.component';
+import { CoreBCPModule } from '../../../core-bcp/core-bcp.module';
 import { RouterTestingModule } from '@angular/router/testing';
 
-describe('ReviewFacilityMailingInfoComponent', () => {
-  let component: ReviewFacilityMailingInfoComponent;
-  let fixture: ComponentFixture<ReviewFacilityMailingInfoComponent>;
+describe('ReviewFacilityComponent', () => {
+  let component: ReviewFacilityComponent;
+  let fixture: ComponentFixture<ReviewFacilityComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ CoreBCPModule, RouterTestingModule ],
-      declarations: [ ReviewFacilityMailingInfoComponent ]
+      declarations: [ ReviewFacilityComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ReviewFacilityMailingInfoComponent);
+    fixture = TestBed.createComponent(ReviewFacilityComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

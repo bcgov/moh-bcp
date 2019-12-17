@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CreateFacilityForm } from '../../models/create-facility-form';
-import { PageStateService } from 'moh-common-lib';
+import { PageStateService, ContainerService } from 'moh-common-lib';
 import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
 import { CreateFacilityDataService } from '../../services/create-facility-data.service';
 import { BCPApiService } from 'src/app/services/bcp-api.service';
@@ -10,28 +9,32 @@ import { SplunkLoggerService } from '../../../../services/splunk-logger.service'
 import { ValidationResponse } from '../../models/create-facility-api-model';
 import { SignatureComponent } from '../../../core-bcp/components/signature/signature.component';
 import { Validators, FormBuilder } from '@angular/forms';
+import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 
 @Component({
   selector: 'app-review',
   templateUrl: './review.component.html',
   styleUrls: ['./review.component.scss']
 })
-export class ReviewComponent extends CreateFacilityForm implements OnInit, AfterViewInit {
-  loading = false;
+export class ReviewComponent extends BcpBaseForm implements OnInit, AfterViewInit {
   showDuplicateWarning = true;
 
   @ViewChild(SignatureComponent, {static: true}) signature: SignatureComponent;
 
   constructor(protected router: Router,
-              private pageStateService: PageStateService,
+              protected pageStateService: PageStateService,
               public dataService: CreateFacilityDataService,
               private api: BCPApiService,
               private splunkLoggerService: SplunkLoggerService,
-              private fb: FormBuilder) {
-    super(router);
+              private fb: FormBuilder,
+              protected containerService: ContainerService) {
+    super(router, containerService, pageStateService);
    }
 
   ngOnInit() {
+    this.containerService.setSubmitLabel('Submit');
+    this.containerService.setUseDefaultColor(false);
+
     this.pageStateService.setPageIncomplete();
     this.showDuplicateWarning = this.dataService.apiDuplicateWarning;
 
@@ -44,10 +47,8 @@ export class ReviewComponent extends CreateFacilityForm implements OnInit, After
   }
 
   ngAfterViewInit() {
+    super.ngAfterViewInit();
     this.formGroup.valueChanges.subscribe( val => {
-
-      console.log( 'on Change: ', val );
-
       // Update data service values
       this.dataService.signature = val.signature;
       this.dataService.dateOfAcceptance = val.signature ? new Date() : null;
@@ -69,7 +70,7 @@ export class ReviewComponent extends CreateFacilityForm implements OnInit, After
   }
 
   submit() {
-    this.loading = true;
+    this.containerService.setIsLoading();
     this.dataService.dateOfSubmission = new Date();
     const jsonPayLoad = this.dataService.getJSONPayload();
     // this.api.createFacility(jsonPayLoad, this.dataService.applicationUUID)
@@ -84,9 +85,8 @@ export class ReviewComponent extends CreateFacilityForm implements OnInit, After
           )
         );
 
-        this.loading = false;
+        this.containerService.setIsLoading(false);
         // TODO: Handle failure case, e.g. no backend, failed request, etc.
-        this.pageStateService.setPageComplete();
         this.navigate(CREATE_FACILITY_PAGES.SUBMISSION.fullpath);
       }, error => {
         console.log('ARC apiService onerror', error);
@@ -95,11 +95,6 @@ export class ReviewComponent extends CreateFacilityForm implements OnInit, After
   }
 
   private handleError(): void {
-    this.loading = false;
+    this.containerService.setIsLoading(false);
   }
-
-  log(x) {
-    console.log('reviewLog', x);
-  }
-
 }

@@ -1,15 +1,14 @@
-import { Component, OnInit, Input, Self, Optional } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, NgControl } from '@angular/forms';
-import { ErrorMessage } from 'moh-common-lib';
+import { Component, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 export interface CorePractitionerInfoFormItems {
   firstName: string;
   lastName: string;
-  mspPracNumber: string,
-  email: string,
-  phoneNumber: string,
-  phoneNumberExt: string,
-  faxNumber?: string
+  mspPracNumber: string;
+  email: string;
+  phoneNumber: string;
+  phoneNumberExt: string;
+  faxNumber?: string;
 }
 
 @Component({
@@ -24,22 +23,9 @@ export class CorePractitionerInfoComponent {
 
   @Input()
   public showFaxNumber: boolean;
-  
+
   public items: CorePractitionerInfoFormItems;
-  
+
   @Input()
   public formGroup: FormGroup;
-
-  _onChange = (_: any) => { };
-  _onTouched = (_?: any) => { };
-
-  // Register change function
-  registerOnChange(fn: any): void {
-    this._onChange = fn;
-  }
-
-  // Register touched function
-  registerOnTouched(fn: any): void {
-    this._onTouched = fn;
-  }
 }

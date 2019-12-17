@@ -1,9 +1,8 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { CreateFacilityForm } from '../../models/create-facility-form';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { cCreateFacilityValidators, validMultiFormControl } from '../../models/validators';
-import { Address, getProvinceDescription, ErrorMessage } from 'moh-common-lib';
+import { Address, getProvinceDescription, ErrorMessage, ContainerService } from 'moh-common-lib';
 import { CreateFacilityDataService } from '../../services/create-facility-data.service';
 import { BCPApiService } from '../../../../services/bcp-api.service';
 import { ValidationResponse, ReturnCodes } from '../../models/create-facility-api-model';
@@ -12,13 +11,14 @@ import { stripPostalCodeSpaces } from '../../../core-bcp/models/helperFunc';
 import { SplunkLoggerService } from '../../../../services/splunk-logger.service';
 import { startOfToday, addYears, compareAsc } from 'date-fns';
 import { PageStateService } from 'moh-common-lib';
+import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 
 @Component({
   selector: 'app-facility-info',
   templateUrl: './facility-info.component.html',
   styleUrls: ['./facility-info.component.scss']
 })
-export class FacilityInfoComponent extends CreateFacilityForm implements OnInit {
+export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
 
   // Error Messages
   qualifyBcpError: ErrorMessage = {
@@ -39,13 +39,14 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
 
   constructor(
     protected router: Router,
-    private pageStateService: PageStateService,
+    protected pageStateService: PageStateService,
     public dataService: CreateFacilityDataService,
     private fb: FormBuilder,
     private api: BCPApiService,
     private cdr: ChangeDetectorRef,
-    private splunkLoggerService: SplunkLoggerService) {
-    super(router);
+    private splunkLoggerService: SplunkLoggerService,
+    protected containerService: ContainerService) {
+    super(router, containerService, pageStateService);
     this.validFormControl = validMultiFormControl;
   }
 
@@ -63,7 +64,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
   }
 
   ngOnInit() {
-    this.pageStateService.setPageIncomplete();
+    super.ngOnInit();
     this.facilityForm = this.initialize();
     this.updateMailingValidity(this.dataService.facInfoIsSameMailingAddress);
   }
@@ -184,7 +185,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
     // this.markAllInputsTouched();
     if (this.facilityForm.valid) {
       this.pageStateService.setPageComplete();
-      this.loading = true;
+      this.containerService.setIsLoading();
 
       this.api.validateFacility({
         facilityName: this.dataService.facInfoFacilityName,
@@ -237,7 +238,7 @@ export class FacilityInfoComponent extends CreateFacilityForm implements OnInit 
 
 
   handleAPIValidation(isValid: boolean) {
-    this.loading = false;
+    this.containerService.setIsLoading(false);
     this.cdr.detectChanges();
     this.dataService.apiDuplicateWarning = !isValid;
   }

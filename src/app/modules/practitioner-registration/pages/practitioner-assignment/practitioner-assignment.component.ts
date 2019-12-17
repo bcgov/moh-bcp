@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { RegistrationForm } from '../../models/registration-form';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration-route-constants';
-import { RegistrationContainerService } from '../../services/registration-container.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CreatePractitionerDataService } from '../../services/create-practitioner-data.service';
+import { ContainerService, PageStateService } from 'moh-common-lib';
+import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 
 interface RadioItem {
   label: string;
@@ -20,23 +20,22 @@ interface RadioItem {
   templateUrl: './practitioner-assignment.component.html',
   styleUrls: ['./practitioner-assignment.component.scss']
 })
-export class PractitionerAssignmentComponent extends RegistrationForm implements OnInit {
+export class PractitionerAssignmentComponent extends BcpBaseForm implements OnInit {
 
   pageTitle: string = 'Practitioner Assignment';
   formGroup: FormGroup;
   radioItems: Array<RadioItem>;
   sameMailAddrError: boolean = false;
 
-  constructor( protected registrationContainerService: RegistrationContainerService,
+  constructor( protected containerService: ContainerService,
                protected router: Router,
+               protected pageStateService: PageStateService,
                private fb: FormBuilder,
                public dataService: CreatePractitionerDataService ) {
-    super(registrationContainerService, router);
+    super(router, containerService, pageStateService);
   }
 
   ngOnInit() {
-    this.registrationContainerService.$submitLabelSubject.next('Continue');
-    this.registrationContainerService.$useDefaultColorSubject.next(true);
     super.ngOnInit();
 
     this.formGroup = this.fb.group({
@@ -91,7 +90,7 @@ export class PractitionerAssignmentComponent extends RegistrationForm implements
 
   continue() {
     this.markAllInputsTouched();
-    
+
     console.log( 'Continue: Practitioner Assignment');
     if (this.formGroup.valid) {
       this.navigate(PRACTITIONER_REGISTRATION_PAGES.REVIEW.fullpath);
@@ -104,7 +103,7 @@ export class PractitionerAssignmentComponent extends RegistrationForm implements
     const groupItems = {
       attachmentType: [this.dataService.pracAttachmentType, [Validators.required]],
       effectiveDate: [this.dataService.pracAttachmentEffectiveDate, [Validators.required]],
-      expirationDate: [this.dataService.pracAttachmentExpirationDate, value == 'locum' ? [Validators.required] : null]
+      expirationDate: [this.dataService.pracAttachmentExpirationDate, value === 'locum' ? [Validators.required] : null]
     };
     this.formGroup = this.fb.group(groupItems);
   }

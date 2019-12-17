@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ReviewContainerComponent } from 'src/app/modules/core-bcp/components/review-container/review-container.component';
-import { CreatePractitionerDataService } from '../../../services/create-practitioner-data.service';
-import { PRACTITIONER_REGISTRATION_PAGES } from '../../../practitioner-registration-route-constants';
+import { ReviewContainerComponent } from '../../../core-bcp/components/review-container/review-container.component';
+import { CreatePractitionerDataService } from '../../services/create-practitioner-data.service';
+import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration-route-constants';
 
 @Component({
   selector: 'bcp-review-practitioner-facility',
@@ -9,8 +9,7 @@ import { PRACTITIONER_REGISTRATION_PAGES } from '../../../practitioner-registrat
   styleUrls: ['./review-practitioner-facility.component.scss']
 })
 export class ReviewPractitionerFacilityComponent implements OnInit {
-  @ViewChild(ReviewContainerComponent, { static: true })
-  review: ReviewContainerComponent;
+  @ViewChild(ReviewContainerComponent, { static: true }) review: ReviewContainerComponent;
 
   constructor(public dataService: CreatePractitionerDataService) { }
 
@@ -19,7 +18,7 @@ export class ReviewPractitionerFacilityComponent implements OnInit {
   }
 
   reviewItems() {
-    //this.review.displayPrintView = this.dataService.isPrintView;
+    // this.review.displayPrintView = this.dataService.isPrintView;
     this.review.redirectPath = PRACTITIONER_REGISTRATION_PAGES.FACILITY_INFO.fullpath;
     this.review.header = PRACTITIONER_REGISTRATION_PAGES.FACILITY_INFO.title;
 
@@ -32,7 +31,7 @@ export class ReviewPractitionerFacilityComponent implements OnInit {
         { label: 'Province', value: this.dataService.pracFacilityProvince },
         { label: 'Postal code', value: this.dataService.pracFacilityPostalCode },
         { label: 'Fax number (optional)', value: this.dataService.pracFacilityFax }
-        
+
       ],
     ];
     this.review.sectionItems = items;
