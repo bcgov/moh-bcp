@@ -4,6 +4,11 @@
 
 const { SpecReporter } = require('jasmine-spec-reporter');
 
+// browser = await puppeteer.launch({
+//   executablePath: process.env.PUPPETEER_EXEC_PATH, // set by docker container
+//   headless: false,
+// });
+
 exports.config = {
   allScriptsTimeout: 11000,
   specs: [
@@ -11,9 +16,6 @@ exports.config = {
   ],
   capabilities: {
     'browserName': 'firefox',
-    // 'moz:firefoxOptions': {
-    //   binary: require('puppeteer').executablePath(),
-    // },
   },
   directConnect: true,
   baseUrl: 'http://localhost:4200/',
