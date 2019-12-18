@@ -20,7 +20,6 @@
       <common-radio formControlName="newAttachmentType"
                     name="newAttachmentType"
                     label="Is this attachment a Locum or temporary?"
-                    [radioLabels]='[{label:"Yes", value: true},{label: "No", value: false}]' 
                     display="table-row-group"
                     (ngModelChange)='changeNewAttachmentType($event)'
                     [errorMessage]="sameMailAddrError">

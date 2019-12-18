@@ -6,11 +6,7 @@ import { CreatePractitionerDataService } from '../../services/create-practitione
 import { ContainerService, PageStateService } from 'moh-common-lib';
 import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 import { PRACTITIONER_ATTACHMENT } from '../../models/practitioner-attachment';
-
-interface RadioItem {
-  label: string;
-  value: string;
-}
+import { IRadioItems } from 'moh-common-lib/lib/components/radio/radio.component';
 
 interface BaseFormGroup {
   attachmentType: any;
@@ -40,7 +36,7 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
 
   pageTitle: string = 'Practitioner Attachment';
   formGroup: FormGroup;
-  radioItems: Array<RadioItem>;
+  radioItems: Array<IRadioItems>;
   sameMailAddrError: boolean = false;
 
   constructor( protected containerService: ContainerService,
