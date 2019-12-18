@@ -51,4 +51,8 @@ export class ConfirmBaseForm extends Base implements OnInit {
     return formatDateForDisplay(this.dataService.dateOfAcceptance);
   }
 
+  get signature() {
+    return this.dataService.signature ? this.dataService.signature.fileContent : null;
+  }
+
 }

@@ -67,4 +67,8 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
     return CREATE_FACILITY_PAGES.SUBMISSION.title;
   }
 
+  get declarationText() {
+    return this.dataService.declarationText;
+  }
+
 }
