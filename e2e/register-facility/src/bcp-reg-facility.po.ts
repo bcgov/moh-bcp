@@ -108,8 +108,10 @@ export class BCPInfoPage extends BCPBasePage {
     }
 
     typeDate(legendVal: string, year: string, month: string, day: string) {
-        element(by.cssContainingText('legend', `${legendVal}`)).element(by.xpath('../..')).element(by.css('select[id^="month"]')).click();
-        element(by.cssContainingText('legend', `${legendVal}`)).element(by.xpath('../..')).element(by.css(`option[value="${month}"]`)).click();
+        var months = [ "January", "February", "March", "April", "May", "June", 
+           "July", "August", "September", "October", "November", "December" ];
+        element(by.cssContainingText('legend', `${legendVal}`)).element(by.xpath('../..')).element(by.css('select[id^="month"]')).sendKeys(months[parseInt(month)-1]);
+        //element(by.cssContainingText('legend', `${legendVal}`)).element(by.xpath('../..')).element(by.css(`option[value="${month}"]`)).click();
         element(by.cssContainingText('legend', `${legendVal}`)).element(by.xpath('../..')).element(by.css(`input[id^="day"]`)).sendKeys(day);
         element(by.cssContainingText('legend', `${legendVal}`)).element(by.xpath('../..')).element(by.css(`input[id^="year"]`)).sendKeys(year);
     }
