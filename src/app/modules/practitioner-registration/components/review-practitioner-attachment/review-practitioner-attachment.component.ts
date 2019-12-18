@@ -47,11 +47,11 @@ export class ReviewPractitionerAttachmentComponent implements OnInit {
     const changeEffectiveDateItem: ReviewItem = {
       label: 'New effective date for existing attachment (if applicable)',
       value: this.dataService.pracChangeAttachmentEffectiveDate,
-    }
+    };
     const changeCancelDateItem: ReviewItem = {
       label: 'New cancellation date for existing attachment (if applicable)',
       value: this.dataService.pracChangeAttachmentCancelDate,
-    }
+    };
 
     const items = [
       [
@@ -59,22 +59,22 @@ export class ReviewPractitionerAttachmentComponent implements OnInit {
       ],
     ];
 
-    if (this.dataService.pracAttachmentType == PRACTITIONER_ATTACHMENT.NEW.value) {
+    if (this.dataService.pracAttachmentType === PRACTITIONER_ATTACHMENT.NEW.value) {
       items[0].push(newAttachmentType);
     }
-    if (this.dataService.pracAttachmentType == PRACTITIONER_ATTACHMENT.NEW.value) {
+    if (this.dataService.pracAttachmentType === PRACTITIONER_ATTACHMENT.NEW.value) {
       items[0].push(newAttachmentEffectiveDate);
     }
-    if (this.dataService.pracAttachmentType == PRACTITIONER_ATTACHMENT.NEW.value && this.dataService.pracNewAttachmentType) {
+    if (this.dataService.pracAttachmentType === PRACTITIONER_ATTACHMENT.NEW.value && this.dataService.pracNewAttachmentType) {
       items[0].push(newAttachmentCancelDate);
     }
-    if (this.dataService.pracAttachmentType == PRACTITIONER_ATTACHMENT.CANCEL.value) {
+    if (this.dataService.pracAttachmentType === PRACTITIONER_ATTACHMENT.CANCEL.value) {
       items[0].push(cancelDateItem);
     }
-    if (this.dataService.pracAttachmentType == PRACTITIONER_ATTACHMENT.CHANGE.value) {
+    if (this.dataService.pracAttachmentType === PRACTITIONER_ATTACHMENT.CHANGE.value) {
       items[0].push(changeEffectiveDateItem);
     }
-    if (this.dataService.pracAttachmentType == PRACTITIONER_ATTACHMENT.CHANGE.value) {
+    if (this.dataService.pracAttachmentType === PRACTITIONER_ATTACHMENT.CHANGE.value) {
       items[0].push(changeCancelDateItem);
     }
     this.review.sectionItems = items;
