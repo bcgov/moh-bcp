@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration-route-constants';
 import { RegisterPractitionerDataService } from '../../services/register-practitioner-data.service';
@@ -12,7 +12,7 @@ import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
   styleUrls: ['./review.component.scss']
 })
 
-export class ReviewComponent extends BcpBaseForm implements OnInit {
+export class ReviewComponent extends BcpBaseForm implements OnInit, AfterViewInit {
 
   constructor(public dataService: RegisterPractitionerDataService,
               protected containerService: ContainerService,
@@ -29,8 +29,21 @@ export class ReviewComponent extends BcpBaseForm implements OnInit {
     this.containerService.setUseDefaultColor(false);
     this.pageStateService.setPageIncomplete();
 
+    // Set isPrintView to false
+    this.dataService.isPrintView = false;
+
     this.formGroup = this.fb.group({
       signature: [this.dataService.signature, [Validators.required]]
+    });
+  }
+
+
+  ngAfterViewInit() {
+    super.ngAfterViewInit();
+    this.formGroup.valueChanges.subscribe( val => {
+      // Update data service values
+      this.dataService.signature = val.signature;
+      this.dataService.dateOfAcceptance = val.signature ? new Date() : null;
     });
   }
 
