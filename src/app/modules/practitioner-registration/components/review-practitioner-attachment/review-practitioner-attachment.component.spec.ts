@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ReviewPractitionerAttachmentComponent } from './review-practitioner-attachment.component';
-import { CoreBCPModule } from '../../../../core-bcp/core-bcp.module';
+import { CoreBCPModule } from '../../../core-bcp/core-bcp.module';
 import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ReviewPractitionerAttachmentComponent', () => {
