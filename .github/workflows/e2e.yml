@@ -6,11 +6,11 @@ jobs:
     name: BCP e2e tests in Firefox
     runs-on: ubuntu-latest
     steps:
-      # This step clean installs dependencies and build
+      # This step installs dependencies
       - name: Clean install and build
         run: |
-          npm ci
-          npm run build
+          npm init
+          npm install
         env:
           CI: true
       # This step runs e2e tests in Firefox
