@@ -3,6 +3,7 @@ import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration
 import { formatDateForDisplay } from '../../../core-bcp/models/helperFunc';
 import { ApiStatusCodes, Base, PageStateService } from 'moh-common-lib';
 import { RegisterPractitionerDataService } from '../../services/register-practitioner-data.service';
+import { ConfirmBaseForm } from '../../../core-bcp/models/confirm-base-form';
 
 @Component({
   selector: 'bcp-submission',
@@ -10,31 +11,22 @@ import { RegisterPractitionerDataService } from '../../services/register-practit
   styleUrls: ['./submission.component.scss'],
   encapsulation: ViewEncapsulation.None, // for print css
 })
-export class SubmissionComponent extends Base implements OnInit {
+export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
 
-  // default icon - if return code < 0 then its an error
-  displayIcon: ApiStatusCodes = ApiStatusCodes.ERROR;
 
-  /** An application is still a "success" even if it's under review */
-  isUnderReview: boolean = false;
-
-  constructor(public dataService: RegisterPractitionerDataService,
-              private pageStateService: PageStateService) {
-    super();
+  constructor( dataService: RegisterPractitionerDataService,
+              protected pageStateService: PageStateService) {
+    super(dataService, pageStateService);
   }
 
   ngOnInit() {
-
-    this.pageStateService.clearCompletePages();
+    super.ngOnInit();
 
     // Set icon to be displayed
   /*  if (this.dataService.jsonCreateFacility.response &&
         this.dataService.jsonCreateFacility.response.returnCode >= ApiStatusCodes.SUCCESS) {
       this.displayIcon = this.dataService.jsonCreateFacility.response.returnCode;
     }*/
-
-    // Set isPrintView to true
-    this.dataService.isPrintView = true;
   }
 
   get confirmationMessage() {
@@ -47,25 +39,6 @@ export class SubmissionComponent extends Base implements OnInit {
     }
 
     return confirmMessage;
-  }
-
-  get isError() {
-    return this.displayIcon === ApiStatusCodes.ERROR;
-  }
-
-  print(event: Event) {
-    window.print();
-    event.stopPropagation();
-    return false;
-  }
-
-  // Format dates for displaying
-  get submissionDate() {
-    return formatDateForDisplay(this.dataService.dateOfSubmission);
-  }
-
-  get dateOfAcceptance() {
-    return formatDateForDisplay(this.dataService.dateOfAcceptance);
   }
 
   // Title for route
