@@ -34,7 +34,6 @@ export class ReviewPractitionerInfoComponent implements OnInit {
         { label: 'Medical Services Plan practitioner number', value: this.dataService.pracInfoMSPPracNumber },
         { label: 'Email address (optional)', value: this.dataService.pracInfoEmail },
         phoneNumberEntry,
-        { label: 'Fax number (optional)', value: this.dataService.pracInfoFaxNumber },
       ],
     ];
     this.review.sectionItems = items;
