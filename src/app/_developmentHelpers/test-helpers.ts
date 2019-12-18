@@ -33,11 +33,11 @@ export function createTestingModule<T>( cmp: Type<T>,
     ]
   }).overrideComponent(cmp, {
     set: {
-      template: template
+      template
     }
-});
+  });
 
-TestBed.compileComponents();
+  TestBed.compileComponents();
 
   return TestBed.createComponent( cmp );
 }
