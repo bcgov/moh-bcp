@@ -25,8 +25,6 @@ export class CreatePractitionerDataService {
       this.pracFacilityFaxNumber = '234 567-8901';
 
       this.pracAttachmentType = 'new';
-      this.pracAttachmentEffectiveDate = new Date('April 1, 2020');
-      this.pracAttachmentExpirationDate = new Date('April 1, 2021');
     }
   }
 
@@ -46,9 +44,12 @@ export class CreatePractitionerDataService {
   pracFacilityFaxNumber: string;
 
   pracAttachmentType: string;
-  pracAttachmentEffectiveDate: Date;
-  pracAttachmentExpirationDate: Date;
-  pracAttachmentCancellationDate: Date;
+  pracNewAttachmentType: boolean;
+  pracNewAttachmentEffectiveDate: Date;
+  pracNewAttachmentCancelDate: Date;
+  pracCancelAttachmentDate: Date;
+  pracChangeAttachmentEffectiveDate: Date;
+  pracChangeAttachmentCancelDate: Date;
 
   informationCollectionNoticeConsent: boolean;
   isAccepted: boolean;
