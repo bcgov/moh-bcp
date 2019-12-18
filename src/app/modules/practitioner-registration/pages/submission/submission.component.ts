@@ -14,7 +14,7 @@ import { ConfirmBaseForm } from '../../../core-bcp/models/confirm-base-form';
 export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
 
 
-  constructor( dataService: RegisterPractitionerDataService,
+  constructor(protected dataService: RegisterPractitionerDataService,
               protected pageStateService: PageStateService) {
     super(dataService, pageStateService);
   }
