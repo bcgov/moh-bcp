@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SharedCoreModule } from 'moh-common-lib';
 import { PractitionerNumberComponent } from './components/practitioner-number/practitioner-number.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ValidateFacilityNumberDirective } from './components/facility-number/validate-facility-number.directive';
 import { ReviewContainerComponent } from './components/review-container/review-container.component';
 import { SignaturePadModule } from 'angular2-signaturepad';
 import { SignatureComponent } from './components/signature/signature.component';
@@ -11,12 +12,15 @@ import { CorePractitionerInfoComponent } from './components/core-practitioner-in
 import { CoreFacilityInfoComponent } from './components/core-facility-info/core-facility-info.component';
 import { CoreConsentModalComponent } from './components/core-consent-modal/core-consent-modal.component';
 import { CaptchaModule } from 'moh-common-lib/captcha';
+import { FacilityNumberComponent } from './components/facility-number/facility-number.component';
 
 const exportables = [
   CoreFacilityInfoComponent,
   CorePractitionerInfoComponent,
   CoreConsentModalComponent,
+  FacilityNumberComponent,
   PractitionerNumberComponent,
+  ValidateFacilityNumberDirective,
   ReviewContainerComponent,
   SignatureComponent
 ];

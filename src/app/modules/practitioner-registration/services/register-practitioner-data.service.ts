@@ -17,7 +17,6 @@ export class RegisterPractitionerDataService extends BaseDataService {
       this.pracInfoEmail = 'john.doe@example.com';
       this.pracInfoPhoneNumber = '234 567-8901';
       this.pracInfoPhoneNumberExt = '123';
-      this.pracInfoFaxNumber = '456 789-1230';
 
       this.pracFacilityName = 'Medical Facility';
       this.pracFacilityNumber = '12345';
@@ -25,7 +24,7 @@ export class RegisterPractitionerDataService extends BaseDataService {
       this.pracFacilityCity = 'Victoria';
       this.pracFacilityProvince = BRITISH_COLUMBIA;
       this.pracFacilityPostalCode = 'V8L 1A1';
-      this.pracFacilityFax = '123 456-7890';
+      this.pracFacilityFaxNumber = '234 567-8901';
 
       this.pracAttachmentType = 'new';
       this.pracAttachmentEffectiveDate = new Date('April 1, 2020');
@@ -39,7 +38,6 @@ export class RegisterPractitionerDataService extends BaseDataService {
   pracInfoEmail: string;
   pracInfoPhoneNumber: string;
   pracInfoPhoneNumberExt: string;
-  pracInfoFaxNumber: string;
 
   pracFacilityName: string;
   pracFacilityNumber: string;
@@ -47,7 +45,7 @@ export class RegisterPractitionerDataService extends BaseDataService {
   pracFacilityCity: string;
   pracFacilityProvince: string = BRITISH_COLUMBIA;
   pracFacilityPostalCode: string;
-  pracFacilityFax: string;
+  pracFacilityFaxNumber: string;
 
   pracAttachmentType: string;
   pracAttachmentEffectiveDate: Date;

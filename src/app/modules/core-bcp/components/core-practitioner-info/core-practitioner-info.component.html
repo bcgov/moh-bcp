@@ -56,11 +56,4 @@
                 [attr.maxlength]="4">
         </div>
     </div>
-
-    <div class="form-group" *ngIf='showFaxNumber'>
-        <common-phone-number name='faxNumber'
-            formControlName='faxNumber'
-            label='Fax number (optional)'
-            [allowInternational]='false'></common-phone-number>
-    </div>
 </form>

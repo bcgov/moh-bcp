@@ -41,6 +41,7 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
       city: [this.dataService.pracFacilityCity, [Validators.required]],
       province: [getProvinceDescription(this.dataService.pracFacilityProvince)],
       postalCode: [this.dataService.pracFacilityPostalCode, [Validators.required]],
+      faxNumber: [this.dataService.pracFacilityFaxNumber],
     });
   }
 

@@ -10,6 +10,7 @@ import { RegisterPractitionerApiService } from '../../services/register-practiti
 import { ValidationResponse, ReturnCodes } from '../../../core-bcp/models/base-api.model';
 import { SplunkLoggerService } from '../../../../services/splunk-logger.service';
 
+
 @Component({
   selector: 'bcp-practitioner-info',
   templateUrl: './practitioner-info.component.html',
@@ -42,7 +43,6 @@ export class PractitionerInfoComponent extends BcpBaseForm implements OnInit {
       email: [this.dataService.pracInfoEmail, [Validators.email]],
       phoneNumber: [this.dataService.pracInfoPhoneNumber, [Validators.required]],
       phoneNumberExt: [this.dataService.pracInfoPhoneNumberExt],
-      faxNumber: [this.dataService.pracInfoFaxNumber],
     });
   }
 
