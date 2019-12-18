@@ -9,9 +9,12 @@ exports.config = {
   specs: [
     './src/bcp-reg-facility-happy-path.e2e-spec.ts'
   ],
-  multiCapabilities: [{
-    'browserName': 'firefox'
-  }],
+  capabilities: {
+    'browserName': 'firefox',
+    // 'moz:firefoxOptions': {
+    //   binary: require('puppeteer').executablePath(),
+    // },
+  },
   directConnect: true,
   baseUrl: 'http://localhost:4200/',
   framework: 'jasmine',

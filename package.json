@@ -42,6 +42,7 @@
     "ngx-bootstrap": "^5.1.2",
     "ngx-mydatepicker": "^2.4.9",
     "pdfjs-dist": "^2.2.228",
+    "puppeteer": "^2.0.0",
     "rxjs": "6.5.3",
     "sha1": "^1.1.1",
     "tslib": "^1.9.0",
