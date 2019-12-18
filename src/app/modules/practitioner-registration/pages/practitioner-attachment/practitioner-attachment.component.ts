@@ -36,7 +36,7 @@ interface ChangeFormGroup extends BaseFormGroup {
   templateUrl: './practitioner-attachment.component.html',
   styleUrls: ['./practitioner-attachment.component.scss']
 })
-export class PractitionerAssignmentComponent extends BcpBaseForm implements OnInit {
+export class PractitionerAttachmentComponent extends BcpBaseForm implements OnInit {
 
   pageTitle: string = 'Practitioner Attachment';
   formGroup: FormGroup;
