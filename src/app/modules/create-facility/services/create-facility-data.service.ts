@@ -78,7 +78,6 @@ export class CreateFacilityDataService extends BaseDataService {
 
   // API responses
   apiDuplicateWarning: boolean = false;
-  dateOfSubmission: Date = null;
 
   validateFacilityMessage: string;
 

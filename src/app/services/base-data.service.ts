@@ -16,29 +16,16 @@ export class BaseDataService {
   signature: CommonImage;
   // Date user signs declaration
   dateOfAcceptance: Date;
+  dateOfSubmission: Date;
 
   applicationUUID: string = UUID.UUID();
   informationCollectionNoticeConsent: boolean;
-
-
-  // Faility information
-  pracFacilityName: string;
-  pracFacilityNumber: string;
-  pracFacilityAddress: string;
-  pracFacilityCity: string;
-  pracFacilityProvince: string = 'BC';
-  pracFacilityPostalCode: string;
-  pracFacilityFax: string;
 
 
   /* Used to switch review contents to a view to be printed (i.e. no edit icons,
    *  or grey background)
    */
   isPrintView: boolean = false;
-
-
-  // Response from Middleware for final request
-  requestResponse: any = null;
 
   jsonApplicantValidation = {
     request: null,

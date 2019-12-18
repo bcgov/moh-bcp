@@ -63,7 +63,7 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
 
           this.splunkLoggerService.log(
               this.dataService.getSubmissionLogObject<ValidationResponse>(
-                'Validate Facility',
+                'Validate Facility ID',
                 this.dataService.jsonFacilityValidation.response
               )
           );
