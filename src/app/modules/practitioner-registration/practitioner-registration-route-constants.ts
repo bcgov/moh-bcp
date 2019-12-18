@@ -17,14 +17,14 @@ export const PRACTITIONER_REGISTRATION_PAGES = {
         title: 'Facility Information'
     },
     PRACTITIONER_ASSIGN: {
-      path: 'practitioner-assign',
-      fullpath: `${BCP_ROUTES.PRACTITIONER_REGISTRATION}/practitioner-assign`,
-      title: 'Practitioner Assignment'
+      path: 'practitioner-attachment',
+      fullpath: `${BCP_ROUTES.PRACTITIONER_REGISTRATION}/practitioner-attachment`,
+      title: 'Practitioner Attachment'
   },
     REVIEW: {
         path: 'review',
         fullpath: `${BCP_ROUTES.PRACTITIONER_REGISTRATION}/review`,
-        title: 'Review Pracitioner Assignment'
+        title: 'Review Pracitioner Attachment'
     },
     SUBMISSION: {
         path: 'submission',
