@@ -1,8 +1,0 @@
-name: BCP E2E Tests
-on: [push]
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Run BCP e2e in Firefox
-        run: npm run e2e:bcprf-firefox
