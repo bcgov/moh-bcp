@@ -1,12 +1,18 @@
 name: Run BCP e2e tests
+# This workflow is triggered on push and pull request to the repository
 on: [push, pull_request]
 jobs:
-  runs-on: ubuntu-latest
-  steps:
-    - name: Run e2e test
-      run: |
-        npm ci
-        npm run build
-        npm run e2e:bcprf-firefox
-      env:
-        CI: true
+  build:
+    name: BCP e2e tests in Firefox
+    runs-on: ubuntu-latest
+    steps:
+      # This step clean installs dependencies and build
+      - name: Clean install and build
+        run: |
+          npm ci
+          npm run build
+        env:
+          CI: true
+      # This step runs e2e tests in Firefox
+      - name: Run BCP e2e in Firefox
+        run: npm run e2e:bcprf-firefox
