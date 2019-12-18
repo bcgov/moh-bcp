@@ -6,10 +6,11 @@ import { CreateFacilityDataService } from '../../services/create-facility-data.s
 import { BCPApiService } from 'src/app/services/bcp-api.service';
 import { CreateResponse } from '../../models/create-facility-api-model';
 import { SplunkLoggerService } from '../../../../services/splunk-logger.service';
-import { ValidationResponse } from '../../models/create-facility-api-model';
 import { SignatureComponent } from '../../../core-bcp/components/signature/signature.component';
 import { Validators, FormBuilder } from '@angular/forms';
 import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
+import { ValidationResponse } from '../../../core-bcp/models/base-api.model';
+import { CreateFacilityApiService } from '../../services/create-facility-api.service';
 
 @Component({
   selector: 'app-review',
@@ -24,7 +25,7 @@ export class ReviewComponent extends BcpBaseForm implements OnInit, AfterViewIni
   constructor(protected router: Router,
               protected pageStateService: PageStateService,
               public dataService: CreateFacilityDataService,
-              private api: BCPApiService,
+              private api: CreateFacilityApiService,
               private splunkLoggerService: SplunkLoggerService,
               private fb: FormBuilder,
               protected containerService: ContainerService) {

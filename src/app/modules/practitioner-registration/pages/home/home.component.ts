@@ -5,7 +5,7 @@ import { UUID } from 'angular2-uuid';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration-route-constants';
 import { ContainerService } from 'moh-common-lib';
 import { BCPApiService } from '../../../../services/bcp-api.service';
-import { CreatePractitionerDataService } from '../../services/create-practitioner-data.service';
+import { RegisterPractitionerDataService } from '../../services/register-practitioner-data.service';
 import { environment } from '../../../../../environments/environment';
 import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 
@@ -25,7 +25,7 @@ export class HomeComponent extends BcpBaseForm implements OnInit {
                protected router: Router,
                protected pageStateService: PageStateService,
                private apiService: BCPApiService,
-               private dataService: CreatePractitionerDataService ) {
+               private dataService: RegisterPractitionerDataService ) {
     super(router, containerService, pageStateService);
   }
 

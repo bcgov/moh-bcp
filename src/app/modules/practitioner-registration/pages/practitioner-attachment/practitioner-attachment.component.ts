@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration-route-constants';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { CreatePractitionerDataService } from '../../services/create-practitioner-data.service';
 import { ContainerService, PageStateService } from 'moh-common-lib';
 import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 import { PRACTITIONER_ATTACHMENT } from '../../models/practitioner-attachment';
 import { IRadioItems } from 'moh-common-lib/lib/components/radio/radio.component';
+import { RegisterPractitionerDataService } from '../../services/register-practitioner-data.service';
 
 interface BaseFormGroup {
   attachmentType: any;
@@ -43,7 +43,7 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
                protected router: Router,
                protected pageStateService: PageStateService,
                private fb: FormBuilder,
-               public dataService: CreatePractitionerDataService ) {
+               public dataService: RegisterPractitionerDataService ) {
     super(router, containerService, pageStateService);
   }
 
@@ -87,14 +87,14 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
   private getBaseFormGroup(): BaseFormGroup {
     return {
       attachmentType: [this.dataService.pracAttachmentType, Validators.required]
-    }
+    };
   }
 
   private getFormGroupForNew(): FormGroup {
     const formGroupObj: NewFormGroup = {
       ...this.getBaseFormGroup(),
       newAttachmentType: [this.dataService.pracNewAttachmentType, Validators.required]
-    }
+    };
 
     if (this.dataService.pracNewAttachmentType === true || this.dataService.pracNewAttachmentType === false) {
       formGroupObj.newAttachmentEffectiveDate = [this.dataService.pracNewAttachmentEffectiveDate, Validators.required];
@@ -109,7 +109,7 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
     const formGroupObj: CancelFormGroup = {
       ...this.getBaseFormGroup(),
       cancelAttachmentDate: [this.dataService.pracCancelAttachmentDate, Validators.required]
-    }
+    };
     return this.fb.group(formGroupObj);
   }
 
@@ -118,13 +118,13 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
       ...this.getBaseFormGroup(),
       changeAttachmentEffectiveDate: [this.dataService.pracChangeAttachmentEffectiveDate],
       changeAttachmentCancelDate: [this.dataService.pracChangeAttachmentCancelDate],
-    }
+    };
     return this.fb.group(formGroupObj);
   }
 
   continue() {
     this.markAllInputsTouched();
-    
+
     console.log( 'Continue: Practitioner Assignment', this.formGroup);
     if (this.formGroup.valid) {
       this.navigate(PRACTITIONER_REGISTRATION_PAGES.REVIEW.fullpath);
@@ -150,6 +150,6 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
   }
 
   get shouldShowChangeSection() {
-    return this.dataService.pracAttachmentType === PRACTITIONER_ATTACHMENT.CHANGE.value
+    return this.dataService.pracAttachmentType === PRACTITIONER_ATTACHMENT.CHANGE.value;
   }
 }

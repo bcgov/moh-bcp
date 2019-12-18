@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ReviewContainerComponent } from 'src/app/modules/core-bcp/components/review-container/review-container.component';
-import { CreatePractitionerDataService } from '../../services/create-practitioner-data.service';
+import { ReviewContainerComponent } from '../../../core-bcp/components/review-container/review-container.component';
+import { RegisterPractitionerDataService } from '../../services/register-practitioner-data.service';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration-route-constants';
 import { getAttachmentLabelByValue, PRACTITIONER_ATTACHMENT } from '../../models/practitioner-attachment';
 
@@ -17,7 +17,7 @@ interface ReviewItem {
 export class ReviewPractitionerAttachmentComponent implements OnInit {
   @ViewChild(ReviewContainerComponent, { static: true }) review: ReviewContainerComponent;
 
-  constructor(public dataService: CreatePractitionerDataService) { }
+  constructor(public dataService: RegisterPractitionerDataService) { }
 
   ngOnInit() {
     this.reviewItems();
@@ -47,34 +47,34 @@ export class ReviewPractitionerAttachmentComponent implements OnInit {
     const changeEffectiveDateItem: ReviewItem = {
       label: 'New effective date for existing attachment (if applicable)',
       value: this.dataService.pracChangeAttachmentEffectiveDate,
-    }
+    };
     const changeCancelDateItem: ReviewItem = {
       label: 'New cancellation date for existing attachment (if applicable)',
       value: this.dataService.pracChangeAttachmentCancelDate,
-    }
-    
+    };
+
     const items = [
       [
         { label: 'Selected change to practitioner attachment', value: getAttachmentLabelByValue(this.dataService.pracAttachmentType), },
       ],
     ];
 
-    if (this.dataService.pracAttachmentType == PRACTITIONER_ATTACHMENT.NEW.value) {
+    if (this.dataService.pracAttachmentType === PRACTITIONER_ATTACHMENT.NEW.value) {
       items[0].push(newAttachmentType);
     }
-    if (this.dataService.pracAttachmentType == PRACTITIONER_ATTACHMENT.NEW.value) {
+    if (this.dataService.pracAttachmentType === PRACTITIONER_ATTACHMENT.NEW.value) {
       items[0].push(newAttachmentEffectiveDate);
     }
-    if (this.dataService.pracAttachmentType == PRACTITIONER_ATTACHMENT.NEW.value && this.dataService.pracNewAttachmentType) {
+    if (this.dataService.pracAttachmentType === PRACTITIONER_ATTACHMENT.NEW.value && this.dataService.pracNewAttachmentType) {
       items[0].push(newAttachmentCancelDate);
     }
-    if (this.dataService.pracAttachmentType == PRACTITIONER_ATTACHMENT.CANCEL.value) {
+    if (this.dataService.pracAttachmentType === PRACTITIONER_ATTACHMENT.CANCEL.value) {
       items[0].push(cancelDateItem);
     }
-    if (this.dataService.pracAttachmentType == PRACTITIONER_ATTACHMENT.CHANGE.value) {
+    if (this.dataService.pracAttachmentType === PRACTITIONER_ATTACHMENT.CHANGE.value) {
       items[0].push(changeEffectiveDateItem);
     }
-    if (this.dataService.pracAttachmentType == PRACTITIONER_ATTACHMENT.CHANGE.value) {
+    if (this.dataService.pracAttachmentType === PRACTITIONER_ATTACHMENT.CHANGE.value) {
       items[0].push(changeCancelDateItem);
     }
     this.review.sectionItems = items;

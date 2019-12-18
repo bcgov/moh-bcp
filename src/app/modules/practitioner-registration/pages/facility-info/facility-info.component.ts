@@ -2,9 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration-route-constants';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { CreatePractitionerDataService } from '../../services/create-practitioner-data.service';
+import { RegisterPractitionerDataService } from '../../services/register-practitioner-data.service';
 import { getProvinceDescription, ContainerService, PageStateService } from 'moh-common-lib';
 import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
+import { SplunkLoggerService } from '../../../../services/splunk-logger.service';
+import { RegisterPractitionerApiService } from '../../services/register-practitioner-api.service';
+import { stripPostalCodeSpaces } from '../../../core-bcp/models/helperFunc';
+import { ValidationResponse, ReturnCodes } from '../../../core-bcp/models/base-api.model';
 
 
 @Component({
@@ -21,7 +25,9 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
                protected router: Router,
                protected pageStateService: PageStateService,
                private fb: FormBuilder,
-               private dataService: CreatePractitionerDataService ) {
+               private dataService: RegisterPractitionerDataService,
+               private splunkLoggerService: SplunkLoggerService,
+               private apiService: RegisterPractitionerApiService  ) {
     super(router, containerService, pageStateService);
   }
 
@@ -45,7 +51,34 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
     console.log( 'Continue: Facility Info');
     console.log('Items', this.formGroup.value);
     if (this.formGroup.valid) {
-      this.navigate(PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_ASSIGN.fullpath);
+
+      this.containerService.setIsLoading();
+
+      this.apiService.validateFacilityID({
+        number: this.dataService.pracFacilityNumber,
+        // API expects postalCode without any spaces in it
+        postalCode: stripPostalCodeSpaces(this.dataService.pracFacilityPostalCode)
+      }, this.dataService.applicationUUID)
+        .subscribe((res: ValidationResponse) => {
+          this.dataService.jsonFacilityValidation.response = res;
+
+          this.splunkLoggerService.log(
+              this.dataService.getSubmissionLogObject<ValidationResponse>(
+                'Validate Facility ID',
+                this.dataService.jsonFacilityValidation.response
+              )
+          );
+
+          this.containerService.setIsLoading(false);
+
+          if (res.returnCode === ReturnCodes.SUCCESS) {
+            this.navigate(PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_ASSIGN.fullpath);
+          }
+
+        }, error => {
+          console.log('ARC apiService onerror', error);
+          this.containerService.setIsLoading(false);
+        });
     }
   }
 }

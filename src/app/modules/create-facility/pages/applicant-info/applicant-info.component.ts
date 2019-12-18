@@ -3,11 +3,12 @@ import { Router } from '@angular/router';
 import { CreateFacilityDataService } from '../../services/create-facility-data.service';
 import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
 import { BCPApiService } from '../../../../services/bcp-api.service';
-import { ValidationResponse, ReturnCodes } from '../../models/create-facility-api-model';
 import { SplunkLoggerService } from '../../../../services/splunk-logger.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { PageStateService, ContainerService } from 'moh-common-lib';
 import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
+import { ValidationResponse, ReturnCodes } from '../../../core-bcp/models/base-api.model';
+import { CreateFacilityApiService } from '../../services/create-facility-api.service';
 
 @Component({
   selector: 'app-applicant-info',
@@ -25,7 +26,7 @@ export class ApplicantInfoComponent extends BcpBaseForm implements OnInit, After
     public dataService: CreateFacilityDataService,
     private fb: FormBuilder,
     private cdr: ChangeDetectorRef,
-    private apiService: BCPApiService,
+    private apiService: CreateFacilityApiService,
     private splunkLoggerService: SplunkLoggerService,
     protected containerService: ContainerService) {
     super(router, containerService, pageStateService);

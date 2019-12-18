@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration-route-constants';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CreatePractitionerDataService } from '../../services/create-practitioner-data.service';
+import { RegisterPractitionerDataService } from '../../services/register-practitioner-data.service';
 import { CorePractitionerInfoFormItems } from '../../../core-bcp/components/core-practitioner-info/core-practitioner-info.component';
 import { ContainerService, PageStateService } from 'moh-common-lib';
 import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
+import { RegisterPractitionerApiService } from '../../services/register-practitioner-api.service';
+import { ValidationResponse, ReturnCodes } from '../../../core-bcp/models/base-api.model';
+import { SplunkLoggerService } from '../../../../services/splunk-logger.service';
 
 
 @Component({
@@ -17,12 +20,16 @@ export class PractitionerInfoComponent extends BcpBaseForm implements OnInit {
 
   pageTitle: string = 'Practitioner Information';
   formGroup: FormGroup;
+  showValidationError: boolean = false;
+
 
   constructor( protected containerService: ContainerService,
                protected router: Router,
                protected pageStateService: PageStateService,
                private fb: FormBuilder,
-               public dataService: CreatePractitionerDataService) {
+               public dataService: RegisterPractitionerDataService,
+               private splunkLoggerService: SplunkLoggerService,
+               private apiService: RegisterPractitionerApiService ) {
     super(router, containerService, pageStateService);
   }
 
@@ -43,10 +50,50 @@ export class PractitionerInfoComponent extends BcpBaseForm implements OnInit {
     this.markAllInputsTouched();
 
     console.log('Continue: Practitioner Info');
-    console.log("Items", this.formGroup.value);
+    console.log('Items', this.formGroup.value);
 
     if (this.formGroup.valid) {
-      this.navigate(PRACTITIONER_REGISTRATION_PAGES.FACILITY_INFO.fullpath);
+
+      this.containerService.setIsLoading();
+
+      this.apiService.validateMD({
+        firstName: this.dataService.pracInfoFirstName,
+        lastName: this.dataService.pracInfoLastName,
+        number: this.dataService.pracInfoMSPPracNumber,
+      }, this.dataService.applicationUUID).subscribe((res: ValidationResponse) => {
+        console.log('apiService response', res);
+
+        this.dataService.jsonApplicantValidation.response = res;
+
+        this.splunkLoggerService.log(
+          this.dataService.getSubmissionLogObject<ValidationResponse>(
+            'Validate MD',
+            this.dataService.jsonApplicantValidation.response
+          )
+        );
+
+        if (res.returnCode === ReturnCodes.SUCCESS) {
+          this.handleValidation(true);
+          this.navigate(PRACTITIONER_REGISTRATION_PAGES.FACILITY_INFO.fullpath);
+        } else if (res.returnCode === ReturnCodes.FAILURE) {
+          this.handleValidation(false);
+        } else {
+          // fall-through case, likely an error
+          this.handleValidation(false);
+        }
+      }, error => {
+        console.log('ARC apiService onerror', error);
+        this.handleError();
+      });
     }
+  }
+
+  private handleError(): void {
+    this.containerService.setIsLoading(false);
+  }
+
+  private handleValidation(isValid: boolean): void {
+    this.showValidationError = !isValid;
+    this.containerService.setIsLoading(false);
   }
 }

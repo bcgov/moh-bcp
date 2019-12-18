@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
-import { CommonImage } from 'moh-common-lib';
+import { BaseDataService } from '../../../services/base-data.service';
+import { BRITISH_COLUMBIA } from 'moh-common-lib';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CreatePractitionerDataService {
+export class RegisterPractitionerDataService extends BaseDataService {
 
   constructor() {
+    super();
     if (environment.useDummyData) {
       this.pracInfoFirstName = 'John';
       this.pracInfoLastName = 'Doe';
@@ -20,7 +22,7 @@ export class CreatePractitionerDataService {
       this.pracFacilityNumber = '12345';
       this.pracFacilityAddress = '123 Fake St.';
       this.pracFacilityCity = 'Victoria';
-      this.pracFacilityProvince = 'BC';
+      this.pracFacilityProvince = BRITISH_COLUMBIA;
       this.pracFacilityPostalCode = 'V8L 1A1';
       this.pracFacilityFaxNumber = '234 567-8901';
 
@@ -39,7 +41,7 @@ export class CreatePractitionerDataService {
   pracFacilityNumber: string;
   pracFacilityAddress: string;
   pracFacilityCity: string;
-  pracFacilityProvince: string = 'BC';
+  pracFacilityProvince: string = BRITISH_COLUMBIA;
   pracFacilityPostalCode: string;
   pracFacilityFaxNumber: string;
 
@@ -51,8 +53,5 @@ export class CreatePractitionerDataService {
   pracChangeAttachmentEffectiveDate: Date;
   pracChangeAttachmentCancelDate: Date;
 
-  informationCollectionNoticeConsent: boolean;
   isAccepted: boolean;
-  signature: CommonImage;
-  dateOfAcceptance: Date;
 }

@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CreatePractitionerDataService } from './create-practitioner-data.service';
+import { RegisterPractitionerDataService } from './register-practitioner-data.service';
 
 describe('CreatePractitionerDataService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: CreatePractitionerDataService = TestBed.get(CreatePractitionerDataService);
+    const service: RegisterPractitionerDataService = TestBed.get(RegisterPractitionerDataService);
     expect(service).toBeTruthy();
   });
 });
