@@ -11,10 +11,6 @@
     </ul>
     <p>In addition to applying for a Medical Services Plan Facility Number you will also be able to request that the Business Cost Premium be applied to the facility.</p>
 </common-page-framework>
-<common-form-action-bar [defaultColor]='true'
-                        widthOption='extra-width-mobile-only'
-                        (btnClick)="continue()">
-</common-form-action-bar>
 
 <bcp-consent-modal (onAccept)='accept($event)'
                    (onValidToken)='setToken($event)'
