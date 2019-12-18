@@ -5,14 +5,20 @@ jobs:
   build:
     name: BCP e2e tests in Firefox
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x]
     steps:
-      # This step installs dependencies
-      - name: Clean install and build
-        run: |
-          npm init
-          npm install
-        env:
-          CI: true
-      # This step runs e2e tests in Firefox
-      - name: Run BCP e2e in Firefox
-        run: npm run e2e:bcprf-firefox
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    # This step installs dependencies
+    - name: Install dependencies
+      run: npm install
+      env:
+        CI: true
+    # This step runs e2e tests in Firefox
+    - name: Run BCP e2e in Firefox
+      run: npm run e2e:bcprf-firefox
