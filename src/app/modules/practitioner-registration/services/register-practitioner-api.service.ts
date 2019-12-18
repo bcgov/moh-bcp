@@ -16,7 +16,7 @@ export class RegisterPractitionerApiService extends BCPApiService {
   constructor(protected http: HttpClient,
               protected logger: SplunkLoggerService,
               protected dataService: RegisterPractitionerDataService) {
-          super(http, logger, dataService);
+    super(http, logger, dataService);
   }
 
   /** TODO: Find out what function will be called */
