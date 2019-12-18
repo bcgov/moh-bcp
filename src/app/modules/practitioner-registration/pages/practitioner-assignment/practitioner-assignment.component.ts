@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration-route-constants';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { CreatePractitionerDataService } from '../../services/create-practitioner-data.service';
+import { RegisterPractitionerDataService } from '../../services/register-practitioner-data.service';
 import { ContainerService, PageStateService } from 'moh-common-lib';
 import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 
@@ -31,7 +31,7 @@ export class PractitionerAssignmentComponent extends BcpBaseForm implements OnIn
                protected router: Router,
                protected pageStateService: PageStateService,
                private fb: FormBuilder,
-               public dataService: CreatePractitionerDataService ) {
+               public dataService: RegisterPractitionerDataService ) {
     super(router, containerService, pageStateService);
   }
 

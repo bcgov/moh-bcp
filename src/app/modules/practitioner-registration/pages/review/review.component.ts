@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration-route-constants';
-import { CreatePractitionerDataService } from '../../services/create-practitioner-data.service';
+import { RegisterPractitionerDataService } from '../../services/register-practitioner-data.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ContainerService, PageStateService } from 'moh-common-lib';
 import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
@@ -14,7 +14,7 @@ import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 
 export class ReviewComponent extends BcpBaseForm implements OnInit {
 
-  constructor(public dataService: CreatePractitionerDataService,
+  constructor(public dataService: RegisterPractitionerDataService,
               protected containerService: ContainerService,
               protected router: Router,
               protected pageStateService: PageStateService,

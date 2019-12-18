@@ -6,7 +6,7 @@ import { BRITISH_COLUMBIA } from 'moh-common-lib';
 @Injectable({
   providedIn: 'root'
 })
-export class CreatePractitionerDataService extends BaseDataService {
+export class RegisterPractitionerDataService extends BaseDataService {
 
   constructor() {
     super();

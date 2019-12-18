@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ReviewContainerComponent } from '../../../core-bcp/components/review-container/review-container.component';
-import { CreatePractitionerDataService } from '../../services/create-practitioner-data.service';
+import { RegisterPractitionerDataService } from '../../services/register-practitioner-data.service';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration-route-constants';
 
 @Component({
@@ -11,7 +11,7 @@ import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration
 export class ReviewPractitionerAttachmentComponent implements OnInit {
   @ViewChild(ReviewContainerComponent, { static: true }) review: ReviewContainerComponent;
 
-  constructor(public dataService: CreatePractitionerDataService) { }
+  constructor(public dataService: RegisterPractitionerDataService) { }
 
   ngOnInit() {
     this.reviewItems();
