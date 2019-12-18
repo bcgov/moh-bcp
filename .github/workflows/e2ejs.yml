@@ -5,7 +5,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Run BCP e2e in Firefox
-        run: |
-          # npm install
-          # npm run webdriver-update
-          npm run e2e:bcprf-firefox
+        run: npm run e2e:bcprf-firefox
