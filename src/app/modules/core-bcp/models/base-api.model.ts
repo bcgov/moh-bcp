@@ -24,6 +24,9 @@ export interface PractitionerValidationPartial {
 
 export interface ValidatePractitionerRequest extends APIBase {
   practitioner: PractitionerValidationPartial;
+
+  // TODO: If can use flag to indicate check for MD
+  //       need to add another variable to message.
 }
 
 export interface FacilityValidationPartial {

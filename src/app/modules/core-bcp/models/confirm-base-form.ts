@@ -6,7 +6,7 @@ import { formatDateForDisplay } from './helperFunc';
 export class ConfirmBaseForm extends Base implements OnInit {
 
   // default icon - if return code < 0 then its an error
-  displayIcon: ApiStatusCodes = ApiStatusCodes.SUCCESS;
+  displayIcon: ApiStatusCodes = ApiStatusCodes.ERROR;
 
   constructor( protected dataService: BaseDataService,
                protected pageStateService: PageStateService ) {
