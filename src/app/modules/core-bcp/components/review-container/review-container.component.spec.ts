@@ -25,13 +25,13 @@ describe('ReviewContainerComponent', () => {
 
   it('should navigate when redirect is called', () => {
     const router = TestBed.get(Router);
-    spyOn(router, "navigate");
+    spyOn(router, 'navigate');
 
     fixture = TestBed.createComponent(ReviewContainerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
 
-    component.redirect("test");
-    expect(router.navigate).toHaveBeenCalledWith(["test"]);
+    component.redirect('test');
+    expect(router.navigate).toHaveBeenCalledWith(['test']);
   });
 });

@@ -27,7 +27,7 @@ describe('PractitionerNumberComponent', () => {
   });
 
   it('should display error for invalid entries', () => {
-    component.facNumber = "ab c";
+    component.facNumber = 'ab c';
     fixture.detectChanges();
     const errorContainerEl = fixture.debugElement.nativeElement.querySelector('common-error-container');
     expect(errorContainerEl).toBeTruthy();
