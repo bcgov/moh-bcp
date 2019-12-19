@@ -54,6 +54,11 @@ export class RegisterPractitionerDataService extends BaseDataService {
   pracChangeAttachmentEffectiveDate: Date;
   pracChangeAttachmentCancelDate: Date;
 
+  jsonMaintPractitioner = {
+    request: null,
+    response: null
+  };
+
   isAccepted: boolean;
 
   readonly declarationText = `I, the Practitioner named above, hereby confirm that: --by checking either "Add New", "Change", or "Cancel" above, I am either adding, changing details of, or cancelling an attachment to the MSP Facility Number set out in this document, as the case may be. In the case of adding an attachment or changing details of an attachment to the above MSP Facility Number:

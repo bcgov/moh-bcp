@@ -9,6 +9,7 @@ import {
   FacilityValidationPartial } from '../../core-bcp/models/base-api.model';
 import { CommonImage } from 'moh-common-lib';
 import { flatMap, catchError } from 'rxjs/operators';
+import { BCPDocumentTypes } from '../../core-bcp/models/documentTypes';
 
 @Injectable({
   providedIn: 'root'
@@ -73,9 +74,10 @@ export class RegisterPractitionerApiService extends BCPApiService {
       attachments: [signature.toJSON()]
     };
 
-    this.dataService.jsonCreateFacility.request = payload;
+    this.dataService.jsonMaintPractitioner.request = payload;
 
-    const url = `${this.baseUrl}/createFacility`;
+    // TODO: Update URL once we know what it is
+    const url = `${this.baseUrl}/maintainPractitioner`;
     return this.post(url, payload);
   }
 
