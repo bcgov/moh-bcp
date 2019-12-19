@@ -22,7 +22,7 @@
         <div class="col-6 review-value">{{submissionDate}}</div>
 
         <div class='col-6 review-key'>Reference Number</div>
-        <div class="col-6 review-value">{{dataService.jsonCreateFacility.response?.referenceNumber}}</div>
+        <div class="col-6 review-value">{{referenceNumber}}</div>
 
         <div class='col-6 review-key'>Facility Number</div>
         <div class="col-6 review-value {{isUnderReview ? 'text-primary' : ''}} "> {{facilityNumberText}} </div>
@@ -81,26 +81,26 @@
             </button>
             <h1 class='border-bottom'>{{pageTitle}}</h1>
           </div>
-      
+
           <div message>
             <div>
               <h2 class='mt-2'>{{confirmationMessage}}</h2>
             </div>
-      
+
             <div *ngIf="!isError" class="row">
               <div class='col-6 review-key'>Date of Submission</div>
               <div class="col-6 review-value">{{submissionDate}}</div>
-      
+
               <div class='col-6 review-key'>Reference Number</div>
-              <div class="col-6 review-value">{{dataService.jsonCreateFacility.response?.referenceNumber}}</div>
-      
+              <div class="col-6 review-value">{{referenceNumber}}</div>
+
               <div class='col-6 review-key'>Facility Number</div>
               <div class="col-6 review-value {{isUnderReview ? 'text-primary' : ''}} "> {{facilityNumberText}} </div>
             </div>
           </div>
-      
+
           <div AdditionalInfo>
-      
+
             <div class="message-container under-review"
                  *ngIf="isUnderReview">
               <i class="fa fa-2x fa-exclamation-circle text-primary pr-2"
@@ -108,15 +108,15 @@
               Your Facility Number will be provided once your request has been processed. If you have any questions on the
               status of your submission please call us at 1-800-555-1234 and provide your Reference Number.
             </div>
-            </div>
-            </common-confirm-template>
+          </div>
+        </common-confirm-template>
 
 
 
         <h2 class='border-bottom'>Declaration</h2>
-        <p class="font-italic" [innerHtml]='dataService.declarationText'></p>
+        <p class="font-italic" [innerHtml]='declarationText'></p>
 
-        <img [src]='dataService.signature?.fileContent'>
+        <img [src]='signature'>
 
         <div class="row print-review-row">
           <div class='col-6 review-key'>Date signed</div>
@@ -154,7 +154,7 @@
       <div class="col-6 review-value">{{submissionDate}}</div>
 
       <div class='col-6 review-key'>Reference Number</div>
-      <div class="col-6 review-value">{{dataService.jsonCreateFacility.response?.referenceNumber}}</div>
+      <div class="col-6 review-value">{{referenceNumber}}</div>
 
       <div class='col-6 review-key'>Facility Number</div>
       <div class="col-6 review-value {{isUnderReview ? 'text-primary' : ''}} "> {{facilityNumberText}} </div>

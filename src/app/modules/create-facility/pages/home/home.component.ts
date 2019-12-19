@@ -1,28 +1,27 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { ConsentModalComponent, PageStateService } from 'moh-common-lib';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { PageStateService, ContainerService } from 'moh-common-lib';
 import { CreateFacilityDataService } from '../../services/create-facility-data.service';
-import { CreateFacilityForm } from '../../models/create-facility-form';
 import { Router } from '@angular/router';
 import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
 
-import { UUID } from 'angular2-uuid';
-import { environment } from '../../../../../environments/environment';
 import { BCPApiService } from '../../../../services/bcp-api.service';
+import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent extends CreateFacilityForm implements OnInit {
+export class HomeComponent extends BcpBaseForm implements OnInit, AfterViewInit {
 
   initialModalVisibility: boolean = false;
 
   constructor(private dataService: CreateFacilityDataService,
               protected router: Router,
-              private pageStateService: PageStateService,
-              private ApiService: BCPApiService) {
-    super(router);
+              protected pageStateService: PageStateService,
+              private ApiService: BCPApiService,
+              protected containerService: ContainerService) {
+    super(router, containerService, pageStateService);
   }
 
   get pageTitle() {
@@ -30,7 +29,7 @@ export class HomeComponent extends CreateFacilityForm implements OnInit {
   }
 
   ngOnInit() {
-    this.pageStateService.setPageIncomplete();
+    super.ngOnInit();
     this.initialModalVisibility = !this.dataService.informationCollectionNoticeConsent;
   }
 
@@ -41,7 +40,6 @@ export class HomeComponent extends CreateFacilityForm implements OnInit {
   continue() {
 
     if (this.canContinue()) {
-      this.pageStateService.setPageComplete();
       this.navigate(CREATE_FACILITY_PAGES.FACILITY_ADMIN.fullpath);
     }
   }
@@ -56,9 +54,5 @@ export class HomeComponent extends CreateFacilityForm implements OnInit {
 
   setToken(token: string): void {
     this.ApiService.setToken(token);
-  }
-
-  debug(a) {
-    console.log('debug', a);
   }
 }

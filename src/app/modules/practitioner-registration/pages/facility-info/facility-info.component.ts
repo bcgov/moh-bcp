@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { RegistrationForm } from '../../models/registration-form';
-import { RegistrationContainerService } from '../../services/registration-container.service';
 import { Router } from '@angular/router';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration-route-constants';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { CreatePractitionerDataService } from '../../services/create-practitioner-data.service';
-import { getProvinceDescription } from 'moh-common-lib';
+import { RegisterPractitionerDataService } from '../../services/register-practitioner-data.service';
+import { getProvinceDescription, ContainerService, PageStateService } from 'moh-common-lib';
+import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
+import { SplunkLoggerService } from '../../../../services/splunk-logger.service';
+import { RegisterPractitionerApiService } from '../../services/register-practitioner-api.service';
+import { stripPostalCodeSpaces } from '../../../core-bcp/models/helperFunc';
+import { ValidationResponse, ReturnCodes } from '../../../core-bcp/models/base-api.model';
 
 
 @Component({
@@ -13,21 +16,22 @@ import { getProvinceDescription } from 'moh-common-lib';
   templateUrl: './facility-info.component.html',
   styleUrls: ['./facility-info.component.scss']
 })
-export class FacilityInfoComponent extends RegistrationForm implements OnInit {
+export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
 
   pageTitle: string = 'Facility Information';
   formGroup: FormGroup;
 
-  constructor( protected registrationContainerService: RegistrationContainerService,
+  constructor( protected containerService: ContainerService,
                protected router: Router,
+               protected pageStateService: PageStateService,
                private fb: FormBuilder,
-               private dataService: CreatePractitionerDataService ) {
-    super(registrationContainerService, router);
+               private dataService: RegisterPractitionerDataService,
+               private splunkLoggerService: SplunkLoggerService,
+               private apiService: RegisterPractitionerApiService  ) {
+    super(router, containerService, pageStateService);
   }
 
   ngOnInit() {
-    this.registrationContainerService.$submitLabelSubject.next('Continue');
-    this.registrationContainerService.$useDefaultColorSubject.next(true);
     super.ngOnInit();
 
     this.formGroup = this.fb.group({
@@ -37,6 +41,7 @@ export class FacilityInfoComponent extends RegistrationForm implements OnInit {
       city: [this.dataService.pracFacilityCity, [Validators.required]],
       province: [getProvinceDescription(this.dataService.pracFacilityProvince)],
       postalCode: [this.dataService.pracFacilityPostalCode, [Validators.required]],
+      faxNumber: [this.dataService.pracFacilityFaxNumber],
     });
   }
 
@@ -44,9 +49,36 @@ export class FacilityInfoComponent extends RegistrationForm implements OnInit {
     this.markAllInputsTouched();
 
     console.log( 'Continue: Facility Info');
-    console.log("Items", this.formGroup.value);
+    console.log('Items', this.formGroup.value);
     if (this.formGroup.valid) {
-      this.navigate(PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_ASSIGN.fullpath);
+
+      this.containerService.setIsLoading();
+
+      this.apiService.validateFacilityID({
+        number: this.dataService.pracFacilityNumber,
+        // API expects postalCode without any spaces in it
+        postalCode: stripPostalCodeSpaces(this.dataService.pracFacilityPostalCode)
+      }, this.dataService.applicationUUID)
+        .subscribe((res: ValidationResponse) => {
+          this.dataService.jsonFacilityValidation.response = res;
+
+          this.splunkLoggerService.log(
+              this.dataService.getSubmissionLogObject<ValidationResponse>(
+                'Validate Facility ID',
+                this.dataService.jsonFacilityValidation.response
+              )
+          );
+
+          this.containerService.setIsLoading(false);
+
+          if (res.returnCode === ReturnCodes.SUCCESS) {
+            this.navigate(PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_ASSIGN.fullpath);
+          }
+
+        }, error => {
+          console.log('ARC apiService onerror', error);
+          this.containerService.setIsLoading(false);
+        });
     }
   }
 }

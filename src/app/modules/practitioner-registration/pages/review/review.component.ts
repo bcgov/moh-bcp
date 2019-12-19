@@ -1,11 +1,10 @@
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import { RegistrationForm } from '../../models/registration-form';
-import { RegistrationContainerService } from '../../services/registration-container.service';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration-route-constants';
-import { CreatePractitionerDataService } from '../../services/create-practitioner-data.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ErrorMessage } from 'moh-common-lib';
+import { RegisterPractitionerDataService } from '../../services/register-practitioner-data.service';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ContainerService, PageStateService } from 'moh-common-lib';
+import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 
 @Component({
   selector: 'bcp-review',
@@ -13,24 +12,38 @@ import { ErrorMessage } from 'moh-common-lib';
   styleUrls: ['./review.component.scss']
 })
 
-export class ReviewComponent extends RegistrationForm implements OnInit {
+export class ReviewComponent extends BcpBaseForm implements OnInit, AfterViewInit {
 
-  constructor(public dataService: CreatePractitionerDataService,
-              protected registrationContainerService: RegistrationContainerService,
+  constructor(public dataService: RegisterPractitionerDataService,
+              protected containerService: ContainerService,
               protected router: Router,
+              protected pageStateService: PageStateService,
               private fb: FormBuilder) {
-    super(registrationContainerService, router);
+    super(router, containerService, pageStateService);
   }
 
   pageTitle: string = 'Review Request';
 
   ngOnInit() {
-    this.registrationContainerService.$submitLabelSubject.next('Submit');
-    this.registrationContainerService.$useDefaultColorSubject.next(false);
-    super.ngOnInit();
+    this.containerService.setSubmitLabel('Submit');
+    this.containerService.setUseDefaultColor(false);
+    this.pageStateService.setPageIncomplete();
+
+    // Set isPrintView to false
+    this.dataService.isPrintView = false;
 
     this.formGroup = this.fb.group({
       signature: [this.dataService.signature, [Validators.required]]
+    });
+  }
+
+
+  ngAfterViewInit() {
+    super.ngAfterViewInit();
+    this.formGroup.valueChanges.subscribe( val => {
+      // Update data service values
+      this.dataService.signature = val.signature;
+      this.dataService.dateOfAcceptance = val.signature ? new Date() : null;
     });
   }
 

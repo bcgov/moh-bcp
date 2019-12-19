@@ -29,13 +29,15 @@ export class FakeBackendInterceptor implements HttpInterceptor  {
         let payload = null;
         console.log( 'Post method' );
 
-        if (request.url.includes( 'validatePractitioner' )) {
-          console.log( 'Fake-backend for Validating practitioner' );
+        if (request.url.includes( 'validatePractitioner' ) ||
+            request.url.includes('validateMD')) {
+          console.log( 'Fake-backend for Validating practitioner/MD' );
           payload = this.fakebackendService.validatePractitioner( request );
         }
 
-        if (request.url.includes( 'validateFacility' )) {
-          console.log( 'Fake-backend for Validating facility' );
+        if (request.url.includes( 'validateFacility' ) ||
+            request.url.includes( 'validateFacilityID' )) {
+          console.log( 'Fake-backend for Validating facility/ID' );
           payload = this.fakebackendService.validateFacility( request );
         }
 
@@ -44,7 +46,10 @@ export class FakeBackendInterceptor implements HttpInterceptor  {
           payload = this.fakebackendService.createFacility( request );
         }
 
-        // TODO: add bcpAttachment request to back-end
+        if (request.url.includes( 'bcpAttachment' )) {
+          console.log( 'Fake-backend for create facility' );
+          payload = this.fakebackendService.bcpAttachment ( request );
+        }
 
         if (request.url.includes( 'logging' )) {
           console.log( 'Fake-backend for logging - nothing logged' );
@@ -55,7 +60,7 @@ export class FakeBackendInterceptor implements HttpInterceptor  {
 
           console.log( 'Sending reponse from fake-backend: ', payload );
           return of(new HttpResponse({ status: 200, body: payload }))
-            .pipe(delay(1000));
+            .pipe(delay(2500));
         }
       }
 

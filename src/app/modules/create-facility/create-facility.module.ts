@@ -8,7 +8,7 @@ import { FacilityInfoComponent } from './pages/facility-info/facility-info.compo
 import { ReviewComponent } from './pages/review/review.component';
 import { SubmissionComponent } from './pages/submission/submission.component';
 import { CoreBCPModule } from '../core-bcp/core-bcp.module';
-import { CreateFacilityContainerComponent } from './create-facility-container/create-facility-container.component';
+import { CreateFacilityContainerComponent } from './components/create-facility-container/create-facility-container.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DefaultPageGuardService,
   AbstractPageGuardService,
@@ -16,10 +16,10 @@ import { DefaultPageGuardService,
   BYPASS_GUARDS,
   START_PAGE_URL } from 'moh-common-lib';
 import { CaptchaModule } from 'moh-common-lib/captcha';
-import { ReviewApplicantComponent } from './pages/review/review-applicant/review-applicant.component';
-import { ReviewFacilityComponent } from './pages/review/review-facility/review-facility.component';
-import { ReviewFacilityMailingInfoComponent } from './pages/review/review-facility-mailing-info/review-facility-mailing-info.component';
-import { ReviewFacilityBcpComponent } from './pages/review/review-facility-bcp/review-facility-bcp.component';
+import { ReviewApplicantComponent } from './components/review-applicant/review-applicant.component';
+import { ReviewFacilityComponent } from './components/review-facility/review-facility.component';
+import { ReviewFacilityMailingInfoComponent } from './components/review-facility-mailing-info/review-facility-mailing-info.component';
+import { ReviewFacilityBcpComponent } from './components/review-facility-bcp/review-facility-bcp.component';
 import { environment } from '../../../environments/environment';
 import { CREATE_FACILITY_PAGES } from './create-facility-route-constants';
 

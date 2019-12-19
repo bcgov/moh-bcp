@@ -1,1 +1,83 @@
-<p>submission works!</p>
+<common-page-framework layout="blank">
+
+  <common-confirm-template [displayIcon]="displayIcon">
+
+    <div confirmationTitle>
+      <ng-container *ngTemplateOutlet="confirmTitle"></ng-container>
+    </div>
+
+    <div message>
+      <ng-container *ngTemplateOutlet="confirmMessage"></ng-container>
+    </div>
+
+    <div AdditionalInfo *ngIf="!isError">
+      <div class="print-hide">
+        <h2 class="border-bottom"><strong>Next Steps</strong></h2>
+        <common-page-section layout='noTips'>
+          ADD NEXT STEPS HERE
+        </common-page-section>
+      </div>
+
+      <!-- Prinable section should have same contents as Review page -->
+      <div class="print-only">
+
+        <bcp-review-practitioner-info></bcp-review-practitioner-info>
+        <bcp-review-practitioner-facility></bcp-review-practitioner-facility>
+        <bcp-review-practitioner-attachment></bcp-review-practitioner-attachment>
+
+        <div class="print-page-break"></div>
+
+        <common-confirm-template [displayIcon]="displayIcon">
+
+          <div confirmationTitle>
+            <ng-container *ngTemplateOutlet="confirmTitle"></ng-container>
+          </div>
+
+          <div message>
+            <ng-container *ngTemplateOutlet="confirmMessage"></ng-container>
+          </div>
+
+        </common-confirm-template>
+
+        <h2 class='border-bottom'>Declaration</h2>
+        <p class="font-italic" [innerHtml]='declarationText'></p>
+
+        <img [src]='signature'>
+
+        <div class="row print-review-row">
+          <div class='col-6 review-key'>Date signed</div>
+          <div class="col-6 review-value">{{ dateOfAcceptance }}</div>
+        </div>
+      </div>
+    </div>
+
+
+  </common-confirm-template>
+
+</common-page-framework>
+
+
+
+<ng-template #confirmTitle>
+  <button (click)="print($event)" class="btn btn-clear float-right print-hide">
+    <strong>Print
+      <i class="fa fa-print fa-lg"
+        aria-hidden="true"></i>
+    </strong>
+  </button>
+  <h1 class='border-bottom'>{{pageTitle}}</h1>
+</ng-template>
+
+<ng-template #confirmMessage>
+  <div>
+    <h2 class='mt-2'>{{confirmationMessage}}</h2>
+  </div>
+
+  <div *ngIf="!isError" class="row">
+    <div class='col-6 review-key'>Date of Submission</div>
+    <div class="col-6 review-value">{{submissionDate}}</div>
+
+    <div class='col-6 review-key'>Reference Number</div>
+    <div class="col-6 review-value">{{referenceNumber}}</div>
+  </div>
+</ng-template>
