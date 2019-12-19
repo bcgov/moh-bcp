@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { PractitionerAssignmentRoutingModule } from './practitioner-registration-routing.module';
 import { HomeComponent } from './pages/home/home.component';
 import { PractitionerInfoComponent } from './pages/practitioner-info/practitioner-info.component';
@@ -8,11 +7,8 @@ import { FacilityInfoComponent } from './pages/facility-info/facility-info.compo
 import { ReviewComponent } from './pages/review/review.component';
 import { SubmissionComponent } from './pages/submission/submission.component';
 import { RegistrationContainerComponent } from './components/registration-container/registration-container.component';
-import { PractitionerAssignmentComponent } from './pages/practitioner-assignment/practitioner-assignment.component';
+import { PractitionerAttachmentComponent } from './pages/practitioner-attachment/practitioner-attachment.component';
 import { CoreBCPModule } from '../core-bcp/core-bcp.module';
-import { ReviewPractitionerInfoComponent } from './pages/review/review-practitioner-info/review-practitioner-info.component';
-import { ReviewPractitionerAttachmentComponent } from './pages/review/review-practitioner-attachment/review-practitioner-attachment.component';
-import { ReviewPractitionerFacilityComponent } from './pages/review/review-practitioner-facility/review-practitioner-facility.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   SharedCoreModule,
@@ -22,15 +18,20 @@ import {
   BYPASS_GUARDS,
   START_PAGE_URL
 } from 'moh-common-lib';
-import { environment } from 'src/environments/environment';
 import { PRACTITIONER_REGISTRATION_PAGES } from './practitioner-registration-route-constants';
+import {
+  ReviewPractitionerAttachmentComponent
+} from './components/review-practitioner-attachment/review-practitioner-attachment.component';
+import { ReviewPractitionerFacilityComponent } from './components/review-practitioner-facility/review-practitioner-facility.component';
+import { ReviewPractitionerInfoComponent } from './components/review-practitioner-info/review-practitioner-info.component';
+import { environment } from '../../../environments/environment';
 
 @NgModule({
   declarations: [
     HomeComponent,
     PractitionerInfoComponent,
     FacilityInfoComponent,
-    PractitionerAssignmentComponent,
+    PractitionerAttachmentComponent,
     ReviewComponent,
     SubmissionComponent,
     RegistrationContainerComponent,

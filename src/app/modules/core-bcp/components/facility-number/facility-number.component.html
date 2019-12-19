@@ -1,0 +1,20 @@
+<label for='facNumber'>Medical Services Plan Facility Number</label>
+  <input type="text"
+         class='form-control'
+         name='facNumber'
+         id='facNumber'
+         [(value)]='facNumber'
+         (change)='inputChange($event)'
+         (blur)='onBlur($event)'
+         bcpValidateFacilityNumber
+         [attr.maxlength]="5"
+         >
+
+<common-error-container [displayError]="(controlDir?.dirty || controlDir?.touched) &&  controlDir?.errors">
+  <div *ngIf="controlDir?.errors?.required">
+      Medical service plan facility number is required
+    </div>
+    <div *ngIf="controlDir?.errors?.invalidFormat && !controlDir?.errors?.required">
+      Medical service plan facility number is invalid format.  Please make sure it is alphanumeric and does not contain special characers or spaces.
+  </div>
+</common-error-container>

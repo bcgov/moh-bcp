@@ -1,0 +1,69 @@
+<h1>{{pageTitle}}</h1>
+<p>To add a new attachment, cancel an existing attachment, or change an existing attachment you must provide the appropriate effective or cancellation date.</p>
+<hr/>
+
+<form [formGroup]="formGroup">
+
+  <div class="form-group">
+    <common-radio formControlName="attachmentType"
+                  name="attachmentType"
+                  label="What change are you making for Business Cost Premium to the facility?"
+                  [radioLabels]='radioItems' 
+                  display="table-row-group"
+                  (ngModelChange)='changeAttachmentType($event)'
+                  [errorMessage]="sameMailAddrError">
+    </common-radio>
+  </div>
+
+  <ng-container *ngIf='shouldShowNewSection'>
+    <div class="form-group">
+      <common-radio formControlName="newAttachmentType"
+                    name="newAttachmentType"
+                    label="Is this attachment a Locum or temporary?"
+                    display="table-row-group"
+                    (ngModelChange)='changeNewAttachmentType($event)'
+                    [errorMessage]="sameMailAddrError">
+      </common-radio>
+    </div>
+
+    <div class="form-group" *ngIf='dataService.pracNewAttachmentType === true || dataService.pracNewAttachmentType === false'>
+      <common-date label='Effective date for new attachment'
+                   name="newAttachmentEffectiveDate"
+                   formControlName="newAttachmentEffectiveDate">
+      </common-date>
+    </div>
+  
+    <div class="form-group" *ngIf='dataService.pracNewAttachmentType === true'>
+      <common-date label='Cancellation date for new attachment'
+                   name="newAttachmentCancelDate"
+                   formControlName="newAttachmentCancelDate">
+      </common-date>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf='shouldShowCancelSection'>
+    <div class="form-group">
+      <common-date label='Cancellation date for existing attachment'
+                    name="cancelAttachmentDate"
+                    formControlName="cancelAttachmentDate">
+      </common-date>
+    </div>
+  </ng-container>
+  
+  <ng-container *ngIf='shouldShowChangeSection'>
+    <div class="form-group">
+      <common-date label='New effective date for existing attachment (if applicable)'
+                    name="changeAttachmentEffectiveDate"
+                    formControlName="changeAttachmentEffectiveDate">
+      </common-date>
+    </div>
+  
+    <div class="form-group">
+      <common-date label='New cancellation date for existing attachment (if applicable)'
+                    name="changeAttachmentCancelDate"
+                    formControlName="changeAttachmentCancelDate">
+      </common-date>
+    </div>
+  </ng-container>
+  
+</form>

@@ -5,7 +5,7 @@ import { Route } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { FacilityInfoComponent } from './pages/facility-info/facility-info.component';
 import { ReviewComponent } from './pages/review/review.component';
-import { PractitionerAssignmentComponent } from './pages/practitioner-assignment/practitioner-assignment.component';
+import { PractitionerAttachmentComponent } from './pages/practitioner-attachment/practitioner-attachment.component';
 
 /** The individual page routes only, does not include container */
 export const pages: Route[] = [
@@ -26,7 +26,7 @@ export const pages: Route[] = [
   },
   {
     path: PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_ASSIGN.path,
-    component: PractitionerAssignmentComponent,
+    component: PractitionerAttachmentComponent,
     data: {title: PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_ASSIGN.title}
   },
   {

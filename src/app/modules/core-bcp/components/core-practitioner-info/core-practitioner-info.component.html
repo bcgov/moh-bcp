@@ -23,9 +23,7 @@
 
     <div class="form-group">
         <bcp-practitioner-number name='MSPPracNumber'
-                                formControlName='mspPracNumber'
-                                required
-                                bcpValidatePractitionerNumber></bcp-practitioner-number>
+                                formControlName='mspPracNumber'></bcp-practitioner-number>
         <common-error-container [displayError]='showValidationError'>
         {{ validationErrorMessage }}
         </common-error-container>
@@ -57,12 +55,5 @@
                 id='phoneNumberExt'
                 [attr.maxlength]="4">
         </div>
-    </div>
-
-    <div class="form-group" *ngIf='showFaxNumber'>
-        <common-phone-number name='faxNumber'
-            formControlName='faxNumber'
-            label='Fax number (optional)'
-            [allowInternational]='false'></common-phone-number>
     </div>
 </form>

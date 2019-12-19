@@ -1,20 +1,18 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { UUID } from 'angular2-uuid';
-import { BRITISH_COLUMBIA, CommonLogEvents, CommonLogMessage, CommonImage } from 'moh-common-lib';
+import { BRITISH_COLUMBIA } from 'moh-common-lib';
 import { convertToJSONDate, stripPhoneFormatting, stripPostalCodeSpaces, prepareDeclarationTextForAPI } from '../../core-bcp/models/helperFunc';
-import { BaseResponse, ReturnCodes } from '../models/create-facility-api-model';
-
-
+import { BaseDataService } from '../../../services/base-data.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CreateFacilityDataService {
+export class CreateFacilityDataService extends BaseDataService {
 
   //#endregion
 
   constructor() {
+    super();
     if (environment.bypassModal) {
       this.informationCollectionNoticeConsent = true;
     }
@@ -52,15 +50,6 @@ export class CreateFacilityDataService {
     }
   }
 
-  // Response from Middleware for final request
-  requestResponse: any = null;
-
-  //#region Create Facility
-
-  applicationUUID: string = UUID.UUID();
-
-  // Home
-  informationCollectionNoticeConsent: boolean;
   // Facility Administrator
   facAdminFirstName: string;
   facAdminLastName: string;
@@ -90,37 +79,12 @@ export class CreateFacilityDataService {
   // API responses
   apiDuplicateWarning: boolean = false;
 
-  // Date user signs declaration
-  dateOfAcceptance: Date = null;
-  dateOfSubmission: Date = null;
-
   validateFacilityMessage: string;
 
-  /* Used to switch review contents to a view to be printed (i.e. no edit icons,
-   *  or grey background)
-   */
-  isPrintView: boolean = false;
-
   // TODO: Figure out where this variable is used
-  json: any;
-
-  signature: CommonImage;
+  // json: any;
 
   //#endregion
-
-  //#region Validation
-
-  // Response from Middleware for final request
-
-  jsonApplicantValidation = {
-    request: null,
-    response: null
-  };
-
-  jsonFacilityValidation = {
-    request: null,
-    response: null
-  };
 
   jsonCreateFacility = {
     request: null,
@@ -130,7 +94,7 @@ export class CreateFacilityDataService {
   // constant?
   readonly declarationText = `I understand that:
   <ol class='no-bullets'>
-    <li>i. this is a legal document and I represent that the information that I have provided on this document is true to the best of my knowledge;</li>
+    <li>i. this is a legal document and I represent that the infor  dateOfAcceptance: Date;mation that I have provided on this document is true to the best of my knowledge;</li>
     <li>ii. MSP is a public system based on trust, but also that claims, including those portions relating to the Business Cost Premium, are subject to audit and financial recovery for claims made contrary to the Medicare Protection Act (the "Act");</li>
     <li>iii. submitting false or misleading claims information is an offence under the Act and may be an offence under the Criminal Code of Canada;</li>
     <li>iv. the Business Cost Premium applies to Eligible Fees claimed by Eligible Physicians for services that are provided in a community-based office that has been issued an MSP Facility Number.  Eligible Physicians are those who are responsible to pay for some or all of the lease, rental, or ownership costs of the community-based office that has been issued an MSP Facility Number.  Eligible Physicians, including Administrators who wish to attach, must apply separately to be attached to the MSP Facility Number for this facility to claim the Business Cost Premium on Eligible Fees for services provided at this facility by submitting a Practitioner Attachment to MSP Facility for Business Cost Premium Form.</li>
@@ -141,6 +105,7 @@ export class CreateFacilityDataService {
   get declarationTextForAPI() {
     return prepareDeclarationTextForAPI(this.declarationText);
   }
+
 
   getJSONPayload() {
 
@@ -153,6 +118,7 @@ export class CreateFacilityDataService {
         email: this.emailAddress ? this.emailAddress : null,
         phoneNumber: stripPhoneFormatting( this.facAdminPhoneNumber )
       },
+      //#region Validation
       facility: {
         name: this.facInfoFacilityName,
         address: this.facInfoPhysicalAddress,
@@ -189,20 +155,9 @@ export class CreateFacilityDataService {
         city: this.facInfoCity,
         province: this.facInfoProvince,
         postalCode: stripPostalCodeSpaces(this.facInfoPostalCode),
-      }
+      };
     }
 
     return jsonPayLoad;
-  }
-
-  //#region Validation
-
-   getSubmissionLogObject<T extends BaseResponse>(requestType: string, res: T ): CommonLogMessage {
-    return {
-      event: CommonLogEvents.submission,
-      request: requestType,
-      success: res.returnCode === ReturnCodes.SUCCESS || res.returnCode === ReturnCodes.WARNING,
-      response: res
-    };
   }
 }
