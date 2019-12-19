@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration-route-constants';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -16,7 +16,7 @@ import { ValidationResponse, ReturnCodes } from '../../../core-bcp/models/base-a
   templateUrl: './facility-info.component.html',
   styleUrls: ['./facility-info.component.scss']
 })
-export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
+export class FacilityInfoComponent extends BcpBaseForm implements OnInit, AfterViewInit {
 
   pageTitle: string = 'Facility Information';
   formGroup: FormGroup;
@@ -42,6 +42,20 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
       province: [getProvinceDescription(this.dataService.pracFacilityProvince)],
       postalCode: [this.dataService.pracFacilityPostalCode, [Validators.required]],
       faxNumber: [this.dataService.pracFacilityFaxNumber],
+    });
+  }
+
+  ngAfterViewInit() {
+    super.ngAfterViewInit();
+    this.formGroup.valueChanges.subscribe( value => {
+      // Update data service values
+      this.dataService.pracFacilityName = value.name;
+      this.dataService.pracFacilityNumber = value.mspNumber;
+      this.dataService.pracFacilityAddress = value.address;
+      this.dataService.pracFacilityCity = value.city;
+      this.dataService.pracFacilityProvince = value.province;
+      this.dataService.pracFacilityPostalCode = value.postalCode;
+      this.dataService.pracFacilityFaxNumber = value.faxNumber;
     });
   }
 
