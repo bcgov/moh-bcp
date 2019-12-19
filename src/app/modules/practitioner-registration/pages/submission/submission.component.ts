@@ -50,4 +50,8 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
     return 'NEED TO DO';
   }
 
+  get declarationText() {
+    return this.dataService.declarationText;
+  }
+
 }

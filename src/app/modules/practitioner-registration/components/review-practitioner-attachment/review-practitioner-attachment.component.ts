@@ -24,7 +24,7 @@ export class ReviewPractitionerAttachmentComponent implements OnInit {
   }
 
   reviewItems() {
-    // this.review.displayPrintView = this.dataService.isPrintView;
+    this.review.displayPrintView = this.dataService.isPrintView;
     this.review.redirectPath = PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_ASSIGN.fullpath;
     this.review.header = PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_ASSIGN.title;
 

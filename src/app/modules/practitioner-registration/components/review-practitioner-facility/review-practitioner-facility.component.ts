@@ -18,7 +18,7 @@ export class ReviewPractitionerFacilityComponent implements OnInit {
   }
 
   reviewItems() {
-    // this.review.displayPrintView = this.dataService.isPrintView;
+    this.review.displayPrintView = this.dataService.isPrintView;
     this.review.redirectPath = PRACTITIONER_REGISTRATION_PAGES.FACILITY_INFO.fullpath;
     this.review.header = PRACTITIONER_REGISTRATION_PAGES.FACILITY_INFO.title;
 
