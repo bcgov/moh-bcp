@@ -85,7 +85,7 @@ export class BCPAdminPage extends BCPBasePage {
         this.setIndex(index);
         this.typeText('First name', this.jsonData[this.index].facilityAdminFirstName);
         this.typeText('Last name', this.jsonData[this.index].facilityAdminLastName);
-        this.typeText('Medical services plan practitioner number', this.jsonData[this.index].MSPPractitionerNum);
+        this.typeText('Medical Services Plan Practitioner Number', this.jsonData[this.index].MSPPractitionerNum);
         this.typeText('Email address (optional)', this.jsonData[this.index].emailAdd);
         this.typeText('Phone number', this.jsonData[this.index].phoneNum);
         this.typeText('Extension', this.jsonData[this.index].extension);
@@ -122,7 +122,7 @@ export class BCPInfoPage extends BCPBasePage {
         this.typeText('Physical address', this.jsonData[this.index].address);
         this.typeText('City', this.jsonData[this.index].city);
         this.typeText('Postal code', this.jsonData[this.index].postal);
-        this.typeText('Fax number', this.jsonData[this.index].faxNum);
+        this.typeText('Fax number (optional)', this.jsonData[this.index].faxNum);
 
         var effectiveDate = this.jsonData[this.index].effectiveDate;
         const year = effectiveDate.split('-')[0];
@@ -136,7 +136,7 @@ export class BCPInfoPage extends BCPBasePage {
             this.typeMailingCity(this.jsonData[this.index].mailingCity);
             this.typeMailingPostal(this.jsonData[this.index].mailingPostal);
         }
-        this.clickOption('Does your business qualify for the Business Cost Premium?', this.jsonData[this.index].qualifyForBCP.toString());
+        this.clickOption('Do you request that the Business Cost Premium be applied to Eligible Fees paid to Eligible Physicians attached to this facility?', this.jsonData[this.index].qualifyForBCP.toString());
         this.clickContinue();
     }
 }
