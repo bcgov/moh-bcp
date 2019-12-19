@@ -20,7 +20,7 @@ jobs:
       env:
         CI: true
     # This step should do a webdriver manager update
-    - name: Run webdriver-manager update
+    - name: Update webdriver manager
       run: npm run webdriver-update
     # This step runs e2e tests in Firefox
     - name: Run BCP e2e in Firefox

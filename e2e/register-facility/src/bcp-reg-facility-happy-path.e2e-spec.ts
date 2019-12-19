@@ -23,7 +23,7 @@ export function regFacilityTest(index: number) {
         infoPage.fillPage(index);
         expect(browser.getCurrentUrl()).toContain(REVIEW_PAGE_URL, 'should navigate to the Review Page');
         reviewPage.fillPage(index);
-        // expect(browser.getCurrentUrl()).toContain(SUBMISSION_PAGE_URL, 'should navigate to the Submission Page');
+        expect(browser.getCurrentUrl()).toContain(SUBMISSION_PAGE_URL, 'should navigate to the Submission Page');
     }, 100000);
 }
 
