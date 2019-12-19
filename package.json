@@ -5,7 +5,7 @@
     "ng": "ng",
     "serve": "ng serve",
     "start": "npm run dev",
-    "dev": "ng serve --host=0.0.0.0 -o",
+    "dev": "ng serve --port=4201 --host=0.0.0.0 -o",
     "prebuild": "node src/version.js",
     "build": "ng build --prod",
     "test": "ng test",

@@ -54,8 +54,8 @@ export class BCPHomePage extends BCPBasePage {
       return browser.get('/bcp/register-facility/home');
     }
 
-    typeCaptcha() {
-        element(by.css('input[id="answer"]')).sendKeys('irobot');
+    typeCaptcha(text: string) {
+        element(by.css('input[id="answer"]')).sendKeys(text);
     }
 
     checkConsent() {
@@ -68,7 +68,7 @@ export class BCPHomePage extends BCPBasePage {
     
     fillPage(index: number) {
         this.setIndex(index);
-        this.typeCaptcha();
+        this.typeCaptcha('irobot');
         this.checkConsent();
         this.clickModalContinue();
         this.clickContinue();
