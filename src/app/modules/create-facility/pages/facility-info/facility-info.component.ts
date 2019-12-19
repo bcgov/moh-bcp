@@ -13,6 +13,7 @@ import { PageStateService } from 'moh-common-lib';
 import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 import { ValidationResponse, ReturnCodes } from '../../../core-bcp/models/base-api.model';
 import { CreateFacilityApiService } from '../../services/create-facility-api.service';
+import { IRadioItems } from 'moh-common-lib/lib/components/radio/radio.component';
 
 @Component({
   selector: 'app-facility-info',
@@ -34,6 +35,16 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
   // Facility Effective Date can be on or after January 1, 1966
   effectStartRange: Date = new Date( 1966, 0, 1 );
   isEffectiveDateWarning: boolean = false;
+  isQualifyForBCPOptions: Array<IRadioItems> = [
+    {
+      label: 'The applicant requests that the Business Cost Premium be applied to Eligible Fees paid to Eligible Physicians attached to this facility.',
+      value: true
+    },
+    {
+      label: 'The applicant requests that the Business Cost Premium not be applied to the facility referenced in this form.',
+      value: false
+    }
+  ]
 
   // After this date a warning is displayed
   private _effectiveDateThreshold = addYears( startOfToday(), 1 );

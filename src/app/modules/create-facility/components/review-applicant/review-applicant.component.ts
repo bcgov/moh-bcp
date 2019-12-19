@@ -36,7 +36,7 @@ export class ReviewApplicantComponent implements OnInit {
         { label: 'First name', value: this.dataService.facAdminFirstName },
         { label: 'Last name', value: this.dataService.facAdminLastName },
         { label: 'Medical Services Plan practitioner number', value: this.dataService.pracNumber },
-        { label: 'Email address', value: setNotApplicable( this.dataService.emailAddress  ) },
+        { label: 'Email address (optional)', value: setNotApplicable( this.dataService.emailAddress  ) },
         phoneNumberEntry
       ],
     ];
