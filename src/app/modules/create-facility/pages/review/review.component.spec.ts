@@ -22,7 +22,15 @@ describe('ReviewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ FormsModule, HttpClientTestingModule, ModalModule, RouterTestingModule, SharedCoreModule, SignaturePadModule, ReactiveFormsModule ],
+      imports: [
+        FormsModule,
+        HttpClientTestingModule,
+        ModalModule,
+        RouterTestingModule,
+        SharedCoreModule,
+        SignaturePadModule,
+        ReactiveFormsModule
+      ],
       declarations: [
         ReviewComponent,
         ReviewFacilityComponent,
