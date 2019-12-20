@@ -16,17 +16,11 @@ exports.config = {
   ],
   multiCapabilities: [
     {
-      browserName: 'firefox',
-      firefoxOptions: {
-        args: ['--headless']
-      },
-      'moz:firefoxOptions': {
-        args: [ '--headless' ]
-      }
+      browserName: 'firefox'
     }
   ],
   directConnect: true,
-  baseUrl: 'http://localhost:4201/',
+  baseUrl: 'http://localhost:4300/',
   framework: 'jasmine',
   jasmineNodeOpts: {
     showColors: true,
