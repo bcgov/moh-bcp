@@ -1,5 +1,5 @@
 import { browser } from 'protractor';
-import { BCPAdminPage, BCPBasePage } from './bcp-reg-facility.po';
+import { BCPAdminPage } from './bcp-reg-facility.po';
 
 describe('BCP Register Facility - Admin Page (Unit Test)', () => {
 

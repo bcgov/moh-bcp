@@ -130,11 +130,11 @@ export class BCPInfoPage extends BCPBasePage {
     }
 
     typeMailingCity(text: string) {
-        element(by.css('common-city[name="mailingCity"]')).element(by.css('input')).sendKeys(text);
+        element(by.css('common-city[name="mailingfacAdminFirstNameCity"]')).element(by.css('input')).sendKeys(text);
     }
 
     typeMailingPostal(text: string) {
-        element(by.css('common-postal[name="mailingPostalCode"]')).element(by.css('input')).sendKeys(text);
+        element(by.css('common-postal-code[name="facilityPostalCode"]')).element(by.css('input')).sendKeys(text);
     }
 
     typeDate(legendVal: string, year: string, month: string, day: string) {
@@ -165,9 +165,28 @@ export class BCPInfoPage extends BCPBasePage {
             this.typeText('Mailing address', this.jsonData[this.index].mailingAddress);
             this.typeMailingCity(this.jsonData[this.index].mailingCity);
             this.typeMailingPostal(this.jsonData[this.index].mailingPostal);
+            this.scrollDown();
         }
         this.clickRadioButton('isQualifyForBCP', this.jsonData[this.index].qualifyForBCP);
-        this.clickContinue();
+        // this.clickContinue();
+    }
+
+    checkInfoInputValues(index: number) {
+        this.getInputValue('Facility or practice name').then(faciName => {
+            expect(faciName).toBe(this.jsonData[this.index].facilityName, 'Facility name values should be the same');
+        });
+        this.getInputValue('Physical address').then(address => {
+            expect(address).toBe(this.jsonData[this.index].address, 'Physical address values should be the same');
+        });
+        this.getInputValue('City').then(city => {
+            expect(city).toBe(this.jsonData[this.index].city, 'City values should be the same');
+        });
+        this.getInputValue('Postal code').then(postalCode => {
+            expect(postalCode.replace(/[^A-Z0-9]/g, '')).toBe(this.jsonData[this.index].postal, 'Postal values should be the same');
+        });
+        this.getInputValue('Contact fax number (optional)').then(faxNum => {
+            expect(faxNum.replace(/[^0-9]/g, '')).toBe(this.jsonData[this.index].faxNum, 'Fax number values should be the same');
+        });
     }
 }
 
