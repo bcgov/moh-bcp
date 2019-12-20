@@ -1,10 +1,15 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration-route-constants';
 import { RegisterPractitionerDataService } from '../../services/register-practitioner-data.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ContainerService, PageStateService } from 'moh-common-lib';
 import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
+import { SignatureComponent } from '../../../core-bcp/components/signature/signature.component';
+import { RegisterPractitionerApiService } from '../../services/register-practitioner-api.service';
+import { SubmissionResponse } from '../../../core-bcp/models/base-api.model';
+import { SplunkLoggerService } from '../../../../services/splunk-logger.service';
+import { getAttachmentLabelByValue } from '../../models/practitioner-attachment';
 
 @Component({
   selector: 'bcp-review',
@@ -14,11 +19,15 @@ import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 
 export class ReviewComponent extends BcpBaseForm implements OnInit, AfterViewInit {
 
+  @ViewChild(SignatureComponent, {static: true}) signature: SignatureComponent;
+
   constructor(public dataService: RegisterPractitionerDataService,
               protected containerService: ContainerService,
               protected router: Router,
               protected pageStateService: PageStateService,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              private apiService: RegisterPractitionerApiService,
+              private splunkLoggerService: SplunkLoggerService) {
     super(router, containerService, pageStateService);
   }
 
@@ -48,14 +57,35 @@ export class ReviewComponent extends BcpBaseForm implements OnInit, AfterViewIni
   }
 
   continue() {
-    if ( !this.canContinue() ) {
+    this.signature._onTouched();
 
-      console.log( 'invalid' );
-      this.markAllInputsTouched();
-      return;
+    if ( this.canContinue() ) {
+      this.submit();
     }
-    console.log( 'Continue: Review - needs to be call to backend');
-    this.navigate(PRACTITIONER_REGISTRATION_PAGES.SUBMISSION.fullpath);
+  }
+
+  submit() {
+    this.containerService.setIsLoading();
+    this.dataService.dateOfSubmission = new Date();
+    const jsonPayLoad = this.dataService.getJSONPayload();
+    this.apiService.maintainPractitioner(jsonPayLoad, this.dataService.signature, this.dataService.applicationUUID)
+      .subscribe((res: SubmissionResponse) => {
+
+        this.dataService.jsonMaintPractitioner.response = res;
+        this.splunkLoggerService.log(
+          this.dataService.getSubmissionLogObject<SubmissionResponse>(
+            'Maintain Practitioner - ' + getAttachmentLabelByValue( this.dataService.pracAttachmentType),
+            this.dataService.jsonMaintPractitioner.response
+          )
+        );
+
+        this.containerService.setIsLoading(false);
+        // TODO: Handle failure case, e.g. no backend, failed request, etc.
+        this.navigate(PRACTITIONER_REGISTRATION_PAGES.SUBMISSION.fullpath);
+      }, error => {
+        console.log('ARC apiService on error: ', error);
+        this.containerService.setIsLoading(false);
+      });
   }
 }
 

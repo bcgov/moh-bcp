@@ -23,10 +23,10 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
     super.ngOnInit();
 
     // Set icon to be displayed
-  /*  if (this.dataService.jsonCreateFacility.response &&
-        this.dataService.jsonCreateFacility.response.returnCode >= ApiStatusCodes.SUCCESS) {
-      this.displayIcon = this.dataService.jsonCreateFacility.response.returnCode;
-    }*/
+    if (this.dataService.jsonMaintPractitioner.response &&
+        this.dataService.jsonMaintPractitioner.response.returnCode >= ApiStatusCodes.SUCCESS) {
+      this.displayIcon = this.dataService.jsonMaintPractitioner.response.returnCode;
+    }
   }
 
   get confirmationMessage() {
@@ -47,7 +47,7 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
   }
 
   get referenceNumber() {
-    return 'NEED TO DO';
+    return this.dataService.jsonMaintPractitioner.response.referenceNumber;
   }
 
   get declarationText() {

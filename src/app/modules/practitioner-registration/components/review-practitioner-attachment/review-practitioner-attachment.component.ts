@@ -3,6 +3,7 @@ import { ReviewContainerComponent } from '../../../core-bcp/components/review-co
 import { RegisterPractitionerDataService } from '../../services/register-practitioner-data.service';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration-route-constants';
 import { getAttachmentLabelByValue, PRACTITIONER_ATTACHMENT } from '../../models/practitioner-attachment';
+import { formatDateForDisplay } from '../../../core-bcp/models/helperFunc';
 
 interface ReviewItem {
   label: string;
@@ -34,23 +35,23 @@ export class ReviewPractitionerAttachmentComponent implements OnInit {
     };
     const newAttachmentEffectiveDate: ReviewItem = {
       label: 'Effective date for new attachment',
-      value: this.dataService.pracNewAttachmentEffectiveDate
+      value: formatDateForDisplay(this.dataService.pracNewAttachmentEffectiveDate)
     };
     const newAttachmentCancelDate: ReviewItem = {
       label: 'Cancellation date for new attachment',
-      value: this.dataService.pracNewAttachmentCancelDate
+      value: formatDateForDisplay(this.dataService.pracNewAttachmentCancelDate)
     };
     const cancelDateItem: ReviewItem = {
       label: 'Cancellation date for existing attachment',
-      value: this.dataService.pracCancelAttachmentDate,
+      value: formatDateForDisplay(this.dataService.pracCancelAttachmentDate),
     };
     const changeEffectiveDateItem: ReviewItem = {
       label: 'New effective date for existing attachment (if applicable)',
-      value: this.dataService.pracChangeAttachmentEffectiveDate,
+      value: formatDateForDisplay(this.dataService.pracChangeAttachmentEffectiveDate),
     };
     const changeCancelDateItem: ReviewItem = {
       label: 'New cancellation date for existing attachment (if applicable)',
-      value: this.dataService.pracChangeAttachmentCancelDate,
+      value: formatDateForDisplay(this.dataService.pracChangeAttachmentCancelDate),
     };
 
     const items = [

@@ -2,7 +2,7 @@
 
   <form [formGroup]='formGroup'>
     <h1>{{pageTitle}}</h1>
-    <p class="border-bottom">Review your application before submission</p>
+    <p class="border-bottom">Review your application and provide your signature before submission</p>
 
     <div class="message-container border-warning" *ngIf='showDuplicateWarning'>
         <p class="confirm-icon--warning">
@@ -27,14 +27,13 @@
 
     <div class="row col-md-12 ml-0 pl-0 align-items-center">
       <div class="col-md-12 pl-0">
-        <h2 class="border-bottom">Declaration</h2>
+        <h2 class="border-bottom">Declaration and Administrator Signature</h2>
       </div>
       <div class="row col-md-12 ml-0 pl-0 align-items-left" [innerHtml]='dataService.declarationText'>
 
       </div>
     </div>
 
-    <h2 class="border-bottom">Signtaure</h2>
     <bcp-signature name='signature' formControlName='signature'></bcp-signature>
   </form>
 </common-page-framework>

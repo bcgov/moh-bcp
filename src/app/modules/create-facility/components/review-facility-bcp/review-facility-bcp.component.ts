@@ -28,8 +28,10 @@ export class ReviewFacilityBcpComponent implements OnInit {
     const items = [
       [
         {
-          label: 'Do you request that the Business Cost Premium be applied to Eligible Fees paid to Eligible Physicians attached to this facility?',
-          value: this.dataService.facInfoIsQualifyForBCP === true ? 'Yes' : 'No',
+          label: null,
+          value: this.dataService.facInfoIsQualifyForBCP === true
+            ? 'The applicant requests that the Business Cost Premium be applied to Eligible Fees paid to Eligible Physicians attached to this facility.'
+            : 'The applicant requests that the Business Cost Premium not be applied to the facility referenced in this form.',
         }
       ],
     ];

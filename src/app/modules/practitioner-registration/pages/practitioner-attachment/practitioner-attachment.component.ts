@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration-route-constants';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -32,7 +32,7 @@ interface ChangeFormGroup extends BaseFormGroup {
   templateUrl: './practitioner-attachment.component.html',
   styleUrls: ['./practitioner-attachment.component.scss']
 })
-export class PractitionerAttachmentComponent extends BcpBaseForm implements OnInit {
+export class PractitionerAttachmentComponent extends BcpBaseForm implements OnInit, AfterViewInit {
 
   pageTitle: string = 'Practitioner Attachment';
   formGroup: FormGroup;
@@ -68,6 +68,25 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
     this.initValidators();
   }
 
+  ngAfterViewInit() {
+    super.ngAfterViewInit();
+    this.listenForChanges();
+  }
+
+  listenForChanges() {
+    if (!this.formGroup) return;
+    this.formGroup.valueChanges.subscribe( value => {
+      // Update data service values
+      this.dataService.pracAttachmentType = value.attachmentType;
+      this.dataService.pracNewAttachmentType = value.newAttachmentType;
+      this.dataService.pracNewAttachmentEffectiveDate = value.newAttachmentEffectiveDate;
+      this.dataService.pracNewAttachmentCancelDate = value.newAttachmentCancelDate;
+      this.dataService.pracCancelAttachmentDate = value.cancelAttachmentDate;
+      this.dataService.pracChangeAttachmentEffectiveDate = value.changeAttachmentEffectiveDate;
+      this.dataService.pracChangeAttachmentCancelDate = value.changeAttachmentCancelDate;
+    });
+  }
+
   initValidators() {
     switch (this.dataService.pracAttachmentType) {
       case PRACTITIONER_ATTACHMENT.NEW.value:
@@ -80,6 +99,10 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
 
       case PRACTITIONER_ATTACHMENT.CHANGE.value:
         this.formGroup = this.getFormGroupForChange();
+        break;
+
+      default:
+        this.formGroup = this.fb.group(this.getBaseFormGroup());
         break;
     }
   }
@@ -134,11 +157,13 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
   changeAttachmentType(value) {
     this.dataService.pracAttachmentType = value;
     this.initValidators();
+    this.listenForChanges();
   }
 
   changeNewAttachmentType(value: boolean) {
     this.dataService.pracNewAttachmentType = value;
     this.initValidators();
+    this.listenForChanges();
   }
 
   get shouldShowNewSection() {
