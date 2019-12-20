@@ -43,7 +43,7 @@ export class PractitionerInfoComponent extends BcpBaseForm implements OnInit, Af
       email: [this.dataService.pracInfoEmail, [Validators.email]],
       phoneNumber: [this.dataService.pracInfoPhoneNumber, [Validators.required]],
       phoneNumberExt: [this.dataService.pracInfoPhoneNumberExt],
-    });    
+    });
   }
 
   ngAfterViewInit() {
