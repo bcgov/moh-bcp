@@ -16,7 +16,10 @@ exports.config = {
   ],
   multiCapabilities: [
     {
-      browserName: 'firefox'
+      browserName: 'firefox',
+      "moz:firefoxOptions": {
+        "args": ["-headless"],
+      }
     }
   ],
   directConnect: true,
