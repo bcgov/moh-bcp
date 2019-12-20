@@ -3,13 +3,13 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { SharedCoreModule } from 'moh-common-lib';
 import { FormsModule } from '@angular/forms';
-import { ModalModule } from "ngx-bootstrap";
+import { ModalModule } from 'ngx-bootstrap';
 import { SignaturePadModule } from 'angular2-signaturepad';
 
-import { ReviewApplicantComponent } from  './review-applicant/review-applicant.component';
-import { ReviewFacilityComponent } from  './review-facility/review-facility.component';
-import { ReviewFacilityMailingInfoComponent } from  './review-facility-mailing-info/review-facility-mailing-info.component';
-import { ReviewFacilityBcpComponent } from  './review-facility-bcp/review-facility-bcp.component';
+import { ReviewApplicantComponent } from './review-applicant/review-applicant.component';
+import { ReviewFacilityComponent } from './review-facility/review-facility.component';
+import { ReviewFacilityMailingInfoComponent } from './review-facility-mailing-info/review-facility-mailing-info.component';
+import { ReviewFacilityBcpComponent } from './review-facility-bcp/review-facility-bcp.component';
 import { SignatureComponent } from '../../../core-bcp/components/signature/signature.component';
 import { ReviewContainerComponent } from '../../../core-bcp/components/review-container/review-container.component';
 
