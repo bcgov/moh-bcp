@@ -13,7 +13,7 @@ export const validateFacilityNumber: ValidatorFn = (control: AbstractControl): V
 };
 
 @Directive({
-  selector: '[appBcpValidateFacilityNumber]',
+  selector: '[bcpValidateFacilityNumber]',
   providers: [{provide: NG_VALIDATORS, useExisting: ValidateFacilityNumberDirective, multi: true}]
 })
 export class ValidateFacilityNumberDirective implements Validator {
