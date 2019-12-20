@@ -4,7 +4,10 @@ on: [push]
 
 jobs:
   build:
-
+    branding:
+      icon: 'book'  
+      color: 'green'
+      
     runs-on: ubuntu-latest
 
     strategy:
