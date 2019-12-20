@@ -3,7 +3,7 @@ name: Unit Tests
 on: [push]
 
 jobs:
-  karma:
+  jasmine:
 
     runs-on: ubuntu-latest
 
@@ -20,6 +20,6 @@ jobs:
     - name: 
       run: |
         npm ci
-        npm run test
+        npm run test-ci
       env:
         CI: true
