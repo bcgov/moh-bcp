@@ -34,12 +34,21 @@ export class FakeBackendService {
   }
 
   createFacility( request: HttpRequest<any> ): any {
-    const referenceNo = 'BCP' + String( Math.round( Math.random() * 99999999 ) );
 
     // TODO: Create different return values base on data sent in request
     const obj = {
       returnCode: ReturnCodes.SUCCESS,
-      referenceNumber: referenceNo,
+      referenceNumber: this._generateReferenceNumber(),
+      facilityNumber: 'F' + String( Math.round( Math.random() * 999999 ) )
+    };
+
+    return Object.assign(this._baseResponse( request ), obj);
+  }
+
+  maintainPractitioner( request: HttpRequest<any> ): any {
+    const obj = {
+      returnCode: ReturnCodes.SUCCESS,
+      referenceNumber: this._generateReferenceNumber(),
       facilityNumber: 'F' + String( Math.round( Math.random() * 999999 ) )
     };
 
@@ -65,6 +74,10 @@ export class FakeBackendService {
       requestUUID: request.body.requestUUID,
       applicationUUID: request.body.applicationUUID,
     };
+  }
+
+  private _generateReferenceNumber(): string {
+    return 'BCP' + String( Math.round( Math.random() * 99999999 ) );
   }
 
 }

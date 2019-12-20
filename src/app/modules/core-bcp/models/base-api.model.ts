@@ -48,3 +48,7 @@ export interface BaseResponse extends APIBase {
 export interface ValidationResponse extends BaseResponse {
   message: string;
 }
+
+export interface SubmissionResponse extends BaseResponse {
+  referenceNumber: string;
+}

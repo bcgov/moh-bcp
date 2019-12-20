@@ -2,7 +2,12 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { BaseDataService } from '../../../services/base-data.service';
 import { BRITISH_COLUMBIA } from 'moh-common-lib';
-import { prepareDeclarationTextForAPI } from '../../core-bcp/models/helperFunc';
+import {
+  prepareDeclarationTextForAPI,
+  stripPostalCodeSpaces,
+  stripPhoneFormatting,
+  convertToJSONDate } from '../../core-bcp/models/helperFunc';
+import { PRACTITIONER_ATTACHMENT } from '../models/practitioner-attachment';
 
 @Injectable({
   providedIn: 'root'
@@ -74,4 +79,52 @@ export class RegisterPractitionerDataService extends BaseDataService {
   get declarationTextForAPI() {
     return prepareDeclarationTextForAPI(this.declarationText);
   }
+
+  // Abstract method
+  getJSONPayload() {
+
+    const jsonPayLoad: any = {
+
+      // TODO: Determine whether this is required - it exists in Create Facility
+      // informationConsentAgreement: this.informationCollectionNoticeConsent,
+      facility: {
+        facilityNumber: this.pracFacilityNumber,
+        name: this.pracFacilityName,
+        address: this.pracFacilityAddress,
+        city: this.pracFacilityCity,
+        province: this.pracFacilityProvince,
+        postalCode: stripPostalCodeSpaces(this.pracFacilityPostalCode),
+        faxNumber: stripPhoneFormatting(this.pracFacilityFaxNumber) // Optional
+      },
+      practitioner: {
+        practitionerNumber: this.pracInfoMSPPracNumber,
+        firstName: this.pracInfoFirstName,
+        lastName: this.pracInfoLastName,
+        email: this.pracInfoEmail ? this.pracInfoEmail : null,       // optional
+        phoneNumber: stripPhoneFormatting(this.pracInfoPhoneNumber),
+        phoneNumberExtension: this.pracInfoPhoneNumberExt ? this.pracInfoPhoneNumberExt : null,  // optional
+      },
+      bcp: {
+        // when a flag is false, the corresponding date must be null.
+        new: (this.pracAttachmentType === PRACTITIONER_ATTACHMENT.NEW.value),
+        effectiveDate: this.pracNewAttachmentType === false ? convertToJSONDate(this.pracNewAttachmentEffectiveDate) : null,
+        cancel: (this.pracAttachmentType === PRACTITIONER_ATTACHMENT.CANCEL.value),
+        cancelDate: convertToJSONDate(this.pracCancelAttachmentDate),
+        changeEffective: (this.pracAttachmentType === PRACTITIONER_ATTACHMENT.CHANGE.value &&
+          convertToJSONDate(this.pracChangeAttachmentEffectiveDate) !== null),
+        changeEffectiveDate: convertToJSONDate(this.pracChangeAttachmentEffectiveDate),
+        changeCancel: (this.pracAttachmentType === PRACTITIONER_ATTACHMENT.CHANGE.value &&
+          convertToJSONDate(this.pracChangeAttachmentCancelDate) !== null),
+        changeCancelDate: convertToJSONDate(this.pracChangeAttachmentCancelDate),
+        locumAssignment: this.pracNewAttachmentType,
+        locumEffectiveDate: this.pracNewAttachmentType === true ? convertToJSONDate(this.pracNewAttachmentEffectiveDate) : null,
+        locumCancelDate: this.pracNewAttachmentType === true ? convertToJSONDate(this.pracNewAttachmentCancelDate) : null
+      },
+      dateOfAcceptance: convertToJSONDate(this.dateOfAcceptance),
+      declarationText: this.declarationTextForAPI,
+    };
+
+    return jsonPayLoad;
+  }
+
 }
