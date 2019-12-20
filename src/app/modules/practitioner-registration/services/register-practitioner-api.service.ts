@@ -7,6 +7,9 @@ import {
   PractitionerValidationPartial,
   ValidatePractitionerRequest,
   FacilityValidationPartial } from '../../core-bcp/models/base-api.model';
+import { CommonImage } from 'moh-common-lib';
+import { flatMap, catchError } from 'rxjs/operators';
+import { BCPDocumentTypes } from '../../core-bcp/models/documentTypes';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +22,9 @@ export class RegisterPractitionerApiService extends BCPApiService {
     super(http, logger, dataService);
   }
 
-  /** TODO: Find out what function will be called */
+  // TODO:  If flag can be added to indicate to look for MD, this will need to be
+  //        removed and use 'validatePracitioner' which is moved to BCPApiService
+  //        from the CreateFacilityApiService
   validateMD(practitioner: PractitionerValidationPartial, applicationUUID) {
     const payload: ValidatePractitionerRequest = {
         practitioner,
@@ -33,7 +38,9 @@ export class RegisterPractitionerApiService extends BCPApiService {
     return this.post(url, payload);
   }
 
-  /** TODO: Find out what function will be called */
+  // TODO:  If can check whether field exists or not, this will need to be
+  //        removed and use 'validateFacility' which is moved to BCPApiService
+  //        from the CreateFacilityApiService
   validateFacilityID(facility: FacilityValidationPartial, applicationUUID: string) {
     const payload = {
       facility,
@@ -45,6 +52,32 @@ export class RegisterPractitionerApiService extends BCPApiService {
 
     const url = `${this.baseUrl}/validateFacilityID`;
 
+    return this.post(url, payload);
+  }
+
+
+
+  maintainPractitioner(jsonPayLoad, signature: CommonImage, applicationUUID) {
+    return this.uploadSignature(signature, applicationUUID)
+      .pipe(
+        flatMap(attachRes => this.submitMaintPracJson(jsonPayLoad, applicationUUID, signature)),
+        catchError(this.handleError.bind(this))
+      );
+  }
+
+  private submitMaintPracJson(jsonPayLoad: any, applicationUUID: string, signature: CommonImage<BCPDocumentTypes> ) {
+    const requestUUID = this.generateUUID();
+    const payload = {
+      maintainPractitionerSubmission: jsonPayLoad,
+      requestUUID,
+      applicationUUID,
+      attachments: [signature.toJSON()]
+    };
+
+    this.dataService.jsonMaintPractitioner.request = payload;
+
+    // TODO: Update URL once we know what it is
+    const url = `${this.baseUrl}/maintainPractitioner`;
     return this.post(url, payload);
   }
 

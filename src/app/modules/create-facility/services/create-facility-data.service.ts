@@ -106,7 +106,7 @@ export class CreateFacilityDataService extends BaseDataService {
     return prepareDeclarationTextForAPI(this.declarationText);
   }
 
-
+  // Abstract method
   getJSONPayload() {
 
     const jsonPayLoad: any = {

@@ -46,6 +46,11 @@ export class FakeBackendInterceptor implements HttpInterceptor  {
           payload = this.fakebackendService.createFacility( request );
         }
 
+        if (request.url.includes( 'maintainPractitioner' ) ) {
+          console.log( 'Fake-backend for maintain practitioner' );
+          payload = this.fakebackendService.maintainPractitioner( request );
+        }
+
         if (request.url.includes( 'bcpAttachment' )) {
           console.log( 'Fake-backend for create facility' );
           payload = this.fakebackendService.bcpAttachment ( request );

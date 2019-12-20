@@ -14,7 +14,7 @@ export const PRACTITIONER_ATTACHMENT = {
 };
 
 export const getAttachmentLabelByValue = (value) => {
-  for(let type in PRACTITIONER_ATTACHMENT) {
+  for (const type in PRACTITIONER_ATTACHMENT) {
     if (PRACTITIONER_ATTACHMENT[type].value === value)  {
       return PRACTITIONER_ATTACHMENT[type].label;
     }

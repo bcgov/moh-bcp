@@ -6,7 +6,7 @@ import { BaseResponse, ReturnCodes } from '../modules/core-bcp/models/base-api.m
 @Injectable({
   providedIn: 'root'
 })
-export class BaseDataService {
+export abstract class BaseDataService {
 
   constructor() { }
 
@@ -20,7 +20,6 @@ export class BaseDataService {
 
   applicationUUID: string = UUID.UUID();
   informationCollectionNoticeConsent: boolean;
-
 
   /* Used to switch review contents to a view to be printed (i.e. no edit icons,
    *  or grey background)
@@ -46,4 +45,6 @@ export class BaseDataService {
     };
   }
 
+  // Convert data into a JSON payload
+  abstract getJSONPayload(): any;
 }

@@ -22,6 +22,8 @@ export class CreateFacilityApiService extends BCPApiService {
     super(http, logger, dataService);
   }
 
+  // TODO:  If flag can be added to indicate to look for MD, this will need to be
+  //        moved to the BCPApiService
   validatePractitioner(practitioner: PractitionerValidationPartial, applicationUUID) {
     const payload: ValidatePractitionerRequest = {
       practitioner,
@@ -35,6 +37,8 @@ export class CreateFacilityApiService extends BCPApiService {
     return this.post(url, payload);
   }
 
+  // TODO:  If can check whether field exists or not, this will need to be
+  //        moved to the BCPApiService
   validateFacility(facility: FacilityValidationPartial, applicationUUID: string) {
     const payload = {
       facility,
