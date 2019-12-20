@@ -9,7 +9,7 @@
     <p>You must complete all parts of this form.</p>
 </common-page-section>
 
-<bcp-consent-modal (onAccept)='accept($event)'
-                   (onValidToken)='setToken($event)'
+<bcp-consent-modal (accept)='accept($event)'
+                   (validToken)='setToken($event)'
                    [hasToken]='hasToken()'
                    [initialVisibility]='initialModalVisibility'></bcp-consent-modal>

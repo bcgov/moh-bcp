@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SignatureComponent } from './signature.component';
-import { ModalModule } from "ngx-bootstrap";
+import { ModalModule } from 'ngx-bootstrap';
 import { SharedCoreModule } from 'moh-common-lib';
 import { SignaturePadModule } from 'angular2-signaturepad';
 
