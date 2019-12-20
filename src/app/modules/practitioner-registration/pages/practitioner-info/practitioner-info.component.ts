@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration-route-constants';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -16,7 +16,7 @@ import { SplunkLoggerService } from '../../../../services/splunk-logger.service'
   templateUrl: './practitioner-info.component.html',
   styleUrls: ['./practitioner-info.component.scss']
 })
-export class PractitionerInfoComponent extends BcpBaseForm implements OnInit {
+export class PractitionerInfoComponent extends BcpBaseForm implements OnInit, AfterViewInit {
 
   pageTitle: string = 'Practitioner Information';
   formGroup: FormGroup;
@@ -43,6 +43,19 @@ export class PractitionerInfoComponent extends BcpBaseForm implements OnInit {
       email: [this.dataService.pracInfoEmail, [Validators.email]],
       phoneNumber: [this.dataService.pracInfoPhoneNumber, [Validators.required]],
       phoneNumberExt: [this.dataService.pracInfoPhoneNumberExt],
+    });    
+  }
+
+  ngAfterViewInit() {
+    super.ngAfterViewInit();
+    this.formGroup.valueChanges.subscribe( value => {
+      // Update data service values
+      this.dataService.pracInfoFirstName = value.firstName;
+      this.dataService.pracInfoLastName = value.lastName;
+      this.dataService.pracInfoMSPPracNumber = value.mspPracNumber;
+      this.dataService.pracInfoEmail = value.email;
+      this.dataService.pracInfoPhoneNumber = value.phoneNumber;
+      this.dataService.pracInfoPhoneNumberExt = value.phoneNumberExt;
     });
   }
 
