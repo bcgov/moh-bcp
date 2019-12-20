@@ -1,7 +1,7 @@
 import { browser, by, element, protractor, Key } from 'protractor';
-import { AbstractTestPage } from "moh-common-lib/e2e";
+import { AbstractTestPage } from 'moh-common-lib/e2e';
 import * as fs from 'fs';
-import * as sampleFile from './bcp-sample-data.json'; 
+import * as sampleFile from './bcp-sample-data.json';
 
 /**
  * This class is for GENERAL functions, and all those that target components
@@ -11,7 +11,6 @@ import * as sampleFile from './bcp-sample-data.json';
  */
 
 export function getJSONData() {
-    const x = process.argv;
     const input = process.argv.filter(x => x.startsWith('--data'));
     if (input.toString() !== '') {
         const filename = input.toString().split('=')[1];
@@ -26,8 +25,8 @@ export class BCPBasePage extends AbstractTestPage {
 
     protected jsonData = getJSONData();
     protected index: number;
-    
-    setIndex(index: number){
+
+    setIndex(index: number) {
         this.index = index;
     }
 
@@ -40,11 +39,13 @@ export class BCPBasePage extends AbstractTestPage {
     }
 
     typeText(labelVal: string, text: string) {
-        element(by.cssContainingText('label', `${labelVal}`)).element(by.xpath('../..')).element(by.css('input')).sendKeys(text);
+        element(by.cssContainingText('label', `${labelVal}`)).element(by.xpath('../..'))
+            .element(by.css('input')).sendKeys(text);
     }
 
     clickOption(legendVal: string, forVal: string) {
-        element(by.cssContainingText('legend', `${legendVal}`)).element(by.xpath('../..')).element(by.css(`label[for^="${forVal}"]`)).click();
+        element(by.cssContainingText('legend', `${legendVal}`)).element(by.xpath('../..'))
+            .element(by.css(`label[for^="${forVal}"]`)).click();
     }
 }
 
@@ -65,7 +66,7 @@ export class BCPHomePage extends BCPBasePage {
     clickModalContinue() {
         element(by.css('button[type="submit"]')).click();
     }
-    
+
     fillPage(index: number) {
         this.setIndex(index);
         this.typeCaptcha('irobot');
@@ -108,12 +109,16 @@ export class BCPInfoPage extends BCPBasePage {
     }
 
     typeDate(legendVal: string, year: string, month: string, day: string) {
-        var months = [ "January", "February", "March", "April", "May", "June", 
-           "July", "August", "September", "October", "November", "December" ];
-        element(by.cssContainingText('legend', `${legendVal}`)).element(by.xpath('../..')).element(by.css('select[id^="month"]')).sendKeys(months[parseInt(month)-1]);
-        //element(by.cssContainingText('legend', `${legendVal}`)).element(by.xpath('../..')).element(by.css(`option[value="${month}"]`)).click();
-        element(by.cssContainingText('legend', `${legendVal}`)).element(by.xpath('../..')).element(by.css(`input[id^="day"]`)).sendKeys(day);
-        element(by.cssContainingText('legend', `${legendVal}`)).element(by.xpath('../..')).element(by.css(`input[id^="year"]`)).sendKeys(year);
+        const months = [ 'January', 'February', 'March', 'April', 'May', 'June',
+           'July', 'August', 'September', 'October', 'November', 'December' ];
+        element(by.cssContainingText('legend', `${legendVal}`)).element(by.xpath('../..'))
+            .element(by.css('select[id^="month"]')).sendKeys(months[parseInt(month, 10) - 1]);
+        // element(by.cssContainingText('legend', `${legendVal}`)).element(by.xpath('../..'))
+        //     .element(by.css(`option[value="${month}"]`)).click();
+        element(by.cssContainingText('legend', `${legendVal}`)).element(by.xpath('../..'))
+            .element(by.css(`input[id^="day"]`)).sendKeys(day);
+        element(by.cssContainingText('legend', `${legendVal}`)).element(by.xpath('../..'))
+            .element(by.css(`input[id^="year"]`)).sendKeys(year);
     }
 
     fillPage(index: number) {
@@ -124,14 +129,15 @@ export class BCPInfoPage extends BCPBasePage {
         this.typeText('Postal code', this.jsonData[this.index].postal);
         this.typeText('Fax number (optional)', this.jsonData[this.index].faxNum);
 
-        var effectiveDate = this.jsonData[this.index].effectiveDate;
+        const effectiveDate = this.jsonData[this.index].effectiveDate;
         const year = effectiveDate.split('-')[0];
         const month = effectiveDate.split('-')[1];
         const day = effectiveDate.split('-')[2];
         this.typeDate('Effective date', year, month, day);
         this.scrollDown();
-        this.clickOption('Is the mailing address the same as the Physical Facility Address?', this.jsonData[this.index].hasSameMailingAddress.toString());
-        if(!this.jsonData[this.index].hasSameMailingAddress){
+        this.clickOption('Is the mailing address the same as the Physical Facility Address?',
+            this.jsonData[this.index].hasSameMailingAddress.toString());
+        if (!this.jsonData[this.index].hasSameMailingAddress) {
             this.typeText('Mailing address', this.jsonData[this.index].mailingAddress);
             this.typeMailingCity(this.jsonData[this.index].mailingCity);
             this.typeMailingPostal(this.jsonData[this.index].mailingPostal);
@@ -155,7 +161,7 @@ export class BCPReviewPage extends BCPBasePage {
         element(by.cssContainingText('label', `${text}`)).click();
     }
 
-    writeSignature(){
+    writeSignature() {
         element(by.cssContainingText('button', 'Sign')).click();
         element(by.css('canvas')).click();
         element(by.cssContainingText('button', 'Accept')).click();

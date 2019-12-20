@@ -5,8 +5,8 @@ let homePage: BCPHomePage;
 let adminPage: BCPAdminPage;
 let infoPage: BCPInfoPage;
 let reviewPage: BCPReviewPage;
-let page: BCPBasePage; 
-let index = 0;
+let page: BCPBasePage;
+let _index = 0;
 
 const ADMIN_PAGE_URL = `/bcp/register-facility/facility-administrator`;
 const INFO_PAGE_URL = `/bcp/register-facility/facility-info`;
@@ -28,7 +28,7 @@ export function regFacilityTest(index: number) {
 }
 
 describe('BCP Register Facility - End to End Test (Happy Path)', () => {
-    
+
     beforeEach(() => {
         homePage = new BCPHomePage();
         adminPage = new BCPAdminPage();
@@ -37,9 +37,9 @@ describe('BCP Register Facility - End to End Test (Happy Path)', () => {
         page = new BCPBasePage();
     });
 
-    while(index < Object.keys(getJSONData()).length - 1){
-        regFacilityTest(index);
-        index++;
+    while (_index < Object.keys(getJSONData()).length - 1) {
+        regFacilityTest(_index);
+        _index++;
     }
 
 });
