@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CoreBCPModule } from '../../../core-bcp/core-bcp.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 describe('ApplicantInfoComponent', () => {
@@ -13,7 +14,7 @@ describe('ApplicantInfoComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ FormsModule, RouterTestingModule, HttpClientTestingModule, CoreBCPModule ],
+      imports: [ FormsModule, RouterTestingModule, HttpClientTestingModule, CoreBCPModule, ReactiveFormsModule ],
       declarations: [ ApplicantInfoComponent ]
     })
     .compileComponents();

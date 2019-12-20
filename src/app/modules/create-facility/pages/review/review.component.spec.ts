@@ -5,11 +5,12 @@ import { SharedCoreModule } from 'moh-common-lib';
 import { FormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap';
 import { SignaturePadModule } from 'angular2-signaturepad';
+import { ReactiveFormsModule } from '@angular/forms';
 
-import { ReviewApplicantComponent } from './review-applicant/review-applicant.component';
-import { ReviewFacilityComponent } from './review-facility/review-facility.component';
-import { ReviewFacilityMailingInfoComponent } from './review-facility-mailing-info/review-facility-mailing-info.component';
-import { ReviewFacilityBcpComponent } from './review-facility-bcp/review-facility-bcp.component';
+import { ReviewApplicantComponent } from '../../components/review-applicant/review-applicant.component';
+import { ReviewFacilityComponent } from '../../components/review-facility/review-facility.component';
+import { ReviewFacilityMailingInfoComponent } from '../../components/review-facility-mailing-info/review-facility-mailing-info.component';
+import { ReviewFacilityBcpComponent } from '../../components/review-facility-bcp/review-facility-bcp.component';
 import { SignatureComponent } from '../../../core-bcp/components/signature/signature.component';
 import { ReviewContainerComponent } from '../../../core-bcp/components/review-container/review-container.component';
 
@@ -21,7 +22,15 @@ describe('ReviewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ FormsModule, HttpClientTestingModule, ModalModule, RouterTestingModule, SharedCoreModule, SignaturePadModule ],
+      imports: [
+        FormsModule,
+        HttpClientTestingModule,
+        ModalModule,
+        RouterTestingModule,
+        SharedCoreModule,
+        SignaturePadModule,
+        ReactiveFormsModule
+      ],
       declarations: [
         ReviewComponent,
         ReviewFacilityComponent,
