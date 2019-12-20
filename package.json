@@ -3,17 +3,23 @@
   "version": "0.9.0",
   "scripts": {
     "ng": "ng",
+    "serve": "ng serve",
     "start": "npm run dev",
-    "dev": "ng serve --host=0.0.0.0 -o",
+    "dev": "ng serve --port=4201 --host=0.0.0.0 -o",
     "prebuild": "node src/version.js",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "e2e-protractor": "npx protractor",
+    "e2e:bcprf-firefox": "npm run e2e -- --protractorConfig=e2e/register-facility/protractor-bcp-firefox.conf.js",
+    "e2e:bcprf-chrome": "npm run e2e -- --protractorConfig=e2e/register-facility/protractor-bcp-chrome.conf.js",
+    "e2e:bcp": "npm run e2e-protractor -- e2e/register-facility/protractor.bcp.conf.js",
+    "webdriver-update": "webdriver-manager update"
   },
   "private": true,
   "dependencies": {
-    "@angular-devkit/build-angular": "^0.803.8",
+    "@angular-devkit/build-angular": "^0.803.20",
     "@angular/animations": "~8.2.9",
     "@angular/common": "~8.2.9",
     "@angular/compiler": "~8.2.9",
@@ -37,6 +43,7 @@
     "ngx-bootstrap": "^5.1.2",
     "ngx-mydatepicker": "^2.4.9",
     "pdfjs-dist": "^2.2.228",
+    "puppeteer": "^2.0.0",
     "rxjs": "6.5.3",
     "sha1": "^1.1.1",
     "tslib": "^1.9.0",
@@ -44,7 +51,7 @@
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
-    "@angular/cli": "~8.3.8",
+    "@angular/cli": "^8.3.20",
     "@angular/compiler-cli": "~8.2.9",
     "@angular/language-service": "~8.2.9",
     "@types/jasmine": "~3.4.2",

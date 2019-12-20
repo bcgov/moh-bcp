@@ -1,0 +1,27 @@
+name: Run BCP e2e tests
+# This workflow is triggered on push and pull request to the repository
+on: [push, pull_request]
+jobs:
+  build:
+    name: BCP e2e tests in Firefox
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    # This step installs dependencies
+    - name: Install dependencies
+      run: npm install
+      env:
+        CI: true
+    # This step should do a webdriver manager update
+    - name: Update webdriver manager
+      run: npm run webdriver-update
+    # This step runs e2e tests in Firefox
+    - name: Run BCP e2e in Firefox
+      run: npm run e2e:bcprf-firefox

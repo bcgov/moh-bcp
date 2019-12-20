@@ -1,0 +1,22 @@
+[
+    {
+        "facilityAdminFirstName": "Sample First Name",
+        "facilityAdminLastName": "Sample Last Name",
+        "MSPPractitionerNum": "99999",
+        "emailAdd": "test@sample.com",
+        "confirmEmailAdd": "test@sample.com",
+        "phoneNum": "2501234567",
+        "extension": "123",
+        "facilityName": "Sample Facility Name",
+        "address": "12345 Douglas St.",
+        "city": "Victoria",
+        "postal": "V1A1S1",
+        "faxNum": "2501234568",
+        "effectiveDate": "2020-10-10",
+        "hasSameMailingAddress": true,
+        "mailingAddress": "",
+        "mailingCity": "",
+        "mailingPostal": "",
+        "qualifyForBCP": true
+    }
+]
