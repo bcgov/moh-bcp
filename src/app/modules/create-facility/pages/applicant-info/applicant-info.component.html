@@ -1,8 +1,6 @@
 <common-page-framework layout='blank'>
   <h1>{{pageTitle}}</h1>
-  <p>In order to apply for a Medical Services Plan Facility Number the Facility Administrator must
-    by an active medical practitioner that is registered with the College of Physicians and Surgeons of British
-    Columbia. </p>
+  <p>To apply for a Medical Services Plan Facility Number, the Administrator must be an active medical practitioner.</p>
   <hr>
 
   <common-page-section>
@@ -40,7 +38,7 @@
       <div class="form-group">
         <common-email name='email'
                       formControlName='email'
-                      label='Email address (optional)'
+                      label='Contact email (optional)'
                       [maxlength]="50"></common-email>
       </div>
 
@@ -48,13 +46,13 @@
         <div class="col-10">
           <common-phone-number name='phoneNumber'
                                formControlName='phoneNumber'
-                               label='Phone number'
+                               label='Contact phone number'
                                [allowInternational]='false'></common-phone-number>
         </div>
 
         <div class="col-2">
           <label for='extension'>
-            Extension
+            Extension (optional)
           </label>
           <input name='extension'
                  formControlName='extension'
@@ -70,13 +68,13 @@
     </form>
     <aside>
       <h2>Tip</h2>
-      <p>A validation check will automatically be done using  the following fields upon submission of this page:</p>
+      <p>validation check will automatically be done using  the following fields upon submission of this page:</p>
       <ul>
         <li>First name</li>
         <li>Last name</li>
         <li>Medical Services Plan Practitioner Number</li>
       </ul>
-      <p>In order to apply for a Facility Number the Facility Administrator must be an Active medical practitioner.</p>
+      <p>In order to apply for a Facility Number the Facility Administrator must be an active medical practitioner.</p>
     </aside>
 
   </common-page-section>
