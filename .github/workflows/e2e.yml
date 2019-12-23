@@ -25,6 +25,9 @@ jobs:
     # This step runs e2e tests in Firefox
     - name: Run BCP e2e in Firefox
       run: npm run e2e:bcprf-firefox
+    # This step should install the latest chrome stable
+    - name: Install Google Chrome Stable
+      run: sudo yum install google-chrome-stable
       # This step runs e2e tests in Chrome
     - name: Run BCP e2e in Chrome
       run: npm run e2e:bcprf-chrome
