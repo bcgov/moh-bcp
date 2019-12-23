@@ -32,16 +32,29 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
         this.dataService.jsonCreateFacility.response.returnCode >= ApiStatusCodes.SUCCESS) {
       this.displayIcon = this.dataService.jsonCreateFacility.response.returnCode;
       this.isUnderReview = (this.displayIcon === ApiStatusCodes.WARNING);
+
+      if (this.response.referenceNumber && this.response.returnCode === ApiStatusCodes.ERROR){
+        // Mainframe is down, but have ref # from max image.
+        console.log('arc seing cusom dipslay icon');
+        // ideally return code should change on server side, as this is same as a "MATCH" request
+        this.displayIcon = ApiStatusCodes.SUCCESS;
+      }
     }
   }
 
   get confirmationMessage() {
+
     if (this.displayIcon === ApiStatusCodes.WARNING) {
       return 'Your application has been submitted but you will need to ' +
         'contact HIBC for the Facility Number.';
     }
 
+
     return super.getConfirmationMessage();
+  }
+
+  get response(){
+    return this.dataService.jsonCreateFacility.response;
   }
 
   get facilityNumberText() {
