@@ -64,6 +64,12 @@
                     formControlName="changeAttachmentCancelDate">
       </common-date>
     </div>
+
+    <common-error-container [displayError]="(formGroup?.controls?.changeAttachmentHasAtLeastOneDate?.dirty || formGroup?.controls?.changeAttachmentHasAtLeastOneDate?.touched) &&  formGroup?.controls?.changeAttachmentHasAtLeastOneDate?.errors">
+      <div *ngIf="!formGroup?.controls?.changeAttachmentHasAtLeastOneDate?.errors?.requiredTrue">
+        At least one of the date fields is required
+      </div>
+    </common-error-container>
   </ng-container>
   
 </form>

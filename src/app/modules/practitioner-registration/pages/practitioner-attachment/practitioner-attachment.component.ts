@@ -25,6 +25,7 @@ interface CancelFormGroup extends BaseFormGroup {
 interface ChangeFormGroup extends BaseFormGroup {
   changeAttachmentEffectiveDate: any;
   changeAttachmentCancelDate: any;
+  changeAttachmentHasAtLeastOneDate: any;
 }
 
 @Component({
@@ -38,6 +39,7 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
   formGroup: FormGroup;
   radioItems: Array<IRadioItems>;
   sameMailAddrError: boolean = false;
+  changeAttachmentHasValue: boolean = false;
 
   constructor( protected containerService: ContainerService,
                protected router: Router,
@@ -143,8 +145,22 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
       ...this.getBaseFormGroup(),
       changeAttachmentEffectiveDate: [this.dataService.pracChangeAttachmentEffectiveDate],
       changeAttachmentCancelDate: [this.dataService.pracChangeAttachmentCancelDate],
+      changeAttachmentHasAtLeastOneDate: [this.changeAttachmentHasValue, Validators.requiredTrue],
     };
-    return this.fb.group(formGroupObj);
+    const formGroup: FormGroup = this.fb.group(formGroupObj);
+
+    formGroup.valueChanges.subscribe((value) => {
+      if (!value.changeAttachmentHasAtLeastOneDate && (value.changeAttachmentEffectiveDate || value.changeAttachmentCancelDate)) {
+        formGroup.patchValue({
+          changeAttachmentHasAtLeastOneDate: true
+        });
+      } else if (value.changeAttachmentHasAtLeastOneDate && !value.changeAttachmentEffectiveDate && !value.changeAttachmentCancelDate) {
+        formGroup.patchValue({
+          changeAttachmentHasAtLeastOneDate: false
+        });
+      }
+    });
+    return formGroup;
   }
 
   continue() {
