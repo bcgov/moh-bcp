@@ -4,7 +4,7 @@ import { BCPAdminPage } from './bcp-reg-facility.po';
 describe('BCP Register Facility - Admin Page (Unit Test)', () => {
 
     let adminPage: BCPAdminPage;
-    
+
     const DEFAULT_DATA = 0;
     const MAX_VAL_DATA = 1;
     const ADMIN_PAGE_URL = `/bcp/register-facility/facility-administrator`;
