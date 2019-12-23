@@ -9,6 +9,7 @@
     "prebuild": "node src/version.js",
     "build": "ng build --prod",
     "test": "ng test",
+    "test-ci": "ng test --karma-config=src/karma.ci.conf.js",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "e2e-protractor": "npx protractor",

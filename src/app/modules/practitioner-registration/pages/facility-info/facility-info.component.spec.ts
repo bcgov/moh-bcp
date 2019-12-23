@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FacilityInfoComponent } from './facility-info.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { CoreBCPModule } from '../../../core-bcp/core-bcp.module';
 
 describe('FacilityInfoComponent', () => {
   let component: FacilityInfoComponent;
@@ -8,6 +10,7 @@ describe('FacilityInfoComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ CoreBCPModule, RouterTestingModule ],
       declarations: [ FacilityInfoComponent ]
     })
     .compileComponents();
@@ -21,5 +24,12 @@ describe('FacilityInfoComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should mark inputs as touched when attempting to continue', () => {
+    const markAllInputsTouchedSpy = jasmine.createSpy('markAllInputsTouched');
+    Object.defineProperty(component, 'markAllInputsTouched', {value: markAllInputsTouchedSpy});
+    component.continue();
+    expect(markAllInputsTouchedSpy).toHaveBeenCalled();
   });
 });

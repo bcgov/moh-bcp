@@ -44,7 +44,7 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
       label: 'The applicant requests that the Business Cost Premium not be applied to the facility referenced in this form.',
       value: false
     }
-  ]
+  ];
 
   // After this date a warning is displayed
   private _effectiveDateThreshold = addYears( startOfToday(), 1 );

@@ -5,7 +5,7 @@ let homePage: BCPHomePage;
 let adminPage: BCPAdminPage;
 let infoPage: BCPInfoPage;
 let reviewPage: BCPReviewPage;
-let page: BCPBasePage; 
+let page: BCPBasePage;
 let index = 0;
 
 const ADMIN_PAGE_URL = `/bcp/register-facility/facility-administrator`;
@@ -28,7 +28,7 @@ export function regFacilityTest(index: number) {
 }
 
 xdescribe('BCP Register Facility - End to End Test (Happy Path)', () => {
-    
+
     beforeEach(() => {
         homePage = new BCPHomePage();
         adminPage = new BCPAdminPage();

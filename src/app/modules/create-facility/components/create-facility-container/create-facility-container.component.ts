@@ -10,7 +10,7 @@ import { HeaderService } from 'src/app/services/header.service';
   templateUrl: './create-facility-container.component.html',
   styleUrls: ['./create-facility-container.component.scss']
 })
-export class CreateFacilityContainerComponent extends Container implements AfterViewInit, OnDestroy{
+export class CreateFacilityContainerComponent extends Container implements AfterViewInit, OnDestroy {
 
   constructor(private pageStateService: PageStateService,
               private headerService: HeaderService,

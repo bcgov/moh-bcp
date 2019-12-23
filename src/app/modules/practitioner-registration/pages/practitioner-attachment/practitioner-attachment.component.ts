@@ -74,7 +74,9 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
   }
 
   listenForChanges() {
-    if (!this.formGroup) return;
+    if (!this.formGroup) {
+      return;
+    }
     this.formGroup.valueChanges.subscribe( value => {
       // Update data service values
       this.dataService.pracAttachmentType = value.attachmentType;

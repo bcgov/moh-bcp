@@ -22,13 +22,18 @@ export class ReviewPractitionerInfoComponent implements OnInit {
     this.review.redirectPath = PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_INFO.fullpath;
     this.review.header = PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_INFO.title;
 
+    const phoneNumberEntry = { label: 'Phone number', value: this.dataService.pracInfoPhoneNumber };
+    if ( this.dataService.pracInfoPhoneNumberExt ) {
+      phoneNumberEntry.value = phoneNumberEntry.value.concat( ' Ext. ' + this.dataService.pracInfoPhoneNumberExt );
+    }
+
     const items = [
       [
         { label: 'First name', value: this.dataService.pracInfoFirstName, },
         { label: 'Last name', value: this.dataService.pracInfoLastName },
         { label: 'Medical Services Plan practitioner number', value: this.dataService.pracInfoMSPPracNumber },
         { label: 'Email address (optional)', value: this.dataService.pracInfoEmail },
-        { label: 'Phone number', value: this.dataService.pracInfoPhoneNumber },
+        phoneNumberEntry,
       ],
     ];
     this.review.sectionItems = items;

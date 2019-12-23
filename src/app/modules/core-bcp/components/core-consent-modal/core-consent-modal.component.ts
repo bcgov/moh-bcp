@@ -16,8 +16,8 @@ export class CoreConsentModalComponent implements AfterViewInit {
   @ViewChild('bcpConsentModal', { static: true }) bcpConsentModal: ConsentModalComponent;
   @Input() hasToken: boolean;
   @Input() initialVisibility: boolean;
-  @Output() onAccept: EventEmitter<boolean> = new EventEmitter<any>();
-  @Output() onValidToken: EventEmitter<string> = new EventEmitter<any>();
+  @Output() accept: EventEmitter<boolean> = new EventEmitter<any>();
+  @Output() validToken: EventEmitter<string> = new EventEmitter<any>();
 
   ngAfterViewInit() {
     if (this.initialVisibility) {
@@ -25,11 +25,11 @@ export class CoreConsentModalComponent implements AfterViewInit {
     }
   }
 
-  accept(isChecked: boolean) {
-    this.onAccept.emit(isChecked);
+  handleAccept(isChecked: boolean) {
+    this.accept.emit(isChecked);
   }
 
   handleToken(token: string) {
-    this.onValidToken.emit(token);
+    this.validToken.emit(token);
   }
 }
