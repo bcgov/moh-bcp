@@ -1,13 +1,13 @@
 [
     {
-        "facilityAdminFirstName": "Sample First Name",
-        "facilityAdminLastName": "Sample Last Name",
+        "facilityAdminFirstName": "John",
+        "facilityAdminLastName": "Doe",
         "MSPPractitionerNum": "99999",
         "emailAdd": "test@sample.com",
         "confirmEmailAdd": "test@sample.com",
         "phoneNum": "2501234567",
         "extension": "123",
-        "facilityName": "Sample Facility Name",
+        "facilityName": "Sample Faci Name",
         "address": "12345 Douglas St.",
         "city": "Victoria",
         "postal": "V1A1S1",
@@ -17,6 +17,26 @@
         "mailingAddress": "",
         "mailingCity": "",
         "mailingPostal": "",
+        "qualifyForBCP": true
+    },
+    {
+        "facilityAdminFirstName": "SampleFirstName",
+        "facilityAdminLastName": "SampleLastNames",
+        "MSPPractitionerNum": "99999",
+        "emailAdd": "testqwertyuiopasdfghjklzxcvbnmqwertyuio@sample.com",
+        "confirmEmailAdd": "testqwertyuiopasdfghjklzxcvbnmqwertyuio@sample.com",
+        "phoneNum": "2501234567",
+        "extension": "1234",
+        "facilityName": "SampleFacilityNameqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm",
+        "address": "12345 Dwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvb St.",
+        "city": "VictoriaVictoriaVictoriaVictor",
+        "postal": "V1A1S1",
+        "faxNum": "2501234568",
+        "effectiveDate": "2020-10-10",
+        "hasSameMailingAddress": true,
+        "mailingAddress": "12346 Dwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvb St.",
+        "mailingCity": "VictoriaVictoriaVictoriaCityBC",
+        "mailingPostal": "V1A1S2",
         "qualifyForBCP": true
     }
 ]

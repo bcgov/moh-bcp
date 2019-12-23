@@ -6,13 +6,14 @@ let adminPage: BCPAdminPage;
 let infoPage: BCPInfoPage;
 let reviewPage: BCPReviewPage;
 let page: BCPBasePage;
-let _index = 0;
+// let index = 0;
 
 const ADMIN_PAGE_URL = `/bcp/register-facility/facility-administrator`;
 const INFO_PAGE_URL = `/bcp/register-facility/facility-info`;
 const REVIEW_PAGE_URL = `/bcp/register-facility/review`;
 const SUBMISSION_PAGE_URL = `/bcp/register-facility/submission`;
 
+/*
 export function regFacilityTest(index: number) {
     it('should navigate from Home Page to Submission Page (end-to-end) when all required fields are filled out', () => {
         homePage.navigateTo();
@@ -26,8 +27,9 @@ export function regFacilityTest(index: number) {
         expect(browser.getCurrentUrl()).toContain(SUBMISSION_PAGE_URL, 'should navigate to the Submission Page');
     }, 100000);
 }
+*/
 
-describe('BCP Register Facility - End to End Test (Happy Path)', () => {
+xdescribe('BCP Register Facility - End to End Test (Happy Path)', () => {
 
     beforeEach(() => {
         homePage = new BCPHomePage();
@@ -37,9 +39,11 @@ describe('BCP Register Facility - End to End Test (Happy Path)', () => {
         page = new BCPBasePage();
     });
 
-    while (_index < Object.keys(getJSONData()).length - 1) {
-        regFacilityTest(_index);
-        _index++;
+    /*
+    while(index < Object.keys(getJSONData()).length - 1){
+        regFacilityTest(index);
+        index++;
     }
+    */
 
 });

@@ -47,6 +47,18 @@ export class BCPBasePage extends AbstractTestPage {
         element(by.cssContainingText('legend', `${legendVal}`)).element(by.xpath('../..'))
             .element(by.css(`label[for^="${forVal}"]`)).click();
     }
+
+    clickRadioButton(nameVal: string, forVal: string) {
+        element(by.css(`common-radio[name^=${nameVal}]`)).element(by.css(`label[for^="${forVal}"]`)).click();
+    }
+
+    getData() {
+        return this.jsonData;
+    }
+
+    getInputValue(labelVal: string) {
+        return element(by.cssContainingText('label', `${labelVal}`)).element(by.xpath('../..')).element(by.css('input')).getAttribute('value');
+    }
 }
 
 export class BCPHomePage extends BCPBasePage {
@@ -87,10 +99,28 @@ export class BCPAdminPage extends BCPBasePage {
         this.typeText('First name', this.jsonData[this.index].facilityAdminFirstName);
         this.typeText('Last name', this.jsonData[this.index].facilityAdminLastName);
         this.typeText('Medical Services Plan Practitioner Number', this.jsonData[this.index].MSPPractitionerNum);
-        this.typeText('Email address (optional)', this.jsonData[this.index].emailAdd);
-        this.typeText('Phone number', this.jsonData[this.index].phoneNum);
-        this.typeText('Extension', this.jsonData[this.index].extension);
-        this.clickContinue();
+        this.typeText('Contact email (optional)', this.jsonData[this.index].emailAdd);
+        this.typeText('Contact phone number', this.jsonData[this.index].phoneNum);
+        this.typeText('Extension (optional)', this.jsonData[this.index].extension);
+        // this.clickContinue();
+    }
+
+    checkAdminInputValues(index: number) {
+        this.getInputValue('First name').then(firstName => {
+            expect(firstName).toBe(this.jsonData[this.index].facilityAdminFirstName, 'First name values should be the same');
+        });
+        this.getInputValue('Last name').then(lastName => {
+            expect(lastName).toBe(this.jsonData[this.index].facilityAdminLastName, 'Last name values should be the same');
+        });
+        this.getInputValue('Medical Services Plan Practitioner Number').then(mspPracNum => {
+            expect(mspPracNum).toBe(this.jsonData[this.index].MSPPractitionerNum, 'MSP Practitioner values should be the same');
+        });
+        this.getInputValue('Contact email (optional)').then(contactEmail => {
+            expect(contactEmail).toBe(this.jsonData[this.index].emailAdd, 'Email address values should be the same');
+        });
+        this.getInputValue('Contact phone number').then(contactPhone => {
+            expect(contactPhone.replace(/[^0-9]/g, '')).toBe(this.jsonData[this.index].phoneNum, 'Phone number values should be the same');
+        });
     }
 }
 
@@ -101,11 +131,11 @@ export class BCPInfoPage extends BCPBasePage {
     }
 
     typeMailingCity(text: string) {
-        element(by.css('common-city[name="mailingCity"]')).element(by.css('input')).sendKeys(text);
+        element(by.css('common-city[name="mailingfacAdminFirstNameCity"]')).element(by.css('input')).sendKeys(text);
     }
 
     typeMailingPostal(text: string) {
-        element(by.css('common-postal[name="mailingPostalCode"]')).element(by.css('input')).sendKeys(text);
+        element(by.css('common-postal-code[name="facilityPostalCode"]')).element(by.css('input')).sendKeys(text);
     }
 
     typeDate(legendVal: string, year: string, month: string, day: string) {
@@ -127,7 +157,7 @@ export class BCPInfoPage extends BCPBasePage {
         this.typeText('Physical address', this.jsonData[this.index].address);
         this.typeText('City', this.jsonData[this.index].city);
         this.typeText('Postal code', this.jsonData[this.index].postal);
-        this.typeText('Fax number (optional)', this.jsonData[this.index].faxNum);
+        this.typeText('Contact fax number (optional)', this.jsonData[this.index].faxNum);
 
         const effectiveDate = this.jsonData[this.index].effectiveDate;
         const year = effectiveDate.split('-')[0];
@@ -141,9 +171,28 @@ export class BCPInfoPage extends BCPBasePage {
             this.typeText('Mailing address', this.jsonData[this.index].mailingAddress);
             this.typeMailingCity(this.jsonData[this.index].mailingCity);
             this.typeMailingPostal(this.jsonData[this.index].mailingPostal);
+            this.scrollDown();
         }
-        this.clickOption('Do you request that the Business Cost Premium be applied to Eligible Fees paid to Eligible Physicians attached to this facility?', this.jsonData[this.index].qualifyForBCP.toString());
-        this.clickContinue();
+        this.clickRadioButton('isQualifyForBCP', this.jsonData[this.index].qualifyForBCP);
+        // this.clickContinue();
+    }
+
+    checkInfoInputValues(index: number) {
+        this.getInputValue('Facility or practice name').then(faciName => {
+            expect(faciName).toBe(this.jsonData[this.index].facilityName, 'Facility name values should be the same');
+        });
+        this.getInputValue('Physical address').then(address => {
+            expect(address).toBe(this.jsonData[this.index].address, 'Physical address values should be the same');
+        });
+        this.getInputValue('City').then(city => {
+            expect(city).toBe(this.jsonData[this.index].city, 'City values should be the same');
+        });
+        this.getInputValue('Postal code').then(postalCode => {
+            expect(postalCode.replace(/[^A-Z0-9]/g, '')).toBe(this.jsonData[this.index].postal, 'Postal values should be the same');
+        });
+        this.getInputValue('Contact fax number (optional)').then(faxNum => {
+            expect(faxNum.replace(/[^0-9]/g, '')).toBe(this.jsonData[this.index].faxNum, 'Fax number values should be the same');
+        });
     }
 }
 
