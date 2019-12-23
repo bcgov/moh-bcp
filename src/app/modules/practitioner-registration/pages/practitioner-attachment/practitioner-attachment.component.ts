@@ -40,6 +40,8 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
   radioItems: Array<IRadioItems>;
   sameMailAddrError: boolean = false;
   changeAttachmentHasValue: boolean = false;
+  facilityEffectiveDate: Date = this.dataService.facEffectiveDate;
+  facilityCancelDate: Date = this.dataService.facCancelDate;
 
   constructor( protected containerService: ContainerService,
                protected router: Router,
