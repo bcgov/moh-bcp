@@ -1,9 +1,9 @@
-name: Run BCP e2e tests
+name: BCP e2e tests
 # This workflow is triggered on push and pull request to the repository
 on: [push, pull_request]
 jobs:
   build:
-    name: BCP e2e tests in Firefox
+    name: Run BCP e2e tests
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -25,3 +25,6 @@ jobs:
     # This step runs e2e tests in Firefox
     - name: Run BCP e2e in Firefox
       run: npm run e2e:bcprf-firefox
+      # This step runs e2e tests in Chrome
+    - name: Run BCP e2e in Chrome
+      run: npm run e2e:bcprf-chrome
