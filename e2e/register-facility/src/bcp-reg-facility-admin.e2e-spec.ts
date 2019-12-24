@@ -24,8 +24,6 @@ describe('BCP Register Facility - Admin Page (Unit Test)', () => {
         adminPage.navigateTo();
         adminPage.fillPage(MAX_VAL_DATA);
         adminPage.checkAdminInputValues(MAX_VAL_DATA);
-        adminPage.clickContinue();
-        expect(browser.getCurrentUrl()).toContain(INFO_PAGE_URL, 'should continue to the next page');
     });
 
     it('03. should be able to continue if all the required fields are filled out and valid', () => {
