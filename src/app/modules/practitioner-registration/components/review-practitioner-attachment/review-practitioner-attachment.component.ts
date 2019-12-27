@@ -56,7 +56,10 @@ export class ReviewPractitionerAttachmentComponent implements OnInit {
 
     const items = [
       [
-        { label: 'Selected change to practitioner attachment', value: getAttachmentReviewTextByValue(this.dataService.pracAttachmentType), },
+        {
+          label: 'Selected change to practitioner attachment',
+          value: getAttachmentReviewTextByValue(this.dataService.pracAttachmentType),
+        },
       ],
     ];
 

@@ -33,7 +33,7 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
       this.displayIcon = this.dataService.jsonCreateFacility.response.returnCode;
       this.isUnderReview = (this.displayIcon === ApiStatusCodes.WARNING);
 
-      if (this.response.referenceNumber && this.response.returnCode === ApiStatusCodes.ERROR){
+      if (this.response.referenceNumber && this.response.returnCode === ApiStatusCodes.ERROR) {
         // Mainframe is down, but have ref # from max image.
         console.log('arc seing cusom dipslay icon');
         // ideally return code should change on server side, as this is same as a "MATCH" request
@@ -53,7 +53,7 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
     return super.getConfirmationMessage();
   }
 
-  get response(){
+  get response() {
     return this.dataService.jsonCreateFacility.response;
   }
 
