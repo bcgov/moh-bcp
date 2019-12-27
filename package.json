@@ -16,7 +16,7 @@
     "e2e:bcprf-firefox": "npm run e2e -- --protractorConfig=e2e/register-facility/protractor-bcp-firefox.conf.js --port=4300",
     "e2e:bcprf-chrome": "npm run e2e -- --protractorConfig=e2e/register-facility/protractor-bcp-chrome.conf.js --port=4300",
     "e2e:bcp": "npm run e2e-protractor -- e2e/register-facility/protractor.bcp.conf.js",
-    "chrome-update": "sudo yum install google-chrome=79.0.3945.36",
+    "chrome-update": "sudo apt-get install google-chrome=79.0.3945.36",
     "webdriver-update": "webdriver-manager update"
   },
   "private": true,
