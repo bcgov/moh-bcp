@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ReviewContainerComponent } from '../../../core-bcp/components/review-container/review-container.component';
 import { RegisterPractitionerDataService } from '../../services/register-practitioner-data.service';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration-route-constants';
-import { getAttachmentLabelByValue, PRACTITIONER_ATTACHMENT } from '../../models/practitioner-attachment';
+import { getAttachmentReviewTextByValue, PRACTITIONER_ATTACHMENT } from '../../models/practitioner-attachment';
 import { formatDateForDisplay } from '../../../core-bcp/models/helperFunc';
 
 interface ReviewItem {
@@ -56,7 +56,7 @@ export class ReviewPractitionerAttachmentComponent implements OnInit {
 
     const items = [
       [
-        { label: 'Selected change to practitioner attachment', value: getAttachmentLabelByValue(this.dataService.pracAttachmentType), },
+        { label: 'Selected change to practitioner attachment', value: getAttachmentReviewTextByValue(this.dataService.pracAttachmentType), },
       ],
     ];
 
