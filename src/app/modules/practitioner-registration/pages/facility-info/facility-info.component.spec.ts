@@ -29,7 +29,11 @@ describe('FacilityInfoComponent', () => {
   it('should mark inputs as touched when attempting to continue', () => {
     const markAllInputsTouchedSpy = jasmine.createSpy('markAllInputsTouched');
     Object.defineProperty(component, 'markAllInputsTouched', {value: markAllInputsTouchedSpy});
+    Object.defineProperty(component.formGroup, 'valid', {value: false});
+    const setIsLoadingSpy = jasmine.createSpy('setIsLoading');
+    Object.defineProperty(component, 'containerService', {value: {setIsLoading: setIsLoadingSpy}});
     component.continue();
     expect(markAllInputsTouchedSpy).toHaveBeenCalled();
+    expect(setIsLoadingSpy).not.toHaveBeenCalled();
   });
 });
