@@ -22,7 +22,7 @@ export class ReviewApplicantComponent implements OnInit {
 
   reviewItems() {
 
-    const phoneNumberEntry = { label: 'Phone number', value: this.dataService.facAdminPhoneNumber };
+    const phoneNumberEntry = { label: 'Contact phone number', value: this.dataService.facAdminPhoneNumber };
     if ( this.dataService.facAdminExtension ) {
       phoneNumberEntry.value = phoneNumberEntry.value.concat( ' Ext. ' + this.dataService.facAdminExtension );
     }
@@ -36,7 +36,7 @@ export class ReviewApplicantComponent implements OnInit {
         { label: 'First name', value: this.dataService.facAdminFirstName },
         { label: 'Last name', value: this.dataService.facAdminLastName },
         { label: 'Medical Services Plan practitioner number', value: this.dataService.pracNumber },
-        { label: 'Email address (optional)', value: setNotApplicable( this.dataService.emailAddress  ) },
+        { label: 'Contact email (optional)', value: setNotApplicable( this.dataService.emailAddress  ) },
         phoneNumberEntry
       ],
     ];
