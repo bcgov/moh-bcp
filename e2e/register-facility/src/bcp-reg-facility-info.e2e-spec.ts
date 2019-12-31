@@ -20,7 +20,7 @@ describe('BCP Register Facility - Info Page (Unit Test)', () => {
         expect(browser.getCurrentUrl()).toContain(INFO_PAGE_URL, 'should stay on the same page');
     });
 
-    it('02. should be able to input values in their maximum capcity', () => {
+    it('02. should be able to input values in their maximum capacity', () => {
         infoPage.navigateTo();
         infoPage.fillPage(MAX_VAL_DATA);
         infoPage.checkInfoInputValues(MAX_VAL_DATA);
