@@ -95,7 +95,7 @@ export class BCPHomePage extends BCPBasePage {
 export class BCPAdminPage extends BCPBasePage {
 
     navigateTo() {
-      return browser.get('/bcp/register-facility/facility-administrator');
+      return browser.get('/bcp/register-facility/administrator-information');
     }
 
     fillPage(index: number) {
@@ -134,7 +134,7 @@ export class BCPAdminPage extends BCPBasePage {
 export class BCPInfoPage extends BCPBasePage {
 
     navigateTo() {
-        return browser.get('/bcp/register-facility/facility-info');
+        return browser.get('/bcp/register-facility/facility-information');
     }
 
     typeMailingCity(text: string) {

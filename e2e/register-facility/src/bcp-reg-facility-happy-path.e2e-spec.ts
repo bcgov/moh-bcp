@@ -8,8 +8,8 @@ let reviewPage: BCPReviewPage;
 let page: BCPBasePage;
 // let index = 0;
 
-const ADMIN_PAGE_URL = `/bcp/register-facility/facility-administrator`;
-const INFO_PAGE_URL = `/bcp/register-facility/facility-info`;
+const ADMIN_PAGE_URL = `/bcp/register-facility/administrator-information`;
+const INFO_PAGE_URL = `/bcp/register-facility/facility-information`;
 const REVIEW_PAGE_URL = `/bcp/register-facility/review`;
 const SUBMISSION_PAGE_URL = `/bcp/register-facility/submission`;
 

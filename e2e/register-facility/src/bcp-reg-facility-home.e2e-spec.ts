@@ -6,7 +6,7 @@ describe('BCP Register Facility - Home Page (Unit Test)', () => {
     let page: BCPBasePage;
     let homePage: BCPHomePage;
     const HOME_PAGE_URL = `/bcp/register-facility/home`;
-    const ADMIN_PAGE_URL = `/bcp/register-facility/facility-administrator`;
+    const ADMIN_PAGE_URL = `/bcp/register-facility/administrator-information`;
 
     beforeEach(() => {
         homePage = new BCPHomePage();

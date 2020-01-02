@@ -7,7 +7,7 @@ describe('BCP Register Facility - Info Page (Unit Test)', () => {
 
     const DEFAULT_DATA = 0;
     const MAX_VAL_DATA = 1;
-    const INFO_PAGE_URL = `/bcp/register-facility/facility-info`;
+    const INFO_PAGE_URL = `/bcp/register-facility/facility-information`;
     const REVIEW_PAGE_URL = `/bcp/register-facility/review`;
 
     beforeEach(() => {
@@ -24,8 +24,6 @@ describe('BCP Register Facility - Info Page (Unit Test)', () => {
         infoPage.navigateTo();
         infoPage.fillPage(MAX_VAL_DATA);
         infoPage.checkInfoInputValues(MAX_VAL_DATA);
-        infoPage.clickContinue();
-        expect(browser.getCurrentUrl()).toContain(REVIEW_PAGE_URL, 'should continue to the next page');
     });
 
     it('03. should be able to continue if all the required fields are filled out and valid', () => {
