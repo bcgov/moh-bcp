@@ -7,8 +7,8 @@ describe('BCP Register Facility - Admin Page (Unit Test)', () => {
 
     const DEFAULT_DATA = 0;
     const MAX_VAL_DATA = 1;
-    const ADMIN_PAGE_URL = `/bcp/register-facility/facility-administrator`;
-    const INFO_PAGE_URL = `/bcp/register-facility/facility-info`;
+    const ADMIN_PAGE_URL = `/bcp/register-facility/administrator-information`;
+    const INFO_PAGE_URL = `/bcp/register-facility/facility-information`;
 
     beforeEach(() => {
         adminPage = new BCPAdminPage();
@@ -16,6 +16,7 @@ describe('BCP Register Facility - Admin Page (Unit Test)', () => {
 
     it('01. should not be able to continue if the required fields are not filled out', () => {
         adminPage.navigateTo();
+        browser.sleep(10000);
         adminPage.clickContinue();
         expect(browser.getCurrentUrl()).toContain(ADMIN_PAGE_URL, 'should stay on the same page');
     });
@@ -24,19 +25,13 @@ describe('BCP Register Facility - Admin Page (Unit Test)', () => {
         adminPage.navigateTo();
         adminPage.fillPage(MAX_VAL_DATA);
         adminPage.checkAdminInputValues(MAX_VAL_DATA);
-        adminPage.clickContinue();
-
-        // TODO: Continue button makes API request before URL change, this is no longer valid. Need suitable replacement.
-        //expect(browser.getCurrentUrl()).toContain(INFO_PAGE_URL, 'should continue to the next page');
     });
 
     it('03. should be able to continue if all the required fields are filled out and valid', () => {
         adminPage.navigateTo();
         adminPage.fillPage(DEFAULT_DATA);
         adminPage.clickContinue();
-        
-        // TODO: Continue button makes API request before URL change, this is no longer valid. Need suitable replacement.
-        //expect(browser.getCurrentUrl()).toContain(INFO_PAGE_URL, 'should continue to the next page');
+        expect(browser.getCurrentUrl()).toContain(INFO_PAGE_URL, 'should continue to the next page');
     });
 
 });

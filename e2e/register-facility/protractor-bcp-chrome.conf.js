@@ -12,7 +12,7 @@ const { SpecReporter } = require('jasmine-spec-reporter');
 exports.config = {
   allScriptsTimeout: 11000,
   specs: [
-    './src/bcp-reg-facility-happy-path.e2e-spec.ts'
+    './src/*.e2e-spec.ts'
   ],
   multiCapabilities: [
     {

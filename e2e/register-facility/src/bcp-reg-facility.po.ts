@@ -59,6 +59,10 @@ export class BCPBasePage extends AbstractTestPage {
     getInputValue(labelVal: string) {
         return element(by.cssContainingText('label', `${labelVal}`)).element(by.xpath('../..')).element(by.css('input')).getAttribute('value');
     }
+
+    getExtension() {
+        return element(by.css('input[name="extension"]')).getAttribute('value');
+    }
 }
 
 export class BCPHomePage extends BCPBasePage {
@@ -91,7 +95,7 @@ export class BCPHomePage extends BCPBasePage {
 export class BCPAdminPage extends BCPBasePage {
 
     navigateTo() {
-      return browser.get('/bcp/register-facility/facility-administrator');
+      return browser.get('/bcp/register-facility/administrator-information');
     }
 
     fillPage(index: number) {
@@ -101,7 +105,7 @@ export class BCPAdminPage extends BCPBasePage {
         this.typeText('Medical Services Plan Practitioner Number', this.jsonData[this.index].MSPPractitionerNum);
         this.typeText('Contact email (optional)', this.jsonData[this.index].emailAdd);
         this.typeText('Contact phone number', this.jsonData[this.index].phoneNum);
-        this.typeText('Extension (optional)', this.jsonData[this.index].extension);
+        this.typeText(' Extension (optional) ', this.jsonData[this.index].extension);
         // this.clickContinue();
     }
 
@@ -121,13 +125,16 @@ export class BCPAdminPage extends BCPBasePage {
         this.getInputValue('Contact phone number').then(contactPhone => {
             expect(contactPhone.replace(/[^0-9]/g, '')).toBe(this.jsonData[this.index].phoneNum, 'Phone number values should be the same');
         });
+        // this.getExtension().then(extension => {
+        //     expect(extension).toBe(this.jsonData[this.index].extension, 'Extension values should be the same');
+        // });
     }
 }
 
 export class BCPInfoPage extends BCPBasePage {
 
     navigateTo() {
-        return browser.get('/bcp/register-facility/facility-info');
+        return browser.get('/bcp/register-facility/facility-information');
     }
 
     typeMailingCity(text: string) {
