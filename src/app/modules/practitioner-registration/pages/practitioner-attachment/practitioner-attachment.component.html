@@ -29,14 +29,16 @@
     <div class="form-group" *ngIf='dataService.pracNewAttachmentType === true || dataService.pracNewAttachmentType === false'>
       <common-date label='Effective date for new attachment'
                    name="newAttachmentEffectiveDate"
-                   formControlName="newAttachmentEffectiveDate">
+                   formControlName="newAttachmentEffectiveDate"
+                   [dateRangeStart]='facilityEffectiveDate'>
       </common-date>
     </div>
   
     <div class="form-group" *ngIf='dataService.pracNewAttachmentType === true'>
       <common-date label='Cancellation date for new attachment'
                    name="newAttachmentCancelDate"
-                   formControlName="newAttachmentCancelDate">
+                   formControlName="newAttachmentCancelDate"
+                   [dateRangeEnd]='facilityCancelDate'>
       </common-date>
     </div>
   </ng-container>
@@ -45,7 +47,8 @@
     <div class="form-group">
       <common-date label='Cancellation date for existing attachment'
                     name="cancelAttachmentDate"
-                    formControlName="cancelAttachmentDate">
+                    formControlName="cancelAttachmentDate"
+                    [dateRangeEnd]='facilityCancelDate'>
       </common-date>
     </div>
   </ng-container>
@@ -54,16 +57,24 @@
     <div class="form-group">
       <common-date label='New effective date for existing attachment (if applicable)'
                     name="changeAttachmentEffectiveDate"
-                    formControlName="changeAttachmentEffectiveDate">
+                    formControlName="changeAttachmentEffectiveDate"
+                    [dateRangeStart]='facilityEffectiveDate'>
       </common-date>
     </div>
   
     <div class="form-group">
       <common-date label='New cancellation date for existing attachment (if applicable)'
                     name="changeAttachmentCancelDate"
-                    formControlName="changeAttachmentCancelDate">
+                    formControlName="changeAttachmentCancelDate"
+                    [dateRangeEnd]='facilityCancelDate'>
       </common-date>
     </div>
+
+    <common-error-container [displayError]="(formGroup?.controls?.changeAttachmentHasAtLeastOneDate?.dirty || formGroup?.controls?.changeAttachmentHasAtLeastOneDate?.touched) &&  formGroup?.controls?.changeAttachmentHasAtLeastOneDate?.errors">
+      <div *ngIf="!formGroup?.controls?.changeAttachmentHasAtLeastOneDate?.errors?.requiredTrue">
+        At least one of the date fields is required
+      </div>
+    </common-error-container>
   </ng-container>
   
 </form>
