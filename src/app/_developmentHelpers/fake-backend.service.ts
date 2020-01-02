@@ -27,7 +27,9 @@ export class FakeBackendService {
     // TODO: Create different return values base on data sent in request
     const obj = {
       returnCode: ReturnCodes.SUCCESS,
-      message: 'MATCH'
+      message: 'MATCH',
+      effectiveDate: '2020-01-01',
+      cancelDate: '2021-01-01',
     };
 
     return Object.assign(this._baseResponse( request ), obj);

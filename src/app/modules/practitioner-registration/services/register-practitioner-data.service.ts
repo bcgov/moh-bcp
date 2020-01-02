@@ -33,6 +33,9 @@ export class RegisterPractitionerDataService extends BaseDataService {
       this.pracFacilityFaxNumber = '234 567-8901';
 
       this.pracAttachmentType = 'new';
+
+      this.facEffectiveDate = new Date('2020-01-01');
+      this.facCancelDate = new Date('2020-12-31');
     }
   }
 
@@ -50,6 +53,9 @@ export class RegisterPractitionerDataService extends BaseDataService {
   pracFacilityProvince: string = BRITISH_COLUMBIA;
   pracFacilityPostalCode: string;
   pracFacilityFaxNumber: string;
+
+  facEffectiveDate: Date; // Date received from facility validation.
+  facCancelDate: Date; // Date received from facility validation.
 
   pracAttachmentType: string;
   pracNewAttachmentType: boolean;
