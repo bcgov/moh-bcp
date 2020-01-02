@@ -45,15 +45,15 @@ export class ReviewFacilityMailingInfoComponent implements OnInit {
               value: this.dataService.facInfoMailAddress,
             },
             {
-              label: 'Mailing city', value:
+              label: 'City', value:
                 this.dataService.facInfoMailCity
             },
             {
-              label: 'Mailing province', value:
+              label: 'Province', value:
                 getProvinceDescription(this.dataService.facInfoMailProvince)
             },
             {
-              label: 'Mailing postal code', value:
+              label: 'Postal code', value:
                 this.dataService.facInfoMailPostalCode
             }
           ],

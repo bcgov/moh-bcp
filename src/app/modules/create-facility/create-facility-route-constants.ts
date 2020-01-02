@@ -7,13 +7,13 @@ export const CREATE_FACILITY_PAGES = {
         title: 'Application for Medical Services Plan Facility Number (New)'
     },
     FACILITY_ADMIN: {
-        path: 'facility-administrator',
-        fullpath: `${BCP_ROUTES.CREATE_FACILITY}/facility-administrator`,
-        title: 'Facility Administrator Information'
+        path: 'administrator-information',
+        fullpath: `${BCP_ROUTES.CREATE_FACILITY}/administrator-information`,
+        title: 'Administrator Information'
     },
     FACILITY_INFO: {
-        path: 'facility-info',
-        fullpath: `${BCP_ROUTES.CREATE_FACILITY}/facility-info`,
+        path: 'facility-information',
+        fullpath: `${BCP_ROUTES.CREATE_FACILITY}/facility-information`,
         title: 'Facility Information'
     },
     REVIEW: {

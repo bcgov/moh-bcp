@@ -19,7 +19,7 @@ export class CreateFacilityContainerComponent extends Container implements After
 
     this.setProgressSteps(createFacilityPageRoutes);
     this.pageStateService.setPages( createFacilityPageRoutes, CREATE_FACILITY_PAGES );
-    this.headerService.setTitle('Application for Medical Services Plan Facility Number');
+    this.headerService.setTitle('Application for Medical Services Plan Facility Number (New)');
   }
 
   ngAfterViewInit() {
