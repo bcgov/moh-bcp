@@ -1,5 +1,6 @@
 import { browser } from 'protractor';
 import { BCPAdminPage } from './bcp-reg-facility.po';
+import { CREATE_FACILITY_PAGES } from '../../../src/app/modules/create-facility/create-facility-route-constants';
 
 describe('BCP Register Facility - Admin Page (Unit Test)', () => {
 
@@ -7,8 +8,6 @@ describe('BCP Register Facility - Admin Page (Unit Test)', () => {
 
     const DEFAULT_DATA = 0;
     const MAX_VAL_DATA = 1;
-    const ADMIN_PAGE_URL = `/bcp/register-facility/administrator-information`;
-    const INFO_PAGE_URL = `/bcp/register-facility/facility-information`;
 
     beforeEach(() => {
         adminPage = new BCPAdminPage();
@@ -18,7 +17,7 @@ describe('BCP Register Facility - Admin Page (Unit Test)', () => {
         adminPage.navigateTo();
         browser.sleep(10000);
         adminPage.clickContinue();
-        expect(browser.getCurrentUrl()).toContain(ADMIN_PAGE_URL, 'should stay on the same page');
+        expect(browser.getCurrentUrl()).toContain(CREATE_FACILITY_PAGES.FACILITY_ADMIN.fullpath, 'should stay on the same page');
     });
 
     it('02. should be able to input values in their maximum capcity', () => {
@@ -31,7 +30,7 @@ describe('BCP Register Facility - Admin Page (Unit Test)', () => {
         adminPage.navigateTo();
         adminPage.fillPage(DEFAULT_DATA);
         adminPage.clickContinue();
-        expect(browser.getCurrentUrl()).toContain(INFO_PAGE_URL, 'should continue to the next page');
+        expect(browser.getCurrentUrl()).toContain(CREATE_FACILITY_PAGES.FACILITY_INFO.fullpath, 'should continue to the next page');
     });
 
 });

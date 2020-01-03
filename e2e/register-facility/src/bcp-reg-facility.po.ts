@@ -1,5 +1,6 @@
 import { browser, by, element, protractor, Key } from 'protractor';
 import { AbstractTestPage } from 'moh-common-lib/e2e';
+import { CREATE_FACILITY_PAGES } from '../../../src/app/modules/create-facility/create-facility-route-constants';
 import * as fs from 'fs';
 import * as sampleFile from './bcp-sample-data.json';
 
@@ -68,7 +69,7 @@ export class BCPBasePage extends AbstractTestPage {
 export class BCPHomePage extends BCPBasePage {
 
     navigateTo() {
-      return browser.get('/bcp/register-facility/home');
+      return browser.get(CREATE_FACILITY_PAGES.HOME.fullpath);
     }
 
     typeCaptcha(text: string) {
@@ -95,7 +96,7 @@ export class BCPHomePage extends BCPBasePage {
 export class BCPAdminPage extends BCPBasePage {
 
     navigateTo() {
-      return browser.get('/bcp/register-facility/administrator-information');
+      return browser.get(CREATE_FACILITY_PAGES.FACILITY_ADMIN.fullpath);
     }
 
     fillPage(index: number) {
@@ -134,7 +135,7 @@ export class BCPAdminPage extends BCPBasePage {
 export class BCPInfoPage extends BCPBasePage {
 
     navigateTo() {
-        return browser.get('/bcp/register-facility/facility-information');
+        return browser.get(CREATE_FACILITY_PAGES.FACILITY_INFO.fullpath);
     }
 
     typeMailingCity(text: string) {
@@ -206,15 +207,11 @@ export class BCPInfoPage extends BCPBasePage {
 export class BCPReviewPage extends BCPBasePage {
 
     navigateTo() {
-        return browser.get('/bcp/register-facility/review');
+        return browser.get(CREATE_FACILITY_PAGES.REVIEW.fullpath);
     }
 
     clickSubmit() {
         element(by.cssContainingText('button', ' Submit ')).click();
-    }
-
-    clickConfirm(text: string) {
-        element(by.cssContainingText('label', `${text}`)).click();
     }
 
     writeSignature() {
@@ -226,7 +223,6 @@ export class BCPReviewPage extends BCPBasePage {
     fillPage(index: number) {
         this.setIndex(index);
         this.scrollDown();
-        // this.clickConfirm('I confirm that I have read and agree to the above statement');
         this.writeSignature();
         this.clickSubmit();
     }
