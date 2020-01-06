@@ -101,8 +101,8 @@ export class BCPAdminPage extends BCPBasePage {
 
     fillPage(index: number) {
         this.setIndex(index);
-        this.typeText('First name', this.jsonData[this.index].facilityAdminFirstName);
-        this.typeText('Last name', this.jsonData[this.index].facilityAdminLastName);
+        this.typeText('First name', this.jsonData[this.index].firstName);
+        this.typeText('Last name', this.jsonData[this.index].lastName);
         this.typeText('Medical Services Plan Practitioner Number', this.jsonData[this.index].MSPPractitionerNum);
         this.typeText('Email address (optional)', this.jsonData[this.index].emailAdd);
         this.typeText('Phone number', this.jsonData[this.index].phoneNum);
@@ -112,19 +112,19 @@ export class BCPAdminPage extends BCPBasePage {
 
     checkAdminInputValues(index: number) {
         this.getInputValue('First name').then(firstName => {
-            expect(firstName).toBe(this.jsonData[this.index].facilityAdminFirstName, 'First name values should be the same');
+            expect(firstName).toBe(this.jsonData[this.index].firstName, 'First name values should be the same');
         });
         this.getInputValue('Last name').then(lastName => {
-            expect(lastName).toBe(this.jsonData[this.index].facilityAdminLastName, 'Last name values should be the same');
+            expect(lastName).toBe(this.jsonData[this.index].lastName, 'Last name values should be the same');
         });
-        this.getInputValue('Medical Services Plan Practitioner Number').then(mspPracNum => {
-            expect(mspPracNum).toBe(this.jsonData[this.index].MSPPractitionerNum, 'MSP Practitioner values should be the same');
+        this.getInputValue('Medical Services Plan Practitioner Number').then(MSPPractitionerNum => {
+            expect(MSPPractitionerNum).toBe(this.jsonData[this.index].MSPPractitionerNum, 'MSP Practitioner values should be the same');
         });
-        this.getInputValue('Email address (optional)').then(contactEmail => {
-            expect(contactEmail).toBe(this.jsonData[this.index].emailAdd, 'Email address values should be the same');
+        this.getInputValue('Email address (optional)').then(emailAdd => {
+            expect(emailAdd).toBe(this.jsonData[this.index].emailAdd, 'Email address values should be the same');
         });
-        this.getInputValue('Phone number').then(contactPhone => {
-            expect(contactPhone.replace(/[^0-9]/g, '')).toBe(this.jsonData[this.index].phoneNum, 'Phone number values should be the same');
+        this.getInputValue('Phone number').then(phoneNum => {
+            expect(phoneNum.replace(/[^0-9]/g, '')).toBe(this.jsonData[this.index].phoneNum, 'Phone number values should be the same');
         });
         // this.getExtension().then(extension => {
         //     expect(extension).toBe(this.jsonData[this.index].extension, 'Extension values should be the same');
