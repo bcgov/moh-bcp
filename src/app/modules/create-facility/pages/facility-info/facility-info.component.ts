@@ -202,6 +202,7 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
 
       this.api.validateFacility({
         facilityName: this.dataService.facInfoFacilityName,
+        number: null,
         // API expects postalCode without any spaces in it
         postalCode: stripPostalCodeSpaces(this.dataService.facInfoPostalCode)
       }, this.dataService.applicationUUID)

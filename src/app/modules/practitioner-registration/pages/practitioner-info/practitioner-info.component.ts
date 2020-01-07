@@ -69,10 +69,11 @@ export class PractitionerInfoComponent extends BcpBaseForm implements OnInit, Af
 
       this.containerService.setIsLoading();
 
-      this.apiService.validateMD({
+      this.apiService.validatePractitioner({
         firstName: this.dataService.pracInfoFirstName,
         lastName: this.dataService.pracInfoLastName,
         number: this.dataService.pracInfoMSPPracNumber,
+        doctor: true
       }, this.dataService.applicationUUID).subscribe((res: ValidationResponse) => {
         console.log('apiService response', res);
 

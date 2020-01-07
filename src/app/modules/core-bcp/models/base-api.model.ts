@@ -20,18 +20,19 @@ export interface PractitionerValidationPartial {
   firstName: string;
   lastName: string;
   number: string;
+  // If validate, doctor flag must be true, otherwise false
+  doctor: boolean;
 }
 
 export interface ValidatePractitionerRequest extends APIBase {
   practitioner: PractitionerValidationPartial;
-
-  // TODO: If can use flag to indicate check for MD
-  //       need to add another variable to message.
 }
 
 export interface FacilityValidationPartial {
-  facilityName?: string;
-  number?: string;  // facility number
+  // facilityName name must populated for facility registration, otherwise null
+  facilityName: string;
+  // number must populated for practitioner registration, otherwise null
+  number: string;  // facility number
   postalCode: string;
 }
 
