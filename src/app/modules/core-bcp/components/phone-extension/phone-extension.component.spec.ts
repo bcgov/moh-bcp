@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PhoneExtensionComponent } from './phone-extension.component';
+import { SharedCoreModule } from 'moh-common-lib';
 
 describe('PhoneExtensionComponent', () => {
   let component: PhoneExtensionComponent;
@@ -8,7 +9,8 @@ describe('PhoneExtensionComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PhoneExtensionComponent ]
+      declarations: [ PhoneExtensionComponent ],
+      imports: [ SharedCoreModule ]
     })
     .compileComponents();
   }));
