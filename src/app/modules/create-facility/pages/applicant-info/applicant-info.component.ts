@@ -2,7 +2,6 @@ import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/co
 import { Router } from '@angular/router';
 import { CreateFacilityDataService } from '../../services/create-facility-data.service';
 import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
-import { BCPApiService } from '../../../../services/bcp-api.service';
 import { SplunkLoggerService } from '../../../../services/splunk-logger.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { PageStateService, ContainerService } from 'moh-common-lib';
@@ -97,7 +96,7 @@ export class ApplicantInfoComponent extends BcpBaseForm implements OnInit, After
           this.handleValidation(false);
         }
       }, error => {
-        console.log('ARC apiService onerror', error);
+        console.log('apiService onerror', error);
         this.handleError();
       });
 

@@ -4,7 +4,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { cCreateFacilityValidators, validMultiFormControl } from '../../models/validators';
 import { Address, getProvinceDescription, ErrorMessage, ContainerService } from 'moh-common-lib';
 import { CreateFacilityDataService } from '../../services/create-facility-data.service';
-import { BCPApiService } from '../../../../services/bcp-api.service';
 import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
 import { stripPostalCodeSpaces } from '../../../core-bcp/models/helperFunc';
 import { SplunkLoggerService } from '../../../../services/splunk-logger.service';
@@ -21,6 +20,8 @@ import { IRadioItems } from 'moh-common-lib/lib/components/radio/radio.component
   styleUrls: ['./facility-info.component.scss']
 })
 export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
+
+  systemDownError = false;
 
   // Error Messages
   qualifyBcpError: ErrorMessage = {
@@ -216,13 +217,22 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
 
           if (res.returnCode === ReturnCodes.SUCCESS) {
             this.handleAPIValidation(true);
-          } else if (res.returnCode === ReturnCodes.WARNING || res.returnCode === ReturnCodes.FAILURE) {
+          } else {
+            if (Number(res.returnCode) <= Number(ReturnCodes.SYSTEM_ERROR)) {
+              // Set to near match so that document is sent to MAXIMAGE
+              this.dataService.validateFacilityMessage = 'NEAR MATCH';
+            } else {
+              this.dataService.validateFacilityMessage = res.message;
+            }
             // we treat near match or exact match the same
             this.handleAPIValidation(false);
           }
-          this.dataService.validateFacilityMessage = res.message;
+
           this.navigate(CREATE_FACILITY_PAGES.REVIEW.fullpath);
-          // TODO: Handle failure case, e.g. no backend, failed request, etc.
+
+        }, error => {
+          console.log('apiService onerror', error);
+          this.handleError();
         });
     }
   }
@@ -248,11 +258,17 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
     this.mailingAddress = address;
   }
 
-
-  handleAPIValidation(isValid: boolean) {
+  private handleError(): void {
+    this.systemDownError = true;
     this.containerService.setIsLoading(false);
     this.cdr.detectChanges();
+  }
+
+  handleAPIValidation(isValid: boolean) {
+    this.systemDownError = false;
+    this.containerService.setIsLoading(false);
     this.dataService.apiDuplicateWarning = !isValid;
+    this.cdr.detectChanges();
   }
 
   // Read-only fields
