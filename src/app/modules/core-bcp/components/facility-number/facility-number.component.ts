@@ -1,6 +1,8 @@
 import { Component, Optional, Self } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 
+
+// TODO: Convert to use the abstract form control class - figure out where this is used
 @Component({
   selector: 'bcp-facility-number',
   templateUrl: './facility-number.component.html',

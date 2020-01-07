@@ -51,14 +51,8 @@
         </div>
 
         <div class="form-group">
-          <label for='extension'>
-            Extension (optional)
-          </label>
-
-          <input class='form-control' name='extension'
-                 formControlName='extension'
-                 type="text"
-                 [attr.maxlength]="4">
+          <bcp-phone-extension name='extension'
+                               formControlName='extension'></bcp-phone-extension>
         </div>
       </div>
 

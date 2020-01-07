@@ -105,7 +105,7 @@ export class BCPAdminPage extends BCPBasePage {
         this.typeText('Medical Services Plan Practitioner Number', this.jsonData[this.index].MSPPractitionerNum);
         this.typeText('Contact email (optional)', this.jsonData[this.index].emailAdd);
         this.typeText('Contact phone number', this.jsonData[this.index].phoneNum);
-        this.typeText(' Extension (optional) ', this.jsonData[this.index].extension);
+        this.typeText('Extension (optional)', this.jsonData[this.index].extension);
         // this.clickContinue();
     }
 
