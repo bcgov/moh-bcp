@@ -2,11 +2,12 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration-route-constants';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ContainerService, PageStateService } from 'moh-common-lib';
+import { ContainerService, ErrorMessage, PageStateService } from 'moh-common-lib';
 import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 import { PRACTITIONER_ATTACHMENT } from '../../models/practitioner-attachment';
 import { IRadioItems } from 'moh-common-lib/lib/components/radio/radio.component';
 import { RegisterPractitionerDataService } from '../../services/register-practitioner-data.service';
+import { formatDateForDisplay } from '../../../core-bcp/models/helperFunc';
 
 interface BaseFormGroup {
   attachmentType: any;
@@ -38,18 +39,10 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
   pageTitle: string = 'Practitioner Attachment';
   formGroup: FormGroup;
   radioItems: Array<IRadioItems>;
-  sameMailAddrError: boolean = false;
   changeAttachmentHasValue: boolean = false;
-  facilityEffectiveDate: Date = new Date(
-    this.dataService.jsonFacilityValidation.response
-      ? this.dataService.jsonFacilityValidation.response.effectiveDate
-      : null
-  );
-  facilityCancelDate: Date = new Date(
-    this.dataService.jsonFacilityValidation.response
-      ? this.dataService.jsonFacilityValidation.response.cancelDate
-      : null
-  );
+  facilityEffectiveDate: Date;
+  facilityCancelDate: Date;
+  facilityDateErrMsg: ErrorMessage;
 
   constructor( protected containerService: ContainerService,
                protected router: Router,
@@ -61,6 +54,23 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
 
   ngOnInit() {
     super.ngOnInit();
+
+    this.facilityEffectiveDate = new Date(
+      this.dataService.jsonFacilityValidation.response
+        ? this.dataService.jsonFacilityValidation.response.effectiveDate
+        : null
+    );
+    this.facilityCancelDate = new Date(
+      this.dataService.jsonFacilityValidation.response
+        ? this.dataService.jsonFacilityValidation.response.cancelDate
+        : null
+    );
+    this.facilityEffectiveDate.setTime( this.facilityEffectiveDate.getTime() + this.facilityEffectiveDate.getTimezoneOffset() * 60 * 1000 );
+    this.facilityCancelDate.setTime( this.facilityCancelDate.getTime() + this.facilityCancelDate.getTimezoneOffset() * 60 * 1000 );
+
+    this.facilityDateErrMsg = {
+      invalidRange: `This date isn\'t between ${formatDateForDisplay(this.facilityEffectiveDate)} and ${formatDateForDisplay(this.facilityEffectiveDate)}.`,
+    };
 
     this.radioItems = [
       {
