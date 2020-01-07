@@ -10,8 +10,7 @@
                   label="What change are you making for Business Cost Premium to the facility?"
                   [radioLabels]='radioItems' 
                   display="table-row-group"
-                  (ngModelChange)='changeAttachmentType($event)'
-                  [errorMessage]="sameMailAddrError">
+                  (ngModelChange)='changeAttachmentType($event)'>
     </common-radio>
   </div>
 
@@ -21,8 +20,7 @@
                     name="newAttachmentType"
                     label="Is this attachment a Locum or temporary?"
                     display="table-row-group"
-                    (ngModelChange)='changeNewAttachmentType($event)'
-                    [errorMessage]="sameMailAddrError">
+                    (ngModelChange)='changeNewAttachmentType($event)'>
       </common-radio>
     </div>
 
@@ -30,7 +28,9 @@
       <common-date label='Effective date for new attachment'
                    name="newAttachmentEffectiveDate"
                    formControlName="newAttachmentEffectiveDate"
-                   [dateRangeStart]='facilityEffectiveDate'>
+                   [dateRangeStart]='facilityEffectiveDate'
+                   [dateRangeEnd]='facilityCancelDate'
+                   [errorMessage]='facilityDateErrMsg'>
       </common-date>
     </div>
   
@@ -38,7 +38,9 @@
       <common-date label='Cancellation date for new attachment'
                    name="newAttachmentCancelDate"
                    formControlName="newAttachmentCancelDate"
-                   [dateRangeEnd]='facilityCancelDate'>
+                   [dateRangeStart]='facilityEffectiveDate'
+                   [dateRangeEnd]='facilityCancelDate'
+                   [errorMessage]='facilityDateErrMsg'>
       </common-date>
     </div>
   </ng-container>
@@ -48,7 +50,9 @@
       <common-date label='Cancellation date for existing attachment'
                     name="cancelAttachmentDate"
                     formControlName="cancelAttachmentDate"
-                    [dateRangeEnd]='facilityCancelDate'>
+                    [dateRangeStart]='facilityEffectiveDate'
+                    [dateRangeEnd]='facilityCancelDate'
+                    [errorMessage]='facilityDateErrMsg'>
       </common-date>
     </div>
   </ng-container>
@@ -58,7 +62,9 @@
       <common-date label='New effective date for existing attachment (if applicable)'
                     name="changeAttachmentEffectiveDate"
                     formControlName="changeAttachmentEffectiveDate"
-                    [dateRangeStart]='facilityEffectiveDate'>
+                    [dateRangeStart]='facilityEffectiveDate'
+                    [dateRangeEnd]='facilityCancelDate'
+                    [errorMessage]='facilityDateErrMsg'>
       </common-date>
     </div>
   
@@ -66,7 +72,9 @@
       <common-date label='New cancellation date for existing attachment (if applicable)'
                     name="changeAttachmentCancelDate"
                     formControlName="changeAttachmentCancelDate"
-                    [dateRangeEnd]='facilityCancelDate'>
+                    [dateRangeStart]='facilityEffectiveDate'
+                    [dateRangeEnd]='facilityCancelDate'
+                    [errorMessage]='facilityDateErrMsg'>
       </common-date>
     </div>
 
