@@ -1,8 +1,8 @@
 import { browser } from 'protractor';
-import { BCPInfoPage } from './bcp-reg-facility.po';
-import { CREATE_FACILITY_PAGES } from '../../../src/app/modules/create-facility/create-facility-route-constants';
+import { BCPInfoPage } from './bcp-pa.po';
+import { PRACTITIONER_REGISTRATION_PAGES } from '../../../src/app/modules/practitioner-registration/practitioner-registration-route-constants';
 
-describe('BCP Register Facility - Info Page (Unit Test)', () => {
+fdescribe('BCP Practitioner Assignment- Info Page (Unit Test)', () => {
 
     let infoPage: BCPInfoPage;
 
@@ -16,7 +16,7 @@ describe('BCP Register Facility - Info Page (Unit Test)', () => {
     it('01. should not be able to continue if the required fields are not filled out', () => {
         infoPage.navigateTo();
         infoPage.clickContinue();
-        expect(browser.getCurrentUrl()).toContain(CREATE_FACILITY_PAGES.FACILITY_INFO.fullpath, 'should stay on the same page');
+        expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.FACILITY_INFO.fullpath, 'should stay on the same page');
     });
 
     it('02. should be able to input values in their maximum capacity', () => {
@@ -29,7 +29,7 @@ describe('BCP Register Facility - Info Page (Unit Test)', () => {
         infoPage.navigateTo();
         infoPage.fillPage(DEFAULT_DATA);
         infoPage.clickContinue();
-        expect(browser.getCurrentUrl()).toContain(CREATE_FACILITY_PAGES.REVIEW.fullpath, 'should continue to the next page');
+        expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.REVIEW.fullpath, 'should continue to the next page');
     });
 
 });
