@@ -1,8 +1,8 @@
 import { browser, by, element, protractor, Key } from 'protractor';
 import { AbstractTestPage } from 'moh-common-lib/e2e';
-import { CREATE_FACILITY_PAGES } from '../../../src/app/modules/create-facility/create-facility-route-constants';
+import { PRACTITIONER_REGISTRATION_PAGES } from '../../../src/app/modules/practitioner-registration/practitioner-registration-route-constants';
 import * as fs from 'fs';
-import * as sampleFile from './bcp-sample-data.json';
+import * as sampleFile from './bcp-pa-sample-data.json';
 
 /**
  * This class is for GENERAL functions, and all those that target components
@@ -69,7 +69,7 @@ export class BCPBasePage extends AbstractTestPage {
 export class BCPHomePage extends BCPBasePage {
 
     navigateTo() {
-      return browser.get(CREATE_FACILITY_PAGES.HOME.fullpath);
+      return browser.get(PRACTITIONER_REGISTRATION_PAGES.HOME.fullpath);
     }
 
     typeCaptcha(text: string) {
@@ -96,35 +96,35 @@ export class BCPHomePage extends BCPBasePage {
 export class BCPAdminPage extends BCPBasePage {
 
     navigateTo() {
-      return browser.get(CREATE_FACILITY_PAGES.FACILITY_ADMIN.fullpath);
+      return browser.get(PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_INFO.fullpath);
     }
 
     fillPage(index: number) {
         this.setIndex(index);
-        this.typeText('First name', this.jsonData[this.index].facilityAdminFirstName);
-        this.typeText('Last name', this.jsonData[this.index].facilityAdminLastName);
+        this.typeText('First name', this.jsonData[this.index].firstName);
+        this.typeText('Last name', this.jsonData[this.index].lastName);
         this.typeText('Medical Services Plan Practitioner Number', this.jsonData[this.index].MSPPractitionerNum);
-        this.typeText('Contact email (optional)', this.jsonData[this.index].emailAdd);
-        this.typeText('Contact phone number', this.jsonData[this.index].phoneNum);
-        this.typeText('Extension (optional)', this.jsonData[this.index].extension);
-        browser.sleep(2000);
+        this.typeText('Email address (optional)', this.jsonData[this.index].emailAdd);
+        this.typeText('Phone number', this.jsonData[this.index].phoneNum);
+        this.typeText(' Extension ', this.jsonData[this.index].extension);
+        // this.clickContinue();
     }
 
     checkAdminInputValues(index: number) {
         this.getInputValue('First name').then(firstName => {
-            expect(firstName).toBe(this.jsonData[this.index].facilityAdminFirstName, 'First name values should be the same');
+            expect(firstName).toBe(this.jsonData[this.index].firstName, 'First name values should be the same');
         });
         this.getInputValue('Last name').then(lastName => {
-            expect(lastName).toBe(this.jsonData[this.index].facilityAdminLastName, 'Last name values should be the same');
+            expect(lastName).toBe(this.jsonData[this.index].lastName, 'Last name values should be the same');
         });
-        this.getInputValue('Medical Services Plan Practitioner Number').then(mspPracNum => {
-            expect(mspPracNum).toBe(this.jsonData[this.index].MSPPractitionerNum, 'MSP Practitioner values should be the same');
+        this.getInputValue('Medical Services Plan Practitioner Number').then(MSPPractitionerNum => {
+            expect(MSPPractitionerNum).toBe(this.jsonData[this.index].MSPPractitionerNum, 'MSP Practitioner values should be the same');
         });
-        this.getInputValue('Contact email (optional)').then(contactEmail => {
-            expect(contactEmail).toBe(this.jsonData[this.index].emailAdd, 'Email address values should be the same');
+        this.getInputValue('Email address (optional)').then(emailAdd => {
+            expect(emailAdd).toBe(this.jsonData[this.index].emailAdd, 'Email address values should be the same');
         });
-        this.getInputValue('Contact phone number').then(contactPhone => {
-            expect(contactPhone.replace(/[^0-9]/g, '')).toBe(this.jsonData[this.index].phoneNum, 'Phone number values should be the same');
+        this.getInputValue('Phone number').then(phoneNum => {
+            expect(phoneNum.replace(/[^0-9]/g, '')).toBe(this.jsonData[this.index].phoneNum, 'Phone number values should be the same');
         });
         // this.getExtension().then(extension => {
         //     expect(extension).toBe(this.jsonData[this.index].extension, 'Extension values should be the same');
@@ -135,7 +135,7 @@ export class BCPAdminPage extends BCPBasePage {
 export class BCPInfoPage extends BCPBasePage {
 
     navigateTo() {
-        return browser.get(CREATE_FACILITY_PAGES.FACILITY_INFO.fullpath);
+        return browser.get(PRACTITIONER_REGISTRATION_PAGES.FACILITY_INFO.fullpath);
     }
 
     typeMailingCity(text: string) {
@@ -162,27 +162,11 @@ export class BCPInfoPage extends BCPBasePage {
     fillPage(index: number) {
         this.setIndex(index);
         this.typeText('Facility or practice name', this.jsonData[this.index].facilityName);
+        this.typeText('Medical Services Plan Facility Number', this.jsonData[this.index].MSPPractitionerNum);
         this.typeText('Physical address', this.jsonData[this.index].address);
         this.typeText('City', this.jsonData[this.index].city);
-        this.typeText('Postal code', this.jsonData[this.index].postal);
-        this.typeText('Contact fax number (optional)', this.jsonData[this.index].faxNum);
-
-        const effectiveDate = this.jsonData[this.index].effectiveDate;
-        const year = effectiveDate.split('-')[0];
-        const month = effectiveDate.split('-')[1];
-        const day = effectiveDate.split('-')[2];
-        this.typeDate('Effective date', year, month, day);
-        this.scrollDown();
-        this.clickOption('Is the mailing address the same as the Physical Facility Address?',
-            this.jsonData[this.index].hasSameMailingAddress.toString());
-        if (!this.jsonData[this.index].hasSameMailingAddress) {
-            this.typeText('Mailing address', this.jsonData[this.index].mailingAddress);
-            this.typeMailingCity(this.jsonData[this.index].mailingCity);
-            this.typeMailingPostal(this.jsonData[this.index].mailingPostal);
-            this.scrollDown();
-        }
-        this.clickRadioButton('isQualifyForBCP', this.jsonData[this.index].qualifyForBCP);
-        browser.sleep(2000);
+        this.typeText('Postal Code', this.jsonData[this.index].postal);
+        this.typeText('Fax number (optional)', this.jsonData[this.index].faxNum);
     }
 
     checkInfoInputValues(index: number) {
@@ -195,15 +179,16 @@ export class BCPInfoPage extends BCPBasePage {
         this.getInputValue('City').then(city => {
             expect(city).toBe(this.jsonData[this.index].city, 'City values should be the same');
         });
-        this.getInputValue('Postal code').then(postalCode => {
+        this.getInputValue('Postal Code').then(postalCode => {
             expect(postalCode.replace(/[^A-Z0-9]/g, '')).toBe(this.jsonData[this.index].postal, 'Postal values should be the same');
         });
-        this.getInputValue('Contact fax number (optional)').then(faxNum => {
+        this.getInputValue('Fax number (optional)').then(faxNum => {
             expect(faxNum.replace(/[^0-9]/g, '')).toBe(this.jsonData[this.index].faxNum, 'Fax number values should be the same');
         });
     }
 }
 
+/*
 export class BCPReviewPage extends BCPBasePage {
 
     navigateTo() {
@@ -228,3 +213,4 @@ export class BCPReviewPage extends BCPBasePage {
     }
 
 }
+*/
