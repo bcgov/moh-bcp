@@ -84,10 +84,6 @@
 
     </form>
 
-    <common-error-container [displayError]='systemDownError'>
-      Unable to continue, system down. Please try again later.
-    </common-error-container>
-
     <aside>
       <h2>Tip</h2>
       <p>"Effective date" is the date when the facility began or will begin operations. The Business Cost Premium (if applicable) cannot be claimed for physician services provided earlier than the facility effective date.</p>
@@ -160,4 +156,8 @@
       <p>To become eligible for the Business Cost Premium, practitioners must complete the "Practitioner Attachment To MSP Facility Number For Business Cost Premium" form, using the Facility Number supplied after successful completion of this form.</p>
     </aside>
   </common-page-section>
+
+  <common-error-container [displayError]='systemDownError'>
+    Unable to continue, system unavailable. Please try again later.
+  </common-error-container>
 </common-page-framework>

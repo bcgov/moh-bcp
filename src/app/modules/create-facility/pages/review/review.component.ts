@@ -96,5 +96,6 @@ export class ReviewComponent extends BcpBaseForm implements OnInit, AfterViewIni
 
   private handleError(): void {
     this.containerService.setIsLoading(false);
+    this.navigate(CREATE_FACILITY_PAGES.SUBMISSION.fullpath);
   }
 }

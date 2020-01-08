@@ -37,7 +37,7 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
       // Reference number exists but message could contain errors indicate success
       if ( this.response.referenceNumber ) {
         // Mainframe is down, but have ref # from max image.
-        console.log('arc seing custom dipslay icon');
+        console.log('arc seeing custom display icon');
         // ideally return code should change on server side, as this is same as a "MATCH" request
         this.displayIcon = ApiStatusCodes.SUCCESS;
       } else {
@@ -64,11 +64,8 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
 
   get facilityNumberText() {
 
-    if (this.isUnderReview) {
-      return 'Contact HIBC';
-    }
-    // TODO - Is facility # considered PI Data?
-    return setNotApplicable(this.dataService.jsonCreateFacility.response.facilityNumber);
+    return this.dataService.jsonCreateFacility.response.facilityNumber ?
+          this.dataService.jsonCreateFacility.response.facilityNumber : 'Contact HIBC';
   }
 
   get referenceNumber() {

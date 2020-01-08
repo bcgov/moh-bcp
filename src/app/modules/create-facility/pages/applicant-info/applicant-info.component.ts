@@ -89,11 +89,11 @@ export class ApplicantInfoComponent extends BcpBaseForm implements OnInit, After
         if (res.returnCode === ReturnCodes.SUCCESS) {
           this.handleValidation(true);
           this.navigate(CREATE_FACILITY_PAGES.FACILITY_INFO.fullpath);
-        } else if (res.returnCode === ReturnCodes.FAILURE) {
+        } else if (res.returnCode === ReturnCodes.FAILURE) { // Note: Warning is never returned by this request
           this.handleValidation(false);
-        } else {
+        } else { // Negative response codes
           // fall-through case, likely an error
-          this.handleValidation(false);
+          this.handleError();
         }
       }, error => {
         console.log('apiService onerror', error);

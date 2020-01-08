@@ -31,7 +31,7 @@
 
     <div AdditionalInfo>
 
-      <!-- TODO: Remove after confirm changes
+      <!-- TODO: Remove after confirm changes -->
       <div class="message-container under-review"
            *ngIf="isUnderReview">
         <i class="fa fa-2x fa-exclamation-circle text-primary pr-2"
@@ -39,16 +39,15 @@
         Your Facility Number will be provided once your request has been processed. If you have any questions on the
         status of your submission please call us at 1-800-555-1234 and provide your Reference Number.
       </div>
-    -->
 
-      <div class="print-hide">
+      <div class="print-hide" *ngIf='!isError'>
         <h2 class="border-bottom"><strong>Next Steps</strong></h2>
         <common-page-section layout='noTips'>
           <ul>
+            <li>Print this page for your records</li>
             <li>You will recieve a letter with your Facility Number</li>
             <li *ngIf="!isUnderReview">Registration practitioners, complete with practitioner assignment to Medical
-              Services Plan facility for
-              Business Cost Premium form.</li>
+              Services Plan facility for Business Cost Premium form.</li>
           </ul>
         </common-page-section>
       </div>

@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  bypassModal: true,
+  bypassModal: false,
   bypassGuards: true,
-  useDummyData: false,
+  useDummyData: false, // For testing against real back-end
   useMockBackend: false,
   useMockBackendData: false,
   api: {
