@@ -107,7 +107,7 @@ export class BCPAdminPage extends BCPBasePage {
         this.typeText('Contact email (optional)', this.jsonData[this.index].emailAdd);
         this.typeText('Contact phone number', this.jsonData[this.index].phoneNum);
         this.typeText('Extension (optional)', this.jsonData[this.index].extension);
-        // this.clickContinue();
+        browser.sleep(2000);
     }
 
     checkAdminInputValues(index: number) {
@@ -182,7 +182,7 @@ export class BCPInfoPage extends BCPBasePage {
             this.scrollDown();
         }
         this.clickRadioButton('isQualifyForBCP', this.jsonData[this.index].qualifyForBCP);
-        // this.clickContinue();
+        browser.sleep(2000);
     }
 
     checkInfoInputValues(index: number) {

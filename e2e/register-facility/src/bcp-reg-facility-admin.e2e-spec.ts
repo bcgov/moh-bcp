@@ -15,7 +15,6 @@ describe('BCP Register Facility - Admin Page (Unit Test)', () => {
 
     it('01. should not be able to continue if the required fields are not filled out', () => {
         adminPage.navigateTo();
-        browser.sleep(10000);
         adminPage.clickContinue();
         expect(browser.getCurrentUrl()).toContain(CREATE_FACILITY_PAGES.FACILITY_ADMIN.fullpath, 'should stay on the same page');
     });
