@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ReviewContainerComponent } from '../../../core-bcp/components/review-container/review-container.component';
 import { RegisterPractitionerDataService } from '../../services/register-practitioner-data.service';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration-route-constants';
+import { setNotApplicable } from '../../../core-bcp/models/helperFunc';
 
 @Component({
   selector: 'bcp-review-practitioner-facility',
@@ -30,7 +31,7 @@ export class ReviewPractitionerFacilityComponent implements OnInit {
         { label: 'City', value: this.dataService.pracFacilityCity },
         { label: 'Province', value: this.dataService.pracFacilityProvince },
         { label: 'Postal code', value: this.dataService.pracFacilityPostalCode },
-        { label: 'Fax number (optional)', value: this.dataService.pracFacilityFaxNumber }
+        { label: 'Fax number (optional)', value: setNotApplicable(this.dataService.pracFacilityFaxNumber) }
       ],
     ];
     this.review.sectionItems = items;

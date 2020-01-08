@@ -3,7 +3,7 @@ import { ReviewContainerComponent } from '../../../core-bcp/components/review-co
 import { RegisterPractitionerDataService } from '../../services/register-practitioner-data.service';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration-route-constants';
 import { getAttachmentReviewTextByValue, PRACTITIONER_ATTACHMENT } from '../../models/practitioner-attachment';
-import { formatDateForDisplay } from '../../../core-bcp/models/helperFunc';
+import { formatDateForDisplay, setNotApplicable } from '../../../core-bcp/models/helperFunc';
 
 interface ReviewItem {
   label: string;
@@ -47,11 +47,11 @@ export class ReviewPractitionerAttachmentComponent implements OnInit {
     };
     const changeEffectiveDateItem: ReviewItem = {
       label: 'New effective date for existing attachment (if applicable)',
-      value: formatDateForDisplay(this.dataService.pracChangeAttachmentEffectiveDate),
+      value: setNotApplicable(formatDateForDisplay(this.dataService.pracChangeAttachmentEffectiveDate)),
     };
     const changeCancelDateItem: ReviewItem = {
       label: 'New cancellation date for existing attachment (if applicable)',
-      value: formatDateForDisplay(this.dataService.pracChangeAttachmentCancelDate),
+      value: setNotApplicable(formatDateForDisplay(this.dataService.pracChangeAttachmentCancelDate)),
     };
 
     const items = [

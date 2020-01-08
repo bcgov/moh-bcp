@@ -10,7 +10,7 @@ import { ErrorMessage, LabelReplacementTag, AbstractFormControl } from 'moh-comm
 export class PractitionerNumberComponent extends AbstractFormControl implements OnInit, ControlValueAccessor {
   pracNumber: string;
 
-  @Input() label: string = 'Medical services plan practitioner number';
+  @Input() label: string = 'Medical Services Plan Practitioner Number';
 
   _defaultErrMsg: ErrorMessage = {
     required: `${LabelReplacementTag} is required.`,

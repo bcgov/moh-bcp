@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ReviewContainerComponent } from '../../../core-bcp/components/review-container/review-container.component';
 import { RegisterPractitionerDataService } from '../../services/register-practitioner-data.service';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration-route-constants';
+import { setNotApplicable } from '../../../core-bcp/models/helperFunc';
 
 @Component({
   selector: 'bcp-review-practitioner-info',
@@ -32,7 +33,7 @@ export class ReviewPractitionerInfoComponent implements OnInit {
         { label: 'First name', value: this.dataService.pracInfoFirstName, },
         { label: 'Last name', value: this.dataService.pracInfoLastName },
         { label: 'Medical Services Plan practitioner number', value: this.dataService.pracInfoMSPPracNumber },
-        { label: 'Email address (optional)', value: this.dataService.pracInfoEmail },
+        { label: 'Email address (optional)', value: setNotApplicable(this.dataService.pracInfoEmail) },
         phoneNumberEntry,
       ],
     ];
