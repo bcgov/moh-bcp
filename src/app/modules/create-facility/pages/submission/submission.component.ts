@@ -28,16 +28,21 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
     super.ngOnInit();
 
     // Set icon to be displayed
-    if (this.dataService.jsonCreateFacility.response &&
-        this.dataService.jsonCreateFacility.response.returnCode >= ApiStatusCodes.SUCCESS) {
+    if (this.dataService.jsonCreateFacility.response) {
+
       this.displayIcon = this.dataService.jsonCreateFacility.response.returnCode;
+
       this.isUnderReview = (this.displayIcon === ApiStatusCodes.WARNING);
 
-      if (this.response.referenceNumber && this.response.returnCode === ApiStatusCodes.ERROR) {
+      // Reference number exists but message could contain errors indicate success
+      if ( this.response.referenceNumber ) {
         // Mainframe is down, but have ref # from max image.
-        console.log('arc seing cusom dipslay icon');
+        console.log('arc seing custom dipslay icon');
         // ideally return code should change on server side, as this is same as a "MATCH" request
         this.displayIcon = ApiStatusCodes.SUCCESS;
+      } else {
+        // No reference number - Error
+        this.displayIcon = ApiStatusCodes.ERROR;
       }
     }
   }
@@ -45,8 +50,8 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
   get confirmationMessage() {
 
     if (this.displayIcon === ApiStatusCodes.WARNING) {
-      return 'Your application has been submitted but you will need to ' +
-        'contact HIBC for the Facility Number.';
+      return 'Your application has been submitted but there may be a Facility Number assigned to that ' +
+             'facility already, contact HIBC at (604) 456-6950 (lower mainland) or 1-866-456-6950 (elsewhere in B.C.).';
     }
 
 

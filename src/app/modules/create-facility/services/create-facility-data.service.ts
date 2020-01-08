@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment';
 import { BRITISH_COLUMBIA } from 'moh-common-lib';
 import { convertToJSONDate, stripPhoneFormatting, stripPostalCodeSpaces, prepareDeclarationTextForAPI } from '../../core-bcp/models/helperFunc';
 import { BaseDataService } from '../../../services/base-data.service';
+import { isThisQuarter } from 'date-fns';
 
 @Injectable({
   providedIn: 'root'
@@ -48,6 +49,27 @@ export class CreateFacilityDataService extends BaseDataService {
       // Review page
       this.dateOfAcceptance = new Date();
     }
+
+
+    // Partial setup for using data in back end
+    if (environment.useMockBackendData) {
+      // Name and PracNumber will pass backend validation in TEST
+      this.facAdminFirstName = 'TEST';
+      this.facAdminLastName = 'PRIVATEPRACTICE';
+      // this.emailAddress = 'test@privatepractice.com'; // optional field
+      this.facAdminPhoneNumber = '(222) 222-2221';
+
+      // Following code is as per directions by Adam ref:bcp-68 18/10/2019 10:40AM
+      // facility
+      this.facInfoPhysicalAddress = '12345 Douglas Street';
+      this.facInfoCity = 'Victoria';
+      this.facInfoProvince = 'BC';
+      this.facInfoEffectiveDate = new Date(2020, 0, 10);
+
+      this.facInfoIsSameMailingAddress = true;
+      this.facInfoIsQualifyForBCP = true;
+    }
+
   }
 
   // Facility Administrator
