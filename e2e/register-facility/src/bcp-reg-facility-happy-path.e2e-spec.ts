@@ -7,10 +7,8 @@ let adminPage: BCPAdminPage;
 let infoPage: BCPInfoPage;
 let reviewPage: BCPReviewPage;
 let page: BCPBasePage;
-// let index = 0;
+let index = 0;
 
-// This test will be used to check the validation of real data from end to end, will not be used for now.
-/*
 export function regFacilityTest(index: number) {
     it('should navigate from Home Page to Submission Page (end-to-end) when all required fields are filled out', () => {
         homePage.navigateTo();
@@ -24,9 +22,8 @@ export function regFacilityTest(index: number) {
         expect(browser.getCurrentUrl()).toContain(CREATE_FACILITY_PAGES.SUBMISSION.fullpath, 'should navigate to the Submission Page');
     }, 100000);
 }
-*/
 
-xdescribe('BCP Register Facility - End to End Test (Happy Path)', () => {
+describe('BCP Register Facility - End to End Test (Happy Path)', () => {
 
     beforeEach(() => {
         homePage = new BCPHomePage();
@@ -36,11 +33,9 @@ xdescribe('BCP Register Facility - End to End Test (Happy Path)', () => {
         page = new BCPBasePage();
     });
 
-    /*
     while(index < Object.keys(getJSONData()).length - 1){
         regFacilityTest(index);
         index++;
     }
-    */
 
 });
