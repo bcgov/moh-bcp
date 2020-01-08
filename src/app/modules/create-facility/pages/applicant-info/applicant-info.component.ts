@@ -2,7 +2,6 @@ import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/co
 import { Router } from '@angular/router';
 import { CreateFacilityDataService } from '../../services/create-facility-data.service';
 import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
-import { BCPApiService } from '../../../../services/bcp-api.service';
 import { SplunkLoggerService } from '../../../../services/splunk-logger.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { PageStateService, ContainerService } from 'moh-common-lib';
@@ -90,14 +89,14 @@ export class ApplicantInfoComponent extends BcpBaseForm implements OnInit, After
         if (res.returnCode === ReturnCodes.SUCCESS) {
           this.handleValidation(true);
           this.navigate(CREATE_FACILITY_PAGES.FACILITY_INFO.fullpath);
-        } else if (res.returnCode === ReturnCodes.FAILURE) {
+        } else if (res.returnCode === ReturnCodes.FAILURE) { // Note: Warning is never returned by this request
           this.handleValidation(false);
-        } else {
+        } else { // Negative response codes
           // fall-through case, likely an error
-          this.handleValidation(false);
+          this.handleError();
         }
       }, error => {
-        console.log('ARC apiService onerror', error);
+        console.log('apiService onerror', error);
         this.handleError();
       });
 

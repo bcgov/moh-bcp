@@ -50,5 +50,5 @@ export interface ValidationResponse extends BaseResponse {
 }
 
 export interface SubmissionResponse extends BaseResponse {
-  referenceNumber: string;
+  referenceNumber?: string;
 }

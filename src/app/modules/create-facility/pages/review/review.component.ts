@@ -74,7 +74,6 @@ export class ReviewComponent extends BcpBaseForm implements OnInit, AfterViewIni
     this.containerService.setIsLoading();
     this.dataService.dateOfSubmission = new Date();
     const jsonPayLoad = this.dataService.getJSONPayload();
-    // this.api.createFacility(jsonPayLoad, this.dataService.applicationUUID)
     this.api.createFacility(jsonPayLoad, this.dataService.signature, this.dataService.applicationUUID)
       .subscribe((res: ValidationResponse) => {
 
@@ -90,12 +89,13 @@ export class ReviewComponent extends BcpBaseForm implements OnInit, AfterViewIni
         // TODO: Handle failure case, e.g. no backend, failed request, etc.
         this.navigate(CREATE_FACILITY_PAGES.SUBMISSION.fullpath);
       }, error => {
-        console.log('ARC apiService onerror', error);
+        console.log('apiService onerror', error);
         this.handleError();
       });
   }
 
   private handleError(): void {
     this.containerService.setIsLoading(false);
+    this.navigate(CREATE_FACILITY_PAGES.SUBMISSION.fullpath);
   }
 }
