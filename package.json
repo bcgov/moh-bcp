@@ -1,6 +1,6 @@
 {
   "name": "moh-bcp",
-  "version": "0.10.1",
+  "version": "0.10.2",
   "scripts": {
     "ng": "ng",
     "serve": "ng serve",
@@ -13,6 +13,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "e2e-protractor": "npx protractor",
+    "e2e:bcppa-firefox": "npm run e2e -- --protractorConfig=e2e/practitioner-assignment/protractor-bcp-pa-firefox.conf.js --port=4300",
     "e2e:bcprf-firefox": "npm run e2e -- --protractorConfig=e2e/register-facility/protractor-bcp-firefox.conf.js --port=4300",
     "e2e:bcprf-chrome": "npm run e2e -- --protractorConfig=e2e/register-facility/protractor-bcp-chrome.conf.js --port=4300",
     "e2e:bcp": "npm run e2e-protractor -- e2e/register-facility/protractor.bcp.conf.js",
@@ -49,7 +50,6 @@
     "rxjs": "6.5.3",
     "sha1": "^1.1.1",
     "tslib": "^1.9.0",
-    "typescript": "^3.4.5",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
@@ -69,6 +69,7 @@
     "karma-jasmine-html-reporter": "^1.4.2",
     "protractor": "~5.4.0",
     "ts-node": "~8.4.1",
-    "tslint": "~5.20.0"
+    "tslint": "~5.20.0",
+    "typescript": "^3.4.5"
   }
 }

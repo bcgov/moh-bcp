@@ -8,6 +8,7 @@ export const environment = {
 
 
   useMockBackend: false,
+  useMockBackendData: false,
   api: {
     base: '/bcp/api/bcpIntegration',
     captcha: '/bcp/api/captcha',

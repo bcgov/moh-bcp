@@ -63,7 +63,7 @@ export class ReviewComponent extends BcpBaseForm implements OnInit, AfterViewIni
 
   continue() {
     this.signature._onTouched();
-    console.log(this.dataService.declarationTextForAPI);
+    // console.log(this.dataService.declarationTextForAPI);
 
     if (this.canContinue()) {
       this.submit();
@@ -96,5 +96,6 @@ export class ReviewComponent extends BcpBaseForm implements OnInit, AfterViewIni
 
   private handleError(): void {
     this.containerService.setIsLoading(false);
+    this.navigate(CREATE_FACILITY_PAGES.SUBMISSION.fullpath);
   }
 }

@@ -28,16 +28,17 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
     super.ngOnInit();
 
     // Set icon to be displayed
-    if (this.dataService.jsonCreateFacility.response &&
-        this.dataService.jsonCreateFacility.response.returnCode >= ApiStatusCodes.SUCCESS) {
-      this.displayIcon = this.dataService.jsonCreateFacility.response.returnCode;
-      this.isUnderReview = (this.displayIcon === ApiStatusCodes.WARNING);
+    if (this.dataService.jsonCreateFacility.response) {
 
-      if (this.response.referenceNumber && this.response.returnCode === ApiStatusCodes.ERROR) {
-        // Mainframe is down, but have ref # from max image.
-        console.log('arc seing cusom dipslay icon');
+      if ( this.response.referenceNumber && this.response.facilityNumber ) {
+        this.displayIcon = this.displayIcon = ApiStatusCodes.SUCCESS;
+      } else if ( this.response.referenceNumber ) {
         // ideally return code should change on server side, as this is same as a "MATCH" request
-        this.displayIcon = ApiStatusCodes.SUCCESS;
+        this.isUnderReview = true;
+        this.displayIcon = ApiStatusCodes.WARNING;
+      } else {
+        // No reference number - Error
+        this.displayIcon = ApiStatusCodes.ERROR;
       }
     }
   }
@@ -45,8 +46,8 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
   get confirmationMessage() {
 
     if (this.displayIcon === ApiStatusCodes.WARNING) {
-      return 'Your application has been submitted but you will need to ' +
-        'contact HIBC for the Facility Number.';
+      return 'Your application has been submitted but there may be a Facility Number assigned to that ' +
+             'facility already, contact HIBC at (604) 456-6950 (lower mainland) or 1-866-456-6950 (elsewhere in B.C.).';
     }
 
 
@@ -59,11 +60,8 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
 
   get facilityNumberText() {
 
-    if (this.isUnderReview) {
-      return 'Contact HIBC';
-    }
-    // TODO - Is facility # considered PI Data?
-    return setNotApplicable(this.dataService.jsonCreateFacility.response.facilityNumber);
+    return this.dataService.jsonCreateFacility.response.facilityNumber ?
+          this.dataService.jsonCreateFacility.response.facilityNumber : 'Contact HIBC';
   }
 
   get referenceNumber() {
