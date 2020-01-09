@@ -30,16 +30,12 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
     // Set icon to be displayed
     if (this.dataService.jsonCreateFacility.response) {
 
-      this.displayIcon = this.dataService.jsonCreateFacility.response.returnCode;
-
-      this.isUnderReview = (this.displayIcon === ApiStatusCodes.WARNING);
-
-      // Reference number exists but message could contain errors indicate success
-      if ( this.response.referenceNumber ) {
-        // Mainframe is down, but have ref # from max image.
-        console.log('arc seeing custom display icon');
+      if ( this.response.referenceNumber && this.response.facilityNumber ) {
+        this.displayIcon = this.displayIcon = ApiStatusCodes.SUCCESS;
+      } else if ( this.response.referenceNumber ) {
         // ideally return code should change on server side, as this is same as a "MATCH" request
-        this.displayIcon = ApiStatusCodes.SUCCESS;
+        this.isUnderReview = true;
+        this.displayIcon = ApiStatusCodes.WARNING;
       } else {
         // No reference number - Error
         this.displayIcon = ApiStatusCodes.ERROR;

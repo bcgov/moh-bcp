@@ -3,42 +3,14 @@
   <common-confirm-template [displayIcon]="displayIcon">
 
     <div confirmationTitle>
-      <button (click)="print($event)" class="btn btn-clear float-right print-hide">
-        <strong>Print
-          <i class="fa fa-print fa-lg"
-             aria-hidden="true"></i>
-        </strong>
-      </button>
-      <h1 class='border-bottom'>{{pageTitle}}</h1>
+      <ng-container *ngTemplateOutlet="confirmTitle"></ng-container>
     </div>
 
     <div message>
-      <div>
-        <h2 class='mt-2'>{{confirmationMessage}}</h2>
-      </div>
-
-      <div *ngIf="!isError" class="row">
-        <div class='col-6 review-key'>Date of Submission</div>
-        <div class="col-6 review-value">{{submissionDate}}</div>
-
-        <div class='col-6 review-key'>Reference Number</div>
-        <div class="col-6 review-value">{{referenceNumber}}</div>
-
-        <div class='col-6 review-key'>Facility Number</div>
-        <div class="col-6 review-value {{isUnderReview ? 'text-primary' : ''}} "> {{facilityNumberText}} </div>
-      </div>
+      <ng-container *ngTemplateOutlet="confirmMessage"></ng-container>
     </div>
 
     <div AdditionalInfo>
-
-      <!-- TODO: Remove after confirm changes -->
-      <div class="message-container under-review"
-           *ngIf="isUnderReview">
-        <i class="fa fa-2x fa-exclamation-circle text-primary pr-2"
-           aria-label="info"></i>
-        Your Facility Number will be provided once your request has been processed. If you have any questions on the
-        status of your submission please call us at 1-800-555-1234 and provide your Reference Number.
-      </div>
 
       <div class="print-hide" *ngIf='!isError'>
         <h2 class="border-bottom"><strong>Next Steps</strong></h2>
@@ -46,17 +18,19 @@
           <ul>
             <li>Print this page for your records</li>
             <li>You will recieve a letter with your Facility Number</li>
-            <li *ngIf="!isUnderReview">Registration practitioners, complete with practitioner assignment to Medical
-              Services Plan facility for Business Cost Premium form.</li>
+            <li>Registration practitioners, complete with practitioner assignment to Medical Services Plan facility for Business Cost Premium form.</li>
           </ul>
         </common-page-section>
       </div>
 
       <div class="print-only my-4">
         <p>This application form is for new applicants who do not have a valid MSP facility number.</p>
-        <p>All information on this form must be authorized by the responsible principle practitioner of the facility (the "Applicant"). If there are any changes to this submission after it has been received, a new form must be completed and authorized by the Applicant.</p>
+        <p>
+          All information on this form must be authorized by the responsible principle practitioner of the facility
+          (the "Applicant"). If there are any changes to this submission after it has been received, a new form must be
+          completed and authorized by the Applicant.
+        </p>
       </div>
-
 
       <!-- Prinable section should have same contents as Review page -->
       <div class="print-only">
@@ -70,47 +44,14 @@
 
 
         <common-confirm-template [displayIcon]="displayIcon">
-
           <div confirmationTitle>
-            <button (click)="print($event)" class="btn btn-clear float-right print-hide">
-              <strong>Print
-                <i class="fa fa-print fa-lg"
-                   aria-hidden="true"></i>
-              </strong>
-            </button>
-            <h1 class='border-bottom'>{{pageTitle}}</h1>
+            <ng-container *ngTemplateOutlet="confirmTitle"></ng-container>
           </div>
 
           <div message>
-            <div>
-              <h2 class='mt-2'>{{confirmationMessage}}</h2>
-            </div>
-
-            <div *ngIf="!isError" class="row">
-              <div class='col-6 review-key'>Date of Submission</div>
-              <div class="col-6 review-value">{{submissionDate}}</div>
-
-              <div class='col-6 review-key'>Reference Number</div>
-              <div class="col-6 review-value">{{referenceNumber}}</div>
-
-              <div class='col-6 review-key'>Facility Number</div>
-              <div class="col-6 review-value {{isUnderReview ? 'text-primary' : ''}} "> {{facilityNumberText}} </div>
-            </div>
-          </div>
-
-          <div AdditionalInfo>
-
-            <div class="message-container under-review"
-                 *ngIf="isUnderReview">
-              <i class="fa fa-2x fa-exclamation-circle text-primary pr-2"
-                 aria-label="info"></i>
-              Your Facility Number will be provided once your request has been processed. If you have any questions on the
-              status of your submission please call us at 1-800-555-1234 and provide your Reference Number.
-            </div>
+            <ng-container *ngTemplateOutlet="confirmMessage"></ng-container>
           </div>
         </common-confirm-template>
-
-
 
         <h2 class='border-bottom'>Declaration</h2>
         <p class="font-italic" [innerHtml]='declarationText'></p>
@@ -132,31 +73,28 @@
 </common-page-framework>
 
 
-<ng-template #confirmationBox>
-  <div confirmationTitle>
-    <button (click)="print($event)" class="btn btn-clear float-right print-hide">
-      <strong>Print
-        <i class="fa fa-print fa-lg"
-           aria-hidden="true"></i>
-      </strong>
-    </button>
-    <h1 class='border-bottom'>{{pageTitle}}</h1>
-  </div>
+<ng-template #confirmTitle>
+  <button  *ngIf="!isError" (click)="print($event)" class="btn btn-clear float-right print-hide">
+    <strong>Print
+      <i class="fa fa-print fa-lg"
+        aria-hidden="true"></i>
+    </strong>
+  </button>
+  <h1 class='border-bottom'>{{pageTitle}}</h1>
+</ng-template>
 
-  <div message>
-    <div>
-      <h2 class='mt-2'>{{confirmationMessage}}</h2>
-    </div>
+<ng-template #confirmMessage>
 
-    <div *ngIf="!isError" class="row">
-      <div class='col-6 review-key'>Date of Submission</div>
-      <div class="col-6 review-value">{{submissionDate}}</div>
+  <h2 class='mt-0 p-2 text-dark'>{{confirmationMessage}}</h2>
 
-      <div class='col-6 review-key'>Reference Number</div>
-      <div class="col-6 review-value">{{referenceNumber}}</div>
+  <div *ngIf="!isError" class="row">
+    <div class='col-6 review-key'>Date of Submission</div>
+    <div class="col-6 review-value">{{submissionDate}}</div>
 
-      <div class='col-6 review-key'>Facility Number</div>
-      <div class="col-6 review-value {{isUnderReview ? 'text-primary' : ''}} "> {{facilityNumberText}} </div>
-    </div>
+    <div class='col-6 review-key'>Reference Number</div>
+    <div class="col-6 review-value">{{referenceNumber}}</div>
+
+    <div class='col-6 review-key'>Facility Number</div>
+    <div class="col-6 review-value {{isUnderReview ? 'text-primary' : ''}} "> {{facilityNumberText}} </div>
   </div>
 </ng-template>
