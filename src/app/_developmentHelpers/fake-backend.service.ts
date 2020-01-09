@@ -40,6 +40,8 @@ export class FakeBackendService {
      returnCode: ReturnCodes.SUCCESS, message: MESSAGES.MATCH, doctor: true},
     {firstName: 'Test', lastName: 'PrivatePractice', number: '99902',
     returnCode: ReturnCodes.FAILURE, message: MESSAGES.NO_MATCH, doctor: false},
+    {firstName: 'John', lastName: 'Doe', number: '12345',
+    returnCode: ReturnCodes.SUCCESS, message: MESSAGES.MATCH, doctor: true},
   ];
 
   private _facilityData: FacilityData[] = [

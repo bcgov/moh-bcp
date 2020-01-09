@@ -20,6 +20,7 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit, AfterV
 
   pageTitle: string = 'Facility Information';
   formGroup: FormGroup;
+  showValidationError: boolean = false;
 
   constructor( protected containerService: ContainerService,
                protected router: Router,
@@ -87,7 +88,13 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit, AfterV
           this.containerService.setIsLoading(false);
 
           if (res.returnCode === ReturnCodes.SUCCESS) {
+            this.handleValidation(true);
             this.navigate(PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_ASSIGN.fullpath);
+          } else if (res.returnCode === ReturnCodes.FAILURE) {
+            this.handleValidation(false);
+          } else {
+            // fall-through case, likely an error
+            this.handleValidation(false);
           }
 
         }, error => {
@@ -95,5 +102,10 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit, AfterV
           this.containerService.setIsLoading(false);
         });
     }
+  }
+
+  private handleValidation(isValid: boolean): void {
+    this.showValidationError = !isValid;
+    this.containerService.setIsLoading(false);
   }
 }
