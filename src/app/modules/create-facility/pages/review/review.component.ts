@@ -63,7 +63,7 @@ export class ReviewComponent extends BcpBaseForm implements OnInit, AfterViewIni
 
   continue() {
     this.signature._onTouched();
-    console.log(this.dataService.declarationTextForAPI);
+    // console.log(this.dataService.declarationTextForAPI);
 
     if (this.canContinue()) {
       this.submit();
