@@ -90,11 +90,15 @@ export class FakeBackendService {
       returnCode: this._generateRandomNumber(),
       message: 'Some error occurred'
     };
-    
+
     const data = this._facilityData.find( x =>
       x.postalCode.toUpperCase() === request.body.facility.postalCode.toUpperCase()
-      && ( (request.body.facility.facilityName && x.facilityName && x.facilityName.toUpperCase() === request.body.facility.facilityName.toUpperCase())
-        || (request.body.facility.number && x.number && x.number.toUpperCase() === request.body.facility.number.toUpperCase() ) )
+      && ( (request.body.facility.facilityName
+          && x.facilityName
+          && x.facilityName.toUpperCase() === request.body.facility.facilityName.toUpperCase())
+        || (request.body.facility.number
+          && x.number
+          && x.number.toUpperCase() === request.body.facility.number.toUpperCase() ) )
       );
 
     if ( data ) {
