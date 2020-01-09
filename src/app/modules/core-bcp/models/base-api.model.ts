@@ -5,7 +5,8 @@ export enum ReturnCodes {
   SUCCESS = '0',
   FAILURE = '1',
   WARNING = '2',
-  SYSTEM_ERROR = '-1'  // Can actually be any negative number
+  SYSTEM_ERROR = '-1',  // Can actually be any negative number
+  SYSTEM_DOWN = '-3' // Back-end exception eg. 404 error or timeout
 }
 
 /**
