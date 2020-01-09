@@ -5,9 +5,12 @@ import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
 import { ApiStatusCodes, PageStateService } from 'moh-common-lib';
 import { ConfirmBaseForm } from '../../../core-bcp/models/confirm-base-form';
 
+enum WarningMessage {
+  NEAR_MATCH_SCEN = 0,
+  NO_MATCH_CLM_DWN = 1,
+  FAILED_VALIDATE_FACIL = 2
+}
 
-// TODO: Class should extend Base not CreateFaciityForm - this is a confirmation page
-// should probably be renamed to confirmation
 @Component({
   selector: 'app-submission',
   templateUrl: './submission.component.html',
@@ -18,6 +21,8 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
 
   /** An application is still a "success" even if it's under review */
   isUnderReview: boolean = false;
+
+  warningMessage: WarningMessage;
 
   constructor(protected dataService: CreateFacilityDataService,
               protected pageStateService: PageStateService) {
@@ -30,15 +35,30 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
     // Set icon to be displayed
     if (this.dataService.jsonCreateFacility.response) {
 
-      if ( this.response.referenceNumber && this.response.facilityNumber ) {
-        this.displayIcon = this.displayIcon = ApiStatusCodes.SUCCESS;
-      } else if ( this.response.referenceNumber ) {
-        // ideally return code should change on server side, as this is same as a "MATCH" request
-        this.isUnderReview = true;
-        this.displayIcon = ApiStatusCodes.WARNING;
+      if ( this.response.returnCode === ApiStatusCodes.SUCCESS ) {
+        if ( this.response.referenceNumber && this.response.facilityNumber ) {
+          this.displayIcon = ApiStatusCodes.SUCCESS;
+        } else {
+          this.displayIcon = ApiStatusCodes.WARNING;
+          this.isUnderReview = true;
+
+          if ( this.dataService.validateFacilityMessage === 'UNKNOWN' ) {
+            // message Yellow 3
+            this.warningMessage = WarningMessage.FAILED_VALIDATE_FACIL;
+          } else {
+            // message Yellow 2
+            this.warningMessage = WarningMessage.NEAR_MATCH_SCEN;
+          }
+        }
       } else {
-        // No reference number - Error
-        this.displayIcon = ApiStatusCodes.ERROR;
+        console.log( 'return code <> 0');
+        // case not Successful
+        if ( this.response.referenceNumber ) {
+          // message Yellow 1
+          this.warningMessage = WarningMessage.NO_MATCH_CLM_DWN;
+          this.displayIcon = ApiStatusCodes.WARNING;
+          this.isUnderReview = true;
+        }
       }
     }
   }
@@ -46,8 +66,16 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
   get confirmationMessage() {
 
     if (this.displayIcon === ApiStatusCodes.WARNING) {
-      return 'Your application has been submitted but there may be a Facility Number assigned to that ' +
-             'facility already, contact HIBC at (604) 456-6950 (lower mainland) or 1-866-456-6950 (elsewhere in B.C.).';
+      let msg = 'Your application has been submitted but there may be a Facility Number assigned to that ' +
+                'facility already, contact HIBC at (604) 456-6950 (lower mainland) or 1-866-456-6950 (elsewhere in B.C.).';
+
+      if ( this.warningMessage === WarningMessage.FAILED_VALIDATE_FACIL ) {
+        msg = 'Yellow 3 message';
+      } else if ( this.warningMessage === WarningMessage.NO_MATCH_CLM_DWN ) {
+        msg = 'Yellow 2 message';
+      }
+
+      return msg;
     }
 
 
