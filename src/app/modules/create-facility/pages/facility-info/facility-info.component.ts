@@ -224,7 +224,7 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
           } else {
             if (Number(res.returnCode) <= Number(ReturnCodes.SYSTEM_ERROR)) {
               // Set to near match so that document is sent to MAXIMAGE
-              this.dataService.validateFacilityMessage = 'NEAR MATCH';
+              this.dataService.validateFacilityMessage = 'UNKNOWN';
             } else {
               this.dataService.validateFacilityMessage = res.message;
             }
