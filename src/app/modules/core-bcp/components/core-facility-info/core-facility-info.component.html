@@ -28,9 +28,6 @@
         [displayError]="formGroup.controls?.address?.touched && formGroup.controls?.address?.errors?.required">
         Facility Address is a required field
       </common-error-container>
-      <common-error-container [displayError]='showValidationError'>
-        {{ validationErrorMessage }}
-      </common-error-container>
     </div>
   
     <div class="form-group">
@@ -49,6 +46,9 @@
       <common-postal-code name='postalCode'
                           label='Postal Code'
                           formControlName='postalCode'></common-postal-code>
+      <common-error-container [displayError]='showValidationError'>
+        {{ validationErrorMessage }}
+      </common-error-container>
     </div>
 
     <div class="form-group">
