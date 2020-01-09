@@ -48,6 +48,12 @@ export class FakeBackendService {
     {facilityName: 'RiverDale Clinic', postalCode: 'v3v3v3', returnCode: ReturnCodes.WARNING, message: MESSAGES.MATCH, number: null},
     {facilityName: 'RiverSide Clinic', postalCode: 'v4t4t4', returnCode: ReturnCodes.FAILURE,
      message: 'POSTAL CODE MUST BE IN BC', number: null },
+    {facilityName: null, postalCode: 'v9v9v9', returnCode: ReturnCodes.SUCCESS, message: MESSAGES.NO_MATCH, number: '12345',
+    effectiveDate: '2020-01-01', cancelDate: '2021-01-01'},
+    {facilityName: null, postalCode: 'v1v1v1', returnCode: ReturnCodes.WARNING, message: MESSAGES.NEAR_MATCH, number: null,
+    effectiveDate: '2020-01-01', cancelDate: '2021-01-01' },
+    {facilityName: null, postalCode: 'v3v3v3', returnCode: ReturnCodes.WARNING, message: MESSAGES.MATCH, number: null,
+    effectiveDate: '2020-01-01', cancelDate: '2021-01-01'},
   ];
 
   private _createFacilityResp: CreateFacilityResp[] = [
@@ -88,9 +94,13 @@ export class FakeBackendService {
     };
 
     const data = this._facilityData.find( x =>
-      x.postalCode.toUpperCase() === request.body.facility.postalCode.toUpperCase() &&
-      ( (x.facilityName && x.facilityName.toUpperCase() === request.body.facility.facilityName.toUpperCase()) ||
-        (x.number && x.number.toUpperCase() === request.body.facility.number.toUpperCase() ) )
+      x.postalCode.toUpperCase() === request.body.facility.postalCode.toUpperCase()
+      && ( (request.body.facility.facilityName
+          && x.facilityName
+          && x.facilityName.toUpperCase() === request.body.facility.facilityName.toUpperCase())
+        || (request.body.facility.number
+          && x.number
+          && x.number.toUpperCase() === request.body.facility.number.toUpperCase() ) )
       );
 
     if ( data ) {
