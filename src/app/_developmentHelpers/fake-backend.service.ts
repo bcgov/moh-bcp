@@ -20,6 +20,8 @@ interface CreateFacilityResp {
   postalCode: string;
   returnCode: ReturnCodes;
   message?: string;
+  reqReferenceNo?: boolean;
+  reqFaciltyNo?: boolean;
 }
 
 enum MESSAGES {

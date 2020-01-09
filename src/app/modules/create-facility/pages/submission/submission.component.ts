@@ -47,14 +47,15 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
             this.warningMessage = WarningMessage.FAILED_VALIDATE_FACIL;
           } else {
             // message Yellow 2
-            this.warningMessage = WarningMessage.NO_MATCH_CLM_DWN;
+            this.warningMessage = WarningMessage.NEAR_MATCH_SCEN;
           }
         }
       } else {
+        console.log( 'return code <> 0');
         // case not Successful
         if ( this.response.referenceNumber ) {
           // message Yellow 1
-          this.warningMessage = WarningMessage.NEAR_MATCH_SCEN;
+          this.warningMessage = WarningMessage.NO_MATCH_CLM_DWN;
           this.displayIcon = ApiStatusCodes.WARNING;
           this.isUnderReview = true;
         }
