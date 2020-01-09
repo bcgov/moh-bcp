@@ -219,9 +219,6 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
           if (res.returnCode === ReturnCodes.SUCCESS) {
             this.handleAPIValidation(true);
             this.dataService.validateFacilityMessage = res.message;
-          } else if ( res.returnCode === ReturnCodes.SYSTEM_DOWN) {
-            // Integration layer received an http exception - 404, timeout...
-            this.handleError();
           } else {
             if (Number(res.returnCode) <= Number(ReturnCodes.SYSTEM_ERROR)) {
               // Set to near match so that document is sent to MAXIMAGE
