@@ -34,15 +34,18 @@ enum MESSAGES {
 export class FakeBackendService {
 
   private _practitionerData: PractitionerData[] = [
-    {firstName: 'Test', lastName: 'PrivatePractice', number: '99901', returnCode: ReturnCodes.SUCCESS, message: MESSAGES.MATCH},
-    {firstName: 'Test', lastName: 'PrivatePractice', number: '99902', returnCode: ReturnCodes.FAILURE, message: MESSAGES.NO_MATCH},
+    {firstName: 'Test', lastName: 'PrivatePractice', number: '99901',
+     returnCode: ReturnCodes.SUCCESS, message: MESSAGES.MATCH, doctor: true},
+    {firstName: 'Test', lastName: 'PrivatePractice', number: '99902',
+    returnCode: ReturnCodes.FAILURE, message: MESSAGES.NO_MATCH, doctor: false},
   ];
 
   private _facilityData: FacilityData[] = [
-    {facilityName: 'RiverDale House', postalCode: 'v9v9v9', returnCode: ReturnCodes.SUCCESS, message: MESSAGES.NO_MATCH },
-    {facilityName: 'River Clinic', postalCode: 'v1v1v1', returnCode: ReturnCodes.WARNING, message: MESSAGES.NEAR_MATCH },
-    {facilityName: 'RiverDale Clinic', postalCode: 'v3v3v3', returnCode: ReturnCodes.WARNING, message: MESSAGES.MATCH },
-    {facilityName: 'RiverSide Clinic', postalCode: 'v4t4t4', returnCode: ReturnCodes.FAILURE, message: 'POSTAL CODE MUST BE IN BC' },
+    {facilityName: 'RiverDale House', postalCode: 'v9v9v9', returnCode: ReturnCodes.SUCCESS, message: MESSAGES.NO_MATCH , number: null},
+    {facilityName: 'River Clinic', postalCode: 'v1v1v1', returnCode: ReturnCodes.WARNING, message: MESSAGES.NEAR_MATCH, number: null },
+    {facilityName: 'RiverDale Clinic', postalCode: 'v3v3v3', returnCode: ReturnCodes.WARNING, message: MESSAGES.MATCH, number: null},
+    {facilityName: 'RiverSide Clinic', postalCode: 'v4t4t4', returnCode: ReturnCodes.FAILURE,
+     message: 'POSTAL CODE MUST BE IN BC', number: null },
   ];
 
   private _createFacilityResp: CreateFacilityResp[] = [
@@ -83,7 +86,9 @@ export class FakeBackendService {
     };
 
     const data = this._facilityData.find( x =>
-      x.postalCode.toUpperCase() === request.body.facility.postalCode.toUpperCase()
+      x.postalCode.toUpperCase() === request.body.facility.postalCode.toUpperCase() &&
+      ( (x.facilityName && x.facilityName.toUpperCase() === request.body.facility.facilityName.toUpperCase()) ||
+        (x.number && x.number.toUpperCase() === request.body.facility.number.toUpperCase() ) )
       );
 
     if ( data ) {
