@@ -69,7 +69,7 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
     this.facilityCancelDate.setTime( this.facilityCancelDate.getTime() + this.facilityCancelDate.getTimezoneOffset() * 60 * 1000 );
 
     this.facilityDateErrMsg = {
-      invalidRange: `This date isn\'t between ${formatDateForDisplay(this.facilityEffectiveDate)} and ${formatDateForDisplay(this.facilityEffectiveDate)}.`,
+      invalidRange: `This date isn\'t between ${formatDateForDisplay(this.facilityEffectiveDate)} and ${formatDateForDisplay(this.facilityCancelDate)}.`,
     };
 
     this.radioItems = [

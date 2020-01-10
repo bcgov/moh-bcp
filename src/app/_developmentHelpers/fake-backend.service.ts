@@ -90,7 +90,7 @@ export class FakeBackendService {
 
   validateFacility( request: HttpRequest<any> ): any {
 
-    const obj = {
+    const obj: any = {
       returnCode: this._generateRandomNumber(),
       message: 'Some error occurred'
     };
@@ -109,6 +109,8 @@ export class FakeBackendService {
       // update object
       obj.returnCode = data.returnCode;
       obj.message = data.message;
+      obj.effectiveDate = data.effectiveDate;
+      obj.cancelDate = data.cancelDate;
     }
 
 
