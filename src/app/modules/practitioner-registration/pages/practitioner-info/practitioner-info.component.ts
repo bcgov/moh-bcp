@@ -21,6 +21,7 @@ export class PractitionerInfoComponent extends BcpBaseForm implements OnInit, Af
   pageTitle: string = 'Practitioner Information';
   formGroup: FormGroup;
   showValidationError: boolean = false;
+  systemDownError: boolean = false;
 
 
   constructor( protected containerService: ContainerService,
@@ -81,7 +82,7 @@ export class PractitionerInfoComponent extends BcpBaseForm implements OnInit, Af
 
         this.splunkLoggerService.log(
           this.dataService.getSubmissionLogObject<ValidationResponse>(
-            'Validate MD',
+            'Validate practitioner',
             this.dataService.jsonApplicantValidation.response
           )
         );
@@ -103,11 +104,13 @@ export class PractitionerInfoComponent extends BcpBaseForm implements OnInit, Af
   }
 
   private handleError(): void {
+    this.systemDownError = true;
     this.containerService.setIsLoading(false);
   }
 
   private handleValidation(isValid: boolean): void {
     this.showValidationError = !isValid;
+    this.systemDownError = false;
     this.containerService.setIsLoading(false);
   }
 }
