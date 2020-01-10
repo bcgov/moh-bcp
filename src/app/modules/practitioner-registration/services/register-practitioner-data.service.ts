@@ -7,7 +7,7 @@ import {
   stripPostalCodeSpaces,
   stripPhoneFormatting,
   convertToJSONDate } from '../../core-bcp/models/helperFunc';
-import { PRACTITIONER_ATTACHMENT } from '../models/practitioner-attachment';
+import { PRACTITIONER_ATTACHMENT, PRAC_ASSIGN_TYPE } from '../models/practitioner-attachment';
 
 @Injectable({
   providedIn: 'root'
@@ -65,6 +65,12 @@ export class RegisterPractitionerDataService extends BaseDataService {
   pracChangeAttachmentEffectiveDate: Date;
   pracChangeAttachmentCancelDate: Date;
 
+  // TODO: Update practitioner attachment page to have these variables
+  assignmentType: PRAC_ASSIGN_TYPE;
+  assignmentEffectiveDate: Date;
+  assignmentCancelDate: Date;
+
+
   jsonMaintPractitioner = {
     request: null,
     response: null
@@ -110,6 +116,14 @@ export class RegisterPractitionerDataService extends BaseDataService {
         phoneNumber: stripPhoneFormatting(this.pracInfoPhoneNumber),
         phoneNumberExtension: this.pracInfoPhoneNumberExt ? this.pracInfoPhoneNumberExt : null,  // optional
       },
+      // Update section for schema - needs to be reflected in the data service to only have 2 dates to keep code maintainable
+      pracAssignment: {
+        // when a flag is false, the corresponding date must be null.
+          action: this.assignmentType,
+          effectiveDate: this.assignmentEffectiveDate ? convertToJSONDate( this.assignmentEffectiveDate ) : null,
+          cancelDate: this.assignmentCancelDate ? convertToJSONDate( this.assignmentCancelDate ) : null,
+      },
+/*
       bcp: {
         // when a flag is false, the corresponding date must be null.
         new: (this.pracAttachmentType === PRACTITIONER_ATTACHMENT.NEW.value),
@@ -126,6 +140,7 @@ export class RegisterPractitionerDataService extends BaseDataService {
         locumEffectiveDate: this.pracNewAttachmentType === true ? convertToJSONDate(this.pracNewAttachmentEffectiveDate) : null,
         locumCancelDate: this.pracNewAttachmentType === true ? convertToJSONDate(this.pracNewAttachmentCancelDate) : null
       },
+  */
       dateOfAcceptance: convertToJSONDate(this.dateOfAcceptance),
       declarationText: this.declarationTextForAPI,
     };
