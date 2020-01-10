@@ -21,6 +21,7 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit, AfterV
   pageTitle: string = 'Facility Information';
   formGroup: FormGroup;
   showValidationError: boolean = false;
+  systemDownError: boolean = false;
 
   constructor( protected containerService: ContainerService,
                protected router: Router,
@@ -99,9 +100,14 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit, AfterV
 
         }, error => {
           console.log('ARC apiService onerror', error);
-          this.containerService.setIsLoading(false);
+          this.handleError();
         });
     }
+  }
+
+  private handleError(): void {
+    this.systemDownError = true;
+    this.containerService.setIsLoading(false);
   }
 
   private handleValidation(isValid: boolean): void {
