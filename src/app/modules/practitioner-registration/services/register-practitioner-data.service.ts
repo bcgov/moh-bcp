@@ -66,9 +66,9 @@ export class RegisterPractitionerDataService extends BaseDataService {
   pracChangeAttachmentCancelDate: Date;
 
   // TODO: Update practitioner attachment page to have these variables
-  assignmentType: PRAC_ASSIGN_TYPE;
-  assignmentEffectiveDate: Date;
-  assignmentCancelDate: Date;
+  attachmentType: PRAC_ASSIGN_TYPE;
+  attachmentEffectiveDate: Date;
+  attachmentCancelDate: Date;
 
 
   jsonMaintPractitioner = {
@@ -119,11 +119,11 @@ export class RegisterPractitionerDataService extends BaseDataService {
       // Update section for schema - needs to be reflected in the data service to only have 2 dates to keep code maintainable
       pracAssignment: {
         // when a flag is false, the corresponding date must be null.
-          action: this.assignmentType,
-          effectiveDate: this.assignmentEffectiveDate ? convertToJSONDate( this.assignmentEffectiveDate ) : null,
-          cancelDate: this.assignmentCancelDate ? convertToJSONDate( this.assignmentCancelDate ) : null,
+          action: this.attachmentType,
+          effectiveDate: this.attachmentEffectiveDate ? convertToJSONDate( this.attachmentEffectiveDate ) : null,
+          cancelDate: this.attachmentCancelDate ? convertToJSONDate( this.attachmentCancelDate ) : null,
       },
-/*
+/* TODO: Remove code once we get to the practitioner attachment page
       bcp: {
         // when a flag is false, the corresponding date must be null.
         new: (this.pracAttachmentType === PRACTITIONER_ATTACHMENT.NEW.value),
