@@ -112,6 +112,7 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit, AfterV
 
   private handleValidation(isValid: boolean): void {
     this.showValidationError = !isValid;
+    this.systemDownError = false;
     this.containerService.setIsLoading(false);
   }
 }

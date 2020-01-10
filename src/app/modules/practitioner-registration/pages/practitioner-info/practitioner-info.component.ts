@@ -110,6 +110,7 @@ export class PractitionerInfoComponent extends BcpBaseForm implements OnInit, Af
 
   private handleValidation(isValid: boolean): void {
     this.showValidationError = !isValid;
+    this.systemDownError = false;
     this.containerService.setIsLoading(false);
   }
 }
