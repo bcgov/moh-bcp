@@ -21,6 +21,7 @@ export class PractitionerInfoComponent extends BcpBaseForm implements OnInit, Af
   pageTitle: string = 'Practitioner Information';
   formGroup: FormGroup;
   showValidationError: boolean = false;
+  systemDownError: boolean = false;
 
 
   constructor( protected containerService: ContainerService,
@@ -69,10 +70,11 @@ export class PractitionerInfoComponent extends BcpBaseForm implements OnInit, Af
 
       this.containerService.setIsLoading();
 
-      this.apiService.validateMD({
+      this.apiService.validatePractitioner({
         firstName: this.dataService.pracInfoFirstName,
         lastName: this.dataService.pracInfoLastName,
         number: this.dataService.pracInfoMSPPracNumber,
+        doctor: true
       }, this.dataService.applicationUUID).subscribe((res: ValidationResponse) => {
         console.log('apiService response', res);
 
@@ -80,19 +82,20 @@ export class PractitionerInfoComponent extends BcpBaseForm implements OnInit, Af
 
         this.splunkLoggerService.log(
           this.dataService.getSubmissionLogObject<ValidationResponse>(
-            'Validate MD',
+            'Validate practitioner',
             this.dataService.jsonApplicantValidation.response
           )
         );
+        console.log( 'res: ', res );
 
         if (res.returnCode === ReturnCodes.SUCCESS) {
           this.handleValidation(true);
           this.navigate(PRACTITIONER_REGISTRATION_PAGES.FACILITY_INFO.fullpath);
         } else if (res.returnCode === ReturnCodes.FAILURE) {
           this.handleValidation(false);
-        } else {
+        } else { // Negative response codes
           // fall-through case, likely an error
-          this.handleValidation(false);
+          this.handleError();
         }
       }, error => {
         console.log('ARC apiService onerror', error);
@@ -102,11 +105,13 @@ export class PractitionerInfoComponent extends BcpBaseForm implements OnInit, Af
   }
 
   private handleError(): void {
+    this.systemDownError = true;
     this.containerService.setIsLoading(false);
   }
 
   private handleValidation(isValid: boolean): void {
     this.showValidationError = !isValid;
+    this.systemDownError = false;
     this.containerService.setIsLoading(false);
   }
 }

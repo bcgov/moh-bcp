@@ -20,6 +20,8 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit, AfterV
 
   pageTitle: string = 'Facility Information';
   formGroup: FormGroup;
+  showValidationError: boolean = false;
+  systemDownError: boolean = false;
 
   constructor( protected containerService: ContainerService,
                protected router: Router,
@@ -68,8 +70,9 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit, AfterV
 
       this.containerService.setIsLoading();
 
-      this.apiService.validateFacilityID({
-        number: this.dataService.pracFacilityNumber,
+      this.apiService.validateFacility({
+        facilityName: null,
+        facilityNumber: this.dataService.pracFacilityNumber,
         // API expects postalCode without any spaces in it
         postalCode: stripPostalCodeSpaces(this.dataService.pracFacilityPostalCode)
       }, this.dataService.applicationUUID)
@@ -77,22 +80,39 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit, AfterV
           this.dataService.jsonFacilityValidation.response = res;
 
           this.splunkLoggerService.log(
-              this.dataService.getSubmissionLogObject<ValidationResponse>(
-                'Validate Facility ID',
-                this.dataService.jsonFacilityValidation.response
-              )
+            this.dataService.getSubmissionLogObject<ValidationResponse>(
+              'Validate Facility ID',
+              this.dataService.jsonFacilityValidation.response
+            )
           );
 
           this.containerService.setIsLoading(false);
 
           if (res.returnCode === ReturnCodes.SUCCESS) {
+            this.handleValidation(true);
             this.navigate(PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_ASSIGN.fullpath);
+          } else if (res.returnCode === ReturnCodes.FAILURE) {
+            this.handleValidation(false);
+          } else {
+            // fall-through case, likely an error
+            this.handleError();
           }
 
         }, error => {
           console.log('ARC apiService onerror', error);
-          this.containerService.setIsLoading(false);
+          this.handleError();
         });
     }
+  }
+
+  private handleError(): void {
+    this.systemDownError = true;
+    this.containerService.setIsLoading(false);
+  }
+
+  private handleValidation(isValid: boolean): void {
+    this.showValidationError = !isValid;
+    this.systemDownError = false;
+    this.containerService.setIsLoading(false);
   }
 }

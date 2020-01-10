@@ -1,3 +1,11 @@
+// Values for the action part of the schema under pracAssignment
+export enum PRAC_ATTACHMENT_TYPE {
+  CANCEL = 'cancel',
+  CHANGE = 'change',
+  NEW = 'new',
+  TEMP = 'temp'
+}
+
 export const PRACTITIONER_ATTACHMENT = {
   NEW: {
     label: 'Add new attachment',

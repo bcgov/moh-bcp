@@ -36,15 +36,27 @@ enum MESSAGES {
 export class FakeBackendService {
 
   private _practitionerData: PractitionerData[] = [
-    {firstName: 'Test', lastName: 'PrivatePractice', number: '99901', returnCode: ReturnCodes.SUCCESS, message: MESSAGES.MATCH},
-    {firstName: 'Test', lastName: 'PrivatePractice', number: '99902', returnCode: ReturnCodes.FAILURE, message: MESSAGES.NO_MATCH},
+    {firstName: 'Test', lastName: 'PrivatePractice', number: '99901',
+     returnCode: ReturnCodes.SUCCESS, message: MESSAGES.MATCH, doctor: true},
+    {firstName: 'Test', lastName: 'PrivatePractice', number: '99902',
+    returnCode: ReturnCodes.FAILURE, message: MESSAGES.NO_MATCH, doctor: false},
+    {firstName: 'John', lastName: 'Doe', number: '12345',
+    returnCode: ReturnCodes.SUCCESS, message: MESSAGES.MATCH, doctor: true},
   ];
 
   private _facilityData: FacilityData[] = [
-    {facilityName: 'RiverDale House', postalCode: 'v9v9v9', returnCode: ReturnCodes.SUCCESS, message: MESSAGES.NO_MATCH },
-    {facilityName: 'River Clinic', postalCode: 'v1v1v1', returnCode: ReturnCodes.WARNING, message: MESSAGES.NEAR_MATCH },
-    {facilityName: 'RiverDale Clinic', postalCode: 'v3v3v3', returnCode: ReturnCodes.WARNING, message: MESSAGES.MATCH },
-    {facilityName: 'RiverSide Clinic', postalCode: 'v4t4t4', returnCode: ReturnCodes.FAILURE, message: 'POSTAL CODE MUST BE IN BC' },
+    {facilityName: 'RiverDale House', postalCode: 'v9v9v9', returnCode: ReturnCodes.SUCCESS, message: MESSAGES.NO_MATCH ,
+    facilityNumber: null},
+    {facilityName: 'River Clinic', postalCode: 'v1v1v1', returnCode: ReturnCodes.WARNING, message: MESSAGES.NEAR_MATCH,
+    facilityNumber: null },
+    {facilityName: 'RiverDale Clinic', postalCode: 'v3v3v3', returnCode: ReturnCodes.WARNING, message: MESSAGES.MATCH,
+    facilityNumber: null},
+    {facilityName: null, postalCode: 'v9v9v9', returnCode: ReturnCodes.SUCCESS, message: MESSAGES.MATCH, facilityNumber: '12345',
+    effectiveDate: '2020-01-01', cancelDate: '2021-01-01'},
+    {facilityName: null, postalCode: 'v1v1v1', returnCode: ReturnCodes.WARNING, message: MESSAGES.NEAR_MATCH, facilityNumber: null,
+    effectiveDate: '2020-01-01', cancelDate: '2021-01-01' },
+    {facilityName: null, postalCode: 'v3v3v3', returnCode: ReturnCodes.WARNING, message: MESSAGES.MATCH, facilityNumber: null,
+    effectiveDate: '2020-01-01', cancelDate: '2021-01-01'},
   ];
 
   private _createFacilityResp: CreateFacilityResp[] = [
@@ -79,19 +91,27 @@ export class FakeBackendService {
 
   validateFacility( request: HttpRequest<any> ): any {
 
-    const obj = {
+    const obj: any = {
       returnCode: this._generateRandomNumber(),
       message: 'Some error occurred'
     };
 
     const data = this._facilityData.find( x =>
       x.postalCode.toUpperCase() === request.body.facility.postalCode.toUpperCase()
+      && ( (request.body.facility.facilityName
+          && x.facilityName
+          && x.facilityName.toUpperCase() === request.body.facility.facilityName.toUpperCase())
+        || (request.body.facility.facilityNumber
+          && x.facilityNumber
+          && x.facilityNumber.toUpperCase() === request.body.facility.facilityNumber.toUpperCase() ) )
       );
 
     if ( data ) {
       // update object
       obj.returnCode = data.returnCode;
       obj.message = data.message;
+      obj.effectiveDate = data.effectiveDate;
+      obj.cancelDate = data.cancelDate;
     }
 
 

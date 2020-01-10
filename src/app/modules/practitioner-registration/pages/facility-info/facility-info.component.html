@@ -1,3 +1,9 @@
 <h1>{{pageTitle}}</h1>
 
-<bcp-core-facility-info name='facInfo' [formGroup]='formGroup'></bcp-core-facility-info>
+<bcp-core-facility-info name='facInfo'
+  [formGroup]='formGroup'
+  [showValidationError]='showValidationError'></bcp-core-facility-info>
+
+<common-error-container [displayError]='systemDownError'>
+  Unable to continue, system unavailable. Please try again later.
+</common-error-container>

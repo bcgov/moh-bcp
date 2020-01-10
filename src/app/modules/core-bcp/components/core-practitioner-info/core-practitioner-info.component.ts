@@ -18,8 +18,8 @@ export interface CorePractitionerInfoFormItems {
 })
 export class CorePractitionerInfoComponent {
 
-  showValidationError: boolean;
-  validationErrorMessage: string;
+  @Input() showValidationError: boolean = false;
+  validationErrorMessage: string = 'This field does not match our records.';
 
   public items: CorePractitionerInfoFormItems;
 

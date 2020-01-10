@@ -29,19 +29,17 @@ export class FakeBackendInterceptor implements HttpInterceptor  {
         let payload = null;
         console.log( 'Post method' );
 
-        if (request.url.includes( 'validatePractitioner' ) ||
-            request.url.includes('validateMD')) {
+        if (request.url.includes( 'validatePractitioner' ) ) {
           console.log( 'Fake-backend for Validating practitioner/MD' );
           payload = this.fakebackendService.validatePractitioner( request );
         }
 
-        if (request.url.includes( 'validateFacility' ) ||
-            request.url.includes( 'validateFacilityID' )) {
+        if (request.url.includes( 'validateFacility' ) ) {
           console.log( 'Fake-backend for Validating facility/ID' );
           payload = this.fakebackendService.validateFacility( request );
         }
 
-        if (request.url.includes( 'createFacility' )) {
+        if (request.url.includes( 'createFacility' ) ) {
           console.log( 'Fake-backend for create facility' );
           payload = this.fakebackendService.createFacility( request );
         }
