@@ -1,5 +1,5 @@
 // Values for the action part of the schema under pracAssignment
-export enum PRAC_ASSIGN_TYPE {
+export enum PRAC_ATTACHMENT_TYPE {
   CANCEL = 'cancel',
   CHANGE = 'change',
   NEW = 'new',

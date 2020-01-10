@@ -7,7 +7,7 @@ import {
   stripPostalCodeSpaces,
   stripPhoneFormatting,
   convertToJSONDate } from '../../core-bcp/models/helperFunc';
-import { PRACTITIONER_ATTACHMENT, PRAC_ASSIGN_TYPE } from '../models/practitioner-attachment';
+import { PRAC_ATTACHMENT_TYPE } from '../models/practitioner-attachment';
 
 @Injectable({
   providedIn: 'root'
@@ -57,6 +57,7 @@ export class RegisterPractitionerDataService extends BaseDataService {
   facEffectiveDate: Date; // Date received from facility validation.
   facCancelDate: Date; // Date received from facility validation.
 
+  // TODO: Remove and replace with variables attachmentType, attachmentEffectiveDate, attachmentCancelDate
   pracAttachmentType: string;
   pracNewAttachmentType: boolean;
   pracNewAttachmentEffectiveDate: Date;
@@ -66,7 +67,7 @@ export class RegisterPractitionerDataService extends BaseDataService {
   pracChangeAttachmentCancelDate: Date;
 
   // TODO: Update practitioner attachment page to have these variables
-  attachmentType: PRAC_ASSIGN_TYPE;
+  attachmentType: PRAC_ATTACHMENT_TYPE;
   attachmentEffectiveDate: Date;
   attachmentCancelDate: Date;
 
