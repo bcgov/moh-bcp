@@ -18,7 +18,7 @@ export class RegistrationContainerComponent extends Container implements AfterVi
     super( containerService );
     this.setProgressSteps(pages);
     this.pageStateService.setPages( pages, PRACTITIONER_REGISTRATION_PAGES );
-    this.headerService.setTitle('Practitioner Assignment to Medical Services Plan Facility for Business Cost Premium');
+    this.headerService.setTitle('Practitioner Attachment to Medical Services Plan Facility for Business Cost Premium');
   }
 
   ngAfterViewInit() {

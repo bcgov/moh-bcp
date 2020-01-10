@@ -91,7 +91,7 @@ export class PractitionerInfoComponent extends BcpBaseForm implements OnInit, Af
           this.navigate(PRACTITIONER_REGISTRATION_PAGES.FACILITY_INFO.fullpath);
         } else if (res.returnCode === ReturnCodes.FAILURE) {
           this.handleValidation(false);
-        } else {
+        } else { // Negative response codes
           // fall-through case, likely an error
           this.handleValidation(false);
         }

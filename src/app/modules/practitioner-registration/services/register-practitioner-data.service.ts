@@ -7,7 +7,7 @@ import {
   stripPostalCodeSpaces,
   stripPhoneFormatting,
   convertToJSONDate } from '../../core-bcp/models/helperFunc';
-import { PRACTITIONER_ATTACHMENT } from '../models/practitioner-attachment';
+import { PRAC_ATTACHMENT_TYPE } from '../models/practitioner-attachment';
 
 @Injectable({
   providedIn: 'root'
@@ -57,6 +57,7 @@ export class RegisterPractitionerDataService extends BaseDataService {
   facEffectiveDate: Date; // Date received from facility validation.
   facCancelDate: Date; // Date received from facility validation.
 
+  // TODO: Remove and replace with variables attachmentType, attachmentEffectiveDate, attachmentCancelDate
   pracAttachmentType: string;
   pracNewAttachmentType: boolean;
   pracNewAttachmentEffectiveDate: Date;
@@ -64,6 +65,12 @@ export class RegisterPractitionerDataService extends BaseDataService {
   pracCancelAttachmentDate: Date;
   pracChangeAttachmentEffectiveDate: Date;
   pracChangeAttachmentCancelDate: Date;
+
+  // TODO: Update practitioner attachment page to have these variables
+  attachmentType: PRAC_ATTACHMENT_TYPE;
+  attachmentEffectiveDate: Date;
+  attachmentCancelDate: Date;
+
 
   jsonMaintPractitioner = {
     request: null,
@@ -110,6 +117,14 @@ export class RegisterPractitionerDataService extends BaseDataService {
         phoneNumber: stripPhoneFormatting(this.pracInfoPhoneNumber),
         phoneNumberExtension: this.pracInfoPhoneNumberExt ? this.pracInfoPhoneNumberExt : null,  // optional
       },
+      // Update section for schema - needs to be reflected in the data service to only have 2 dates to keep code maintainable
+      pracAssignment: {
+        // when a flag is false, the corresponding date must be null.
+          action: this.attachmentType,
+          effectiveDate: this.attachmentEffectiveDate ? convertToJSONDate( this.attachmentEffectiveDate ) : null,
+          cancelDate: this.attachmentCancelDate ? convertToJSONDate( this.attachmentCancelDate ) : null,
+      },
+/* TODO: Remove code once we get to the practitioner attachment page
       bcp: {
         // when a flag is false, the corresponding date must be null.
         new: (this.pracAttachmentType === PRACTITIONER_ATTACHMENT.NEW.value),
@@ -126,6 +141,7 @@ export class RegisterPractitionerDataService extends BaseDataService {
         locumEffectiveDate: this.pracNewAttachmentType === true ? convertToJSONDate(this.pracNewAttachmentEffectiveDate) : null,
         locumCancelDate: this.pracNewAttachmentType === true ? convertToJSONDate(this.pracNewAttachmentCancelDate) : null
       },
+  */
       dateOfAcceptance: convertToJSONDate(this.dateOfAcceptance),
       declarationText: this.declarationTextForAPI,
     };
