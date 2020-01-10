@@ -86,6 +86,7 @@ export class PractitionerInfoComponent extends BcpBaseForm implements OnInit, Af
             this.dataService.jsonApplicantValidation.response
           )
         );
+        console.log( 'res: ', res );
 
         if (res.returnCode === ReturnCodes.SUCCESS) {
           this.handleValidation(true);
@@ -94,7 +95,7 @@ export class PractitionerInfoComponent extends BcpBaseForm implements OnInit, Af
           this.handleValidation(false);
         } else { // Negative response codes
           // fall-through case, likely an error
-          this.handleValidation(false);
+          this.handleError();
         }
       }, error => {
         console.log('ARC apiService onerror', error);

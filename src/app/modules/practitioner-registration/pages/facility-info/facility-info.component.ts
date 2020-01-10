@@ -80,10 +80,10 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit, AfterV
           this.dataService.jsonFacilityValidation.response = res;
 
           this.splunkLoggerService.log(
-              this.dataService.getSubmissionLogObject<ValidationResponse>(
-                'Validate Facility ID',
-                this.dataService.jsonFacilityValidation.response
-              )
+            this.dataService.getSubmissionLogObject<ValidationResponse>(
+              'Validate Facility ID',
+              this.dataService.jsonFacilityValidation.response
+            )
           );
 
           this.containerService.setIsLoading(false);
@@ -95,7 +95,7 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit, AfterV
             this.handleValidation(false);
           } else {
             // fall-through case, likely an error
-            this.handleValidation(false);
+            this.handleError();
           }
 
         }, error => {
