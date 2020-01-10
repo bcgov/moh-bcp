@@ -51,14 +51,12 @@ export class FakeBackendService {
     facilityNumber: null },
     {facilityName: 'RiverDale Clinic', postalCode: 'v3v3v3', returnCode: ReturnCodes.WARNING, message: MESSAGES.MATCH,
     facilityNumber: null},
-    {facilityName: 'RiverSide Clinic', postalCode: 'v4t4t4', returnCode: ReturnCodes.FAILURE,
-     message: 'POSTAL CODE MUST BE IN BC', facilityNumber: null },
-    {facilityName: null, postalCode: 'v9v9v9', returnCode: ReturnCodes.SUCCESS, message: MESSAGES.NO_MATCH,
-      facilityNumber: '12345', effectiveDate: '2020-01-01', cancelDate: '2021-01-01'},
-    {facilityName: null, postalCode: 'v1v1v1', returnCode: ReturnCodes.WARNING, message: MESSAGES.NEAR_MATCH,
-     facilityNumber: null, effectiveDate: '2020-01-01', cancelDate: '2021-01-01' },
-    {facilityName: null, postalCode: 'v3v3v3', returnCode: ReturnCodes.WARNING, message: MESSAGES.MATCH,
-    facilityNumber: null, effectiveDate: '2020-01-01', cancelDate: '2021-01-01'},
+    {facilityName: null, postalCode: 'v9v9v9', returnCode: ReturnCodes.SUCCESS, message: MESSAGES.MATCH, number: '12345',
+    effectiveDate: '2020-01-01', cancelDate: '2021-01-01'},
+    {facilityName: null, postalCode: 'v1v1v1', returnCode: ReturnCodes.WARNING, message: MESSAGES.NEAR_MATCH, number: null,
+    effectiveDate: '2020-01-01', cancelDate: '2021-01-01' },
+    {facilityName: null, postalCode: 'v3v3v3', returnCode: ReturnCodes.WARNING, message: MESSAGES.MATCH, number: null,
+    effectiveDate: '2020-01-01', cancelDate: '2021-01-01'},
   ];
 
   private _createFacilityResp: CreateFacilityResp[] = [
