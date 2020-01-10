@@ -24,6 +24,9 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
 
   warningMessage: WarningMessage;
 
+  private _warningConfirmationMsg: string = 'Your application has been submitted. To complete your application you must ' +
+                                            'contact Health Insurance BC at (604) 456-6950 (lower mainland) or 1-866-456-6950 (elsewhere in B.C.).';
+
   constructor(protected dataService: CreateFacilityDataService,
               protected pageStateService: PageStateService) {
     super(dataService, pageStateService);
@@ -70,9 +73,9 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
                 'facility already, contact HIBC at (604) 456-6950 (lower mainland) or 1-866-456-6950 (elsewhere in B.C.).';
 
       if ( this.warningMessage === WarningMessage.FAILED_VALIDATE_FACIL ) {
-        msg = 'Yellow 3 message';
+        msg = this._warningConfirmationMsg;
       } else if ( this.warningMessage === WarningMessage.NO_MATCH_CLM_DWN ) {
-        msg = 'Yellow 2 message';
+        msg = this._warningConfirmationMsg;
       }
 
       return msg;
@@ -89,7 +92,7 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
   get facilityNumberText() {
 
     return this.dataService.jsonCreateFacility.response.facilityNumber ?
-          this.dataService.jsonCreateFacility.response.facilityNumber : 'Contact HIBC';
+          this.dataService.jsonCreateFacility.response.facilityNumber : 'Contact Health Insurance BC';
   }
 
   get referenceNumber() {
