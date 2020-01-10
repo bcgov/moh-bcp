@@ -29,7 +29,7 @@ export class RegisterPractitionerDataService extends BaseDataService {
       this.pracFacilityAddress = '123 Fake St.';
       this.pracFacilityCity = 'Victoria';
       this.pracFacilityProvince = BRITISH_COLUMBIA;
-      this.pracFacilityPostalCode = 'V8L 1A1';
+      this.pracFacilityPostalCode = 'V9V 9V9';
       this.pracFacilityFaxNumber = '234 567-8901';
 
       this.pracAttachmentType = 'new';
