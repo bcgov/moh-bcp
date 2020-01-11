@@ -22,9 +22,6 @@ jobs:
     # This step should do a webdriver manager update
     - name: Update webdriver manager
       run: npm run webdriver-update
-    # This step runs e2e tests in Firefox
-    - name: Run BCP e2e in Firefox
-      run: npm run e2e:bcprf-firefox
     # This step runs unit test for Admin Info in BCP Register Facility
     - name: Run e2e for Admin Info in BCP RF 
       run: npm run e2e:bcprf-sprint8
