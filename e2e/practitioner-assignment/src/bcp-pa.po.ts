@@ -2,7 +2,7 @@ import { browser, by, element, protractor, Key } from 'protractor';
 import { AbstractTestPage } from 'moh-common-lib/e2e';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../../src/app/modules/practitioner-registration/practitioner-registration-route-constants';
 import * as fs from 'fs';
-import * as sampleFile from './bcp-pa-sample-data.json';
+import * as sampleFile from './bcp-pa-practitioner-info-data.json';
 
 /**
  * This class is for GENERAL functions, and all those that target components
@@ -106,7 +106,7 @@ export class BCPAdminPage extends BCPBasePage {
         this.typeText('Medical Services Plan Practitioner Number', this.jsonData[this.index].MSPPractitionerNum);
         this.typeText('Email address (optional)', this.jsonData[this.index].emailAdd);
         this.typeText('Phone number', this.jsonData[this.index].phoneNum);
-        this.typeText(' Extension ', this.jsonData[this.index].extension);
+        this.typeText('Extension', this.jsonData[this.index].extension);
         // this.clickContinue();
     }
 

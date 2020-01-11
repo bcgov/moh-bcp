@@ -2,7 +2,7 @@ import { browser, by, element, protractor, Key } from 'protractor';
 import { AbstractTestPage } from 'moh-common-lib/e2e';
 import { CREATE_FACILITY_PAGES } from '../../../src/app/modules/create-facility/create-facility-route-constants';
 import * as fs from 'fs';
-import * as sampleFile from './bcp-sample-data.json';
+import * as sampleFile from './bcp-admin-info-data.json';
 
 /**
  * This class is for GENERAL functions, and all those that target components

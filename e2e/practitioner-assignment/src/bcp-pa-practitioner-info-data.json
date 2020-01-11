@@ -1,0 +1,34 @@
+[
+    {
+        "firstName": "F",
+        "lastName": "TEST-JONES",
+        "MSPPractitionerNum": "89900",
+        "emailAdd": "test@sample.com",
+        "phoneNum": "2501234567",
+        "extension": "123"
+    },
+    {
+        "firstName": "F",
+        "lastName": "TEST-JONES",
+        "MSPPractitionerNum": "99900",
+        "emailAdd": "test@sample.com",
+        "phoneNum": "2501234567",
+        "extension": "123"
+    },
+    {
+        "firstName": "TEST",
+        "lastName": "PRIVATEPRACTICE",
+        "MSPPractitionerNum": "89902",
+        "emailAdd": "test@sample.com",
+        "phoneNum": "2501234567",
+        "extension": "123"
+    },
+    {
+        "firstName": "TEST",
+        "lastName": "PRIVATE_PRACTICE",
+        "MSPPractitionerNum": "89902",
+        "emailAdd": "test@sample.com",
+        "phoneNum": "2501234567",
+        "extension": "123"
+    }
+]
