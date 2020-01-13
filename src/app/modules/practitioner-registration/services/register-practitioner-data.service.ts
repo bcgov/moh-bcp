@@ -57,14 +57,8 @@ export class RegisterPractitionerDataService extends BaseDataService {
   facEffectiveDate: Date; // Date received from facility validation.
   facCancelDate: Date; // Date received from facility validation.
 
-  // TODO: Remove and replace with variables attachmentType, attachmentEffectiveDate, attachmentCancelDate
   pracAttachmentType: string;
   pracNewAttachmentType: boolean;
-  pracNewAttachmentEffectiveDate: Date;
-  pracNewAttachmentCancelDate: Date;
-  pracCancelAttachmentDate: Date;
-  pracChangeAttachmentEffectiveDate: Date;
-  pracChangeAttachmentCancelDate: Date;
 
   // TODO: Update practitioner attachment page to have these variables
   attachmentType: PRAC_ATTACHMENT_TYPE;

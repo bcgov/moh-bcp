@@ -11,21 +11,18 @@ import { formatDateForDisplay } from '../../../core-bcp/models/helperFunc';
 
 interface BaseFormGroup {
   attachmentType: any;
+  attachmentEffectiveDate?: any;
+  attachmentCancelDate?: any;
 }
 
 interface NewFormGroup extends BaseFormGroup {
   newAttachmentType: any;
-  newAttachmentEffectiveDate?: any;
-  newAttachmentCancelDate?: any;
 }
 
 interface CancelFormGroup extends BaseFormGroup {
-  cancelAttachmentDate: any;
 }
 
 interface ChangeFormGroup extends BaseFormGroup {
-  changeAttachmentEffectiveDate: any;
-  changeAttachmentCancelDate: any;
   changeAttachmentHasAtLeastOneDate: any;
 }
 
@@ -108,27 +105,21 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
           } else {
             this.dataService.attachmentType = PRAC_ATTACHMENT_TYPE.NEW;
           }
-          this.dataService.attachmentEffectiveDate = value.newAttachmentEffectiveDate;
-          this.dataService.attachmentCancelDate = value.newAttachmentCancelDate;
+          this.dataService.attachmentEffectiveDate = value.attachmentEffectiveDate;
+          this.dataService.attachmentCancelDate = value.attachmentCancelDate;
           break;
         case PRACTITIONER_ATTACHMENT.CANCEL.value:
           this.dataService.attachmentType = PRAC_ATTACHMENT_TYPE.CANCEL;
-          this.dataService.attachmentEffectiveDate = value.cancelAttachmentDate;
-          this.dataService.attachmentCancelDate = null;
+          this.dataService.attachmentEffectiveDate = null;
+          this.dataService.attachmentCancelDate = value.attachmentCancelDate
           break;
         case PRACTITIONER_ATTACHMENT.CHANGE.value:
           this.dataService.attachmentType = PRAC_ATTACHMENT_TYPE.CHANGE;
-          this.dataService.attachmentEffectiveDate = value.changeAttachmentEffectiveDate;
-          this.dataService.attachmentCancelDate = value.changeAttachmentCancelDate;
+          this.dataService.attachmentEffectiveDate = value.attachmentEffectiveDate;
+          this.dataService.attachmentCancelDate = value.attachmentCancelDate;
           break;
       }
-      this.dataService.pracAttachmentType = value.attachmentType;
       this.dataService.pracNewAttachmentType = value.newAttachmentType;
-      this.dataService.pracNewAttachmentEffectiveDate = value.newAttachmentEffectiveDate;
-      this.dataService.pracNewAttachmentCancelDate = value.newAttachmentCancelDate;
-      this.dataService.pracCancelAttachmentDate = value.cancelAttachmentDate;
-      this.dataService.pracChangeAttachmentEffectiveDate = value.changeAttachmentEffectiveDate;
-      this.dataService.pracChangeAttachmentCancelDate = value.changeAttachmentCancelDate;
     });
   }
 
@@ -165,10 +156,10 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
     };
 
     if (this.dataService.pracNewAttachmentType === true || this.dataService.pracNewAttachmentType === false) {
-      formGroupObj.newAttachmentEffectiveDate = [this.dataService.pracNewAttachmentEffectiveDate, Validators.required];
+      formGroupObj.attachmentEffectiveDate = [this.dataService.attachmentEffectiveDate, Validators.required];
     }
     if (this.dataService.pracNewAttachmentType === true) {
-      formGroupObj.newAttachmentCancelDate = [this.dataService.pracNewAttachmentCancelDate, Validators.required];
+      formGroupObj.attachmentCancelDate = [this.dataService.attachmentCancelDate, Validators.required];
     }
     return this.fb.group(formGroupObj);
   }
@@ -176,7 +167,7 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
   private getFormGroupForCancel(): FormGroup {
     const formGroupObj: CancelFormGroup = {
       ...this.getBaseFormGroup(),
-      cancelAttachmentDate: [this.dataService.pracCancelAttachmentDate, Validators.required]
+      attachmentCancelDate: [this.dataService.attachmentCancelDate, Validators.required]
     };
     return this.fb.group(formGroupObj);
   }
@@ -184,18 +175,18 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
   private getFormGroupForChange(): FormGroup {
     const formGroupObj: ChangeFormGroup = {
       ...this.getBaseFormGroup(),
-      changeAttachmentEffectiveDate: [this.dataService.pracChangeAttachmentEffectiveDate],
-      changeAttachmentCancelDate: [this.dataService.pracChangeAttachmentCancelDate],
+      attachmentEffectiveDate: [this.dataService.attachmentEffectiveDate],
+      attachmentCancelDate: [this.dataService.attachmentCancelDate],
       changeAttachmentHasAtLeastOneDate: [this.changeAttachmentHasValue, Validators.requiredTrue],
     };
     const formGroup: FormGroup = this.fb.group(formGroupObj);
 
     formGroup.valueChanges.subscribe((value) => {
-      if (!value.changeAttachmentHasAtLeastOneDate && (value.changeAttachmentEffectiveDate || value.changeAttachmentCancelDate)) {
+      if (!value.changeAttachmentHasAtLeastOneDate && (value.attachmentEffectiveDate || value.attachmentCancelDate)) {
         formGroup.patchValue({
           changeAttachmentHasAtLeastOneDate: true
         });
-      } else if (value.changeAttachmentHasAtLeastOneDate && !value.changeAttachmentEffectiveDate && !value.changeAttachmentCancelDate) {
+      } else if (value.changeAttachmentHasAtLeastOneDate && !value.attachmentEffectiveDate && !value.attachmentCancelDate) {
         formGroup.patchValue({
           changeAttachmentHasAtLeastOneDate: false
         });
