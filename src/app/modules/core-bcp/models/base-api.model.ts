@@ -36,7 +36,7 @@ export interface FacilityValidationPartial {
   // facilityName name must populated for facility registration, otherwise null
   facilityName: string;
   // number must populated for practitioner registration, otherwise null
-  facilityNumber: string;
+  number: string;
   postalCode: string;
   effectiveDate?: string;
   cancelDate?: string;
