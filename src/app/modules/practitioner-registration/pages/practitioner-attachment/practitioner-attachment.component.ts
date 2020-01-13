@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ContainerService, ErrorMessage, PageStateService } from 'moh-common-lib';
 import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
-import { PRACTITIONER_ATTACHMENT } from '../../models/practitioner-attachment';
+import { PRACTITIONER_ATTACHMENT, PRAC_ATTACHMENT_TYPE } from '../../models/practitioner-attachment';
 import { IRadioItems } from 'moh-common-lib/lib/components/radio/radio.component';
 import { RegisterPractitionerDataService } from '../../services/register-practitioner-data.service';
 import { formatDateForDisplay } from '../../../core-bcp/models/helperFunc';
@@ -101,6 +101,27 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
     }
     this.formGroup.valueChanges.subscribe( value => {
       // Update data service values
+      switch (value.attachmentType) {
+        case PRACTITIONER_ATTACHMENT.NEW.value:
+          if (value.newAttachmentType) {
+            this.dataService.attachmentType = PRAC_ATTACHMENT_TYPE.TEMP;
+          } else {
+            this.dataService.attachmentType = PRAC_ATTACHMENT_TYPE.NEW;
+          }
+          this.dataService.attachmentEffectiveDate = value.newAttachmentEffectiveDate;
+          this.dataService.attachmentCancelDate = value.newAttachmentCancelDate;
+          break;
+        case PRACTITIONER_ATTACHMENT.CANCEL.value:
+          this.dataService.attachmentType = PRAC_ATTACHMENT_TYPE.CANCEL;
+          this.dataService.attachmentEffectiveDate = value.cancelAttachmentDate;
+          this.dataService.attachmentCancelDate = null;
+          break;
+        case PRACTITIONER_ATTACHMENT.CHANGE.value:
+          this.dataService.attachmentType = PRAC_ATTACHMENT_TYPE.CHANGE;
+          this.dataService.attachmentEffectiveDate = value.changeAttachmentEffectiveDate;
+          this.dataService.attachmentCancelDate = value.changeAttachmentCancelDate;
+          break;
+      }
       this.dataService.pracAttachmentType = value.attachmentType;
       this.dataService.pracNewAttachmentType = value.newAttachmentType;
       this.dataService.pracNewAttachmentEffectiveDate = value.newAttachmentEffectiveDate;
