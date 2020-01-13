@@ -4,11 +4,8 @@
             name='name'
             formControlName='name'
             commonValidateName></common-name>
-      <common-error-container [displayError]='showValidationError'>
-        {{ validationErrorMessage }}
-      </common-error-container>
     </div>
-  
+
     <div class="form-group">
       <bcp-facility-number name='mspNumber'
                            formControlName='mspNumber'></bcp-facility-number>
@@ -16,7 +13,7 @@
         {{ validationErrorMessage }}
       </common-error-container>
     </div>
-  
+
     <div class="form-group">
       <common-geocoder-input label='Physical address'
         formControlName="address"
@@ -29,19 +26,19 @@
         Facility Address is a required field
       </common-error-container>
     </div>
-  
+
     <div class="form-group">
       <common-city name='city'
                     formControlName="city"
                     placeholder=""
                     [maxlength]="30"></common-city>
     </div>
-  
+
     <div>
       <div class='label'>Province</div>
       <div class='pb-2 mb-1'>{{formGroup.value.province}}</div>
     </div>
-  
+
     <div class="form-group">
       <common-postal-code name='postalCode'
                           label='Postal Code'
@@ -58,4 +55,3 @@
             [allowInternational]='false'></common-phone-number>
     </div>
   </form>
-  
