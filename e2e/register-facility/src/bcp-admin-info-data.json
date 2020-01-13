@@ -5,7 +5,18 @@
         "MSPPractitionerNum": "89900",
         "emailAdd": "test@sample.com",
         "phoneNum": "2501234567",
-        "extension": "123"
+        "extension": "123",
+        "facilityName": "TODS OF FACILITY",
+        "address": "12345 Douglas Street",
+        "city": "Victoria",
+        "postal": "V8R3C2",
+        "faxNum": "2501234568",
+        "effectiveDate": "2020-10-10",
+        "hasSameMailingAddress": true,
+        "mailingAddress": "",
+        "mailingCity": "",
+        "mailingPostal": "",
+        "qualifyForBCP": true
     },
     {
         "facilityAdminFirstName": "F",
@@ -13,7 +24,18 @@
         "MSPPractitionerNum": "99900",
         "emailAdd": "test@sample.com",
         "phoneNum": "2501234567",
-        "extension": "123"
+        "extension": "123",
+        "facilityName": "TODS OF FACILITY",
+        "address": "12345 Douglas Street",
+        "city": "Victoria",
+        "postal": "V8R3C2",
+        "faxNum": "2501234568",
+        "effectiveDate": "2020-10-10",
+        "hasSameMailingAddress": true,
+        "mailingAddress": "",
+        "mailingCity": "",
+        "mailingPostal": "",
+        "qualifyForBCP": true
     },
     {
         "facilityAdminFirstName": "TEST",
@@ -21,7 +43,18 @@
         "MSPPractitionerNum": "89902",
         "emailAdd": "test@sample.com",
         "phoneNum": "2501234567",
-        "extension": "123"
+        "extension": "123",
+        "facilityName": "TODS OF FACILITY",
+        "address": "12345 Douglas Street",
+        "city": "Victoria",
+        "postal": "V8R3C2",
+        "faxNum": "2501234568",
+        "effectiveDate": "2020-10-10",
+        "hasSameMailingAddress": true,
+        "mailingAddress": "",
+        "mailingCity": "",
+        "mailingPostal": "",
+        "qualifyForBCP": true
     },
     {
         "facilityAdminFirstName": "TEST",
@@ -29,6 +62,17 @@
         "MSPPractitionerNum": "89902",
         "emailAdd": "test@sample.com",
         "phoneNum": "2501234567",
-        "extension": "123"
+        "extension": "123",
+        "facilityName": "TODS OF FACILITY",
+        "address": "12345 Douglas Street",
+        "city": "Victoria",
+        "postal": "V8R3C2",
+        "faxNum": "2501234568",
+        "effectiveDate": "2020-10-10",
+        "hasSameMailingAddress": true,
+        "mailingAddress": "",
+        "mailingCity": "",
+        "mailingPostal": "",
+        "qualifyForBCP": true
     }
 ]
