@@ -19,9 +19,6 @@ interface NewFormGroup extends BaseFormGroup {
   newAttachmentType: any;
 }
 
-interface CancelFormGroup extends BaseFormGroup {
-}
-
 interface ChangeFormGroup extends BaseFormGroup {
   changeAttachmentHasAtLeastOneDate: any;
 }
@@ -111,7 +108,7 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
         case PRACTITIONER_ATTACHMENT.CANCEL.value:
           this.dataService.attachmentType = PRAC_ATTACHMENT_TYPE.CANCEL;
           this.dataService.attachmentEffectiveDate = null;
-          this.dataService.attachmentCancelDate = value.attachmentCancelDate
+          this.dataService.attachmentCancelDate = value.attachmentCancelDate;
           break;
         case PRACTITIONER_ATTACHMENT.CHANGE.value:
           this.dataService.attachmentType = PRAC_ATTACHMENT_TYPE.CHANGE;
@@ -165,7 +162,7 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
   }
 
   private getFormGroupForCancel(): FormGroup {
-    const formGroupObj: CancelFormGroup = {
+    const formGroupObj: BaseFormGroup = {
       ...this.getBaseFormGroup(),
       attachmentCancelDate: [this.dataService.attachmentCancelDate, Validators.required]
     };
