@@ -91,7 +91,7 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit, AfterV
           if (res.returnCode === ReturnCodes.SUCCESS) {
             this.handleValidation(true);
             this.navigate(PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_ASSIGN.fullpath);
-          } else if (res.returnCode === ReturnCodes.FAILURE) {
+          } else if (res.returnCode === ReturnCodes.FAILURE || res.returnCode === ReturnCodes.WARNING) {
             this.handleValidation(false);
           } else {
             // fall-through case, likely an error
