@@ -262,8 +262,10 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
     let errorMessage;
     if (this.getEffectiveDateStartRange && !this.getEffectiveDateEndRange) {
       errorMessage = `This date isn\'t after ${formatDateForDisplay(this.getEffectiveDateStartRange)}.`;
-    } else {
+    } else if (this.getEffectiveDateStartRange && this.getEffectiveDateEndRange) {
       errorMessage = `This date isn\'t between ${formatDateForDisplay(this.getEffectiveDateStartRange)} and ${formatDateForDisplay(this.getEffectiveDateEndRange)}.`;
+    } else {
+      errorMessage = 'Invalid effective date.';
     }
     return {
       invalidRange: errorMessage,
@@ -274,8 +276,10 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
     let errorMessage;
     if (this.getCancelDateStartRange && !this.getCancelDateEndRange) {
       errorMessage = `This date isn\'t after ${formatDateForDisplay(this.getCancelDateStartRange)}.`;
-    } else {
+    } else if (this.getCancelDateStartRange && this.getCancelDateEndRange) {
       errorMessage = `This date isn\'t between ${formatDateForDisplay(this.getCancelDateStartRange)} and ${formatDateForDisplay(this.getCancelDateEndRange)}.`;
+    } else {
+      errorMessage = 'Invalid cancellation date.';
     }
     return {
       invalidRange: errorMessage
