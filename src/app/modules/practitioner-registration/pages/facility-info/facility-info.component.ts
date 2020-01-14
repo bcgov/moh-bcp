@@ -72,7 +72,7 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit, AfterV
 
       this.apiService.validateFacility({
         facilityName: null,
-        facilityNumber: this.dataService.pracFacilityNumber,
+        number: this.dataService.pracFacilityNumber,
         // API expects postalCode without any spaces in it
         postalCode: stripPostalCodeSpaces(this.dataService.pracFacilityPostalCode)
       }, this.dataService.applicationUUID)
@@ -91,7 +91,7 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit, AfterV
           if (res.returnCode === ReturnCodes.SUCCESS) {
             this.handleValidation(true);
             this.navigate(PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_ASSIGN.fullpath);
-          } else if (res.returnCode === ReturnCodes.FAILURE) {
+          } else if (res.returnCode === ReturnCodes.FAILURE || res.returnCode === ReturnCodes.WARNING) {
             this.handleValidation(false);
           } else {
             // fall-through case, likely an error

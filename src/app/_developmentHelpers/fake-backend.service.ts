@@ -25,9 +25,11 @@ interface CreateFacilityResp {
 }
 
 enum MESSAGES {
-  MATCH = 'EXACT MATCH',
+  EXACT_MATCH = 'EXACT MATCH',
+  MATCH = 'MATCH',
   NEAR_MATCH = 'NEAR MATCH',
-  NO_MATCH = 'NOT MATCHED'
+  NO_MATCH = 'NOT MATCHED',
+  NO_BCP_PERIOD = 'NO BCP PERIOD'
 }
 
 @Injectable({
@@ -46,24 +48,25 @@ export class FakeBackendService {
 
   private _facilityData: FacilityData[] = [
     {facilityName: 'RiverDale House', postalCode: 'v9v9v9', returnCode: ReturnCodes.SUCCESS, message: MESSAGES.NO_MATCH ,
-    facilityNumber: null},
+    number: null},
     {facilityName: 'River Clinic', postalCode: 'v1v1v1', returnCode: ReturnCodes.WARNING, message: MESSAGES.NEAR_MATCH,
-    facilityNumber: null },
-    {facilityName: 'RiverDale Clinic', postalCode: 'v3v3v3', returnCode: ReturnCodes.WARNING, message: MESSAGES.MATCH,
-    facilityNumber: null},
-    {facilityName: null, postalCode: 'v9v9v9', returnCode: ReturnCodes.SUCCESS, message: MESSAGES.MATCH, facilityNumber: '12345',
-    effectiveDate: '2020-01-01', cancelDate: '2021-01-01'},
-    {facilityName: null, postalCode: 'v1v1v1', returnCode: ReturnCodes.WARNING, message: MESSAGES.NEAR_MATCH, facilityNumber: null,
-    effectiveDate: '2020-01-01', cancelDate: '2021-01-01' },
-    {facilityName: null, postalCode: 'v3v3v3', returnCode: ReturnCodes.WARNING, message: MESSAGES.MATCH, facilityNumber: null,
-    effectiveDate: '2020-01-01', cancelDate: '2021-01-01'},
+    number: null },
+    {facilityName: 'RiverDale Clinic', postalCode: 'v3v3v3', returnCode: ReturnCodes.WARNING, message: MESSAGES.EXACT_MATCH,
+    number: null},
+    {facilityName: null, postalCode: 'v9v9v9', returnCode: ReturnCodes.SUCCESS, message: MESSAGES.MATCH, number: '12345',
+    effectiveDate: '2020-01-01', cancelDate: '2021-01-01', manualReview: false},
+    {facilityName: null, postalCode: 'v1v1v1', returnCode: ReturnCodes.FAILURE, message: MESSAGES.NO_MATCH, number: 'DA001'},
+    {facilityName: null, postalCode: 'v3v3v3', returnCode: ReturnCodes.FAILURE, message: MESSAGES.NO_BCP_PERIOD, number: 'DA002'},
+    {facilityName: null, postalCode: 'v3v4v5', returnCode: ReturnCodes.SUCCESS, message: MESSAGES.MATCH, number: 'DA003',
+     manualReview: true},
+    {facilityName: null, postalCode: 'v3v4v6', returnCode: ReturnCodes.SUCCESS, message: MESSAGES.MATCH, number: 'DA004',
+     effectiveDate: '2020-01-01', cancelDate: '2021-01-01', manualReview: false},
   ];
 
   private _createFacilityResp: CreateFacilityResp[] = [
     {number: '99901', postalCode: 'v9v9v9', returnCode: ReturnCodes.SUCCESS},
     {number: '99901', postalCode: 'v1v1v1', returnCode: ReturnCodes.WARNING},
     {number: '99901', postalCode: 'v3v3v3', returnCode: ReturnCodes.FAILURE},
-    {number: '99901', postalCode: 'v4t4t4', returnCode: ReturnCodes.FAILURE, message: 'postal code error' },
   ];
 
   constructor() {}
@@ -71,7 +74,7 @@ export class FakeBackendService {
   validatePractitioner( request: HttpRequest<any> ): any {
     const obj = {
       returnCode: this._generateRandomNumber(),
-      message: 'Some error occurred'
+      message: 'Some error occurred while validating Practitioner'
     };
 
     const data = this._practitionerData.find( x =>
@@ -93,7 +96,7 @@ export class FakeBackendService {
 
     const obj: any = {
       returnCode: this._generateRandomNumber(),
-      message: 'Some error occurred'
+      message: 'Some error occurred while validating Facility'
     };
 
     const data = this._facilityData.find( x =>
@@ -101,27 +104,28 @@ export class FakeBackendService {
       && ( (request.body.facility.facilityName
           && x.facilityName
           && x.facilityName.toUpperCase() === request.body.facility.facilityName.toUpperCase())
-        || (request.body.facility.facilityNumber
-          && x.facilityNumber
-          && x.facilityNumber.toUpperCase() === request.body.facility.facilityNumber.toUpperCase() ) )
+        || (request.body.facility.number
+          && x.number
+          && x.number.toUpperCase() === request.body.facility.number.toUpperCase() ) )
       );
 
     if ( data ) {
       // update object
       obj.returnCode = data.returnCode;
       obj.message = data.message;
-      obj.effectiveDate = data.effectiveDate;
-      obj.cancelDate = data.cancelDate;
+
+      if ( data.effectiveDate ) {
+        obj.effectiveDate = data.effectiveDate;
+      }
+
+      if ( data.cancelDate ) {
+        obj.cancelDate = data.cancelDate;
+      }
+
+      if ( data.manualReview !== null ) {
+        obj.manualReview = data.manualReview;
+      }
     }
-
-
-    // TODO: Create different return values base on data sent in request
-   /* const obj = {
-      returnCode: ReturnCodes.SUCCESS,
-      message: 'MATCH',
-      effectiveDate: '2020-01-01',
-      cancelDate: '2021-01-01',
-    };*/
 
     return Object.assign(this._baseResponse( request ), obj);
   }

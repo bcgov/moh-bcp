@@ -1,0 +1,34 @@
+[
+    {
+        "facilityAdminFirstName": "F",
+        "facilityAdminLastName": "TEST-JONES",
+        "MSPPractitionerNum": "89900",
+        "emailAdd": "test@sample.com",
+        "phoneNum": "2501234567",
+        "extension": "123"
+    },
+    {
+        "facilityAdminFirstName": "F",
+        "facilityAdminLastName": "TEST-JONES",
+        "MSPPractitionerNum": "99900",
+        "emailAdd": "test@sample.com",
+        "phoneNum": "2501234567",
+        "extension": "123"
+    },
+    {
+        "facilityAdminFirstName": "TEST",
+        "facilityAdminLastName": "PRIVATEPRACTICE",
+        "MSPPractitionerNum": "89902",
+        "emailAdd": "test@sample.com",
+        "phoneNum": "2501234567",
+        "extension": "123"
+    },
+    {
+        "facilityAdminFirstName": "TEST",
+        "facilityAdminLastName": "PRIVATE_PRACTICE",
+        "MSPPractitionerNum": "89902",
+        "emailAdd": "test@sample.com",
+        "phoneNum": "2501234567",
+        "extension": "123"
+    }
+]
