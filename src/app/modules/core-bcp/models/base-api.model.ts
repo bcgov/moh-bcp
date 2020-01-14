@@ -38,6 +38,7 @@ export interface FacilityValidationPartial {
   // number must populated for practitioner registration, otherwise null
   number: string;
   postalCode: string;
+  manualReview?: boolean;
   effectiveDate?: string;
   cancelDate?: string;
 }
