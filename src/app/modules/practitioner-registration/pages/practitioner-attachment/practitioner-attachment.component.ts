@@ -261,9 +261,9 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
   get getFacilityEffectiveDateErrMsg(): ErrorMessage {
     let errorMessage;
     if (this.getEffectiveDateStartRange && !this.getEffectiveDateEndRange) {
-      errorMessage = `This date isn\'t after ${formatDateForDisplay(this.getEffectiveDateStartRange)}.`
+      errorMessage = `This date isn\'t after ${formatDateForDisplay(this.getEffectiveDateStartRange)}.`;
     } else {
-      errorMessage = `This date isn\'t between ${formatDateForDisplay(this.getEffectiveDateStartRange)} and ${formatDateForDisplay(this.getEffectiveDateEndRange)}.`
+      errorMessage = `This date isn\'t between ${formatDateForDisplay(this.getEffectiveDateStartRange)} and ${formatDateForDisplay(this.getEffectiveDateEndRange)}.`;
     }
     return {
       invalidRange: errorMessage,
@@ -279,6 +279,6 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
     }
     return {
       invalidRange: errorMessage
-    };    
+    };
   }
 }
