@@ -49,10 +49,7 @@
     <div class="form-group">
       <common-date label='Cancellation date for existing attachment'
                     name="attachmentCancelDate"
-                    formControlName="attachmentCancelDate"
-                    [dateRangeStart]='facilityEffectiveDate'
-                    [dateRangeEnd]='facilityCancelDate'
-                    [errorMessage]='facilityDateErrMsg'>
+                    formControlName="attachmentCancelDate">
       </common-date>
     </div>
   </ng-container>
@@ -61,20 +58,14 @@
     <div class="form-group">
       <common-date label='New effective date for existing attachment (if applicable)'
                     name="attachmentEffectiveDate"
-                    formControlName="attachmentEffectiveDate"
-                    [dateRangeStart]='facilityEffectiveDate'
-                    [dateRangeEnd]='facilityCancelDate'
-                    [errorMessage]='facilityDateErrMsg'>
+                    formControlName="attachmentEffectiveDate">
       </common-date>
     </div>
   
     <div class="form-group">
       <common-date label='New cancellation date for existing attachment (if applicable)'
                     name="attachmentCancelDate"
-                    formControlName="attachmentCancelDate"
-                    [dateRangeStart]='facilityEffectiveDate'
-                    [dateRangeEnd]='facilityCancelDate'
-                    [errorMessage]='facilityDateErrMsg'>
+                    formControlName="attachmentCancelDate">
       </common-date>
     </div>
 

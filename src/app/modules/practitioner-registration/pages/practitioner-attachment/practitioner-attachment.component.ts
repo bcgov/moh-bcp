@@ -49,18 +49,19 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
   ngOnInit() {
     super.ngOnInit();
 
-    this.facilityEffectiveDate = new Date(
-      this.dataService.jsonFacilityValidation.response
-        ? this.dataService.jsonFacilityValidation.response.effectiveDate
-        : null
-    );
-    this.facilityCancelDate = new Date(
-      this.dataService.jsonFacilityValidation.response
-        ? this.dataService.jsonFacilityValidation.response.cancelDate
-        : null
-    );
-    this.facilityEffectiveDate.setTime( this.facilityEffectiveDate.getTime() + this.facilityEffectiveDate.getTimezoneOffset() * 60 * 1000 );
-    this.facilityCancelDate.setTime( this.facilityCancelDate.getTime() + this.facilityCancelDate.getTimezoneOffset() * 60 * 1000 );
+    if ( this.dataService.jsonFacilityValidation.response
+      && this.dataService.jsonFacilityValidation.response.manualReview === false
+      && this.dataService.jsonFacilityValidation.response.effectiveDate) {
+      this.facilityEffectiveDate = new Date(this.dataService.jsonFacilityValidation.response.effectiveDate);
+      this.facilityEffectiveDate.setTime(this.facilityEffectiveDate.getTime() + this.facilityEffectiveDate.getTimezoneOffset() * 60 * 1000);
+    }
+
+    if ( this.dataService.jsonFacilityValidation.response
+      && this.dataService.jsonFacilityValidation.response.manualReview === false
+      && this.dataService.jsonFacilityValidation.response.cancelDate) {
+      this.facilityCancelDate = new Date(this.dataService.jsonFacilityValidation.response.cancelDate);
+      this.facilityCancelDate.setTime(this.facilityCancelDate.getTime() + this.facilityCancelDate.getTimezoneOffset() * 60 * 1000);
+    }
 
     this.facilityDateErrMsg = {
       invalidRange: `This date isn\'t between ${formatDateForDisplay(this.facilityEffectiveDate)} and ${formatDateForDisplay(this.facilityCancelDate)}.`,
