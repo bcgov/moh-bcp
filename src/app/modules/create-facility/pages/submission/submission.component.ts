@@ -91,8 +91,8 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
 
   get facilityNumberText() {
 
-    return this.dataService.jsonCreateFacility.response.number ?
-          this.dataService.jsonCreateFacility.response.number : 'Contact Health Insurance BC';
+    return this.dataService.jsonCreateFacility.response.facilityNumber ?
+          this.dataService.jsonCreateFacility.response.facilityNumber : 'Contact Health Insurance BC';
   }
 
   get referenceNumber() {
