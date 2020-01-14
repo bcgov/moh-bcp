@@ -3,6 +3,7 @@ import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ContainerService, ErrorMessage, PageStateService } from 'moh-common-lib';
+import { parseISO } from 'date-fns';
 import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 import { PRACTITIONER_ATTACHMENT, PRAC_ATTACHMENT_TYPE } from '../../models/practitioner-attachment';
 import { IRadioItems } from 'moh-common-lib/lib/components/radio/radio.component';
@@ -36,7 +37,8 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
   changeAttachmentHasValue: boolean = false;
   facilityEffectiveDate: Date;
   facilityCancelDate: Date;
-  facilityDateErrMsg: ErrorMessage;
+  facilityEffectiveDateErrMsg: ErrorMessage;
+  facilityCancelDateErrMsg: ErrorMessage;
 
   constructor( protected containerService: ContainerService,
                protected router: Router,
@@ -52,20 +54,14 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
     if ( this.dataService.jsonFacilityValidation.response
       && this.dataService.jsonFacilityValidation.response.manualReview === false
       && this.dataService.jsonFacilityValidation.response.effectiveDate) {
-      this.facilityEffectiveDate = new Date(this.dataService.jsonFacilityValidation.response.effectiveDate);
-      this.facilityEffectiveDate.setTime(this.facilityEffectiveDate.getTime() + this.facilityEffectiveDate.getTimezoneOffset() * 60 * 1000);
+      this.facilityEffectiveDate = parseISO(this.dataService.jsonFacilityValidation.response.effectiveDate);
     }
 
     if ( this.dataService.jsonFacilityValidation.response
       && this.dataService.jsonFacilityValidation.response.manualReview === false
       && this.dataService.jsonFacilityValidation.response.cancelDate) {
-      this.facilityCancelDate = new Date(this.dataService.jsonFacilityValidation.response.cancelDate);
-      this.facilityCancelDate.setTime(this.facilityCancelDate.getTime() + this.facilityCancelDate.getTimezoneOffset() * 60 * 1000);
+      this.facilityCancelDate = parseISO(this.dataService.jsonFacilityValidation.response.cancelDate);
     }
-
-    this.facilityDateErrMsg = {
-      invalidRange: `This date isn\'t between ${formatDateForDisplay(this.facilityEffectiveDate)} and ${formatDateForDisplay(this.facilityCancelDate)}.`,
-    };
 
     this.radioItems = [
       {
@@ -224,5 +220,65 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
 
   get shouldShowChangeSection() {
     return this.dataService.pracAttachmentType === PRACTITIONER_ATTACHMENT.CHANGE.value;
+  }
+
+  get getEffectiveDateStartRange(): Date {
+    if ((this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.NEW
+      || this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.TEMP)
+      && this.facilityEffectiveDate) {
+      return this.facilityEffectiveDate;
+    }
+    const aprilFirst: string = '2020-04-01';
+    const date = parseISO(aprilFirst);
+    return date;
+  }
+
+  get getEffectiveDateEndRange(): Date {
+    if ((this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.NEW
+      || this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.TEMP)
+      && this.facilityCancelDate) {
+      return this.facilityCancelDate;
+    }
+    return null;
+  }
+
+  get getCancelDateStartRange(): Date {
+    if ( this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.NEW
+      || this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.TEMP) {
+      return this.dataService.attachmentEffectiveDate;
+    }
+    return null;
+  }
+
+  get getCancelDateEndRange(): Date {
+    if ( this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.NEW
+      || this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.TEMP) {
+      return this.facilityCancelDate;
+    }
+    return null;
+  }
+
+  get getFacilityEffectiveDateErrMsg(): ErrorMessage {
+    let errorMessage;
+    if (this.getEffectiveDateStartRange && !this.getEffectiveDateEndRange) {
+      errorMessage = `This date isn\'t after ${formatDateForDisplay(this.getEffectiveDateStartRange)}.`
+    } else {
+      errorMessage = `This date isn\'t between ${formatDateForDisplay(this.getEffectiveDateStartRange)} and ${formatDateForDisplay(this.getEffectiveDateEndRange)}.`
+    }
+    return {
+      invalidRange: errorMessage,
+    };
+  }
+
+  get getFacilityCancelDateErrMsg(): ErrorMessage {
+    let errorMessage;
+    if (this.getCancelDateStartRange && !this.getCancelDateEndRange) {
+      errorMessage = `This date isn\'t after ${formatDateForDisplay(this.getCancelDateStartRange)}.`;
+    } else {
+      errorMessage = `This date isn\'t between ${formatDateForDisplay(this.getCancelDateStartRange)} and ${formatDateForDisplay(this.getCancelDateEndRange)}.`;
+    }
+    return {
+      invalidRange: errorMessage
+    };    
   }
 }
