@@ -17,7 +17,7 @@ export class BcpBaseForm extends AbstractReactForm implements OnInit, AfterViewI
   }
 
   ngOnInit() {
-    console.log( 'BCP base form - OnInit' );
+    // console.log( 'BCP base form - OnInit' );
 
     // Default behaviour for most pages - override if need different functionality
     this.containerService.setSubmitLabel();
@@ -29,7 +29,7 @@ export class BcpBaseForm extends AbstractReactForm implements OnInit, AfterViewI
   ngAfterViewInit() {
     this._subscription = this.containerService.$continueBtn.subscribe(
       (obs) => {
-        console.log( 'BCP base form - continue button clicked' );
+        // console.log( 'BCP base form - continue button clicked' );
         this.continue();
     });
   }
@@ -39,11 +39,11 @@ export class BcpBaseForm extends AbstractReactForm implements OnInit, AfterViewI
   }
 
   continue() {
-    console.log( 'Continue: BCP base form to be overriden');
+    // console.log( 'Continue: BCP base form to be overriden');
   }
 
   protected navigate( url: string ) {
-    console.log( 'BCP base form - navigate' );
+    // console.log( 'BCP base form - navigate' );
 
     this.pageStateService.setPageComplete();
     super.navigate(url);

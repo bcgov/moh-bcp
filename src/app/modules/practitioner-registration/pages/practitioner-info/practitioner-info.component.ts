@@ -76,7 +76,7 @@ export class PractitionerInfoComponent extends BcpBaseForm implements OnInit, Af
         number: this.dataService.pracInfoMSPPracNumber,
         doctor: true
       }, this.dataService.applicationUUID).subscribe((res: ValidationResponse) => {
-        console.log('apiService response', res);
+        // console.log('apiService response', res);
 
         this.dataService.jsonApplicantValidation.response = res;
 
@@ -86,7 +86,7 @@ export class PractitionerInfoComponent extends BcpBaseForm implements OnInit, Af
             this.dataService.jsonApplicantValidation.response
           )
         );
-        console.log( 'res: ', res );
+        // console.log( 'res: ', res );
 
         if (res.returnCode === ReturnCodes.SUCCESS) {
           this.handleValidation(true);
@@ -98,7 +98,7 @@ export class PractitionerInfoComponent extends BcpBaseForm implements OnInit, Af
           this.handleError();
         }
       }, error => {
-        console.log('ARC apiService onerror', error);
+        console.log('apiService onerror', error);
         this.handleError();
       });
     }

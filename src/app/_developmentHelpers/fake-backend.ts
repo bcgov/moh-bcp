@@ -54,12 +54,10 @@ export class FakeBackendInterceptor implements HttpInterceptor  {
           payload = this.fakebackendService.bcpAttachment ( request );
         }
 
-        /*
         if (request.url.includes( 'logging' )) {
           console.log( 'Fake-backend for logging - nothing logged' );
           payload = 'success';
         }
-        */
 
         if ( payload ) {
 

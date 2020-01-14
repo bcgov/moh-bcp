@@ -36,7 +36,7 @@ export class HomeComponent extends BcpBaseForm implements OnInit {
   }
 
   continue() {
-    console.log( 'Continue');
+    // console.log( 'Continue');
     this.navigate(PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_INFO.fullpath);
   }
 

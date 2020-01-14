@@ -239,7 +239,7 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
     }
   }
   physicalAddressSelected(address: Address) {
-    console.log(address);
+    // console.log(address);
     this.facilityForm.patchValue({
       address: address.addressLine1,
       city: address.city
