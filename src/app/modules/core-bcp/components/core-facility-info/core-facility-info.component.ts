@@ -12,6 +12,11 @@ export class CoreFacilityInfoComponent {
   @Input() public showValidationError: boolean = false;
   public validationErrorMessage: string = 'This field does not match our records.';
 
+
+  postalCodeErrorMsg: ErrorMessage = {
+    required: 'A British Columbia postal code is required (example: V8W 9E3)'
+  };
+
   @Input() public formGroup: FormGroup;
 
   physicalAddressSelected(address: Address) {

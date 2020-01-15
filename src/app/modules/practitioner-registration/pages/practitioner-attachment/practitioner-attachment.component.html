@@ -26,8 +26,8 @@
 
     <div class="form-group" *ngIf='dataService.pracNewAttachmentType === true || dataService.pracNewAttachmentType === false'>
       <common-date label='Effective date for new attachment'
-                   name="newAttachmentEffectiveDate"
-                   formControlName="newAttachmentEffectiveDate"
+                   name="attachmentEffectiveDate"
+                   formControlName="attachmentEffectiveDate"
                    [dateRangeStart]='facilityEffectiveDate'
                    [dateRangeEnd]='facilityCancelDate'
                    [errorMessage]='facilityDateErrMsg'>
@@ -36,8 +36,8 @@
   
     <div class="form-group" *ngIf='dataService.pracNewAttachmentType === true'>
       <common-date label='Cancellation date for new attachment'
-                   name="newAttachmentCancelDate"
-                   formControlName="newAttachmentCancelDate"
+                   name="attachmentCancelDate"
+                   formControlName="attachmentCancelDate"
                    [dateRangeStart]='facilityEffectiveDate'
                    [dateRangeEnd]='facilityCancelDate'
                    [errorMessage]='facilityDateErrMsg'>
@@ -48,8 +48,8 @@
   <ng-container *ngIf='shouldShowCancelSection'>
     <div class="form-group">
       <common-date label='Cancellation date for existing attachment'
-                    name="cancelAttachmentDate"
-                    formControlName="cancelAttachmentDate"
+                    name="attachmentCancelDate"
+                    formControlName="attachmentCancelDate"
                     [dateRangeStart]='facilityEffectiveDate'
                     [dateRangeEnd]='facilityCancelDate'
                     [errorMessage]='facilityDateErrMsg'>
@@ -60,8 +60,8 @@
   <ng-container *ngIf='shouldShowChangeSection'>
     <div class="form-group">
       <common-date label='New effective date for existing attachment (if applicable)'
-                    name="changeAttachmentEffectiveDate"
-                    formControlName="changeAttachmentEffectiveDate"
+                    name="attachmentEffectiveDate"
+                    formControlName="attachmentEffectiveDate"
                     [dateRangeStart]='facilityEffectiveDate'
                     [dateRangeEnd]='facilityCancelDate'
                     [errorMessage]='facilityDateErrMsg'>
@@ -70,8 +70,8 @@
   
     <div class="form-group">
       <common-date label='New cancellation date for existing attachment (if applicable)'
-                    name="changeAttachmentCancelDate"
-                    formControlName="changeAttachmentCancelDate"
+                    name="attachmentCancelDate"
+                    formControlName="attachmentCancelDate"
                     [dateRangeStart]='facilityEffectiveDate'
                     [dateRangeEnd]='facilityCancelDate'
                     [errorMessage]='facilityDateErrMsg'>

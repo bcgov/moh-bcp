@@ -6,7 +6,8 @@ import { BCP_ROUTES } from './modules/core-bcp/models/bcp-route-constanst';
 const routes: Routes = [
   {
     path: '',
-    component: LandingComponent
+    component: LandingComponent,
+    data: {title: 'Landing Page'}
   },
   {
     path: BCP_ROUTES.CREATE_FACILITY,

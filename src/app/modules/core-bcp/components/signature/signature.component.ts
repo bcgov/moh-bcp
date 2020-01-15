@@ -32,7 +32,7 @@ export class SignatureComponent implements AfterViewInit {
   constructor(@Optional() @Self() public controlDir: NgControl) {
     // super();
     if (controlDir) {
-      console.log('sig controldir', controlDir);
+      // console.log('sig controldir', controlDir);
       controlDir.valueAccessor = this;
     }
   }
