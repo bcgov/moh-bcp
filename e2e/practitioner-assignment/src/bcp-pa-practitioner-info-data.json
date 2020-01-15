@@ -5,7 +5,13 @@
         "MSPPractitionerNum": "89900",
         "emailAdd": "test@sample.com",
         "phoneNum": "2501234567",
-        "extension": "123"
+        "extension": "123",
+        "facilityName": "TODS OF FACILITY",
+        "MSPFacilityNum": "OA001",
+        "physicalAddress": "12345 Douglas Street",
+        "city": "Victoria",
+        "postal": "V8R3C2",
+        "faxNum": "2501234568"
     },
     {
         "firstName": "F",
@@ -13,7 +19,13 @@
         "MSPPractitionerNum": "99900",
         "emailAdd": "test@sample.com",
         "phoneNum": "2501234567",
-        "extension": "123"
+        "extension": "123",
+        "facilityName": "TODS OF FACILITY",
+        "MSPFacilityNum": "OAP01",
+        "physicalAddress": "12345 Douglas Street",
+        "city": "Victoria",
+        "postal": "V8R3C2",
+        "faxNum": "2501234568"
     },
     {
         "firstName": "TEST",
@@ -21,7 +33,13 @@
         "MSPPractitionerNum": "89902",
         "emailAdd": "test@sample.com",
         "phoneNum": "2501234567",
-        "extension": "123"
+        "extension": "123",
+        "facilityName": "MIKE TEST THREE AND CHANGE",
+        "MSPFacilityNum": "OA004",
+        "physicalAddress": "12345 Douglas Street",
+        "city": "Victoria",
+        "postal": "V9C3V6",
+        "faxNum": "2501234568"
     },
     {
         "firstName": "TEST",
@@ -29,6 +47,12 @@
         "MSPPractitionerNum": "89902",
         "emailAdd": "test@sample.com",
         "phoneNum": "2501234567",
-        "extension": "123"
+        "extension": "123",
+        "facilityName": "SEVEN MIKE TEST",
+        "MSPFacilityNum": "OA021",
+        "physicalAddress": "12345 Douglas Street",
+        "city": "Victoria",
+        "postal": "V8R3C2",
+        "faxNum": "2501234568"
     }
 ]

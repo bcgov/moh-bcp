@@ -163,7 +163,7 @@ export class BCPInfoPage extends BCPBasePage {
         this.setIndex(index);
         this.typeText('Facility or practice name', this.jsonData[this.index].facilityName);
         this.typeText('Medical Services Plan Facility Number', this.jsonData[this.index].MSPPractitionerNum);
-        this.typeText('Physical address', this.jsonData[this.index].address);
+        this.typeText('Physical address', this.jsonData[this.index].physicalAddress);
         this.typeText('City', this.jsonData[this.index].city);
         this.typeText('Postal Code', this.jsonData[this.index].postal);
         this.typeText('Fax number (optional)', this.jsonData[this.index].faxNum);
@@ -174,7 +174,7 @@ export class BCPInfoPage extends BCPBasePage {
             expect(faciName).toBe(this.jsonData[this.index].facilityName, 'Facility name values should be the same');
         });
         this.getInputValue('Physical address').then(address => {
-            expect(address).toBe(this.jsonData[this.index].address, 'Physical address values should be the same');
+            expect(address).toBe(this.jsonData[this.index].physicalAddress, 'Physical address values should be the same');
         });
         this.getInputValue('City').then(city => {
             expect(city).toBe(this.jsonData[this.index].city, 'City values should be the same');

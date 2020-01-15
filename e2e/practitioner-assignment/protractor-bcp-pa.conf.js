@@ -7,14 +7,14 @@ const { SpecReporter } = require('jasmine-spec-reporter');
 exports.config = {
   allScriptsTimeout: 11000,
   specs: [
-    './src/bcp-pa-practitioner-info-sprint8.e2e-spec.ts',
+    './src/bcp-pa-practitioner-info-test.e2e-spec.ts',
     './src/bcp-pa-facility-info.e2e-spec.ts'
   ],
   multiCapabilities: [
     {
       browserName: 'firefox',
       "moz:firefoxOptions": {
-        "args": ["-headless"],
+      //  "args": ["-headless"],
       }
     }
   ],
