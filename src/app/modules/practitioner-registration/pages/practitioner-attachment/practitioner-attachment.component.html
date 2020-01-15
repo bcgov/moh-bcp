@@ -28,9 +28,9 @@
       <common-date label='Effective date for new attachment'
                    name="attachmentEffectiveDate"
                    formControlName="attachmentEffectiveDate"
-                   [dateRangeStart]='getEffectiveDateStartRange'
-                   [dateRangeEnd]='getEffectiveDateEndRange'
-                   [errorMessage]='getFacilityEffectiveDateErrMsg'>
+                   [dateRangeStart]='effectiveDateStartRange'
+                   [dateRangeEnd]='effectiveDateEndRange'
+                   [errorMessage]='facilityEffectiveDateErrMsg'>
       </common-date>
     </div>
   
@@ -38,9 +38,9 @@
       <common-date label='Cancellation date for new attachment'
                    name="attachmentCancelDate"
                    formControlName="attachmentCancelDate"
-                   [dateRangeStart]='getCancelDateStartRange'
-                   [dateRangeEnd]='getCancelDateEndRange'
-                   [errorMessage]='getFacilityCancelDateErrMsg'>
+                   [dateRangeStart]='cancelDateStartRange'
+                   [dateRangeEnd]='cancelDateEndRange'
+                   [errorMessage]='facilityCancelDateErrMsg'>
       </common-date>
     </div>
   </ng-container>
@@ -50,9 +50,9 @@
       <common-date label='Cancellation date for existing attachment'
                     name="attachmentCancelDate"
                     formControlName="attachmentCancelDate"
-                    [dateRangeStart]='getCancelDateStartRange'
-                    [dateRangeEnd]='getCancelDateEndRange'
-                    [errorMessage]='getFacilityCancelDateErrMsg'>
+                    [dateRangeStart]='cancelDateStartRange'
+                    [dateRangeEnd]='cancelDateEndRange'
+                    [errorMessage]='facilityCancelDateErrMsg'>
       </common-date>
     </div>
   </ng-container>
@@ -62,9 +62,9 @@
       <common-date label='New effective date for existing attachment (if applicable)'
                     name="attachmentEffectiveDate"
                     formControlName="attachmentEffectiveDate"
-                    [dateRangeStart]='getFacilityEffectiveDate'
-                    [dateRangeEnd]='getFacilityCancelDate'
-                    [errorMessage]='getFacilityEffectiveDateErrMsg'>
+                    [dateRangeStart]='effectiveDateStartRange'
+                    [dateRangeEnd]='effectiveDateEndRange'
+                    [errorMessage]='facilityEffectiveDateErrMsg'>
       </common-date>
     </div>
   
@@ -72,9 +72,9 @@
       <common-date label='New cancellation date for existing attachment (if applicable)'
                     name="attachmentCancelDate"
                     formControlName="attachmentCancelDate"
-                    [dateRangeStart]='getFacilityEffectiveDate'
-                    [dateRangeEnd]='getFacilityCancelDate'
-                    [errorMessage]='getFacilityCancelDateErrMsg'>
+                    [dateRangeStart]='cancelDateStartRange'
+                    [dateRangeEnd]='cancelDateEndRange'
+                    [errorMessage]='facilityCancelDateErrMsg'>
       </common-date>
     </div>
 

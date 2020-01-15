@@ -37,8 +37,6 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
   changeAttachmentHasValue: boolean = false;
   facilityEffectiveDate: Date;
   facilityCancelDate: Date;
-  facilityEffectiveDateErrMsg: ErrorMessage;
-  facilityCancelDateErrMsg: ErrorMessage;
 
   constructor( protected containerService: ContainerService,
                protected router: Router,
@@ -222,7 +220,7 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
     return this.dataService.pracAttachmentType === PRACTITIONER_ATTACHMENT.CHANGE.value;
   }
 
-  get getEffectiveDateStartRange(): Date {
+  get effectiveDateStartRange(): Date {
     if ((this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.NEW
       || this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.TEMP)
       && this.facilityEffectiveDate) {
@@ -233,7 +231,7 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
     return date;
   }
 
-  get getEffectiveDateEndRange(): Date {
+  get effectiveDateEndRange(): Date {
     if ((this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.NEW
       || this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.TEMP)
       && this.facilityCancelDate) {
@@ -242,15 +240,16 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
     return null;
   }
 
-  get getCancelDateStartRange(): Date {
+  get cancelDateStartRange(): Date {
     if ( this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.NEW
-      || this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.TEMP) {
+      || this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.TEMP
+      || this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.CHANGE) {
       return this.dataService.attachmentEffectiveDate;
     }
     return null;
   }
 
-  get getCancelDateEndRange(): Date {
+  get cancelDateEndRange(): Date {
     if ( this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.NEW
       || this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.TEMP) {
       return this.facilityCancelDate;
@@ -258,12 +257,12 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
     return null;
   }
 
-  get getFacilityEffectiveDateErrMsg(): ErrorMessage {
+  get facilityEffectiveDateErrMsg(): ErrorMessage {
     let errorMessage;
-    if (this.getEffectiveDateStartRange && !this.getEffectiveDateEndRange) {
-      errorMessage = `This date isn\'t after ${formatDateForDisplay(this.getEffectiveDateStartRange)}.`;
-    } else if (this.getEffectiveDateStartRange && this.getEffectiveDateEndRange) {
-      errorMessage = `This date isn\'t between ${formatDateForDisplay(this.getEffectiveDateStartRange)} and ${formatDateForDisplay(this.getEffectiveDateEndRange)}.`;
+    if (this.effectiveDateStartRange && !this.effectiveDateEndRange) {
+      errorMessage = `This date isn\'t after ${formatDateForDisplay(this.effectiveDateStartRange)}.`;
+    } else if (this.effectiveDateStartRange && this.effectiveDateEndRange) {
+      errorMessage = `This date isn\'t between ${formatDateForDisplay(this.effectiveDateStartRange)} and ${formatDateForDisplay(this.effectiveDateEndRange)}.`;
     } else {
       errorMessage = 'Invalid effective date.';
     }
@@ -272,15 +271,16 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
     };
   }
 
-  get getFacilityCancelDateErrMsg(): ErrorMessage {
+  get facilityCancelDateErrMsg(): ErrorMessage {
     let errorMessage;
-    if (this.getCancelDateStartRange && !this.getCancelDateEndRange) {
-      errorMessage = `This date isn\'t after ${formatDateForDisplay(this.getCancelDateStartRange)}.`;
-    } else if (this.getCancelDateStartRange && this.getCancelDateEndRange) {
-      errorMessage = `This date isn\'t between ${formatDateForDisplay(this.getCancelDateStartRange)} and ${formatDateForDisplay(this.getCancelDateEndRange)}.`;
+    if (this.cancelDateStartRange && !this.cancelDateEndRange) {
+      errorMessage = `This date isn\'t after ${formatDateForDisplay(this.cancelDateStartRange)}.`;
+    } else if (this.cancelDateStartRange && this.cancelDateEndRange) {
+      errorMessage = `This date isn\'t between ${formatDateForDisplay(this.cancelDateStartRange)} and ${formatDateForDisplay(this.cancelDateEndRange)}.`;
     } else {
       errorMessage = 'Invalid cancellation date.';
     }
+    console.warn('Error Message: ', errorMessage);
     return {
       invalidRange: errorMessage
     };
