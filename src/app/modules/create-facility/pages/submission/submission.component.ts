@@ -54,7 +54,7 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
           }
         }
       } else {
-        console.log( 'return code <> 0');
+        // console.log( 'return code <> 0');
         // case not Successful
         if ( this.response.referenceNumber ) {
           // message Yellow 1

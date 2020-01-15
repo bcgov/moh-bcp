@@ -22,7 +22,7 @@ export class ReviewFacilityComponent implements OnInit {
 
   reviewItems() {
 
-    console.log( 'this.dataService.facInfoProvince: ', this.dataService.facInfoProvince );
+    // console.log( 'this.dataService.facInfoProvince: ', this.dataService.facInfoProvince );
 
     this.review.displayPrintView = this.dataService.isPrintView;
     this.review.redirectPath = CREATE_FACILITY_PAGES.FACILITY_INFO.fullpath;
