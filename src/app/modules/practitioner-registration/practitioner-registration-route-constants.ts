@@ -4,7 +4,7 @@ export const PRACTITIONER_REGISTRATION_PAGES = {
     HOME: {
         path: 'home',
         fullpath: `${BCP_ROUTES.PRACTITIONER_REGISTRATION}/home`,
-        title: 'Application for Medical Services Plan Facility Number'
+        title: 'Practitioner Attachment to Medical Services Plan Facility for Business Cost Premium'
     },
     PRACTITIONER_INFO: {
         path: 'practitioner-info',

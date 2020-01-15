@@ -74,7 +74,7 @@ export class ReviewComponent extends BcpBaseForm implements OnInit, AfterViewIni
         this.dataService.jsonMaintPractitioner.response = res;
         this.splunkLoggerService.log(
           this.dataService.getSubmissionLogObject<SubmissionResponse>(
-            'Maintain Practitioner - ' + getAttachmentLabelByValue( this.dataService.pracAttachmentType),
+            'Maintain Practitioner - ' + getAttachmentLabelByValue( this.dataService.attachmentType ),
             this.dataService.jsonMaintPractitioner.response
           )
         );
@@ -83,7 +83,7 @@ export class ReviewComponent extends BcpBaseForm implements OnInit, AfterViewIni
         // TODO: Handle failure case, e.g. no backend, failed request, etc.
         this.navigate(PRACTITIONER_REGISTRATION_PAGES.SUBMISSION.fullpath);
       }, error => {
-        console.log('ARC apiService on error: ', error);
+        console.log('apiService on error: ', error);
         this.containerService.setIsLoading(false);
       });
   }

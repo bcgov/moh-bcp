@@ -75,7 +75,7 @@ export class ApplicantInfoComponent extends BcpBaseForm implements OnInit, After
         number: this.dataService.pracNumber,
         doctor: false
       }, this.dataService.applicationUUID).subscribe((res: ValidationResponse) => {
-        console.log('apiService response', res);
+        // console.log('apiService response', res);
 
         this.dataService.jsonApplicantValidation.response = res;
 

@@ -35,23 +35,23 @@ export class ReviewPractitionerAttachmentComponent implements OnInit {
     };
     const newAttachmentEffectiveDate: ReviewItem = {
       label: 'Effective date for new attachment',
-      value: formatDateForDisplay(this.dataService.pracNewAttachmentEffectiveDate)
+      value: formatDateForDisplay(this.dataService.attachmentEffectiveDate)
     };
     const newAttachmentCancelDate: ReviewItem = {
       label: 'Cancellation date for new attachment',
-      value: formatDateForDisplay(this.dataService.pracNewAttachmentCancelDate)
+      value: formatDateForDisplay(this.dataService.attachmentCancelDate)
     };
     const cancelDateItem: ReviewItem = {
       label: 'Cancellation date for existing attachment',
-      value: formatDateForDisplay(this.dataService.pracCancelAttachmentDate),
+      value: formatDateForDisplay(this.dataService.attachmentCancelDate),
     };
     const changeEffectiveDateItem: ReviewItem = {
       label: 'New effective date for existing attachment (if applicable)',
-      value: setNotApplicable(formatDateForDisplay(this.dataService.pracChangeAttachmentEffectiveDate)),
+      value: setNotApplicable(formatDateForDisplay(this.dataService.attachmentEffectiveDate)),
     };
     const changeCancelDateItem: ReviewItem = {
       label: 'New cancellation date for existing attachment (if applicable)',
-      value: setNotApplicable(formatDateForDisplay(this.dataService.pracChangeAttachmentCancelDate)),
+      value: setNotApplicable(formatDateForDisplay(this.dataService.attachmentCancelDate)),
     };
 
     const items = [
