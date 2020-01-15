@@ -60,7 +60,6 @@ export class RegisterPractitionerDataService extends BaseDataService {
   pracAttachmentType: string;
   pracNewAttachmentType: boolean;
 
-  // TODO: Update practitioner attachment page to have these variables
   attachmentType: PRAC_ATTACHMENT_TYPE;
   attachmentEffectiveDate: Date;
   attachmentCancelDate: Date;
@@ -70,8 +69,6 @@ export class RegisterPractitionerDataService extends BaseDataService {
     request: null,
     response: null
   };
-
-  isAccepted: boolean;
 
   readonly declarationText = `I, the Practitioner named above, hereby confirm that: --by checking either "Add New", "Change", or "Cancel" above, I am either adding, changing details of, or cancelling an attachment to the MSP Facility Number set out in this document, as the case may be. In the case of adding an attachment or changing details of an attachment to the above MSP Facility Number:
   <ol class='no-bullets'>
@@ -92,8 +89,7 @@ export class RegisterPractitionerDataService extends BaseDataService {
 
     const jsonPayLoad: any = {
 
-      // TODO: Determine whether this is required - it exists in Create Facility
-      // informationConsentAgreement: this.informationCollectionNoticeConsent,
+      informationConsentAgreement: this.informationCollectionNoticeConsent,
       facility: {
         facilityNumber: this.pracFacilityNumber,
         name: this.pracFacilityName,
