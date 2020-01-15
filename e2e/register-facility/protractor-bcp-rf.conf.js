@@ -7,7 +7,8 @@ const { SpecReporter } = require('jasmine-spec-reporter');
 exports.config = {
   allScriptsTimeout: 11000,
   specs: [
-    './src/bcp-reg-facility-admin-sprint8.e2e-spec.ts'
+    './src/bcp-reg-facility-admin-sprint8.e2e-spec.ts',
+    './src/bcp-reg-facility-info.e2e-spec.ts'
   ],
   multiCapabilities: [
     {

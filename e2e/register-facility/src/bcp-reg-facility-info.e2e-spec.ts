@@ -29,4 +29,5 @@ describe('BCP Register Facility - Info Page (Unit Test)', () => {
         infoPage.clickContinue();
         expect(browser.getCurrentUrl()).toContain(CREATE_FACILITY_PAGES.REVIEW.fullpath, 'should continue to the next page');
     });
+
 });
