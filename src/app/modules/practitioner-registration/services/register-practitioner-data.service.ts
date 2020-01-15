@@ -8,6 +8,7 @@ import {
   stripPhoneFormatting,
   convertToJSONDate } from '../../core-bcp/models/helperFunc';
 import { PRAC_ATTACHMENT_TYPE } from '../models/practitioner-attachment';
+import { addMonths, startOfToday } from 'date-fns';
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +38,31 @@ export class RegisterPractitionerDataService extends BaseDataService {
       this.facEffectiveDate = new Date('2020-01-01');
       this.facCancelDate = new Date('2020-12-31');
     }
+
+        // Partial setup for using data in back end
+    if (environment.useMockBackendData) {
+      this.pracInfoFirstName = 'test';
+      this.pracInfoLastName = 'privatepractice';
+      this.pracInfoMSPPracNumber = '99901';
+      this.pracInfoEmail = 'john.doe@example.com';
+      this.pracInfoPhoneNumber = '234 567-8901';
+      this.pracInfoPhoneNumberExt = '123';
+
+      this.pracFacilityName = 'Medical Facility';
+      this.pracFacilityNumber = 'DA004';
+      this.pracFacilityAddress = '123 Fake St.';
+      this.pracFacilityCity = 'Victoria';
+      this.pracFacilityProvince = BRITISH_COLUMBIA;
+      this.pracFacilityPostalCode = 'V3V4V6';
+      this.pracFacilityFaxNumber = '2345678901';
+
+      this.pracAttachmentType = 'new';
+      this.pracNewAttachmentType = true;
+      this.attachmentType = PRAC_ATTACHMENT_TYPE.NEW;
+      this.attachmentEffectiveDate = addMonths( startOfToday(), 4 );
+      this.attachmentCancelDate = addMonths( this.attachmentEffectiveDate, 6 );
+
+     }
   }
 
   pracInfoFirstName: string;

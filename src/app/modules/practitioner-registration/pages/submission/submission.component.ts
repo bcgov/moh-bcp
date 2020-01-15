@@ -4,6 +4,7 @@ import { formatDateForDisplay } from '../../../core-bcp/models/helperFunc';
 import { ApiStatusCodes, Base, PageStateService } from 'moh-common-lib';
 import { RegisterPractitionerDataService } from '../../services/register-practitioner-data.service';
 import { ConfirmBaseForm } from '../../../core-bcp/models/confirm-base-form';
+import { PrivacyStmt } from '../../../core-bcp/components/core-consent-modal/core-consent-modal.component';
 
 @Component({
   selector: 'bcp-submission',
@@ -13,6 +14,7 @@ import { ConfirmBaseForm } from '../../../core-bcp/models/confirm-base-form';
 })
 export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
 
+  readonly privacyStatement = PrivacyStmt;
 
   constructor(protected dataService: RegisterPractitionerDataService,
               protected pageStateService: PageStateService) {

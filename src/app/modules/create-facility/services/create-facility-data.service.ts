@@ -43,7 +43,7 @@ export class CreateFacilityDataService extends BaseDataService {
       // mailing info
       this.facInfoMailAddress = '12345 Carson Street';
       this.facInfoMailCity = 'Victoria';
-      this.facInfoMailProvince = 'BC'; // 'British Columbia';
+      this.facInfoMailProvince = BRITISH_COLUMBIA;
       this.facInfoMailPostalCode = 'V8J 8J8';
 
       // Review page
@@ -56,14 +56,16 @@ export class CreateFacilityDataService extends BaseDataService {
       // Name and PracNumber will pass backend validation in TEST
       this.facAdminFirstName = 'TEST';
       this.facAdminLastName = 'PRIVATEPRACTICE';
-      // this.emailAddress = 'test@privatepractice.com'; // optional field
+      this.pracNumber = '99902';
       this.facAdminPhoneNumber = '(222) 222-2221';
 
       // Following code is as per directions by Adam ref:bcp-68 18/10/2019 10:40AM
       // facility
+      this.facInfoFacilityName = 'RiverDale House';
       this.facInfoPhysicalAddress = '12345 Douglas Street';
       this.facInfoCity = 'Victoria';
-      this.facInfoProvince = 'BC';
+      this.facInfoProvince = BRITISH_COLUMBIA;
+      this.facInfoPostalCode = 'V9V9V9';
       this.facInfoEffectiveDate = new Date(2020, 0, 10);
 
       this.facInfoIsSameMailingAddress = true;
