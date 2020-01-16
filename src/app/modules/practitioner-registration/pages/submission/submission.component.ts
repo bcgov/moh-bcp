@@ -25,16 +25,26 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
     super.ngOnInit();
 
     // Set icon to be displayed
-    if (this.dataService.jsonMaintPractitioner.response &&
-        this.dataService.jsonMaintPractitioner.response.returnCode >= ApiStatusCodes.SUCCESS) {
-      this.displayIcon = this.dataService.jsonMaintPractitioner.response.returnCode;
+    if (this.dataService.jsonMaintPractitioner.response) {
+
+      if ( this.dataService.jsonMaintPractitioner.response.returnCode === ApiStatusCodes.SUCCESS ) {
+
+        // Assumed all is good - processed automatically or has multiple BCP effective periods (manual review)
+        this.displayIcon = this.dataService.manualReview ? ApiStatusCodes.WARNING : ApiStatusCodes.SUCCESS;
+      } else {
+
+        if ( this.dataService.jsonMaintPractitioner.response.referenceNumber ) {
+          // Assumed something went wrong with automated processing but is in MAXHUB
+          this.displayIcon = ApiStatusCodes.WARNING;
+        }
+      }
     }
   }
 
   get confirmationMessage() {
     let confirmMessage = 'Your application has been submitted';
     if (this.displayIcon === ApiStatusCodes.WARNING) {
-      confirmMessage = 'IS THERE A WARNING MESSAGE???';
+      confirmMessage = 'YELLOW 1 Message';
     } else if (this.displayIcon === ApiStatusCodes.ERROR) {
       confirmMessage = 'Sorry, there was an error processing your application. ' +
         'Please try again. If you continue to receive this error please contact HIBC.';

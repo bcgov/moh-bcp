@@ -49,6 +49,7 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
   ngOnInit() {
     super.ngOnInit();
 
+    /* NOTE: No dates are returned for a manual review
     this.facilityEffectiveDate = new Date(
       this.dataService.jsonFacilityValidation.response
         ? this.dataService.jsonFacilityValidation.response.effectiveDate
@@ -61,7 +62,7 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
     );
     this.facilityEffectiveDate.setTime( this.facilityEffectiveDate.getTime() + this.facilityEffectiveDate.getTimezoneOffset() * 60 * 1000 );
     this.facilityCancelDate.setTime( this.facilityCancelDate.getTime() + this.facilityCancelDate.getTimezoneOffset() * 60 * 1000 );
-
+  */
     this.facilityDateErrMsg = {
       invalidRange: `This date isn\'t between ${formatDateForDisplay(this.facilityEffectiveDate)} and ${formatDateForDisplay(this.facilityCancelDate)}.`,
     };

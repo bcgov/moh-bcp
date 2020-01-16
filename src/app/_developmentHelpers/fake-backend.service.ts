@@ -13,9 +13,12 @@ interface PractitionerData extends PractitionerValidationPartial {
 interface FacilityData extends FacilityValidationPartial {
   returnCode: string;
   message: string;
+  manualReview?: boolean;
+  effectiveDate?: string;
+  cancelDate?: string;
 }
 
-interface CreateFacilityResp {
+interface SubmissionResp {
   number: string;
   postalCode: string;
   returnCode: ReturnCodes;
@@ -55,18 +58,29 @@ export class FakeBackendService {
     number: null},
     {facilityName: null, postalCode: 'v9v9v9', returnCode: ReturnCodes.SUCCESS, message: MESSAGES.MATCH, number: '12345',
     effectiveDate: '2020-01-01', cancelDate: '2021-01-01', manualReview: false},
-    {facilityName: null, postalCode: 'v1v1v1', returnCode: ReturnCodes.FAILURE, message: MESSAGES.NO_MATCH, number: 'DA001'},
-    {facilityName: null, postalCode: 'v3v3v3', returnCode: ReturnCodes.FAILURE, message: MESSAGES.NO_BCP_PERIOD, number: 'DA002'},
-    {facilityName: null, postalCode: 'v3v4v5', returnCode: ReturnCodes.SUCCESS, message: MESSAGES.MATCH, number: 'DA003',
+    {facilityName: null, postalCode: 'v4v4v1', returnCode: ReturnCodes.FAILURE, message: MESSAGES.NO_MATCH, number: 'DA001'},
+    {facilityName: null, postalCode: 'v4v4v2', returnCode: ReturnCodes.FAILURE, message: MESSAGES.NO_BCP_PERIOD, number: 'DA002'},
+    {facilityName: null, postalCode: 'v4v4v3', returnCode: ReturnCodes.SUCCESS, message: MESSAGES.MATCH, number: 'DA003',
      manualReview: true},
-    {facilityName: null, postalCode: 'v3v4v6', returnCode: ReturnCodes.SUCCESS, message: MESSAGES.MATCH, number: 'DA004',
-     effectiveDate: '2020-01-01', cancelDate: '2021-01-01', manualReview: false},
+    {facilityName: null, postalCode: 'v4v4v4', returnCode: ReturnCodes.SUCCESS, message: MESSAGES.MATCH, number: 'DA004',
+     effectiveDate: '2020-06-01', cancelDate: '2021-06-01', manualReview: false},
+    {facilityName: null, postalCode: 'v4v4v5', returnCode: ReturnCodes.SUCCESS, message: MESSAGES.MATCH, number: 'DA005',
+     effectiveDate: '2020-04-01', cancelDate: '2023-06-01', manualReview: false},
+    {facilityName: null, postalCode: 'v4v4v6', returnCode: ReturnCodes.SUCCESS, message: MESSAGES.MATCH, number: 'DA006',
+     effectiveDate: '2020-04-01', cancelDate: '2020-12-01', manualReview: false},
+    {facilityName: null, postalCode: 'v4v4v7', returnCode: ReturnCodes.SUCCESS, message: MESSAGES.MATCH, number: 'DA007',
+     effectiveDate: '2020-04-01', cancelDate: '2022-06-01', manualReview: false},
   ];
 
-  private _createFacilityResp: CreateFacilityResp[] = [
+  private _submissionResp: SubmissionResp[] = [
     {number: '99901', postalCode: 'v9v9v9', returnCode: ReturnCodes.SUCCESS},
     {number: '99901', postalCode: 'v1v1v1', returnCode: ReturnCodes.WARNING},
     {number: '99901', postalCode: 'v3v3v3', returnCode: ReturnCodes.FAILURE},
+    {number: '99901', postalCode: 'v4v4v3', returnCode: ReturnCodes.SUCCESS}, // manual review
+    {number: '99901', postalCode: 'v4v4v4', returnCode: ReturnCodes.SUCCESS},
+    {number: '99901', postalCode: 'v4v4v5', returnCode: ReturnCodes.FAILURE, message: 'Failed processing'},
+    {number: '99901', postalCode: 'v4v4v6', returnCode: ReturnCodes.SYSTEM_DOWN, message: 'Web service down'},
+    {number: '99901', postalCode: 'v4v4v7', returnCode: ReturnCodes.SYSTEM_ERROR, message: 'Some proces down'},
   ];
 
   constructor() {}
@@ -132,7 +146,7 @@ export class FakeBackendService {
 
   createFacility( request: HttpRequest<any> ): any {
 
-    const data = this._createFacilityResp.find( x =>
+    const data = this._submissionResp.find( x =>
       x.postalCode.toUpperCase() === request.body.createFacilitySubmission.facility.postalCode.toUpperCase() &&
       x.number === request.body.createFacilitySubmission.administrator.pracNumber
       );
@@ -162,18 +176,39 @@ export class FakeBackendService {
         obj.referenceNumber = this._generateReferenceNumber();
       }
     }
-    console.log( 'obj: ', obj );
-
     return Object.assign(this._baseResponse( request ), obj);
   }
 
   maintainPractitioner( request: HttpRequest<any> ): any {
-    const obj = {
-      returnCode: ReturnCodes.SUCCESS,
-      referenceNumber: this._generateReferenceNumber(),
-      facilityNumber: 'F' + String( Math.round( Math.random() * 999999 ) )
-    };
 
+    const data = this._submissionResp.find( x =>
+      x.postalCode.toUpperCase() === request.body.maintainPractitionerSubmission.facility.postalCode.toUpperCase() &&
+      x.number === request.body.maintainPractitionerSubmission.practitioner.number
+      );
+
+    const obj: {
+        returnCode: string;
+        referenceNumber?: string;
+        message?: string;
+      } = { returnCode: data ? data.returnCode : this._generateRandomNumber() };
+
+    if ( data ) {
+
+      obj.returnCode = data.returnCode;
+      if ( obj.returnCode === ReturnCodes.SUCCESS || obj.returnCode === ReturnCodes.SYSTEM_ERROR ) {
+        obj.referenceNumber = this._generateReferenceNumber();
+      }
+
+      if ( data.message ) {
+        obj.message = data.message;
+      }
+
+    }  else {
+      obj.message = 'some error';
+      if ( Number( obj.returnCode ) % 2) {
+        obj.referenceNumber = this._generateReferenceNumber();
+      }
+    }
     return Object.assign(this._baseResponse( request ), obj);
   }
 

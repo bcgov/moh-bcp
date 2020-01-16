@@ -49,12 +49,12 @@ export class RegisterPractitionerDataService extends BaseDataService {
       this.pracInfoPhoneNumberExt = '123';
 
       this.pracFacilityName = 'Medical Facility';
-      this.pracFacilityNumber = 'DA004';
+      this.pracFacilityNumber = 'DA006';
       this.pracFacilityAddress = '123 Fake St.';
       this.pracFacilityCity = 'Victoria';
       this.pracFacilityProvince = BRITISH_COLUMBIA;
-      this.pracFacilityPostalCode = 'V3V4V6';
-      this.pracFacilityFaxNumber = '2345678901';
+      this.pracFacilityPostalCode = 'V4V 4V6';
+      this.pracFacilityFaxNumber = '234 567-8901';
 
       this.pracAttachmentType = 'new';
       this.pracNewAttachmentType = true;
@@ -82,6 +82,7 @@ export class RegisterPractitionerDataService extends BaseDataService {
 
   facEffectiveDate: Date; // Date received from facility validation.
   facCancelDate: Date; // Date received from facility validation.
+  manualReview: boolean;
 
   pracAttachmentType: string;
   pracNewAttachmentType: boolean;
@@ -117,7 +118,7 @@ export class RegisterPractitionerDataService extends BaseDataService {
 
       informationConsentAgreement: this.informationCollectionNoticeConsent,
       facility: {
-        facilityNumber: this.pracFacilityNumber,
+        number: this.pracFacilityNumber,
         name: this.pracFacilityName,
         address: this.pracFacilityAddress,
         city: this.pracFacilityCity,
@@ -126,7 +127,7 @@ export class RegisterPractitionerDataService extends BaseDataService {
         faxNumber: stripPhoneFormatting(this.pracFacilityFaxNumber) // Optional
       },
       practitioner: {
-        practitionerNumber: this.pracInfoMSPPracNumber,
+        number: this.pracInfoMSPPracNumber,
         firstName: this.pracInfoFirstName,
         lastName: this.pracInfoLastName,
         email: this.pracInfoEmail ? this.pracInfoEmail : null,       // optional
