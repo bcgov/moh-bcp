@@ -7,9 +7,7 @@
 
   <p><strong>Keep your personal information secure - especially when using a shared device like a computer at a library, school or café.</strong> To delete any information that was entered, either complete the application and submit it or, if you don't finish, close the web browser.</p>
   <p><strong>Need to take a break and come back later?</strong> The data you enter on this form is saved locally to the computer or device you are using until you close the web browser or submit your application.</p>
-  <p>Personal information is collected under the authority of the <em>Medicare Protection Act</em> and section 26 (a), (c) and (e) of the <em>Freedom of Information and Protection of Privacy Act</em> for the purposes of administration of the Medical Services Plan. If you have any
-    questions about the collection and use of your personal information, please contact the Health Insurance BC Chief Privacy Office at Health Insurance BC, Chief Privacy Office, PO Box 9035 STN Prov Govt, Victoria BC V8W 9E3 or call 604-683-7151 (Vancouver) or 1-800-663-7100 (toll free).
-  </p>
+  <p [innerHTML]="privacyStatement"></p>
 
   <common-captcha [apiBaseUrl]="captchaApiBaseUrl"
                   [nonce]="nonce"
