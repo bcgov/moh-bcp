@@ -8,7 +8,7 @@
     <common-radio formControlName="attachmentType"
                   name="attachmentType"
                   label="What change are you making for Business Cost Premium to the facility?"
-                  [radioLabels]='radioItems' 
+                  [radioLabels]='radioItems'
                   display="table-row-group"
                   (ngModelChange)='changeAttachmentType($event)'>
     </common-radio>
@@ -33,7 +33,7 @@
                    [errorMessage]='facilityEffectiveDateErrMsg'>
       </common-date>
     </div>
-  
+
     <div class="form-group" *ngIf='dataService.pracNewAttachmentType === true'>
       <common-date label='Cancellation date for new attachment'
                    name="attachmentCancelDate"
@@ -56,7 +56,7 @@
       </common-date>
     </div>
   </ng-container>
-  
+
   <ng-container *ngIf='shouldShowChangeSection'>
     <div class="form-group">
       <common-date label='New effective date for existing attachment (if applicable)'
@@ -67,7 +67,7 @@
                     [errorMessage]='facilityEffectiveDateErrMsg'>
       </common-date>
     </div>
-  
+
     <div class="form-group">
       <common-date label='New cancellation date for existing attachment (if applicable)'
                     name="attachmentCancelDate"
@@ -84,5 +84,5 @@
       </div>
     </common-error-container>
   </ng-container>
-  
+
 </form>
