@@ -9,6 +9,7 @@ import { SplunkLoggerService } from '../../../../services/splunk-logger.service'
 import { RegisterPractitionerApiService } from '../../services/register-practitioner-api.service';
 import { stripPostalCodeSpaces } from '../../../core-bcp/models/helperFunc';
 import { ValidationResponse, ReturnCodes } from '../../../core-bcp/models/base-api.model';
+import { parseISO } from 'date-fns';
 
 
 @Component({
@@ -81,7 +82,7 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit, AfterV
 
           this.splunkLoggerService.log(
             this.dataService.getSubmissionLogObject<ValidationResponse>(
-              'Validate Facility ID',
+              'Validate Facility',
               this.dataService.jsonFacilityValidation.response
             )
           );
@@ -89,6 +90,12 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit, AfterV
           this.containerService.setIsLoading(false);
 
           if (res.returnCode === ReturnCodes.SUCCESS) {
+
+            // BCP effective dates
+            this.dataService.facEffectiveDate = res.effectiveDate ?  parseISO( res.effectiveDate ) : null;
+            this.dataService.facCancelDate = res.cancelDate ? parseISO( res.cancelDate ) : null;
+            this.dataService.manualReview = res.manualReview;
+
             this.handleValidation(true);
             this.navigate(PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_ASSIGN.fullpath);
           } else if (res.returnCode === ReturnCodes.FAILURE || res.returnCode === ReturnCodes.WARNING) {
