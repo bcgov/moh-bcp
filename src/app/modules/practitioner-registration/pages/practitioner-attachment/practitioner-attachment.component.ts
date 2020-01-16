@@ -59,7 +59,7 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
     }
 
     // Cannot have dates prior to the BCP program implementation
-    return this.bcpProgramStartDt;
+    return this.bcpProgramStartDate;
   }
 
   get effectiveDateEndRange(): Date {
@@ -78,7 +78,7 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
       return this.dataService.attachmentEffectiveDate;
     }
     // Cannot have dates prior to the BCP program implementation
-    return this.bcpProgramStartDt;
+    return this.bcpProgramStartDate;
   }
 
   get cancelDateEndRange(): Date {
@@ -96,7 +96,7 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
   facilityEffectiveDate: Date;
   facilityCancelDate: Date;
 
-  bcpProgramStartDt: Date = parseISO('2020-04-01');
+  bcpProgramStartDate: Date = parseISO('2020-04-01');
 
   facilityEffectiveDateErrMsg: ErrorMessage;
   facilityCancelDateErrMsg: ErrorMessage;
