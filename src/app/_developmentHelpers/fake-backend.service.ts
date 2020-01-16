@@ -50,11 +50,17 @@ export class FakeBackendService {
   ];
 
   private _facilityData: FacilityData[] = [
-    {facilityName: 'RiverDale House', postalCode: 'v9v9v9', returnCode: ReturnCodes.SUCCESS, message: MESSAGES.NO_MATCH ,
+    {facilityName: 'RiverDale House', postalCode: 'v1v1v1', returnCode: ReturnCodes.SUCCESS, message: MESSAGES.NO_MATCH ,
     number: null},
-    {facilityName: 'River Clinic', postalCode: 'v1v1v1', returnCode: ReturnCodes.WARNING, message: MESSAGES.NEAR_MATCH,
+    {facilityName: 'River Clinic', postalCode: 'v1v1v2', returnCode: ReturnCodes.WARNING, message: MESSAGES.NEAR_MATCH,
     number: null },
-    {facilityName: 'RiverDale Clinic', postalCode: 'v3v3v3', returnCode: ReturnCodes.WARNING, message: MESSAGES.EXACT_MATCH,
+    {facilityName: 'RiverDale Clinic', postalCode: 'v1v1v3', returnCode: ReturnCodes.WARNING, message: MESSAGES.EXACT_MATCH,
+    number: null},
+    {facilityName: 'River House', postalCode: 'v1v1v4', returnCode: ReturnCodes.SUCCESS, message: MESSAGES.NO_MATCH ,
+    number: null},
+    {facilityName: 'Whine House', postalCode: 'v1v1v5', returnCode: ReturnCodes.SUCCESS, message: MESSAGES.NO_MATCH ,
+    number: null},
+    {facilityName: 'Whine ClubHouse', postalCode: 'v1v1v6', returnCode: ReturnCodes.SYSTEM_ERROR, message: 'Failure',
     number: null},
     {facilityName: null, postalCode: 'v9v9v9', returnCode: ReturnCodes.SUCCESS, message: MESSAGES.MATCH, number: '12345',
     effectiveDate: '2020-01-01', cancelDate: '2021-01-01', manualReview: false},
@@ -74,8 +80,12 @@ export class FakeBackendService {
 
   private _submissionResp: SubmissionResp[] = [
     {number: '99901', postalCode: 'v9v9v9', returnCode: ReturnCodes.SUCCESS},
-    {number: '99901', postalCode: 'v1v1v1', returnCode: ReturnCodes.WARNING},
-    {number: '99901', postalCode: 'v3v3v3', returnCode: ReturnCodes.FAILURE},
+    {number: '99901', postalCode: 'v1v1v1', returnCode: ReturnCodes.SUCCESS}, // success - green
+    {number: '99901', postalCode: 'v1v1v2', returnCode: ReturnCodes.SUCCESS}, // success - near match - yellow 1
+    {number: '99901', postalCode: 'v1v1v3', returnCode: ReturnCodes.SUCCESS}, // success - exact match - yellow 1
+    {number: '99901', postalCode: 'v1v1v4', returnCode: ReturnCodes.SYSTEM_ERROR, message: 'MAXHUB DOWN'}, // - red
+    {number: '99901', postalCode: 'v1v1v5', returnCode: ReturnCodes.SYSTEM_DOWN}, // - yellow 2
+    {number: '99901', postalCode: 'v1v1v6', returnCode: ReturnCodes.SUCCESS}, // - yellow 3
     {number: '99901', postalCode: 'v4v4v3', returnCode: ReturnCodes.SUCCESS}, // manual review
     {number: '99901', postalCode: 'v4v4v4', returnCode: ReturnCodes.SUCCESS},
     {number: '99901', postalCode: 'v4v4v5', returnCode: ReturnCodes.FAILURE, message: 'Failed processing'},
@@ -160,9 +170,12 @@ export class FakeBackendService {
 
     if ( data ) {
 
-      obj.referenceNumber = this._generateReferenceNumber();
+      if (  data.returnCode !== ReturnCodes.SYSTEM_ERROR ) {
+        obj.referenceNumber = this._generateReferenceNumber();
+      }
 
-      if ( request.body.createFacilitySubmission.validateFacilityMessage === MESSAGES.NO_MATCH ) {
+      if ( request.body.createFacilitySubmission.validateFacilityMessage === MESSAGES.NO_MATCH  &&
+           data.returnCode === ReturnCodes.SUCCESS ) {
         obj.facilityNumber = 'F' + String( Math.round( Math.random() * 999999 ));
       }
 

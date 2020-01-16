@@ -56,7 +56,7 @@ export class CreateFacilityDataService extends BaseDataService {
       // Name and PracNumber will pass backend validation in TEST
       this.facAdminFirstName = 'TEST';
       this.facAdminLastName = 'PRIVATEPRACTICE';
-      this.pracNumber = '99902';
+      this.pracNumber = '99901';
       this.facAdminPhoneNumber = '(222) 222-2221';
 
       // Following code is as per directions by Adam ref:bcp-68 18/10/2019 10:40AM
@@ -65,7 +65,7 @@ export class CreateFacilityDataService extends BaseDataService {
       this.facInfoPhysicalAddress = '12345 Douglas Street';
       this.facInfoCity = 'Victoria';
       this.facInfoProvince = BRITISH_COLUMBIA;
-      this.facInfoPostalCode = 'V9V9V9';
+      this.facInfoPostalCode = 'V1V1V1';
       this.facInfoEffectiveDate = new Date(2020, 0, 10);
 
       this.facInfoIsSameMailingAddress = true;
