@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ErrorMessage, Address } from 'moh-common-lib';
+import { BaseDataService } from '../../../../services/base-data.service';
 
 @Component({
   selector: 'bcp-core-facility-info',
@@ -12,6 +13,7 @@ export class CoreFacilityInfoComponent {
   @Input() public showValidationError: boolean = false;
   public validationErrorMessage: string = 'This field does not match our records.';
 
+  @Output() public addressSelected: EventEmitter<Address> = new EventEmitter<Address>();
 
   postalCodeErrorMsg: ErrorMessage = {
     required: 'A British Columbia postal code is required (example: V8W 9E3)'
@@ -20,9 +22,6 @@ export class CoreFacilityInfoComponent {
   @Input() public formGroup: FormGroup;
 
   physicalAddressSelected(address: Address) {
-    this.formGroup.patchValue({
-      address: address.addressLine1,
-      city: address.city
-    });
+    this.addressSelected.emit(address);
   }
 }

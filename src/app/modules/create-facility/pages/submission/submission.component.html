@@ -2,7 +2,7 @@
 
   <common-confirm-template [displayIcon]="displayIcon">
 
-    <div confirmationTitle>
+    <div class="print-hide" confirmationTitle>
       <ng-container *ngTemplateOutlet="confirmTitle"></ng-container>
     </div>
 
@@ -42,11 +42,7 @@
 
         <div class="print-page-break"></div>
 
-
         <common-confirm-template [displayIcon]="displayIcon">
-          <div confirmationTitle>
-            <ng-container *ngTemplateOutlet="confirmTitle"></ng-container>
-          </div>
 
           <div message>
             <ng-container *ngTemplateOutlet="confirmMessage"></ng-container>
@@ -74,7 +70,7 @@
 
 
 <ng-template #confirmTitle>
-  <button  *ngIf="!isError" (click)="print($event)" class="btn btn-clear float-right print-hide">
+  <button *ngIf="!isError" (click)="print($event)" class="btn btn-clear float-right print-hide">
     <strong>Print
       <i class="fa fa-print fa-lg"
         aria-hidden="true"></i>
