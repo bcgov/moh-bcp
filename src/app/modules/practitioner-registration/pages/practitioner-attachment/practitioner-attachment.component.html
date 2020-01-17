@@ -8,13 +8,19 @@
     <common-radio formControlName="attachmentType"
                   name="attachmentType"
                   label="What change are you making for Business Cost Premium to the facility?"
-                  [radioLabels]='radioItems' 
+                  [radioLabels]='radioItems'
                   display="table-row-group"
                   (ngModelChange)='changeAttachmentType($event)'>
     </common-radio>
   </div>
 
   <ng-container *ngIf='shouldShowNewSection'>
+    <h2>Add new attachment</h2>
+    <ul>
+      <li>Effective Date - is the date the practitioner began practice at the facility as an Eligible Physician</li>
+      <li>Cancellation Date (if applicable) - the date at which the locum is completed</li>
+    </ul>
+    <hr/>
     <div class="form-group">
       <common-radio formControlName="newAttachmentType"
                     name="newAttachmentType"
@@ -28,19 +34,19 @@
       <common-date label='Effective date for new attachment'
                    name="attachmentEffectiveDate"
                    formControlName="attachmentEffectiveDate"
-                   [dateRangeStart]='facilityEffectiveDate'
-                   [dateRangeEnd]='facilityCancelDate'
-                   [errorMessage]='facilityDateErrMsg'>
+                   [dateRangeStart]='effectiveDateStartRange'
+                   [dateRangeEnd]='effectiveDateEndRange'
+                   [errorMessage]='facilityEffectiveDateErrMsg'>
       </common-date>
     </div>
-  
+
     <div class="form-group" *ngIf='dataService.pracNewAttachmentType === true'>
       <common-date label='Cancellation date for new attachment'
                    name="attachmentCancelDate"
                    formControlName="attachmentCancelDate"
-                   [dateRangeStart]='facilityEffectiveDate'
-                   [dateRangeEnd]='facilityCancelDate'
-                   [errorMessage]='facilityDateErrMsg'>
+                   [dateRangeStart]='cancelDateStartRange'
+                   [dateRangeEnd]='cancelDateEndRange'
+                   [errorMessage]='facilityCancelDateErrMsg'>
       </common-date>
     </div>
   </ng-container>
@@ -50,31 +56,31 @@
       <common-date label='Cancellation date for existing attachment'
                     name="attachmentCancelDate"
                     formControlName="attachmentCancelDate"
-                    [dateRangeStart]='facilityEffectiveDate'
-                    [dateRangeEnd]='facilityCancelDate'
-                    [errorMessage]='facilityDateErrMsg'>
+                    [dateRangeStart]='cancelDateStartRange'
+                    [dateRangeEnd]='cancelDateEndRange'
+                    [errorMessage]='facilityCancelDateErrMsg'>
       </common-date>
     </div>
   </ng-container>
-  
+
   <ng-container *ngIf='shouldShowChangeSection'>
     <div class="form-group">
       <common-date label='New effective date for existing attachment (if applicable)'
                     name="attachmentEffectiveDate"
                     formControlName="attachmentEffectiveDate"
-                    [dateRangeStart]='facilityEffectiveDate'
-                    [dateRangeEnd]='facilityCancelDate'
-                    [errorMessage]='facilityDateErrMsg'>
+                    [dateRangeStart]='effectiveDateStartRange'
+                    [dateRangeEnd]='effectiveDateEndRange'
+                    [errorMessage]='facilityEffectiveDateErrMsg'>
       </common-date>
     </div>
-  
+
     <div class="form-group">
       <common-date label='New cancellation date for existing attachment (if applicable)'
                     name="attachmentCancelDate"
                     formControlName="attachmentCancelDate"
-                    [dateRangeStart]='facilityEffectiveDate'
-                    [dateRangeEnd]='facilityCancelDate'
-                    [errorMessage]='facilityDateErrMsg'>
+                    [dateRangeStart]='cancelDateStartRange'
+                    [dateRangeEnd]='cancelDateEndRange'
+                    [errorMessage]='facilityCancelDateErrMsg'>
       </common-date>
     </div>
 
@@ -84,5 +90,5 @@
       </div>
     </common-error-container>
   </ng-container>
-  
+
 </form>

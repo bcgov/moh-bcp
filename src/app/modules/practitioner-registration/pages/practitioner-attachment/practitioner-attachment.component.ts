@@ -1,8 +1,9 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, DoCheck } from '@angular/core';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration-route-constants';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ContainerService, ErrorMessage, PageStateService } from 'moh-common-lib';
+import { ContainerService, ErrorMessage, PageStateService, LabelReplacementTag } from 'moh-common-lib';
+import { parseISO } from 'date-fns';
 import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 import { PRACTITIONER_ATTACHMENT, PRAC_ATTACHMENT_TYPE } from '../../models/practitioner-attachment';
 import { IRadioItems } from 'moh-common-lib/lib/components/radio/radio.component';
@@ -28,15 +29,7 @@ interface ChangeFormGroup extends BaseFormGroup {
   templateUrl: './practitioner-attachment.component.html',
   styleUrls: ['./practitioner-attachment.component.scss']
 })
-export class PractitionerAttachmentComponent extends BcpBaseForm implements OnInit, AfterViewInit {
-
-  pageTitle: string = 'Practitioner Attachment';
-  formGroup: FormGroup;
-  radioItems: Array<IRadioItems>;
-  changeAttachmentHasValue: boolean = false;
-  facilityEffectiveDate: Date;
-  facilityCancelDate: Date;
-  facilityDateErrMsg: ErrorMessage;
+export class PractitionerAttachmentComponent extends BcpBaseForm implements OnInit, AfterViewInit, DoCheck {
 
   constructor( protected containerService: ContainerService,
                protected router: Router,
@@ -46,25 +39,137 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
     super(router, containerService, pageStateService);
   }
 
+  pageTitle: string = 'Practitioner Attachment';
+  formGroup: FormGroup;
+  radioItems: Array<IRadioItems>;
+  changeAttachmentHasValue: boolean = false;
+  facilityEffectiveDate: Date;
+  facilityCancelDate: Date;
+
+  bcpProgramStartDate: Date = parseISO('2020-04-01');
+
+  facilityEffectiveDateErrMsg: ErrorMessage;
+  facilityCancelDateErrMsg: ErrorMessage;
+
+
+  get shouldShowNewSection() {
+    return this.dataService.pracAttachmentType === PRACTITIONER_ATTACHMENT.NEW.value;
+  }
+
+  get shouldShowCancelSection() {
+    return this.dataService.pracAttachmentType === PRACTITIONER_ATTACHMENT.CANCEL.value;
+  }
+
+  get shouldShowChangeSection() {
+    return this.dataService.pracAttachmentType === PRACTITIONER_ATTACHMENT.CHANGE.value;
+  }
+
+  get effectiveDateStartRange(): Date {
+    if ((this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.NEW
+      || this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.TEMP)
+      && this.facilityEffectiveDate) {
+      return this.facilityEffectiveDate;
+    }
+
+    // Cannot have dates prior to the BCP program implementation
+    return this.bcpProgramStartDate;
+  }
+
+  get effectiveDateEndRange(): Date {
+    if ((this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.NEW
+      || this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.TEMP)
+      && this.facilityCancelDate) {
+      return this.facilityCancelDate;
+    }
+    return null;
+  }
+
+  get cancelDateStartRange(): Date {
+    if ( this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.NEW
+      || this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.TEMP
+      || this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.CHANGE) {
+      return this.dataService.attachmentEffectiveDate;
+    }
+    // Cannot have dates prior to the BCP program implementation
+    return this.bcpProgramStartDate;
+  }
+
+  get cancelDateEndRange(): Date {
+    if ( this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.NEW
+      || this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.TEMP) {
+      return this.facilityCancelDate;
+    }
+    return null;
+  }
+
+  ngDoCheck() {
+    console.log('DID CHECK.');
+    this.setFacilityEffectiveDateErrMsg();
+    this.setfacilityCancelDateErrMsg();
+  }
+
+  private setFacilityEffectiveDateErrMsg(): void {
+
+    if (this.effectiveDateStartRange && !this.effectiveDateEndRange) {
+      this.facilityEffectiveDateErrMsg = {
+        invalidRange: `This date isn\'t after ${formatDateForDisplay(this.effectiveDateStartRange)}.`
+     };
+    } else if (this.effectiveDateStartRange && this.effectiveDateEndRange) {
+
+      // HARRY: Note this will be an issue if the cancel date is more than 150 years in the future.  If validation needs to
+      // different this is a common library change and impacts other applications
+      // Also, we might want to make sure that the cancel date is after the start date just a thought
+      // If you need to change these error message on the fly so the same call as in the ngInit() in ngDoCheck() It will trigger
+      // the date component to load messages
+      this.facilityEffectiveDateErrMsg = {
+        invalidRange: `This date isn\'t between ${formatDateForDisplay(this.effectiveDateStartRange)} and ${formatDateForDisplay(this.effectiveDateEndRange)}.`
+      };
+    } else {
+      this.facilityEffectiveDateErrMsg = {
+        invalidRange: 'Invalid effective date.'
+      };
+    }
+  }
+
+  setfacilityCancelDateErrMsg(): void {
+
+    if (this.cancelDateStartRange && !this.cancelDateEndRange) {
+      this.facilityCancelDateErrMsg = {
+        invalidRange: `This date isn\'t after ${formatDateForDisplay(this.cancelDateStartRange)}.`
+      };
+    } else if (this.cancelDateStartRange && this.cancelDateEndRange) {
+      // HARRY: Note this will be an issue if the cancel date is more than 150 years in the future.  If validation needs to
+      // different this is a common library change and impacts other applications
+      this.facilityCancelDateErrMsg = {
+        invalidRange: `This date isn\'t between ${formatDateForDisplay(this.cancelDateStartRange)} and ${formatDateForDisplay(this.cancelDateEndRange)}.`
+      };
+    } else {
+      this.facilityCancelDateErrMsg = {
+        invalidRange: 'Invalid cancellation date.'
+      };
+    }
+    console.warn('Error Message: ', this.facilityCancelDateErrMsg);
+  }
+
   ngOnInit() {
     super.ngOnInit();
 
-    this.facilityEffectiveDate = new Date(
-      this.dataService.jsonFacilityValidation.response
-        ? this.dataService.jsonFacilityValidation.response.effectiveDate
-        : null
-    );
-    this.facilityCancelDate = new Date(
-      this.dataService.jsonFacilityValidation.response
-        ? this.dataService.jsonFacilityValidation.response.cancelDate
-        : null
-    );
-    this.facilityEffectiveDate.setTime( this.facilityEffectiveDate.getTime() + this.facilityEffectiveDate.getTimezoneOffset() * 60 * 1000 );
-    this.facilityCancelDate.setTime( this.facilityCancelDate.getTime() + this.facilityCancelDate.getTimezoneOffset() * 60 * 1000 );
 
-    this.facilityDateErrMsg = {
-      invalidRange: `This date isn\'t between ${formatDateForDisplay(this.facilityEffectiveDate)} and ${formatDateForDisplay(this.facilityCancelDate)}.`,
-    };
+    // TODO: You can remove this - I set values when request is returned on the facility validate page
+    if ( this.dataService.jsonFacilityValidation.response
+      && this.dataService.jsonFacilityValidation.response.manualReview === false
+      && this.dataService.jsonFacilityValidation.response.effectiveDate) {
+      this.facilityEffectiveDate = parseISO(this.dataService.jsonFacilityValidation.response.effectiveDate);
+    }
+
+    if ( this.dataService.jsonFacilityValidation.response
+      && this.dataService.jsonFacilityValidation.response.manualReview === false
+      && this.dataService.jsonFacilityValidation.response.cancelDate) {
+      this.facilityCancelDate = parseISO(this.dataService.jsonFacilityValidation.response.cancelDate);
+    }
+
+    this.setFacilityEffectiveDateErrMsg();
+    this.setfacilityCancelDateErrMsg();
 
     this.radioItems = [
       {
@@ -211,17 +316,5 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
     this.dataService.pracNewAttachmentType = value;
     this.initValidators();
     this.listenForChanges();
-  }
-
-  get shouldShowNewSection() {
-    return this.dataService.pracAttachmentType === PRACTITIONER_ATTACHMENT.NEW.value;
-  }
-
-  get shouldShowCancelSection() {
-    return this.dataService.pracAttachmentType === PRACTITIONER_ATTACHMENT.CANCEL.value;
-  }
-
-  get shouldShowChangeSection() {
-    return this.dataService.pracAttachmentType === PRACTITIONER_ATTACHMENT.CHANGE.value;
   }
 }

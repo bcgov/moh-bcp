@@ -9,17 +9,17 @@ export enum PRAC_ATTACHMENT_TYPE {
 export const PRACTITIONER_ATTACHMENT = {
   NEW: {
     label: 'Add new attachment',
-    value: 'new',
+    value: PRAC_ATTACHMENT_TYPE.NEW,
     reviewText: 'Add a practitioner attachment',
   },
   CANCEL: {
     label: 'Cancel existing attachment',
-    value: 'cancel',
+    value: PRAC_ATTACHMENT_TYPE.CANCEL,
     reviewText: 'Cancel a practitioner attachment',
   },
   CHANGE: {
     label: 'Change existing attachment',
-    value: 'change',
+    value: PRAC_ATTACHMENT_TYPE.CHANGE,
     reviewText: 'Change existing attachment',
   },
 };

@@ -8,6 +8,7 @@ import {
   stripPhoneFormatting,
   convertToJSONDate } from '../../core-bcp/models/helperFunc';
 import { PRAC_ATTACHMENT_TYPE } from '../models/practitioner-attachment';
+import { addMonths, startOfToday } from 'date-fns';
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +38,31 @@ export class RegisterPractitionerDataService extends BaseDataService {
       this.facEffectiveDate = new Date('2020-01-01');
       this.facCancelDate = new Date('2020-12-31');
     }
+
+        // Partial setup for using data in back end
+    if (environment.useMockBackendData) {
+      this.pracInfoFirstName = 'test';
+      this.pracInfoLastName = 'privatepractice';
+      this.pracInfoMSPPracNumber = '99901';
+      this.pracInfoEmail = 'john.doe@example.com';
+      this.pracInfoPhoneNumber = '234 567-8901';
+      this.pracInfoPhoneNumberExt = '123';
+
+      this.pracFacilityName = 'Medical Facility';
+      this.pracFacilityNumber = 'DA006';
+      this.pracFacilityAddress = '123 Fake St.';
+      this.pracFacilityCity = 'Victoria';
+      this.pracFacilityProvince = BRITISH_COLUMBIA;
+      this.pracFacilityPostalCode = 'V4V 4V6';
+      this.pracFacilityFaxNumber = '234 567-8901';
+
+      this.pracAttachmentType = 'new';
+      this.pracNewAttachmentType = true;
+      this.attachmentType = PRAC_ATTACHMENT_TYPE.NEW;
+      this.attachmentEffectiveDate = addMonths( startOfToday(), 4 );
+      this.attachmentCancelDate = addMonths( this.attachmentEffectiveDate, 6 );
+
+     }
   }
 
   pracInfoFirstName: string;
@@ -56,11 +82,11 @@ export class RegisterPractitionerDataService extends BaseDataService {
 
   facEffectiveDate: Date; // Date received from facility validation.
   facCancelDate: Date; // Date received from facility validation.
+  manualReview: boolean;
 
   pracAttachmentType: string;
   pracNewAttachmentType: boolean;
 
-  // TODO: Update practitioner attachment page to have these variables
   attachmentType: PRAC_ATTACHMENT_TYPE;
   attachmentEffectiveDate: Date;
   attachmentCancelDate: Date;
@@ -71,12 +97,10 @@ export class RegisterPractitionerDataService extends BaseDataService {
     response: null
   };
 
-  isAccepted: boolean;
-
   readonly declarationText = `I, the Practitioner named above, hereby confirm that: --by checking either "Add New", "Change", or "Cancel" above, I am either adding, changing details of, or cancelling an attachment to the MSP Facility Number set out in this document, as the case may be. In the case of adding an attachment or changing details of an attachment to the above MSP Facility Number:
   <ol class='no-bullets'>
       <li>i. I am an Eligible Physician regarding the facility that has been issued the MSP Facility Number named in this document, and that I understand that my claims for the Business Cost Premium on Eligible Fees will be based on my attachment to the MSP Facility Number named in this document;</li>
-      <li>ii. his attachment will result in the Business Cost Premium being applied to all Eligible Fees on claims submitted, in the format approved by the Medical Services Commission of British Columbia bearing my Practitioner Number and the MSP Facility number of the facility named in this document;</li>
+      <li>ii. this attachment will result in the Business Cost Premium being applied to all Eligible Fees on claims submitted, in the format approved by the Medical Services Commission of British Columbia bearing my Practitioner Number and the MSP Facility number of the facility named in this document;</li>
       <li>iii. I understand that this is a legal document and I represent that the information that I have provided on this document is true to the best of my knowledge;</li>
       <li>iv. I understand that claims in relation to the Business Cost Premium are subject to audit, and if found to be contrary to the Medicare Protection Act (the "Act"), are subject to financial recovery.  I further understand that submitting false or misleading claims information is an offence under the Act and may be an offence under the Criminal Code of Canada;</li>
       <li>v. I authorize the sharing of this information with the Administrator for the facility named in this document, including the delivery of this information to the facility mailing address for the purposes of confirmation of my attachment to the MSP Facility Number; and</li>
@@ -92,10 +116,9 @@ export class RegisterPractitionerDataService extends BaseDataService {
 
     const jsonPayLoad: any = {
 
-      // TODO: Determine whether this is required - it exists in Create Facility
-      // informationConsentAgreement: this.informationCollectionNoticeConsent,
+      informationConsentAgreement: this.informationCollectionNoticeConsent,
       facility: {
-        facilityNumber: this.pracFacilityNumber,
+        number: this.pracFacilityNumber,
         name: this.pracFacilityName,
         address: this.pracFacilityAddress,
         city: this.pracFacilityCity,
@@ -104,7 +127,7 @@ export class RegisterPractitionerDataService extends BaseDataService {
         faxNumber: stripPhoneFormatting(this.pracFacilityFaxNumber) // Optional
       },
       practitioner: {
-        practitionerNumber: this.pracInfoMSPPracNumber,
+        number: this.pracInfoMSPPracNumber,
         firstName: this.pracInfoFirstName,
         lastName: this.pracInfoLastName,
         email: this.pracInfoEmail ? this.pracInfoEmail : null,       // optional

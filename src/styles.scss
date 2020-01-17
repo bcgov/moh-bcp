@@ -232,3 +232,12 @@ input[type=number] {
   .review-value {font-weight: 400}
   .print-page-break {page-break-after: always}
 }
+// Preload image assets.
+body::after{
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    z-index: -1;
+    content: url("./assets/logo_print.png"); // load images.
+ }

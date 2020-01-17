@@ -7,7 +7,7 @@ export const environment = {
   bypassModal: false,
   bypassGuards: true,
   useDummyData: false, // For testing against real back-end
-  useMockBackend: true,
+  useMockBackend: false,
   useMockBackendData: false,
   api: {
     base: '/bcp/api/bcpIntegration',
