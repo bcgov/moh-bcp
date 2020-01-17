@@ -10,6 +10,7 @@ import { RegisterPractitionerApiService } from '../../services/register-practiti
 import { SubmissionResponse } from '../../../core-bcp/models/base-api.model';
 import { SplunkLoggerService } from '../../../../services/splunk-logger.service';
 import { getAttachmentLabelByValue } from '../../models/practitioner-attachment';
+import { PrivacyStmt } from '../../../core-bcp/components/core-consent-modal/core-consent-modal.component';
 
 @Component({
   selector: 'bcp-review',
@@ -21,6 +22,11 @@ export class ReviewComponent extends BcpBaseForm implements OnInit, AfterViewIni
 
   @ViewChild(SignatureComponent, {static: true}) signature: SignatureComponent;
 
+  readonly privacyStatement = PrivacyStmt;
+
+  pageTitle: string = 'Review Request';
+  errorMessage: string = 'Your signature is required to submit the form';
+
   constructor(public dataService: RegisterPractitionerDataService,
               protected containerService: ContainerService,
               protected router: Router,
@@ -31,7 +37,7 @@ export class ReviewComponent extends BcpBaseForm implements OnInit, AfterViewIni
     super(router, containerService, pageStateService);
   }
 
-  pageTitle: string = 'Review Request';
+
 
   ngOnInit() {
     this.containerService.setSubmitLabel('Submit');

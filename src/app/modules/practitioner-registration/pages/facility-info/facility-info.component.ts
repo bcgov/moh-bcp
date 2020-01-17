@@ -51,12 +51,12 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit, AfterV
   ngAfterViewInit() {
     super.ngAfterViewInit();
     this.formGroup.valueChanges.subscribe( value => {
+
       // Update data service values
       this.dataService.pracFacilityName = value.name;
       this.dataService.pracFacilityNumber = value.mspNumber;
       this.dataService.pracFacilityAddress = value.address;
       this.dataService.pracFacilityCity = value.city;
-      this.dataService.pracFacilityProvince = value.province;
       this.dataService.pracFacilityPostalCode = value.postalCode;
       this.dataService.pracFacilityFaxNumber = value.faxNumber;
     });
