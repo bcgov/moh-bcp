@@ -30,7 +30,7 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
       if ( this.dataService.jsonMaintPractitioner.response.returnCode === ApiStatusCodes.SUCCESS ) {
 
         // Assumed all is good - processed automatically or has multiple BCP effective periods (manual review)
-        this.displayIcon = this.dataService.manualReview ? ApiStatusCodes.WARNING : ApiStatusCodes.SUCCESS;
+        this.displayIcon = ApiStatusCodes.SUCCESS;
       } else {
 
         if ( this.dataService.jsonMaintPractitioner.response.referenceNumber ) {
