@@ -21,6 +21,9 @@ export class ReviewComponent extends BcpBaseForm implements OnInit, AfterViewIni
 
   @ViewChild(SignatureComponent, {static: true}) signature: SignatureComponent;
 
+  pageTitle: string = 'Review Request';
+  errorMessage: string = 'Your signature is required to submit the form';
+
   constructor(public dataService: RegisterPractitionerDataService,
               protected containerService: ContainerService,
               protected router: Router,
@@ -31,7 +34,7 @@ export class ReviewComponent extends BcpBaseForm implements OnInit, AfterViewIni
     super(router, containerService, pageStateService);
   }
 
-  pageTitle: string = 'Review Request';
+
 
   ngOnInit() {
     this.containerService.setSubmitLabel('Submit');

@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation, Output, forwardRef, Optional, Self, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, ViewEncapsulation, Optional, Self, AfterViewInit, Input } from '@angular/core';
 import { SignaturePad } from 'angular2-signaturepad/signature-pad';
 import { ModalDirective } from 'ngx-bootstrap';
-import { NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
+import { NgControl } from '@angular/forms';
 import { CommonImage } from 'moh-common-lib';
 import { BCPDocumentTypes } from '../../models/documentTypes';
 
@@ -16,6 +16,8 @@ export class SignatureComponent implements AfterViewInit {
 
   @ViewChild(SignaturePad, { static: true }) signaturePad: SignaturePad;
   @ViewChild('signatureModal', { static: true }) public modal: ModalDirective;
+
+  @Input() errorMessage: string = 'Signature is required';
 
   public image: CommonImage;
   private blankCanvas = true;

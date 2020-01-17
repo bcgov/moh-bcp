@@ -86,7 +86,7 @@ export class FakeBackendService {
     {number: '99901', postalCode: 'v1v1v4', returnCode: ReturnCodes.SYSTEM_ERROR, message: 'MAXHUB DOWN'}, // - red
     {number: '99901', postalCode: 'v1v1v5', returnCode: ReturnCodes.SYSTEM_DOWN}, // - yellow 2
     {number: '99901', postalCode: 'v1v1v6', returnCode: ReturnCodes.SUCCESS}, // - yellow 3
-    {number: '99901', postalCode: 'v4v4v3', returnCode: ReturnCodes.SUCCESS}, // manual review
+    {number: '99901', postalCode: 'v4v4v3', returnCode: ReturnCodes.FAILURE, message: 'manual review'}, // manual review
     {number: '99901', postalCode: 'v4v4v4', returnCode: ReturnCodes.SUCCESS},
     {number: '99901', postalCode: 'v4v4v5', returnCode: ReturnCodes.FAILURE, message: 'Failed processing'},
     {number: '99901', postalCode: 'v4v4v6', returnCode: ReturnCodes.SYSTEM_DOWN, message: 'Web service down'},
@@ -208,7 +208,8 @@ export class FakeBackendService {
     if ( data ) {
 
       obj.returnCode = data.returnCode;
-      if ( obj.returnCode === ReturnCodes.SUCCESS || obj.returnCode === ReturnCodes.SYSTEM_ERROR ) {
+      if ( obj.returnCode === ReturnCodes.SUCCESS || obj.returnCode === ReturnCodes.SYSTEM_ERROR ||
+          ( data.message && data.message === 'manual review') ) {
         obj.referenceNumber = this._generateReferenceNumber();
       }
 

@@ -15,7 +15,7 @@
         <span *ngIf='controlDir?.touched && controlDir?.valid'>Success!</span>
 
         <common-error-container [displayError]='(controlDir?.touched || controlDir?.dirty) && controlDir?.errors?.required'>
-            Signature is required
+           {{errorMessage}}
         </common-error-container>
     </div>
 
