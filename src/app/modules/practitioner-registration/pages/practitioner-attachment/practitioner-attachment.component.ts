@@ -3,7 +3,7 @@ import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ContainerService, ErrorMessage, PageStateService } from 'moh-common-lib';
-import { parseISO } from 'date-fns';
+import { parseISO, isBefore, isAfter } from 'date-fns';
 import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 import { PRACTITIONER_ATTACHMENT, PRAC_ATTACHMENT_TYPE } from '../../models/practitioner-attachment';
 import { IRadioItems } from 'moh-common-lib/lib/components/radio/radio.component';
@@ -65,42 +65,41 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
   }
 
   get effectiveDateStartRange(): Date {
-
     if ( this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.CANCEL ) {
       return this.bcpProgramStartDate;
     }
-
     // Cannot have dates prior to the BCP program implementation
     return this.dataService.facEffectiveDate ? this.dataService.facEffectiveDate : this.bcpProgramStartDate;
   }
 
   get effectiveDateEndRange(): Date {
-
     if (this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.CANCEL ) {
       return null;
     }
-
-    // NOTE: Another case if attachment Cancel date is set, set this to that date
+    if (this.dataService.facCancelDate
+      && this.dataService.attachmentCancelDate
+      && isBefore(this.dataService.attachmentCancelDate, this.dataService.facCancelDate)) {
+      return this.dataService.attachmentCancelDate;
+    }
     return this.dataService.facCancelDate;
   }
 
   get cancelDateStartRange(): Date {
-
-    if ( this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.NEW ) {
-       // Cannot have dates prior to the BCP program implementation
-      return this.bcpProgramStartDate;
+    if (this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.NEW) {
+      return null;
     }
 
-    // NOTE: Another case if attachment effective date is set, set this to that date
-
+    if (this.dataService.facEffectiveDate
+      && this.dataService.attachmentEffectiveDate
+      && isAfter(this.dataService.attachmentEffectiveDate, this.dataService.facEffectiveDate)) {
+      return this.dataService.attachmentEffectiveDate;
+    }
     // Cannot have dates prior to the BCP program implementation
     return this.dataService.facEffectiveDate ? this.dataService.facEffectiveDate : this.bcpProgramStartDate;
   }
 
   get cancelDateEndRange(): Date {
-
     if ( this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.NEW ) {
-      // Cannot have dates prior to the BCP program implementation
       return null;
     }
 
@@ -114,7 +113,7 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
   }
 
   private setFacilityEffectiveDateErrMsg(): void {
-
+    
     if (this.effectiveDateStartRange && this.effectiveDateEndRange) {
 
       // HARRY: Note this will be an issue if the cancel date is more than 150 years in the future.  If validation needs to
@@ -138,7 +137,6 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
   }
 
   setfacilityCancelDateErrMsg(): void {
-
     console.log( 'setfacilityCancelDateErrMsg: ', this.cancelDateStartRange, this.cancelDateEndRange );
     if (this.cancelDateStartRange && this.cancelDateEndRange) {
       // HARRY: Note this will be an issue if the cancel date is more than 150 years in the future.  If validation needs to
@@ -146,7 +144,7 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
       this.facilityCancelDateErrMsg = {
         invalidRange: `This date isn\'t between ${formatDateForDisplay(this.cancelDateStartRange)} and ${formatDateForDisplay(this.cancelDateEndRange)}.`
       };
-    }  else if (this.cancelDateStartRange && !this.cancelDateEndRange) {
+    } else if (this.cancelDateStartRange && !this.cancelDateEndRange) {
       this.facilityCancelDateErrMsg = {
         invalidRange: `This date isn\'t after ${formatDateForDisplay(this.cancelDateStartRange)}.`
       };
