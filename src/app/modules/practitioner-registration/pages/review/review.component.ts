@@ -10,6 +10,7 @@ import { RegisterPractitionerApiService } from '../../services/register-practiti
 import { SubmissionResponse } from '../../../core-bcp/models/base-api.model';
 import { SplunkLoggerService } from '../../../../services/splunk-logger.service';
 import { getAttachmentLabelByValue } from '../../models/practitioner-attachment';
+import { PrivacyStmt } from '../../../core-bcp/components/core-consent-modal/core-consent-modal.component';
 
 @Component({
   selector: 'bcp-review',
@@ -20,6 +21,8 @@ import { getAttachmentLabelByValue } from '../../models/practitioner-attachment'
 export class ReviewComponent extends BcpBaseForm implements OnInit, AfterViewInit {
 
   @ViewChild(SignatureComponent, {static: true}) signature: SignatureComponent;
+
+  readonly privacyStatement = PrivacyStmt;
 
   pageTitle: string = 'Review Request';
   errorMessage: string = 'Your signature is required to submit the form';
