@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit, DoCheck } from '@angular/core';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration-route-constants';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ContainerService, ErrorMessage, PageStateService, LabelReplacementTag } from 'moh-common-lib';
+import { ContainerService, ErrorMessage, PageStateService } from 'moh-common-lib';
 import { parseISO } from 'date-fns';
 import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 import { PRACTITIONER_ATTACHMENT, PRAC_ATTACHMENT_TYPE } from '../../models/practitioner-attachment';
@@ -65,41 +65,46 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
   }
 
   get effectiveDateStartRange(): Date {
-    if ((this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.NEW
-      || this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.TEMP)
-      && this.facilityEffectiveDate) {
-      return this.facilityEffectiveDate;
+
+    if ( this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.CANCEL ) {
+      return this.bcpProgramStartDate;
     }
 
     // Cannot have dates prior to the BCP program implementation
-    return this.bcpProgramStartDate;
+    return this.dataService.facEffectiveDate ? this.dataService.facEffectiveDate : this.bcpProgramStartDate;
   }
 
   get effectiveDateEndRange(): Date {
-    if ((this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.NEW
-      || this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.TEMP)
-      && this.facilityCancelDate) {
-      return this.facilityCancelDate;
+
+    if (this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.CANCEL ) {
+      return null;
     }
-    return null;
+
+    // NOTE: Another case if attachment Cancel date is set, set this to that date
+    return this.dataService.facCancelDate;
   }
 
   get cancelDateStartRange(): Date {
-    if ( this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.NEW
-      || this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.TEMP
-      || this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.CHANGE) {
-      return this.dataService.attachmentEffectiveDate;
+
+    if ( this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.NEW ) {
+       // Cannot have dates prior to the BCP program implementation
+      return this.bcpProgramStartDate;
     }
+
+    // NOTE: Another case if attachment effective date is set, set this to that date
+
     // Cannot have dates prior to the BCP program implementation
-    return this.bcpProgramStartDate;
+    return this.dataService.facEffectiveDate ? this.dataService.facEffectiveDate : this.bcpProgramStartDate;
   }
 
   get cancelDateEndRange(): Date {
-    if ( this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.NEW
-      || this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.TEMP) {
-      return this.facilityCancelDate;
+
+    if ( this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.NEW ) {
+      // Cannot have dates prior to the BCP program implementation
+      return null;
     }
-    return null;
+
+    return this.dataService.facCancelDate;
   }
 
   ngDoCheck() {
@@ -110,11 +115,7 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
 
   private setFacilityEffectiveDateErrMsg(): void {
 
-    if (this.effectiveDateStartRange && !this.effectiveDateEndRange) {
-      this.facilityEffectiveDateErrMsg = {
-        invalidRange: `This date isn\'t after ${formatDateForDisplay(this.effectiveDateStartRange)}.`
-     };
-    } else if (this.effectiveDateStartRange && this.effectiveDateEndRange) {
+    if (this.effectiveDateStartRange && this.effectiveDateEndRange) {
 
       // HARRY: Note this will be an issue if the cancel date is more than 150 years in the future.  If validation needs to
       // different this is a common library change and impacts other applications
@@ -124,6 +125,11 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
       this.facilityEffectiveDateErrMsg = {
         invalidRange: `This date isn\'t between ${formatDateForDisplay(this.effectiveDateStartRange)} and ${formatDateForDisplay(this.effectiveDateEndRange)}.`
       };
+
+    } else if ( this.effectiveDateStartRange ) {
+      this.facilityEffectiveDateErrMsg = {
+        invalidRange: `This date isn\'t after ${formatDateForDisplay(this.effectiveDateStartRange)}.`
+     };
     } else {
       this.facilityEffectiveDateErrMsg = {
         invalidRange: 'Invalid effective date.'
@@ -133,15 +139,16 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
 
   setfacilityCancelDateErrMsg(): void {
 
-    if (this.cancelDateStartRange && !this.cancelDateEndRange) {
-      this.facilityCancelDateErrMsg = {
-        invalidRange: `This date isn\'t after ${formatDateForDisplay(this.cancelDateStartRange)}.`
-      };
-    } else if (this.cancelDateStartRange && this.cancelDateEndRange) {
+    console.log( 'setfacilityCancelDateErrMsg: ', this.cancelDateStartRange, this.cancelDateEndRange );
+    if (this.cancelDateStartRange && this.cancelDateEndRange) {
       // HARRY: Note this will be an issue if the cancel date is more than 150 years in the future.  If validation needs to
       // different this is a common library change and impacts other applications
       this.facilityCancelDateErrMsg = {
         invalidRange: `This date isn\'t between ${formatDateForDisplay(this.cancelDateStartRange)} and ${formatDateForDisplay(this.cancelDateEndRange)}.`
+      };
+    }  else if (this.cancelDateStartRange && !this.cancelDateEndRange) {
+      this.facilityCancelDateErrMsg = {
+        invalidRange: `This date isn\'t after ${formatDateForDisplay(this.cancelDateStartRange)}.`
       };
     } else {
       this.facilityCancelDateErrMsg = {
