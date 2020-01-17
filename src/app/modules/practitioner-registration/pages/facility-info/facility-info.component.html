@@ -2,7 +2,8 @@
 
 <bcp-core-facility-info name='facInfo'
   [formGroup]='formGroup'
-  [showValidationError]='showValidationError'></bcp-core-facility-info>
+  [showValidationError]='showValidationError'
+  (addressSelected)='addressSelected($event)'></bcp-core-facility-info>
 
 <common-error-container [displayError]='systemDownError'>
   Unable to continue, system unavailable. Please try again later.

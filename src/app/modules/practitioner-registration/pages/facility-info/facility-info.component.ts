@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration-route-constants';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RegisterPractitionerDataService } from '../../services/register-practitioner-data.service';
-import { getProvinceDescription, ContainerService, PageStateService } from 'moh-common-lib';
+import { getProvinceDescription, ContainerService, PageStateService, Address } from 'moh-common-lib';
 import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 import { SplunkLoggerService } from '../../../../services/splunk-logger.service';
 import { RegisterPractitionerApiService } from '../../services/register-practitioner-api.service';
@@ -23,6 +23,7 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit, AfterV
   formGroup: FormGroup;
   showValidationError: boolean = false;
   systemDownError: boolean = false;
+  address: Address;
 
   constructor( protected containerService: ContainerService,
                protected router: Router,
@@ -55,11 +56,21 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit, AfterV
       // Update data service values
       this.dataService.pracFacilityName = value.name;
       this.dataService.pracFacilityNumber = value.mspNumber;
-      this.dataService.pracFacilityAddress = value.address;
+      this.dataService.pracFacilityAddress = this.address ? this.address.addressLine1 : value.address;
       this.dataService.pracFacilityCity = value.city;
       this.dataService.pracFacilityPostalCode = value.postalCode;
       this.dataService.pracFacilityFaxNumber = value.faxNumber;
     });
+  }
+
+  addressSelected(address: Address) {
+    this.formGroup.patchValue({
+      address: address.addressLine1,
+      city: address.city
+    });
+    this.dataService.pracFacilityAddress = address.addressLine1;
+    this.dataService.pracFacilityCity = address.city;
+    this.address = address;
   }
 
   continue() {
