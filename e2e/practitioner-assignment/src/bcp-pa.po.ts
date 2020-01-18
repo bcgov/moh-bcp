@@ -162,7 +162,7 @@ export class BCPInfoPage extends BCPBasePage {
     fillPage(index: number) {
         this.setIndex(index);
         this.typeText('Facility or practice name', this.jsonData[this.index].facilityName);
-        this.typeText('Medical Services Plan Facility Number', this.jsonData[this.index].MSPPractitionerNum);
+        this.typeText('Medical Services Plan Facility Number', this.jsonData[this.index].MSPFacilityNum);
         this.typeText('Physical address', this.jsonData[this.index].physicalAddress);
         this.typeText('City', this.jsonData[this.index].city);
         this.typeText('Postal Code', this.jsonData[this.index].postal);

@@ -2,7 +2,7 @@ import { browser } from 'protractor';
 import { BCPAdminPage } from './bcp-reg-facility.po';
 import { CREATE_FACILITY_PAGES } from '../../../src/app/modules/create-facility/create-facility-route-constants';
 
-describe('BCP Practitioner Assignment - Admin Info e2e test', () => {
+describe('BCP Facility Info- Admin Info e2e test', () => {
 
     let adminPage: BCPAdminPage;
     let index = 0;
