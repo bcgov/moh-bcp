@@ -29,7 +29,7 @@ interface ChangeFormGroup extends BaseFormGroup {
   templateUrl: './practitioner-attachment.component.html',
   styleUrls: ['./practitioner-attachment.component.scss']
 })
-export class PractitionerAttachmentComponent extends BcpBaseForm implements OnInit, AfterViewInit, DoCheck {
+export class PractitionerAttachmentComponent extends BcpBaseForm implements OnInit, AfterViewInit {
 
   constructor( protected containerService: ContainerService,
                protected router: Router,
@@ -106,12 +106,6 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
     return this.dataService.facCancelDate;
   }
 
-  ngDoCheck() {
-    console.log('DID CHECK.');
-    this.setFacilityEffectiveDateErrMsg();
-    this.setfacilityCancelDateErrMsg();
-  }
-
   private setFacilityEffectiveDateErrMsg(): void {
     
     if (this.effectiveDateStartRange && this.effectiveDateEndRange) {
@@ -172,9 +166,6 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
       && this.dataService.jsonFacilityValidation.response.cancelDate) {
       this.facilityCancelDate = parseISO(this.dataService.jsonFacilityValidation.response.cancelDate);
     }
-
-    this.setFacilityEffectiveDateErrMsg();
-    this.setfacilityCancelDateErrMsg();
 
     this.radioItems = [
       {
