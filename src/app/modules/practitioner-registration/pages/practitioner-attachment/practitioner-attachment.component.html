@@ -82,7 +82,6 @@
                     [dateRangeEnd]='cancelDateEndRange'
                     [errorMessage]='facilityCancelDateErrMsg'>
       </common-date>
-      {{facilityCancelDateErrMsg.invalidRange}} - {{cancelDateStartRange}} - {{cancelDateEndRange}}
     </div>
 
     <common-error-container [displayError]="(formGroup?.controls?.changeAttachmentHasAtLeastOneDate?.dirty || formGroup?.controls?.changeAttachmentHasAtLeastOneDate?.touched) &&  formGroup?.controls?.changeAttachmentHasAtLeastOneDate?.errors">

@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   bypassModal: false,
   bypassGuards: true,
-  useDummyData: true, // For testing against real back-end
+  useDummyData: false, // For testing against real back-end
   useMockBackend: false,
   useMockBackendData: false,
   api: {
