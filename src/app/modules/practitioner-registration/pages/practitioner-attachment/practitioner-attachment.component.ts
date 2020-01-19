@@ -107,7 +107,7 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
   }
 
   private setFacilityEffectiveDateErrMsg(): void {
-    
+
     if (this.effectiveDateStartRange && this.effectiveDateEndRange) {
 
       // HARRY: Note this will be an issue if the cancel date is more than 150 years in the future.  If validation needs to
