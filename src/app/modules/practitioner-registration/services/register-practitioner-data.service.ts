@@ -49,11 +49,11 @@ export class RegisterPractitionerDataService extends BaseDataService {
       this.pracInfoPhoneNumberExt = '123';
 
       this.pracFacilityName = 'Medical Facility';
-      this.pracFacilityNumber = 'DA006';
+      this.pracFacilityNumber = 'DA007';
       this.pracFacilityAddress = '123 Fake St.';
       this.pracFacilityCity = 'Victoria';
       this.pracFacilityProvince = BRITISH_COLUMBIA;
-      this.pracFacilityPostalCode = 'V4V 4V6';
+      this.pracFacilityPostalCode = 'v4v4v7';
       this.pracFacilityFaxNumber = '234 567-8901';
 
       this.pracAttachmentType = 'new';
@@ -140,25 +140,8 @@ export class RegisterPractitionerDataService extends BaseDataService {
           action: this.attachmentType,
           effectiveDate: this.attachmentEffectiveDate ? convertToJSONDate( this.attachmentEffectiveDate ) : null,
           cancelDate: this.attachmentCancelDate ? convertToJSONDate( this.attachmentCancelDate ) : null,
+          manualReview: this.manualReview  // Indicated whether MT needs to send request to MAXHUB only
       },
-/* TODO: Remove code once we get to the practitioner attachment page
-      bcp: {
-        // when a flag is false, the corresponding date must be null.
-        new: (this.pracAttachmentType === PRACTITIONER_ATTACHMENT.NEW.value),
-        effectiveDate: this.pracNewAttachmentType === false ? convertToJSONDate(this.pracNewAttachmentEffectiveDate) : null,
-        cancel: (this.pracAttachmentType === PRACTITIONER_ATTACHMENT.CANCEL.value),
-        cancelDate: convertToJSONDate(this.pracCancelAttachmentDate),
-        changeEffective: (this.pracAttachmentType === PRACTITIONER_ATTACHMENT.CHANGE.value &&
-          convertToJSONDate(this.pracChangeAttachmentEffectiveDate) !== null),
-        changeEffectiveDate: convertToJSONDate(this.pracChangeAttachmentEffectiveDate),
-        changeCancel: (this.pracAttachmentType === PRACTITIONER_ATTACHMENT.CHANGE.value &&
-          convertToJSONDate(this.pracChangeAttachmentCancelDate) !== null),
-        changeCancelDate: convertToJSONDate(this.pracChangeAttachmentCancelDate),
-        locumAssignment: this.pracNewAttachmentType,
-        locumEffectiveDate: this.pracNewAttachmentType === true ? convertToJSONDate(this.pracNewAttachmentEffectiveDate) : null,
-        locumCancelDate: this.pracNewAttachmentType === true ? convertToJSONDate(this.pracNewAttachmentCancelDate) : null
-      },
-  */
       dateOfAcceptance: convertToJSONDate(this.dateOfAcceptance),
       declarationText: this.declarationTextForAPI,
     };
