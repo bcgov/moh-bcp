@@ -95,11 +95,9 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
       const effectiveDate = this.dataService.manualReview
         ? this.bcpProgramStartDate
         : this.dataService.facEffectiveDate;
-      if (this.dataService.attachmentEffectiveDate) {
-        return isAfter(this.dataService.attachmentEffectiveDate, effectiveDate)
-          ? effectiveDate
-          : this.dataService.attachmentEffectiveDate;
-      }
+      return isAfter(this.dataService.attachmentEffectiveDate, effectiveDate)
+        ? effectiveDate
+        : this.dataService.attachmentEffectiveDate;
     }
     // Cannot have dates prior to the BCP program implementation
     return this.dataService.facEffectiveDate ? this.dataService.facEffectiveDate : this.bcpProgramStartDate;
