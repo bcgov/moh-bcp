@@ -141,7 +141,6 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
   }
 
   setfacilityCancelDateErrMsg(): void {
-    console.log( 'setfacilityCancelDateErrMsg: ', this.cancelDateStartRange, this.cancelDateEndRange );
     if (this.cancelDateStartRange && this.cancelDateEndRange) {
       // HARRY: Note this will be an issue if the cancel date is more than 150 years in the future.  If validation needs to
       // different this is a common library change and impacts other applications
@@ -157,7 +156,6 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
         invalidRange: 'Invalid cancellation date.'
       };
     }
-    console.warn('Error Message: ', this.facilityCancelDateErrMsg);
   }
 
   ngOnInit() {
