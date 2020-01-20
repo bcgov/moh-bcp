@@ -76,6 +76,11 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
     if (this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.CANCEL ) {
       return null;
     }
+    if (this.dataService.attachmentEffectiveDate
+      && this.dataService.attachmentCancelDate
+      && isBefore(this.dataService.attachmentCancelDate, this.dataService.attachmentEffectiveDate)) {
+      return this.dataService.attachmentCancelDate;
+    }
     if (this.dataService.facCancelDate
       && this.dataService.attachmentCancelDate
       && isBefore(this.dataService.attachmentCancelDate, this.dataService.facCancelDate)) {
@@ -89,6 +94,11 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
       return null;
     }
 
+    if (this.dataService.attachmentEffectiveDate
+      && this.dataService.attachmentCancelDate
+      && isAfter(this.dataService.attachmentEffectiveDate, this.dataService.attachmentCancelDate)) {
+      return this.dataService.attachmentEffectiveDate;
+    }
     if (this.dataService.facEffectiveDate
       && this.dataService.attachmentEffectiveDate
       && isAfter(this.dataService.attachmentEffectiveDate, this.dataService.facEffectiveDate)) {
@@ -116,12 +126,12 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
       // If you need to change these error message on the fly so the same call as in the ngInit() in ngDoCheck() It will trigger
       // the date component to load messages
       this.facilityEffectiveDateErrMsg = {
-        invalidRange: `This date isn\'t between ${formatDateForDisplay(this.effectiveDateStartRange)} and ${formatDateForDisplay(this.effectiveDateEndRange)}.`
+        invalidRange: `This date must be between ${formatDateForDisplay(this.effectiveDateStartRange)} and ${formatDateForDisplay(this.effectiveDateEndRange)}.`
       };
 
     } else if ( this.effectiveDateStartRange ) {
       this.facilityEffectiveDateErrMsg = {
-        invalidRange: `This date isn\'t after ${formatDateForDisplay(this.effectiveDateStartRange)}.`
+        invalidRange: `This date must be after ${formatDateForDisplay(this.effectiveDateStartRange)}.`
      };
     } else {
       this.facilityEffectiveDateErrMsg = {
@@ -136,11 +146,11 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
       // HARRY: Note this will be an issue if the cancel date is more than 150 years in the future.  If validation needs to
       // different this is a common library change and impacts other applications
       this.facilityCancelDateErrMsg = {
-        invalidRange: `This date isn\'t between ${formatDateForDisplay(this.cancelDateStartRange)} and ${formatDateForDisplay(this.cancelDateEndRange)}.`
+        invalidRange: `This date must be between ${formatDateForDisplay(this.cancelDateStartRange)} and ${formatDateForDisplay(this.cancelDateEndRange)}.`
       };
     } else if (this.cancelDateStartRange && !this.cancelDateEndRange) {
       this.facilityCancelDateErrMsg = {
-        invalidRange: `This date isn\'t after ${formatDateForDisplay(this.cancelDateStartRange)}.`
+        invalidRange: `This date must be after ${formatDateForDisplay(this.cancelDateStartRange)}.`
       };
     } else {
       this.facilityCancelDateErrMsg = {
