@@ -78,11 +78,24 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
       return null;
     }
 
-    if (this.dataService.attachmentCancelDate) {
-      return isAfter(this.dataService.attachmentCancelDate, this.dataService.facCancelDate)
-        ? this.dataService.facCancelDate
-        : this.dataService.attachmentCancelDate;
+    if ( this.dataService.manualReview ) {
+      // Manual reviews have no facility effective/cancel dates
+      if ( this.dataService.attachmentCancelDate ) {
+        return isBefore( this.dataService.attachmentCancelDate, this.bcpProgramStartDate ) ?
+                this.bcpProgramStartDate : this.dataService.attachmentCancelDate;
+      }
+      return null;
     }
+
+    // Case where user has entered a cancel date and the value is outside the provide facility date ranges
+    if ( this.dataService.attachmentCancelDate ) {
+      if ( isAfter( this.dataService.attachmentCancelDate, this.dataService.facCancelDate ) ||
+           isBefore( this.dataService.attachmentCancelDate, this.dataService.facEffectiveDate ) ) {
+          return this.dataService.facCancelDate;
+      }
+      return this.dataService.attachmentCancelDate;
+    }
+
     return this.dataService.facCancelDate;
   }
 
