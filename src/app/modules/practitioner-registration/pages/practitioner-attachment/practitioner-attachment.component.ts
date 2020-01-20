@@ -65,10 +65,8 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
   }
 
   get effectiveDateStartRange(): Date {
-    if ( this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.CANCEL ) {
-      return this.bcpProgramStartDate;
-    }
-    if (this.dataService.manualReview) {
+    if ( this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.CANCEL
+      || this.dataService.manualReview) {
       return this.bcpProgramStartDate;
     }
     // Cannot have dates prior to the BCP program implementation
@@ -79,19 +77,11 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
     if (this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.CANCEL ) {
       return null;
     }
-    if (this.dataService.attachmentEffectiveDate
-      && this.dataService.attachmentCancelDate
-      && (isBefore(this.dataService.attachmentCancelDate, this.dataService.attachmentEffectiveDate)
-        || isSameDay(this.dataService.attachmentEffectiveDate, this.dataService.attachmentCancelDate)
-      )) {
-      return this.dataService.attachmentCancelDate;
-    }
-    if (this.dataService.facCancelDate
-      && this.dataService.attachmentCancelDate
-      && (isBefore(this.dataService.attachmentCancelDate, this.dataService.facCancelDate)
-      || isSameDay(this.dataService.attachmentEffectiveDate, this.dataService.facCancelDate)
-      )) {
-      return this.dataService.attachmentCancelDate;
+    
+    if (this.dataService.attachmentCancelDate) {
+      return isAfter(this.dataService.attachmentCancelDate, this.dataService.facCancelDate)
+        ? this.dataService.facCancelDate
+        : this.dataService.attachmentCancelDate;
     }
     return this.dataService.facCancelDate;
   }
@@ -101,22 +91,13 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
       return null;
     }
 
-    if (this.dataService.attachmentEffectiveDate
-      && this.dataService.attachmentCancelDate
-      && (isAfter(this.dataService.attachmentEffectiveDate, this.dataService.attachmentCancelDate)
-        || isSameDay(this.dataService.attachmentEffectiveDate, this.dataService.attachmentCancelDate)
-      )) {
-      return this.dataService.attachmentEffectiveDate;
+    if (this.dataService.attachmentEffectiveDate) {
+      return isAfter(this.dataService.attachmentEffectiveDate, this.dataService.facEffectiveDate)
+        ? this.dataService.facEffectiveDate
+        : this.dataService.attachmentEffectiveDate;
     }
     if (this.dataService.manualReview) {
       return this.bcpProgramStartDate;
-    }
-    if (this.dataService.facEffectiveDate
-      && this.dataService.attachmentEffectiveDate
-      && (isAfter(this.dataService.attachmentEffectiveDate, this.dataService.facEffectiveDate)
-        || isSameDay(this.dataService.attachmentEffectiveDate, this.dataService.attachmentCancelDate)
-      )) {
-      return this.dataService.attachmentEffectiveDate;
     }
     // Cannot have dates prior to the BCP program implementation
     return this.dataService.facEffectiveDate ? this.dataService.facEffectiveDate : this.bcpProgramStartDate;
