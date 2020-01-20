@@ -8,7 +8,7 @@ import {
   stripPhoneFormatting,
   convertToJSONDate } from '../../core-bcp/models/helperFunc';
 import { PRAC_ATTACHMENT_TYPE } from '../models/practitioner-attachment';
-import { addMonths, startOfToday } from 'date-fns';
+import { addMonths, startOfToday, parseISO } from 'date-fns';
 
 @Injectable({
   providedIn: 'root'
@@ -35,8 +35,8 @@ export class RegisterPractitionerDataService extends BaseDataService {
 
       this.pracAttachmentType = 'new';
 
-      this.facEffectiveDate = new Date('2020-01-01');
-      this.facCancelDate = new Date('2020-12-31');
+      this.facEffectiveDate = parseISO('2020-01-01');
+      this.facCancelDate = parseISO('2020-12-31');
     }
 
         // Partial setup for using data in back end
