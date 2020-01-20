@@ -1,14 +1,14 @@
 import { browser } from 'protractor';
-import { BCPInfoPage } from './bcp-pa.po';
+import { BCPFacilityInfoPage } from './bcp-pa.po';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../../src/app/modules/practitioner-registration/practitioner-registration-route-constants';
 
 describe('BCP Practitioner Assignment- Info Page (Unit Test)', () => {
 
-    let infoPage: BCPInfoPage;
+    let infoPage: BCPFacilityInfoPage;
     let index = 0;
 
     beforeEach(() => {
-        infoPage = new BCPInfoPage();
+        infoPage = new BCPFacilityInfoPage();
     });
     afterEach(() => {
         index++;

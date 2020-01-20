@@ -1,47 +1,32 @@
 import { browser } from 'protractor';
-import { BCPHomePage, BCPAdminPage, BCPInfoPage, BCPPractitionerAttachmentPage, BCPReviewPage } from './bcp-pa.po';
+import { BCPHomePage, BCPPractitionerInfoPage, BCPFacilityInfoPage, BCPPractitionerAttachmentPage, BCPReviewPage, BCPConfirmationPage } from './bcp-pa.po';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../../src/app/modules/practitioner-registration/practitioner-registration-route-constants';
 
-describe('BCP Practitioner Assignment- Info Page (Unit Test)', () => {
+describe('BCP Practitioner Assignment- Happy Path e2e', () => {
 
-    let infoPage: BCPInfoPage;
+    let homePage: BCPHomePage;
+    let pracInfoPage: BCPPractitionerInfoPage;
+    let faciInfoPage: BCPFacilityInfoPage;
+    let pracAttachPage: BCPPractitionerAttachmentPage;
+    let reviewPage: BCPReviewPage;
+    let confirmationPage: BCPConfirmationPage;
     let index = 0;
 
     beforeEach(() => {
-        infoPage = new BCPInfoPage();
+        homePage = new BCPHomePage();
+        pracInfoPage = new BCPPractitionerInfoPage();
+        faciInfoPage = new BCPFacilityInfoPage();
+        pracAttachPage = new BCPPractitionerAttachmentPage();
+        reviewPage = new BCPReviewPage();
+        confirmationPage = new BCPConfirmationPage();
     });
     afterEach(() => {
         index++;
     });
 
-    it('01. should be a MATCH since the facility number and postal code are valid', () => {
-        infoPage.navigateTo();
-        infoPage.fillPage(index);
-        infoPage.clickContinue();
-        expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_ASSIGN.fullpath, 'should continue to the next page');
-    }, 100000);
+    it('01. should sucesfully send the form and display the yellow border in the confirmation page', () => {
 
-    it('02. should be a NO MATCH (hard stop) since the information doesnt match the records', () => {
-        infoPage.navigateTo();
-        infoPage.fillPage(index);
-        infoPage.clickContinue();
-        expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.FACILITY_INFO.fullpath, 'should NOT navigate to the next page - hard stop');
-    }, 100000);
-
-    it('03. should be a MATCH since the facility number and postal code are valid', () => {
-        infoPage.navigateTo();
-        infoPage.fillPage(index);
-        browser.sleep(10000);
-        infoPage.clickContinue();
-        expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_ASSIGN.fullpath, 'should continue to the next page');
-    }, 100000);
-
-    it('04. should be a MATCH since the facility number and postal code are valid', () => {
-        infoPage.navigateTo();
-        infoPage.fillPage(index);
-        browser.sleep(10000);
-        infoPage.clickContinue();
-        expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_ASSIGN.fullpath, 'should continue to the next page');
+        expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.SUBMISSION.fullpath, 'should be able to go to the Submission Page');
     }, 100000);
 
 });

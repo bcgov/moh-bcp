@@ -3,6 +3,7 @@ import { AbstractTestPage } from 'moh-common-lib/e2e';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../../src/app/modules/practitioner-registration/practitioner-registration-route-constants';
 import * as fs from 'fs';
 import * as sampleFile from './bcp-pa-practitioner-info-data.json';
+import { PRACTITIONER_ATTACHMENT } from '../../../src/app/modules/practitioner-registration/models/practitioner-attachment';
 
 /**
  * This class is for GENERAL functions, and all those that target components
@@ -93,7 +94,7 @@ export class BCPHomePage extends BCPBasePage {
     }
 }
 
-export class BCPAdminPage extends BCPBasePage {
+export class BCPPractitionerInfoPage extends BCPBasePage {
 
     navigateTo() {
       return browser.get(PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_INFO.fullpath);
@@ -132,7 +133,7 @@ export class BCPAdminPage extends BCPBasePage {
     }
 }
 
-export class BCPInfoPage extends BCPBasePage {
+export class BCPFacilityInfoPage extends BCPBasePage {
 
     navigateTo() {
         return browser.get(PRACTITIONER_REGISTRATION_PAGES.FACILITY_INFO.fullpath);
@@ -188,11 +189,18 @@ export class BCPInfoPage extends BCPBasePage {
     }
 }
 
-/*
+export class BCPPractitionerAttachmentPage extends BCPBasePage {
+
+    navigateTo() {
+        return browser.get(PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_ASSIGN.fullpath);
+    }
+
+}
+
 export class BCPReviewPage extends BCPBasePage {
 
     navigateTo() {
-        return browser.get(CREATE_FACILITY_PAGES.REVIEW.fullpath);
+        return browser.get(PRACTITIONER_REGISTRATION_PAGES.REVIEW.fullpath);
     }
 
     clickSubmit() {
@@ -213,4 +221,11 @@ export class BCPReviewPage extends BCPBasePage {
     }
 
 }
-*/
+
+export class BCPConfirmationPage extends BCPBasePage {
+
+    navigateTo() {
+        return browser.get(PRACTITIONER_REGISTRATION_PAGES.SUBMISSION.fullpath);
+    }
+
+}
