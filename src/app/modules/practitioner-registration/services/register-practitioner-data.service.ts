@@ -49,11 +49,11 @@ export class RegisterPractitionerDataService extends BaseDataService {
       this.pracInfoPhoneNumberExt = '123';
 
       this.pracFacilityName = 'Medical Facility';
-      this.pracFacilityNumber = 'DA006';
+      this.pracFacilityNumber = 'DA007';
       this.pracFacilityAddress = '123 Fake St.';
       this.pracFacilityCity = 'Victoria';
       this.pracFacilityProvince = BRITISH_COLUMBIA;
-      this.pracFacilityPostalCode = 'V4V 4V6';
+      this.pracFacilityPostalCode = 'v4v4v7';
       this.pracFacilityFaxNumber = '234 567-8901';
 
       this.pracAttachmentType = 'new';
