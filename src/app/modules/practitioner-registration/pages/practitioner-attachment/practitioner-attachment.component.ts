@@ -77,7 +77,7 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
     if (this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.CANCEL ) {
       return null;
     }
-    
+
     if (this.dataService.attachmentCancelDate) {
       return isAfter(this.dataService.attachmentCancelDate, this.dataService.facCancelDate)
         ? this.dataService.facCancelDate
