@@ -3,7 +3,7 @@ import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ContainerService, ErrorMessage, PageStateService } from 'moh-common-lib';
-import { parseISO, isBefore, isAfter } from 'date-fns';
+import { parseISO, isBefore, isAfter, isSameDay } from 'date-fns';
 import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 import { PRACTITIONER_ATTACHMENT, PRAC_ATTACHMENT_TYPE } from '../../models/practitioner-attachment';
 import { IRadioItems } from 'moh-common-lib/lib/components/radio/radio.component';
@@ -68,6 +68,9 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
     if ( this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.CANCEL ) {
       return this.bcpProgramStartDate;
     }
+    if (this.dataService.manualReview) {
+      return this.bcpProgramStartDate;
+    }
     // Cannot have dates prior to the BCP program implementation
     return this.dataService.facEffectiveDate ? this.dataService.facEffectiveDate : this.bcpProgramStartDate;
   }
@@ -78,12 +81,16 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
     }
     if (this.dataService.attachmentEffectiveDate
       && this.dataService.attachmentCancelDate
-      && isBefore(this.dataService.attachmentCancelDate, this.dataService.attachmentEffectiveDate)) {
+      && (isBefore(this.dataService.attachmentCancelDate, this.dataService.attachmentEffectiveDate)
+        || isSameDay(this.dataService.attachmentEffectiveDate, this.dataService.attachmentCancelDate)
+      )) {
       return this.dataService.attachmentCancelDate;
     }
     if (this.dataService.facCancelDate
       && this.dataService.attachmentCancelDate
-      && isBefore(this.dataService.attachmentCancelDate, this.dataService.facCancelDate)) {
+      && (isBefore(this.dataService.attachmentCancelDate, this.dataService.facCancelDate)
+      || isSameDay(this.dataService.attachmentEffectiveDate, this.dataService.facCancelDate)
+      )) {
       return this.dataService.attachmentCancelDate;
     }
     return this.dataService.facCancelDate;
@@ -96,12 +103,19 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
 
     if (this.dataService.attachmentEffectiveDate
       && this.dataService.attachmentCancelDate
-      && isAfter(this.dataService.attachmentEffectiveDate, this.dataService.attachmentCancelDate)) {
+      && (isAfter(this.dataService.attachmentEffectiveDate, this.dataService.attachmentCancelDate)
+        || isSameDay(this.dataService.attachmentEffectiveDate, this.dataService.attachmentCancelDate)
+      )) {
       return this.dataService.attachmentEffectiveDate;
+    }
+    if (this.dataService.manualReview) {
+      return this.bcpProgramStartDate;
     }
     if (this.dataService.facEffectiveDate
       && this.dataService.attachmentEffectiveDate
-      && isAfter(this.dataService.attachmentEffectiveDate, this.dataService.facEffectiveDate)) {
+      && (isAfter(this.dataService.attachmentEffectiveDate, this.dataService.facEffectiveDate)
+        || isSameDay(this.dataService.attachmentEffectiveDate, this.dataService.attachmentCancelDate)
+      )) {
       return this.dataService.attachmentEffectiveDate;
     }
     // Cannot have dates prior to the BCP program implementation
