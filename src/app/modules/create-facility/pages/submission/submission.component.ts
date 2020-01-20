@@ -4,6 +4,7 @@ import { formatDateForDisplay, setNotApplicable } from '../../../core-bcp/models
 import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
 import { ApiStatusCodes, PageStateService } from 'moh-common-lib';
 import { ConfirmBaseForm } from '../../../core-bcp/models/confirm-base-form';
+import { HeaderService } from '../../../../services/header.service';
 
 enum WarningMessage {
   NEAR_MATCH_SCEN = 0,
@@ -28,8 +29,9 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
                                             'contact Health Insurance BC at (604) 456-6950 (lower mainland) or 1-866-456-6950 (elsewhere in B.C.).';
 
   constructor(protected dataService: CreateFacilityDataService,
-              protected pageStateService: PageStateService) {
-    super(dataService, pageStateService);
+              protected pageStateService: PageStateService,
+              protected headerService: HeaderService) {
+    super(dataService, pageStateService, headerService);
   }
 
   ngOnInit() {

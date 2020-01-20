@@ -2,14 +2,17 @@ import { Base, ApiStatusCodes, PageStateService } from 'moh-common-lib';
 import { OnInit } from '@angular/core';
 import { BaseDataService } from '../../../services/base-data.service';
 import { formatDateForDisplay } from './helperFunc';
+import { HeaderService } from '../../../services/header.service';
 
 export class ConfirmBaseForm extends Base implements OnInit {
 
   // default icon - if return code < 0 then its an error
   displayIcon: ApiStatusCodes = ApiStatusCodes.ERROR;
+  title: string;
 
   constructor( protected dataService: BaseDataService,
-               protected pageStateService: PageStateService ) {
+               protected pageStateService: PageStateService,
+               protected headerService: HeaderService ) {
     super();
   }
 
@@ -19,6 +22,10 @@ export class ConfirmBaseForm extends Base implements OnInit {
 
     // Set isPrintView to true
     this.dataService.isPrintView = true;
+
+    this.headerService.title.subscribe((value) => {
+      this.title = value;
+    });
   }
 
   getConfirmationMessage() {
