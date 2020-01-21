@@ -36,7 +36,7 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
 
         if ( this.dataService.jsonMaintPractitioner.response.referenceNumber ) {
           // Assumed something went wrong with automated processing but is in MAXHUB
-          this.displayIcon = ApiStatusCodes.WARNING;
+          this.displayIcon = ApiStatusCodes.SUCCESS;
         }
       }
     }

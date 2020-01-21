@@ -6,7 +6,7 @@
          [(value)]='facNumber'
          (change)='inputChange($event)'
          (blur)='onBlur($event)'
-         [attr.maxlength]="5">
+         [attr.maxlength]="9">
 
 <common-error-container [displayError]="(controlDir?.dirty || controlDir?.touched) &&  controlDir?.errors">
   <div *ngIf="controlDir?.errors?.required">
