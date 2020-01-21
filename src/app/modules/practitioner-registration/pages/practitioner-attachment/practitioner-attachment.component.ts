@@ -104,6 +104,9 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
     if (this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.NEW) {
       return null;
     }
+    if (isBefore(this.dataService.facCancelDate, this.bcpProgramStartDate)) {
+      return this.bcpProgramStartDate;
+    }
 
     if (this.dataService.attachmentEffectiveDate) {
       const effectiveDate = this.dataService.manualReview
