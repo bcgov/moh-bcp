@@ -4,6 +4,8 @@ import { PractitionerAttachmentComponent } from './practitioner-attachment.compo
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedCoreModule } from 'moh-common-lib';
 import { RouterTestingModule } from '@angular/router/testing';
+import { PRAC_ATTACHMENT_TYPE } from '../../models/practitioner-attachment';
+import { parseISO } from 'date-fns';
 
 describe('PractitionerAttachmentComponent', () => {
   let component: PractitionerAttachmentComponent;
@@ -26,4 +28,47 @@ describe('PractitionerAttachmentComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should error out fields aren\'t filled out', () => {
+    component.dataService.attachmentType = PRAC_ATTACHMENT_TYPE.TEMP;
+    component.changeNewAttachmentType(true);
+    component.ngOnInit();
+    fixture.detectChanges();
+    expect(component.formGroup.valid).toBeFalsy();
+  });
+
+  it('should have valid form when all fields are filled out', () => {
+    component.dataService.attachmentType = PRAC_ATTACHMENT_TYPE.TEMP;
+    component.dataService.pracNewAttachmentType = true;
+    component.dataService.facEffectiveDate = parseISO('2020-01-01');
+    component.dataService.facCancelDate = parseISO('2021-01-01');
+    component.dataService.manualReview = false;
+
+    component.changeNewAttachmentType(true);
+    fixture.detectChanges();
+    component.formGroup.controls.attachmentType.setValue(PRAC_ATTACHMENT_TYPE.NEW);
+    component.formGroup.controls.attachmentEffectiveDate.setValue(parseISO('2020-04-01'));
+    component.formGroup.controls.attachmentCancelDate.setValue(parseISO('2020-05-01'));
+    fixture.detectChanges();
+    expect(component.formGroup.valid).toBeTruthy();
+  });
+  /*
+  it('should error out when cancel date is out of range', () => {
+    component.dataService.attachmentType = PRAC_ATTACHMENT_TYPE.TEMP;
+    component.dataService.pracNewAttachmentType = true;
+    component.dataService.facEffectiveDate = parseISO('2020-01-01');
+    component.dataService.facCancelDate = parseISO('2021-01-01');
+    component.dataService.manualReview = false;
+
+    component.changeNewAttachmentType(true);
+    fixture.detectChanges();
+    component.formGroup.controls['attachmentType'].setValue(PRAC_ATTACHMENT_TYPE.NEW);
+    component.formGroup.controls['attachmentEffectiveDate'].setValue(parseISO('2020-04-01'));
+    component.formGroup.controls['attachmentCancelDate'].setValue(parseISO('2021-05-01'));
+    component.formGroup.controls['attachmentCancelDate'].markAsTouched();
+    const errorElements = fixture.nativeElement.querySelectorAll('common-date');
+    fixture.detectChanges();
+    console.log(errorElements.length);
+    expect(component.formGroup.valid).toBeFalsy();
+  });*/
 });
