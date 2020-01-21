@@ -67,10 +67,11 @@ fdescribe('PractitionerAttachmentComponent', () => {
     component.formGroup.controls['attachmentCancelDate'].setValue(parseISO('2021-05-01'));
     component.formGroup.controls['attachmentCancelDate'].markAsTouched();
     fixture.detectChanges();
-    const attachmentEffectiveDateEl = fixture.nativeElement.querySelectorAll('common-date[name=\'attachmentEffectiveDate\']');
-    const attachmentCancelDateEl = fixture.nativeElement.querySelectorAll('common-date[name=\'attachmentCancelDate\']');
+    const attachmentEffectiveDateEl = fixture.nativeElement.querySelectorAll('common-date[name=\'attachmentEffectiveDate\'] common-error-container');
+    const attachmentCancelDateEl = fixture.nativeElement.querySelectorAll('common-date[name=\'attachmentCancelDate\'] common-error-container');
     
-    console.log(attachmentEffectiveDateEl);
+    //console.log(attachmentEffectiveDateEl.innerHTML);
+    //console.log(attachmentCancelDateEl.innerHTML);
     expect(component.formGroup.valid).toBeFalsy();
   });
 });
