@@ -7,7 +7,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { PRAC_ATTACHMENT_TYPE } from '../../models/practitioner-attachment';
 import { parseISO } from 'date-fns';
 
-describe('PractitionerAttachmentComponent', () => {
+fdescribe('PractitionerAttachmentComponent', () => {
   let component: PractitionerAttachmentComponent;
   let fixture: ComponentFixture<PractitionerAttachmentComponent>;
 
@@ -24,7 +24,7 @@ describe('PractitionerAttachmentComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-
+/*
   it('should create', () => {
     expect(component).toBeTruthy();
   });
@@ -51,8 +51,8 @@ describe('PractitionerAttachmentComponent', () => {
     component.formGroup.controls.attachmentCancelDate.setValue(parseISO('2020-05-01'));
     fixture.detectChanges();
     expect(component.formGroup.valid).toBeTruthy();
-  });
-  /*
+  });*/
+  
   it('should error out when cancel date is out of range', () => {
     component.dataService.attachmentType = PRAC_ATTACHMENT_TYPE.TEMP;
     component.dataService.pracNewAttachmentType = true;
@@ -66,9 +66,11 @@ describe('PractitionerAttachmentComponent', () => {
     component.formGroup.controls['attachmentEffectiveDate'].setValue(parseISO('2020-04-01'));
     component.formGroup.controls['attachmentCancelDate'].setValue(parseISO('2021-05-01'));
     component.formGroup.controls['attachmentCancelDate'].markAsTouched();
-    const errorElements = fixture.nativeElement.querySelectorAll('common-date');
     fixture.detectChanges();
-    console.log(errorElements.length);
+    const attachmentEffectiveDateEl = fixture.nativeElement.querySelectorAll('common-date[name=\'attachmentEffectiveDate\']');
+    const attachmentCancelDateEl = fixture.nativeElement.querySelectorAll('common-date[name=\'attachmentCancelDate\']');
+    
+    console.log(attachmentEffectiveDateEl);
     expect(component.formGroup.valid).toBeFalsy();
-  });*/
+  });
 });
