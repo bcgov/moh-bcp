@@ -66,7 +66,8 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
 
   get effectiveDateStartRange(): Date {
     if ( this.dataService.attachmentType === PRAC_ATTACHMENT_TYPE.CANCEL
-      || this.dataService.manualReview) {
+      || this.dataService.manualReview
+      || isBefore(this.dataService.facEffectiveDate, this.bcpProgramStartDate)) {
       return this.bcpProgramStartDate;
     }
     // Cannot have dates prior to the BCP program implementation
