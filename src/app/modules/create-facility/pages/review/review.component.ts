@@ -11,6 +11,7 @@ import { Validators, FormBuilder } from '@angular/forms';
 import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 import { ValidationResponse } from '../../../core-bcp/models/base-api.model';
 import { CreateFacilityApiService } from '../../services/create-facility-api.service';
+import { PrivacyStmt } from '../../../core-bcp/components/core-consent-modal/core-consent-modal.component';
 
 @Component({
   selector: 'app-review',
@@ -19,6 +20,7 @@ import { CreateFacilityApiService } from '../../services/create-facility-api.ser
 })
 export class ReviewComponent extends BcpBaseForm implements OnInit, AfterViewInit {
   showDuplicateWarning = true;
+  readonly privacyStatement: string = PrivacyStmt;
 
   @ViewChild(SignatureComponent, {static: true}) signature: SignatureComponent;
 
