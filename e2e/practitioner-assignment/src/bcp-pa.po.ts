@@ -90,7 +90,6 @@ export class BCPHomePage extends BCPBasePage {
         this.typeCaptcha('irobot');
         this.checkConsent();
         this.clickModalContinue();
-        this.clickContinue();
     }
 }
 
@@ -108,7 +107,6 @@ export class BCPPractitionerInfoPage extends BCPBasePage {
         this.typeText('Email address (optional)', this.jsonData[this.index].emailAdd);
         this.typeText('Phone number', this.jsonData[this.index].phoneNum);
         this.typeText('Extension', this.jsonData[this.index].extension);
-        // this.clickContinue();
     }
 
     checkAdminInputValues(index: number) {
@@ -193,6 +191,10 @@ export class BCPPractitionerAttachmentPage extends BCPBasePage {
 
     navigateTo() {
         return browser.get(PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_ASSIGN.fullpath);
+    }
+
+    fillPage(index: number) {
+        
     }
 
 }

@@ -2,7 +2,7 @@ import { browser } from 'protractor';
 import { BCPHomePage, BCPPractitionerInfoPage, BCPFacilityInfoPage, BCPPractitionerAttachmentPage, BCPReviewPage, BCPConfirmationPage } from './bcp-pa.po';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../../src/app/modules/practitioner-registration/practitioner-registration-route-constants';
 
-describe('BCP Practitioner Assignment- Happy Path e2e', () => {
+fdescribe('BCP Practitioner Assignment- Happy Path e2e', () => {
 
     let homePage: BCPHomePage;
     let pracInfoPage: BCPPractitionerInfoPage;
@@ -10,7 +10,8 @@ describe('BCP Practitioner Assignment- Happy Path e2e', () => {
     let pracAttachPage: BCPPractitionerAttachmentPage;
     let reviewPage: BCPReviewPage;
     let confirmationPage: BCPConfirmationPage;
-    let index = 0;
+    const HAPPY_PATH_DATA = 2;
+    let index = HAPPY_PATH_DATA;
 
     beforeEach(() => {
         homePage = new BCPHomePage();
@@ -20,13 +21,23 @@ describe('BCP Practitioner Assignment- Happy Path e2e', () => {
         reviewPage = new BCPReviewPage();
         confirmationPage = new BCPConfirmationPage();
     });
+
     afterEach(() => {
         index++;
     });
 
     it('01. should sucesfully send the form and display the yellow border in the confirmation page', () => {
-
-        expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.SUBMISSION.fullpath, 'should be able to go to the Submission Page');
+        homePage.navigateTo();
+        homePage.fillPage(index);
+        homePage.clickContinue();
+        expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_INFO.fullpath, 'should be able to go to the Prac Info Page');
+        pracInfoPage.fillPage(index);
+        pracInfoPage.clickContinue();
+        expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.FACILITY_INFO.fullpath, 'should be able to go to the Facility Info Page');
+        faciInfoPage.fillPage(index);
+        faciInfoPage.clickContinue();
+        expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_ASSIGN.fullpath, 'should be able to go to the Prac Attach Info Page');
+        // expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.SUBMISSION.fullpath, 'should be able to go to the Submission Page');
     }, 100000);
 
 });
