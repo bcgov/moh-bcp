@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration-route-constants';
-import { formatDateForDisplay } from '../../../core-bcp/models/helperFunc';
-import { ApiStatusCodes, Base, PageStateService } from 'moh-common-lib';
+import { ApiStatusCodes, PageStateService } from 'moh-common-lib';
 import { RegisterPractitionerDataService } from '../../services/register-practitioner-data.service';
 import { ConfirmBaseForm } from '../../../core-bcp/models/confirm-base-form';
 import { PrivacyStmt } from '../../../core-bcp/components/core-consent-modal/core-consent-modal.component';
+import { HeaderService } from '../../../../services/header.service';
 
 @Component({
   selector: 'bcp-submission',
@@ -17,8 +17,9 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
   readonly privacyStatement = PrivacyStmt;
 
   constructor(protected dataService: RegisterPractitionerDataService,
-              protected pageStateService: PageStateService) {
-    super(dataService, pageStateService);
+              protected pageStateService: PageStateService,
+              protected headerService: HeaderService) {
+    super(dataService, pageStateService, headerService);
   }
 
   ngOnInit() {
@@ -35,7 +36,7 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
 
         if ( this.dataService.jsonMaintPractitioner.response.referenceNumber ) {
           // Assumed something went wrong with automated processing but is in MAXHUB
-          this.displayIcon = ApiStatusCodes.WARNING;
+          this.displayIcon = ApiStatusCodes.SUCCESS;
         }
       }
     }
