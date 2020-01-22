@@ -65,7 +65,11 @@
         <common-date name='effectiveDate'
                       label="Effective date"
                       formControlName='effectiveDate'
-                      [dateRangeStart]="effectStartRange"></common-date>
+                      [dateRangeStart]="effectStartRange">
+          <div class="text-muted mb-2">
+              Place holder for instructions.
+          </div>
+        </common-date>
       </div>
       <div *ngIf="isEffectiveDateWarning" class="text-primary">
         NOTE: The Effective Date you have provided is in the future. Claims submitted by
