@@ -85,8 +85,9 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
       // Manual reviews have no facility effective/cancel dates
       if ( this.dataService.attachmentCancelDate ) {
         return isBefore( this.dataService.attachmentCancelDate, this.bcpProgramStartDate )
-          ? this.bcpProgramStartDate
-          : subDays(this.dataService.attachmentCancelDate, 1);
+          || isSameDay(this.dataService.attachmentCancelDate, this.bcpProgramStartDate)
+            ? this.bcpProgramStartDate
+            : subDays(this.dataService.attachmentCancelDate, 1);
       }
       return null;
     }
