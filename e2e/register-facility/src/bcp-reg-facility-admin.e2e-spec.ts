@@ -2,34 +2,45 @@ import { browser } from 'protractor';
 import { BCPAdminPage } from './bcp-reg-facility.po';
 import { CREATE_FACILITY_PAGES } from '../../../src/app/modules/create-facility/create-facility-route-constants';
 
-describe('BCP Register Facility - Admin Page (Unit Test)', () => {
+describe('BCP Create Facility - Administrator Information Page (Unit Test)', () => {
 
     let adminPage: BCPAdminPage;
-
-    const DEFAULT_DATA = 0;
-    const MAX_VAL_DATA = 1;
+    let index = 0;
 
     beforeEach(() => {
         adminPage = new BCPAdminPage();
     });
 
-    it('01. should not be able to continue if the required fields are not filled out', () => {
-        adminPage.navigateTo();
-        adminPage.clickContinue();
-        expect(browser.getCurrentUrl()).toContain(CREATE_FACILITY_PAGES.FACILITY_ADMIN.fullpath, 'should stay on the same page');
+    afterEach(() => {
+        index++;
     });
 
-    it('02. should be able to input values in their maximum capcity', () => {
+    it('01. should be a MATCH since the Admin Info for Chiropractor is VALID', () => {
         adminPage.navigateTo();
-        adminPage.fillPage(MAX_VAL_DATA);
-        adminPage.checkAdminInputValues(MAX_VAL_DATA);
-    });
-
-    it('03. should be able to continue if all the required fields are filled out and valid', () => {
-        adminPage.navigateTo();
-        adminPage.fillPage(DEFAULT_DATA);
+        adminPage.fillPage(index);
         adminPage.clickContinue();
-        expect(browser.getCurrentUrl()).toContain(CREATE_FACILITY_PAGES.FACILITY_INFO.fullpath, 'should continue to the next page');
-    });
+        expect(browser.getCurrentUrl()).toContain(CREATE_FACILITY_PAGES.FACILITY_INFO.fullpath, 'should go to the Facility Info Page');
+    }, 100000);
+
+    it('02. should be a NO MATCH since the Practitioner Number for Chiropractor is INVALID', () => {
+        adminPage.navigateTo();
+        adminPage.fillPage(index);
+        adminPage.clickContinue();
+        expect(browser.getCurrentUrl()).toContain(CREATE_FACILITY_PAGES.FACILITY_ADMIN.fullpath, 'should NOT navigate to the next page');
+    }, 100000);
+
+    it('03. should be a NO MATCH since the Last Name for Private Practice is INVALID', () => {
+        adminPage.navigateTo();
+        adminPage.fillPage(index);
+        adminPage.clickContinue();
+        expect(browser.getCurrentUrl()).toContain(CREATE_FACILITY_PAGES.FACILITY_ADMIN.fullpath, 'should NOT navigate to the next page');
+    }, 100000);
+
+    it('04. should be a MATCH since the Admin Info for Private Practice is VALID', () => {
+        adminPage.navigateTo();
+        adminPage.fillPage(index);
+        adminPage.clickContinue();
+        expect(browser.getCurrentUrl()).toContain(CREATE_FACILITY_PAGES.FACILITY_INFO.fullpath, 'should go to the Facility Info Page');
+    }, 100000);
 
 });

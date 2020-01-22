@@ -2,7 +2,7 @@ import { browser } from 'protractor';
 import { BCPHomePage, BCPBasePage } from './bcp-reg-facility.po';
 import { CREATE_FACILITY_PAGES } from '../../../src/app/modules/create-facility/create-facility-route-constants';
 
-describe('BCP Register Facility - Home Page (Unit Test)', () => {
+describe('BCP Create Facility - Home Page (Unit Test)', () => {
 
     let page: BCPBasePage;
     let homePage: BCPHomePage;

@@ -2,7 +2,7 @@ import { browser, by, element, protractor, Key } from 'protractor';
 import { AbstractTestPage } from 'moh-common-lib/e2e';
 import { CREATE_FACILITY_PAGES } from '../../../src/app/modules/create-facility/create-facility-route-constants';
 import * as fs from 'fs';
-import * as sampleFile from './bcp-admin-info-data.json';
+import * as sampleFile from './bcprf-data.json';
 
 /**
  * This class is for GENERAL functions, and all those that target components
@@ -185,6 +185,10 @@ export class BCPInfoPage extends BCPBasePage {
         browser.sleep(2000);
     }
 
+    hasWarningMessage(){
+        return element(by.css('div[class="message-container border-warning"]')).isPresent();
+    }
+
     checkInfoInputValues(index: number) {
         this.getInputValue('Facility or practice name').then(faciName => {
             expect(faciName).toBe(this.jsonData[this.index].facilityName, 'Facility name values should be the same');
@@ -227,4 +231,15 @@ export class BCPReviewPage extends BCPBasePage {
         this.clickSubmit();
     }
 
+    /*
+    hasSameData(label: string, data: string) {
+        return element(by.cssContainingText('div', `${label}`)).element(by.xpath('../..')).element(by.cssContainingText('b', `${data}`));
+    }
+
+    checkDisplayInformation(index: number) {
+        this.hasSameData(' First name: ', this.jsonData[index].facilityAdminFirstName.toString()).then(value => {
+            expect(value).toBe(true, 'First name should be displayed correctly');
+        });
+    }
+    */
 }
