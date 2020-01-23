@@ -98,11 +98,9 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
            isBefore( this.dataService.attachmentCancelDate, this.dataService.facEffectiveDate ) ) {
           return subDays(this.dataService.facCancelDate, 1);
       }
-      return isSameDay(this.dataService.attachmentCancelDate, this.bcpProgramStartDate)
-        ? this.bcpProgramStartDate
-        : isSameDay(this.dataService.attachmentCancelDate, this.dataService.facEffectiveDate)
-          ? this.dataService.facEffectiveDate
-          : subDays(this.dataService.attachmentCancelDate, 1);
+      return isSameDay(this.dataService.attachmentCancelDate, this.dataService.facEffectiveDate)
+        ? this.dataService.facEffectiveDate
+        : subDays(this.dataService.attachmentCancelDate, 1);
     }
 
     return this.dataService.facCancelDate;
@@ -149,7 +147,17 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
 
   private setFacilityEffectiveDateErrMsg(): void {
 
-    if (this.effectiveDateStartRange && this.effectiveDateEndRange) {
+    if (this.dataService.attachmentEffectiveDate && this.dataService.attachmentCancelDate
+      && isSameDay(this.dataService.attachmentEffectiveDate, this.dataService.attachmentCancelDate)) {
+      this.facilityEffectiveDateErrMsg = {
+        invalidRange: `This effective date must not be the same as the cancellation date.`
+      };
+    } else if (this.dataService.attachmentEffectiveDate && this.dataService.attachmentCancelDate
+      && isAfter(this.dataService.attachmentEffectiveDate, this.dataService.attachmentCancelDate)) {
+      this.facilityEffectiveDateErrMsg = {
+        invalidRange: `This effective date must not be after the cancellation date.`
+      };
+    } else if (this.effectiveDateStartRange && this.effectiveDateEndRange) {
 
       // HARRY: Note this will be an issue if the cancel date is more than 150 years in the future.  If validation needs to
       // different this is a common library change and impacts other applications
@@ -172,7 +180,17 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
   }
 
   setfacilityCancelDateErrMsg(): void {
-    if (this.cancelDateStartRange && this.cancelDateEndRange) {
+    if (this.dataService.attachmentEffectiveDate && this.dataService.attachmentCancelDate
+      && isSameDay(this.dataService.attachmentEffectiveDate, this.dataService.attachmentCancelDate)) {
+      this.facilityCancelDateErrMsg = {
+        invalidRange: `This effective date must not be the same as the cancellation date.`
+      };
+    } else if (this.dataService.attachmentEffectiveDate && this.dataService.attachmentCancelDate
+      && isBefore(this.dataService.attachmentCancelDate, this.dataService.attachmentEffectiveDate)) {
+      this.facilityCancelDateErrMsg = {
+        invalidRange: `This cancellation date must not be before the effective date.`
+      };
+    } else if (this.cancelDateStartRange && this.cancelDateEndRange) {
       // HARRY: Note this will be an issue if the cancel date is more than 150 years in the future.  If validation needs to
       // different this is a common library change and impacts other applications
       this.facilityCancelDateErrMsg = {
