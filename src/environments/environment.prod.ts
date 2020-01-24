@@ -1,6 +1,7 @@
 export const environment = {
   production: true,
   bypassModal: false,
+  bypassSplashPage: false,
 
   // TODO: REVERT THIS! ENABLED ONLY FOR EASY UX REVIEW FOR JEFF
   bypassGuards: false,
@@ -13,7 +14,8 @@ export const environment = {
     base: '/bcp/api/bcpIntegration',
     captcha: '/bcp/api/captcha',
     splunk: '/bcp/api/logging',
-    attachment: '/bcp/api/bcpAttachment'
+    attachment: '/bcp/api/bcpAttachment',
+    env: '/bcp/api/env',
   },
   links: {
     tbd: 'google.com',
