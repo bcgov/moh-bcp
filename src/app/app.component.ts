@@ -6,6 +6,8 @@ import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { filter, map, mergeMap } from 'rxjs/operators';
 import { SplunkLoggerService } from './services/splunk-logger.service';
 import { CommonLogEvents } from 'moh-common-lib';
+import { environment } from '../environments/environment';
+import { SplashPageService } from './modules/splash-page/splash-page.service';
 
 @Component({
   selector: 'app-root',
@@ -19,13 +21,17 @@ export class AppComponent implements OnInit {
               private titleService: Title,
               private router: Router,
               private activatedRoute: ActivatedRoute,
-              private splunkLogger: SplunkLoggerService) {
+              private splunkLogger: SplunkLoggerService,
+              private splash: SplashPageService) {
     version.success
       ? console.log('%c' + version.message, 'color: #036; font-size: 20px; background-color: white;')
       : console.error(version.message);
   }
 
   ngOnInit() {
+    if (!environment.bypassSplashPage) {
+      this.splash.setup();
+    }
     this.headerService.title.subscribe(x => this.title = x);
     this.updateTitleOnRouteChange();
   }

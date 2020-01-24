@@ -5,6 +5,7 @@ import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
 import { ApiStatusCodes, PageStateService } from 'moh-common-lib';
 import { ConfirmBaseForm } from '../../../core-bcp/models/confirm-base-form';
 import { HeaderService } from '../../../../services/header.service';
+import { PrivacyStmt } from '../../../core-bcp/components/core-consent-modal/core-consent-modal.component';
 
 enum WarningMessage {
   NEAR_MATCH_SCEN = 0,
@@ -24,6 +25,7 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
   isUnderReview: boolean = false;
 
   warningMessage: WarningMessage;
+  readonly privacyStatement: string = PrivacyStmt;
 
   private _warningConfirmationMsg: string = 'Your application has been submitted. To complete your application you must ' +
                                             'contact Health Insurance BC at (604) 456-6950 (lower mainland) or 1-866-456-6950 (elsewhere in B.C.).';

@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   bypassModal: false,
   bypassGuards: true,
+  bypassSplashPage: false,
   useDummyData: false, // For testing against real back-end
   useMockBackend: false,
   useMockBackendData: false,
@@ -13,7 +14,8 @@ export const environment = {
     base: '/bcp/api/bcpIntegration',
     captcha: '/bcp/api/captcha',
     splunk: '/bcp/api/logging',
-    attachment: '/bcp/api/bcpAttachment'
+    attachment: '/bcp/api/bcpAttachment',
+    env: '/bcp/api/env',
   },
   links: {
     tbd: 'google.com',

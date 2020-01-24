@@ -38,6 +38,6 @@
 
     <bcp-signature name='signature' formControlName='signature'></bcp-signature>
     <br/>
-    <p>Personal information on this form is collected under the authority of the Medicare Protection Act and will be used to process your application, for record keeping, and for the administration of programs pertaining to MSP Facility Numbers. Please note that information you are providing may be disclosed to third-party agencies for administrative purposes, which may result in your contact information being disclosed to your clients.  Information is protected from unauthorized use and disclosure in accordance with the Freedom of Information and Protection of Privacy Act. If you have any questions about the collection of this information, contact Health Insurance BC.</p>
+    <p [innerHTML]='privacyStatement'></p>
   </form>
 </common-page-framework>
