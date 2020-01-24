@@ -39,9 +39,9 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit, AfterV
     super.ngOnInit();
 
     this.formGroup = this.fb.group({
-      name: [this.dataService.pracFacilityName, [Validators.required, Validators.pattern(/^[^ -~]+$/)]],
+      name: [this.dataService.pracFacilityName, [Validators.required, Validators.pattern(/^[ -~]+$/)]],
       mspNumber: [this.dataService.pracFacilityNumber, [Validators.required]],
-      address: [this.dataService.pracFacilityAddress, [Validators.required, Validators.pattern(/^[^ -~]+$/)]],
+      address: [this.dataService.pracFacilityAddress, [Validators.required, Validators.pattern(/^[ -~]+$/)]],
       city: [this.dataService.pracFacilityCity, [Validators.required]],
       province: [getProvinceDescription(this.dataService.pracFacilityProvince)],
       postalCode: [this.dataService.pracFacilityPostalCode, [Validators.required]],

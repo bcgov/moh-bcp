@@ -14,7 +14,7 @@ export const cCreateFacilityValidators = {
     facilityDetail: {
         facilityName: [
             Validators.required,
-            Validators.pattern(/^[^ -~]+$/)
+            Validators.pattern(/^[ -~]+$/)
         ],
         // phoneNumber: [
         //     Validators.required
@@ -38,7 +38,7 @@ export const cCreateFacilityValidators = {
     address: {
         streetAddress: [
             Validators.required,
-            Validators.pattern(/^[^ -~]+$/)
+            Validators.pattern(/^[ -~]+$/)
         ],
         city: [
             Validators.required,
