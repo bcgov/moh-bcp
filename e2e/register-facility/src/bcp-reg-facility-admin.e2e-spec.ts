@@ -43,4 +43,18 @@ describe('BCP Create Facility - Administrator Information Page (Unit Test)', () 
         expect(browser.getCurrentUrl()).toContain(CREATE_FACILITY_PAGES.FACILITY_INFO.fullpath, 'should go to the Facility Info Page');
     }, 100000);
 
+    it('05. should result in an ERROR if the user inserts non-printable characters into the input fields', () => {
+        adminPage.navigateTo();
+        adminPage.fillPage(index);
+        adminPage.clickContinue();
+        expect(browser.getCurrentUrl()).toContain(CREATE_FACILITY_PAGES.FACILITY_ADMIN.fullpath, 'should NOT navigate to the next page');
+    }, 100000);
+
+    it('06. should verify that a user can only enter up to the max length of input fields', () => {
+        adminPage.navigateTo();
+        adminPage.fillPage(index);
+        adminPage.clickContinue();
+        adminPage.checkAdminInputValues(index);
+    }, 100000);
+
 });

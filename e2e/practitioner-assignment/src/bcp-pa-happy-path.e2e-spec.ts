@@ -30,14 +30,17 @@ fdescribe('BCP Practitioner Assignment- Happy Path e2e', () => {
         homePage.navigateTo();
         homePage.fillPage(index);
         homePage.clickContinue();
+        browser.sleep(2000);
         expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_INFO.fullpath, 'should be able to go to the Prac Info Page');
         pracInfoPage.fillPage(index);
         pracInfoPage.clickContinue();
+        browser.sleep(2000);
         expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.FACILITY_INFO.fullpath, 'should be able to go to the Facility Info Page');
         faciInfoPage.fillPage(index);
         faciInfoPage.clickContinue();
+        browser.sleep(2000);
         expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_ASSIGN.fullpath, 'should be able to go to the Prac Attach Info Page');
-        // expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.SUBMISSION.fullpath, 'should be able to go to the Submission Page');
+        // expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.SUBMISSION.fullpath, 'should go to Submission Page');
     }, 100000);
 
 });

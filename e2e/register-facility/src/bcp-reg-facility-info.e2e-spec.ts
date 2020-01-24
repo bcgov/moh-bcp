@@ -49,4 +49,26 @@ describe('BCP Create Facility - Facility Information Page (Unit Test)', () => {
         });
     });
 
+    it('04. should be able to go through the next page if all the required fields are filled out', () => {
+        infoPage.navigateTo();
+        infoPage.fillPage(index);
+        infoPage.clickContinue();
+        browser.sleep(10000);
+        expect(browser.getCurrentUrl()).toContain(CREATE_FACILITY_PAGES.REVIEW.fullpath, 'should continue to the next page');
+
+    });
+
+    it('05. should result in an ERROR if the user inserts non-printable characters into the input fields', () => {
+        infoPage.navigateTo();
+        infoPage.fillPage(index);
+        infoPage.clickContinue();
+        expect(browser.getCurrentUrl()).toContain(CREATE_FACILITY_PAGES.FACILITY_INFO.fullpath, 'should NOT navigate to the next page');
+    }, 100000);
+
+    it('06. should verify that a user can only enter up to the max length of input fields', () => {
+        infoPage.navigateTo();
+        infoPage.fillPage(index);
+        infoPage.checkInfoInputValues(index);
+    }, 100000);
+
 });
