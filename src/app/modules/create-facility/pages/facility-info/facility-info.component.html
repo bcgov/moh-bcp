@@ -9,7 +9,7 @@
 
       <div class="form-group">
         <!-- Facility Name -->
-        <label class="control-label" for="facilityName">Facility or practice name</label>
+        <label class="control-label" for="facilityName">Facility or practice name<span class='text-muted font-weight-normal'> (i.e., name of clinic or medical office)</span></label>
         <input id="facilityName" formControlName="facilityName" class="form-control" maxlength="70">
         <common-error-container [displayError]="validFormControl(facilityForm,'facilityName')">
           Facility Name is a required field
@@ -63,11 +63,11 @@
 
       <div class="form-group">
         <common-date name='effectiveDate'
-                      label="Effective date"
+                      label="Facility effective date"
                       formControlName='effectiveDate'
                       [dateRangeStart]="effectStartRange">
           <div class="text-muted mb-2">
-              Place holder for instructions.
+            Please provide the date the facility initially opened and began operations
           </div>
         </common-date>
       </div>
@@ -80,7 +80,7 @@
       <div class="form-group">
         <common-radio formControlName="isSameMailingAddress"
                       name="isSameMailingAddress"
-                      label="Is the mailing address the same as the Physical Facility Address?"
+                      label="Is the mailing address the same as the physical facility address?"
                       display="table-row-group"
                       [errorMessage]="sameMailAddrError">
         </common-radio>
@@ -90,7 +90,7 @@
 
     <aside>
       <h2>Tip</h2>
-      <p>"Effective date" is the date when the facility began or will begin operations. The Business Cost Premium (if applicable) cannot be claimed for physician services provided earlier than the facility effective date.</p>
+      <p>"Facility effective date" is the date the facility initially opens and begins operations. (The Business Cost Premium cannot be claimed for physician services provided earlier than the facility effective date.)</p>
     </aside>
   </common-page-section>
   <h2 class='border-bottom' *ngIf="showMailingAddress">Facility Mailing Address</h2>

@@ -20,6 +20,7 @@ export const environment = {
   links: {
     tbd: 'google.com',
     hibc: 'http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us',
+    practitionerAttachment: '/bcp/practitioner-registration/home',
   }
 };
 
