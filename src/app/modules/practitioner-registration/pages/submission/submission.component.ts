@@ -5,6 +5,7 @@ import { RegisterPractitionerDataService } from '../../services/register-practit
 import { ConfirmBaseForm } from '../../../core-bcp/models/confirm-base-form';
 import { PrivacyStmt } from '../../../core-bcp/components/core-consent-modal/core-consent-modal.component';
 import { HeaderService } from '../../../../services/header.service';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'bcp-submission',
@@ -15,6 +16,7 @@ import { HeaderService } from '../../../../services/header.service';
 export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
 
   readonly privacyStatement = PrivacyStmt;
+  readonly hibcLink: string = environment.links.hibc;
 
   constructor(protected dataService: RegisterPractitionerDataService,
               protected pageStateService: PageStateService,
