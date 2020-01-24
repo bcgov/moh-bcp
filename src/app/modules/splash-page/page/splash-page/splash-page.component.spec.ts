@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SplashPageComponent } from './splash-page.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { SharedCoreModule } from 'moh-common-lib';
 
 describe('SplashPageComponent', () => {
   let component: SplashPageComponent;
@@ -15,7 +16,8 @@ describe('SplashPageComponent', () => {
       ],
       imports: [
         HttpClientTestingModule,
-        RouterTestingModule
+        RouterTestingModule,
+        SharedCoreModule,
       ]
     })
     .compileComponents();
