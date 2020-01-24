@@ -14,4 +14,3 @@ import { SplashPageComponent } from './page/splash-page/splash-page.component';
   declarations: [SplashPageComponent]
 })
 export class SplashPageModule { }
-console.warn('TEST');
