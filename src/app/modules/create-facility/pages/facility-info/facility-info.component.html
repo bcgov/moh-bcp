@@ -16,7 +16,7 @@
               Facility Name is a required field
           </div>
           <div *ngIf ="facilityForm.controls?.facilityName?.errors?.pattern">
-              Facility Name contains invalid character(s).
+              Facility Name must contain letters, numbers and/or symbols(e.g. #, @, !).
           </div>
         </common-error-container>
       </div>
@@ -37,7 +37,7 @@
               Facility Address max length must be 60 or fewer characters.
           </div>
           <div *ngIf="facilityForm.controls?.address?.errors?.pattern">
-              Facility Address contains invalid character(s).
+              Facility Address must contain letters, numbers and/or symbols(e.g. #, @, !).
           </div>
         </common-error-container>
       </div>
@@ -120,7 +120,7 @@
               Facility Mailing Address is a required field.
           </div>
           <div *ngIf="facilityForm.controls?.mailingAddress?.errors?.pattern">
-              Facility Mailing Address contains invalid character(s).
+              Facility Mailing Address must contain letters, numbers and/or symbols(e.g. #, @, !).
           </div>
         </common-error-container>
 

@@ -10,7 +10,7 @@
             {{facilityLabel}} is a required field
         </div>
         <div *ngIf ="formGroup.controls?.name?.errors?.pattern">
-            {{facilityLabel}} contains invalid character(s).
+            {{facilityLabel}} must contain letters, numbers and/or symbols(e.g. #, @, !).
         </div>
       </common-error-container>
     </div>
@@ -36,7 +36,7 @@
             {{physicalAddrLabel}} is a required field.
         </div>
         <div *ngIf="formGroup.controls?.address?.errors?.pattern">
-            {{physicalAddrLabel}} contains invalid character(s).
+            {{physicalAddrLabel}} must contain letters, numbers and/or symbols(e.g. #, @, !).
         </div>
       </common-error-container>
     </div>
