@@ -109,7 +109,7 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
 
     form.get('address').valueChanges.subscribe(
       value => {
-        console.log('%c ADDRESS (phys) changed: %o', 'color:blue', value);
+        // console.log('%c ADDRESS (phys) changed: %o', 'color:blue', value);
         if (!value) {
           this.physicalAddress = null;
           this.dataService.facInfoPhysicalAddress = null;
@@ -119,7 +119,7 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
 
     form.get('mailingAddress').valueChanges.subscribe(
       value => {
-        console.log('%c ADDRESS (mail) changed: %o', 'color:red', value);
+        // console.log('%c ADDRESS (mail) changed: %o', 'color:red', value);
         if (!value) {
           this.mailingAddress = null;
           this.dataService.facInfoMailAddress = null;
@@ -239,7 +239,7 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
     }
   }
   physicalAddressSelected(address: Address) {
-    console.log('%c ADDRESS (physicalAddr): %o', 'color:red', address);
+    // console.log('%c ADDRESS (physicalAddr): %o', 'color:red', address);
     this.facilityForm.patchValue({
       address: address.addressLine1,
       city: address.city
