@@ -1,9 +1,18 @@
 <form [(formGroup)]="formGroup">
     <div class="form-group">
-      <common-name label='Facility or practice name'
-                   name='name'
-                   formControlName='name'
-                   [maxlength]='70'></common-name>
+
+      <label class="control-label" for="name">{{facilityLabel}}</label>
+      <input id="facilityName" formControlName="name" class="form-control" maxlength="70">
+
+      <common-error-container
+        [displayError]="formGroup.controls?.name?.touched && formGroup.controls?.name?.errors">
+        <div *ngIf ="formGroup.controls?.name?.errors?.required">
+            {{facilityLabel}} is a required field
+        </div>
+        <div *ngIf ="formGroup.controls?.name?.errors?.pattern">
+            {{facilityLabel}} contains invalid character(s).
+        </div>
+      </common-error-container>
     </div>
 
     <div class="form-group">
@@ -15,15 +24,20 @@
     </div>
 
     <div class="form-group">
-      <common-geocoder-input label='Physical address'
+      <common-geocoder-input label='{{physicalAddrLabel}}'
         formControlName="address"
         maxlength="60"
         (addressChange)="physicalAddressSelected($event)">
       </common-geocoder-input>
       <!-- Empty validation case is required here due to GeoCoderInput incompatibility. -->
       <common-error-container
-        [displayError]="formGroup.controls?.address?.touched && formGroup.controls?.address?.errors?.required">
-        Facility Address is a required field
+        [displayError]="formGroup.controls?.address?.touched && formGroup.controls?.address?.errors">
+        <div *ngIf="formGroup.controls?.address?.errors?.required">
+            {{physicalAddrLabel}} is a required field.
+        </div>
+        <div *ngIf="formGroup.controls?.address?.errors?.pattern">
+            {{physicalAddrLabel}} contains invalid character(s).
+        </div>
       </common-error-container>
     </div>
 
