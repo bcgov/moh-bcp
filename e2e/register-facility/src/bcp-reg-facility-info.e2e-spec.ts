@@ -23,7 +23,7 @@ describe('BCP Create Facility - Facility Information Page (Unit Test)', () => {
         browser.sleep(1000);
         expect(browser.getCurrentUrl()).toContain(CREATE_FACILITY_PAGES.REVIEW.fullpath, 'should continue to the next page');
         infoPage.hasWarningMessage().then(val => {
-            expect(val).toBe(false, 'No warning message should NOT be displayed since it is a new facility name')
+            expect(val).toBe(false, 'No warning message should NOT be displayed since it is a new facility name');
         });
     });
 
@@ -53,7 +53,7 @@ describe('BCP Create Facility - Facility Information Page (Unit Test)', () => {
         infoPage.navigateTo();
         infoPage.fillPage(index);
         infoPage.clickContinue();
-        browser.sleep(10000);
+        browser.sleep(1000);
         expect(browser.getCurrentUrl()).toContain(CREATE_FACILITY_PAGES.REVIEW.fullpath, 'should continue to the next page');
 
     });

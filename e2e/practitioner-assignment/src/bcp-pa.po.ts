@@ -193,10 +193,6 @@ export class BCPPractitionerAttachmentPage extends BCPBasePage {
         return browser.get(PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_ASSIGN.fullpath);
     }
 
-    fillPage(index: number) {
-        
-    }
-
 }
 
 export class BCPReviewPage extends BCPBasePage {

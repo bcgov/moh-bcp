@@ -185,7 +185,7 @@ export class BCPInfoPage extends BCPBasePage {
         browser.sleep(2000);
     }
 
-    hasWarningMessage(){
+    hasWarningMessage() {
         return element(by.css('div[class="message-container border-warning"]')).isPresent();
     }
 
