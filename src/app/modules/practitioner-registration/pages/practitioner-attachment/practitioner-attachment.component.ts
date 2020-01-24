@@ -47,6 +47,7 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
   facilityCancelDate: Date;
 
   bcpProgramStartDate: Date = parseISO('2020-04-01');
+  openEndedDate: Date = parseISO('9999-12-31');
 
   facilityEffectiveDateErrMsg: ErrorMessage;
   facilityCancelDateErrMsg: ErrorMessage;
@@ -155,7 +156,15 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
     } else if (this.dataService.attachmentEffectiveDate && this.dataService.attachmentCancelDate
       && isAfter(this.dataService.attachmentEffectiveDate, this.dataService.attachmentCancelDate)) {
       this.facilityEffectiveDateErrMsg = {
-        invalidRange: `This effective date must not be after the cancellation date.`
+        invalidRange: `This effective date must be before the cancellation date.`
+      };
+    } else if (this.effectiveDateStartRange && this.effectiveDateEndRange
+      && (
+        isSameDay(this.effectiveDateEndRange, this.openEndedDate) ||
+        isSameDay(this.effectiveDateEndRange, subDays(this.openEndedDate, 1))
+      )) {
+      this.facilityEffectiveDateErrMsg = {
+        invalidRange: `This date must be on or after ${formatDateForDisplay(this.effectiveDateStartRange)}.`
       };
     } else if (this.effectiveDateStartRange && this.effectiveDateEndRange) {
 
@@ -188,7 +197,12 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
     } else if (this.dataService.attachmentEffectiveDate && this.dataService.attachmentCancelDate
       && isBefore(this.dataService.attachmentCancelDate, this.dataService.attachmentEffectiveDate)) {
       this.facilityCancelDateErrMsg = {
-        invalidRange: `This cancellation date must not be before the effective date.`
+        invalidRange: `This cancellation date must be after the effective date.`
+      };
+    } else if (this.cancelDateStartRange && this.cancelDateEndRange
+      && isSameDay(this.cancelDateEndRange, this.openEndedDate)) {
+      this.facilityCancelDateErrMsg = {
+        invalidRange: `This date must be on or after ${formatDateForDisplay(this.cancelDateStartRange)}.`
       };
     } else if (this.cancelDateStartRange && this.cancelDateEndRange) {
       // HARRY: Note this will be an issue if the cancel date is more than 150 years in the future.  If validation needs to
