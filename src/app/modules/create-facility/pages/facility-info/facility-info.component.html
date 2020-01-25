@@ -12,7 +12,12 @@
         <label class="control-label" for="facilityName">Facility or practice name<span class='text-muted font-weight-normal'> (i.e., name of clinic or medical office)</span></label>
         <input id="facilityName" formControlName="facilityName" class="form-control" maxlength="70">
         <common-error-container [displayError]="validFormControl(facilityForm,'facilityName')">
-          Facility Name is a required field
+          <div *ngIf ="facilityForm.controls?.facilityName?.errors?.required">
+              Facility Name is a required field
+          </div>
+          <div *ngIf ="facilityForm.controls?.facilityName?.errors?.pattern">
+              Facility Name must contain letters, numbers and/or symbols(e.g. #, @, !).
+          </div>
         </common-error-container>
       </div>
 
@@ -24,12 +29,16 @@
         </common-geocoder-input>
 
         <common-error-container
-          [displayError]="facilityForm.controls?.address?.touched && facilityForm.controls?.address?.errors?.required">
-          Facility Address is a required field
-        </common-error-container>
-
-        <common-error-container [displayError]="facilityForm.controls?.address?.errors?.maxlength">
-          Facility Address max length must be 60 or fewer characters.
+          [displayError]="facilityForm.controls?.address?.touched && facilityForm.controls?.address?.errors">
+          <div *ngIf="facilityForm.controls?.address?.errors?.required">
+              Facility Address is a required field
+          </div>
+          <div *ngIf="facilityForm.controls?.address?.errors?.maxlength">
+              Facility Address max length must be 60 or fewer characters.
+          </div>
+          <div *ngIf="facilityForm.controls?.address?.errors?.pattern">
+              Facility Address must contain letters, numbers and/or symbols(e.g. #, @, !).
+          </div>
         </common-error-container>
       </div>
 
@@ -100,12 +109,19 @@
       <form [formGroup]="facilityForm">
 
         <div class="form-group">
-          <common-geocoder-input label='Mailing address' formControlName="mailingAddress" maxlength="60" (addressChange)="mailingAddressSelected($event)">
+          <common-geocoder-input label='Mailing address'
+            formControlName="mailingAddress" maxlength="60"
+            (addressChange)="mailingAddressSelected($event)">
           </common-geocoder-input>
 
         <common-error-container
-          [displayError]="facilityForm.controls?.mailingAddress?.touched && facilityForm.controls?.mailingAddress?.errors?.required">
-          Facility Mailing Address is a required field
+          [displayError]="facilityForm.controls?.mailingAddress?.touched && facilityForm.controls?.mailingAddress?.errors">
+          <div *ngIf="facilityForm.controls?.mailingAddress?.errors?.required">
+              Facility Mailing Address is a required field.
+          </div>
+          <div *ngIf="facilityForm.controls?.mailingAddress?.errors?.pattern">
+              Facility Mailing Address must contain letters, numbers and/or symbols(e.g. #, @, !).
+          </div>
         </common-error-container>
 
         <common-error-container [displayError]="facilityForm.controls.facInfoFaxNumber?.mailingAddress?.errors?.maxlength">
