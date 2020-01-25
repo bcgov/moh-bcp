@@ -7,7 +7,7 @@
   <div class="form-group">
     <common-radio formControlName="attachmentType"
                   name="attachmentType"
-                  label="What change are you making for Business Cost Premium to the facility?"
+                  label="What change are you making for this attachment?"
                   [radioLabels]='radioItems'
                   display="table-row-group"
                   (ngModelChange)='changeAttachmentType($event)'>
@@ -16,10 +16,8 @@
 
   <ng-container *ngIf='shouldShowNewSection'>
     <h2>Add new attachment</h2>
-    <ul>
-      <li>Effective Date - is the date the practitioner began practice at the facility as an Eligible Physician</li>
-      <li>Cancellation Date (if applicable) - the date at which the locum is completed</li>
-    </ul>
+    <p>Please provide the date the practitioner began practice at the facility as an Eligible Physician. The date must be after the Facility effective date (the date the facility began operations).</p>
+    <p>Locums or other temporary attachments must also provide the date at which the locum or other temporary attachment is completed.</p>
     <hr/>
     <div class="form-group">
       <common-radio formControlName="newAttachmentType"
@@ -52,6 +50,9 @@
   </ng-container>
 
   <ng-container *ngIf='shouldShowCancelSection'>
+    <h2>Cancel existing attachment</h2>
+    <p>If your existing attachment to an MSP Facility Number has ended, please provide the cancellation date.</p>
+    <hr/>
     <div class="form-group">
       <common-date label='Cancellation date for existing attachment'
                     name="attachmentCancelDate"
@@ -64,6 +65,9 @@
   </ng-container>
 
   <ng-container *ngIf='shouldShowChangeSection'>
+    <h2>Change existing attachment</h2>
+    <p>If your existing attachment to an MSP Facility Number has changed or requires correction, please provide the new effective attachment date and/or cancellation date.</p>
+    <hr/>
     <div class="form-group">
       <common-date label='New effective date for existing attachment (if applicable)'
                     name="attachmentEffectiveDate"
