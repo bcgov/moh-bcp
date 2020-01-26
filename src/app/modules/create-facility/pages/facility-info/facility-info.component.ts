@@ -112,8 +112,8 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
         // console.log('%c ADDRESS (phys) changed: %o', 'color:blue', value);
         if (!value) {
           this.physicalAddress = null;
-          this.dataService.facInfoPhysicalAddress = null;
         }
+        this.dataService.facInfoPhysicalAddress = value ? value : null;
       }
     );
 
@@ -122,8 +122,8 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
         // console.log('%c ADDRESS (mail) changed: %o', 'color:red', value);
         if (!value) {
           this.mailingAddress = null;
-          this.dataService.facInfoMailAddress = null;
         }
+        this.dataService.facInfoMailAddress = value ? value : null;
       }
     );
 
@@ -247,6 +247,7 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
 
     this.dataService.facInfoPhysicalAddress = address.addressLine1;
     this.dataService.facInfoCity = address.city;
+
     this.physicalAddress = address;
   }
   mailingAddressSelected(address: Address) {

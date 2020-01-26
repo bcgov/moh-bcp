@@ -27,7 +27,7 @@
       <common-geocoder-input label='{{physicalAddrLabel}}'
         formControlName="address"
         maxlength="60"
-        (addressChange)="physicalAddressSelected($event)">
+        (select)="physicalAddressSelected($event)">
       </common-geocoder-input>
       <!-- Empty validation case is required here due to GeoCoderInput incompatibility. -->
       <common-error-container
