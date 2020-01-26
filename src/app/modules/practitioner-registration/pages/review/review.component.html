@@ -12,11 +12,9 @@
     <div class="col-md-12 pl-0">
       <h2 class="border-bottom">Declaration</h2>
     </div>
-    <div class="row col-md-12 ml-0 pl-0 align-items-left font-italic" [innerHtml]='dataService.declarationText'>
+    <div class="row col-md-12 ml-0 pl-0 align-items-left" [innerHtml]='dataService.declarationText'>
     </div>
   </div>
-  <h2 class="border-bottom">Signtaure</h2>
+  <h3>{{signatureLabel}}</h3>
   <bcp-signature name='signature' formControlName='signature' [errorMessage]='errorMessage'></bcp-signature>
-
-  <div class="pt-4" [innerHTML]='privacyStatement'></div>
 </form>
