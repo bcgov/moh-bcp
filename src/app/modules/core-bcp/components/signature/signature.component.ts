@@ -18,6 +18,7 @@ export class SignatureComponent implements AfterViewInit {
   @ViewChild('signatureModal', { static: true }) public modal: ModalDirective;
 
   @Input() errorMessage: string = 'Signature is required';
+  @Input() label: string = 'Add your signature';
 
   public image: CommonImage;
   private blankCanvas = true;

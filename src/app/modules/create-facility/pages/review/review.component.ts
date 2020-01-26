@@ -22,6 +22,9 @@ export class ReviewComponent extends BcpBaseForm implements OnInit, AfterViewIni
   showDuplicateWarning = true;
   readonly privacyStatement: string = PrivacyStmt;
 
+  signatureLabel: string = 'Practitioner Signature';
+  errorMessage: string = `${this.signatureLabel } is required to submit the form`;
+
   @ViewChild(SignatureComponent, {static: true}) signature: SignatureComponent;
 
   constructor(protected router: Router,

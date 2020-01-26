@@ -35,8 +35,9 @@
       </div>
     </div>
 
-    <bcp-signature name='signature' formControlName='signature'></bcp-signature>
-    <br/>
-    <p [innerHTML]='privacyStatement'></p>
+    <h3>{{signatureLabel}}</h3>
+    <bcp-signature name='signature'
+                   formControlName='signature'
+                   [errorMessage]='errorMessage'></bcp-signature>
   </form>
 </common-page-framework>

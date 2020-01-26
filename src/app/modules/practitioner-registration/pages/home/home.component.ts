@@ -51,4 +51,8 @@ export class HomeComponent extends BcpBaseForm implements OnInit {
   setToken(token: string): void {
     this.apiService.setToken(token);
   }
+
+  get pageTitle() {
+    return PRACTITIONER_REGISTRATION_PAGES.HOME.title;
+  }
 }
