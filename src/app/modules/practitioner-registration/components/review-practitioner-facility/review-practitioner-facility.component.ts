@@ -3,6 +3,7 @@ import { ReviewContainerComponent } from '../../../core-bcp/components/review-co
 import { RegisterPractitionerDataService } from '../../services/register-practitioner-data.service';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration-route-constants';
 import { setNotApplicable } from '../../../core-bcp/models/helperFunc';
+import { getProvinceDescription } from 'moh-common-lib';
 
 @Component({
   selector: 'bcp-review-practitioner-facility',
@@ -29,7 +30,7 @@ export class ReviewPractitionerFacilityComponent implements OnInit {
         { label: 'Medical Services Plan facility number', value: this.dataService.pracFacilityNumber },
         { label: 'Address', value: this.dataService.pracFacilityAddress },
         { label: 'City', value: this.dataService.pracFacilityCity },
-        { label: 'Province', value: this.dataService.pracFacilityProvince },
+        { label: 'Province', value: getProvinceDescription( this.dataService.pracFacilityProvince )},
         { label: 'Postal code', value: this.dataService.pracFacilityPostalCode },
         { label: 'Fax number (optional)', value: setNotApplicable(this.dataService.pracFacilityFaxNumber) }
       ],
