@@ -4,15 +4,10 @@
 
 const { SpecReporter } = require('jasmine-spec-reporter');
 
-// browser = await puppeteer.launch({
-//   executablePath: process.env.PUPPETEER_EXEC_PATH, // set by docker container
-//   headless: false,
-// });
-
 exports.config = {
   allScriptsTimeout: 11000,
   specs: [
-    './src/*.e2e-spec.ts'
+    './src/bcp-reg-facility-happy-path.ts',
   ],
   multiCapabilities: [
     {

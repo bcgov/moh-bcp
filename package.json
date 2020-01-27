@@ -16,7 +16,7 @@
     "e2e:bcppa-firefox": "npm run e2e -- --protractorConfig=e2e/practitioner-assignment/protractor-bcp-pa-firefox.conf.js --port=4300",
     "e2e:bcppa": "npm run e2e -- --protractorConfig=e2e/practitioner-assignment/protractor-bcp-pa.conf.js --port=4300",
     "e2e:bcprf": "npm run e2e -- --protractorConfig=e2e/register-facility/protractor-bcp-rf.conf.js --port=4300",
-    "e2e:bcprf-firefox": "npm run e2e -- --protractorConfig=e2e/register-facility/protractor-bcp-firefox.conf.js --port=4300",
+    "e2e:bcprf-happy-path": "npm run e2e -- --protractorConfig=e2e/register-facility/protractor-bcp-rf-happy-path.conf.js --port=4300",
     "e2e:bcprf-chrome": "npm run e2e -- --protractorConfig=e2e/register-facility/protractor-bcp-chrome.conf.js --port=4300",
     "e2e:bcp": "npm run e2e-protractor -- e2e/register-facility/protractor.bcp.conf.js",
     "chrome-update": "sudo apt-get install google-chrome-stable",

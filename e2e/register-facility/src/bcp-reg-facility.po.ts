@@ -150,9 +150,10 @@ export class BCPInfoPage extends BCPBasePage {
         const months = [ 'January', 'February', 'March', 'April', 'May', 'June',
            'July', 'August', 'September', 'October', 'November', 'December' ];
         element(by.cssContainingText('legend', `${legendVal}`)).element(by.xpath('../..'))
-            .element(by.css('select[id^="month"]')).sendKeys(months[parseInt(month, 10) - 1]);
+           .element(by.css('select[id^="month"]')).sendKeys(months[parseInt(month, 10) - 1]);
         // element(by.cssContainingText('legend', `${legendVal}`)).element(by.xpath('../..'))
         //     .element(by.css(`option[value="${month}"]`)).click();
+        element(by.css('input[id^="day"]')).click();
         element(by.css('input[id^="day"]')).sendKeys(day);
         element(by.css(`input[id^="year"]`)).sendKeys(year);
     }
@@ -162,6 +163,7 @@ export class BCPInfoPage extends BCPBasePage {
         this.typeText('Facility or practice name', this.jsonData[this.index].facilityName);
         this.typeText('Physical address', this.jsonData[this.index].address);
         this.typeText('City', this.jsonData[this.index].city);
+        this.scrollDown();
         this.typeText('Postal code', this.jsonData[this.index].postal);
         this.typeText('Contact fax number (optional)', this.jsonData[this.index].faxNum);
 
@@ -169,10 +171,10 @@ export class BCPInfoPage extends BCPBasePage {
         const year = effectiveDate.split('-')[0];
         const month = effectiveDate.split('-')[1];
         const day = effectiveDate.split('-')[2];
-        this.typeDate('Effective date', year, month, day);
+        this.typeDate('Facility effective date', year, month, day);
         this.scrollDown();
-        this.clickOption('Is the mailing address the same as the Physical Facility Address?',
-            this.jsonData[this.index].hasSameMailingAddress.toString());
+        this.clickOption('Is the mailing address the same as the physical facility address?',
+        this.jsonData[this.index].hasSameMailingAddress.toString());
         if (!this.jsonData[this.index].hasSameMailingAddress) {
             this.typeText('Mailing address', this.jsonData[this.index].mailingAddress);
             this.typeMailingCity(this.jsonData[this.index].mailingCity);

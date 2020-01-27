@@ -55,7 +55,6 @@ describe('BCP Create Facility - Facility Information Page (Unit Test)', () => {
         infoPage.clickContinue();
         browser.sleep(1000);
         expect(browser.getCurrentUrl()).toContain(CREATE_FACILITY_PAGES.REVIEW.fullpath, 'should continue to the next page');
-
     });
 
     it('05. should result in an ERROR if the user inserts non-printable characters into the input fields', () => {

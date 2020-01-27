@@ -43,4 +43,17 @@ describe('BCP Practitioner Assignment - Practitioner Info Page (Unit Test)', () 
         expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_INFO.fullpath, 'should NOT navigate to the next page');
     }, 100000);
 
+    it('05. should result in an ERROR if the user inserts non-printable characters into the input fields', () => {
+        pracInfoPage.navigateTo();
+        pracInfoPage.fillPage(index);
+        pracInfoPage.clickContinue();
+        expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_INFO.fullpath, 'should NOT navigate to the next page');
+    }, 100000);
+
+    it('06. should verify that a user can only enter up to the max length of input fields', () => {
+        pracInfoPage.navigateTo();
+        pracInfoPage.fillPage(index);
+        pracInfoPage.checkPracInfoInputValues(index);
+    }, 100000);
+
 });

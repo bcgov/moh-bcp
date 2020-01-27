@@ -2,7 +2,7 @@ import { browser, by, element, protractor, Key } from 'protractor';
 import { AbstractTestPage } from 'moh-common-lib/e2e';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../../src/app/modules/practitioner-registration/practitioner-registration-route-constants';
 import * as fs from 'fs';
-import * as sampleFile from './bcp-pa-practitioner-info-data.json';
+import * as sampleFile from './bcppa-data.json';
 import { PRACTITIONER_ATTACHMENT } from '../../../src/app/modules/practitioner-registration/models/practitioner-attachment';
 
 /**
@@ -109,7 +109,7 @@ export class BCPPractitionerInfoPage extends BCPBasePage {
         this.typeText('Extension', this.jsonData[this.index].extension);
     }
 
-    checkAdminInputValues(index: number) {
+    checkPracInfoInputValues(index: number) {
         this.getInputValue('First name').then(firstName => {
             expect(firstName).toBe(this.jsonData[this.index].firstName, 'First name values should be the same');
         });
@@ -164,7 +164,7 @@ export class BCPFacilityInfoPage extends BCPBasePage {
         this.typeText('Medical Services Plan Facility Number', this.jsonData[this.index].MSPFacilityNum);
         this.typeText('Physical address', this.jsonData[this.index].physicalAddress);
         this.typeText('City', this.jsonData[this.index].city);
-        this.typeText('Postal Code', this.jsonData[this.index].postal);
+        this.typeText('Postal code', this.jsonData[this.index].postal);
         this.typeText('Fax number (optional)', this.jsonData[this.index].faxNum);
     }
 
@@ -172,13 +172,16 @@ export class BCPFacilityInfoPage extends BCPBasePage {
         this.getInputValue('Facility or practice name').then(faciName => {
             expect(faciName).toBe(this.jsonData[this.index].facilityName, 'Facility name values should be the same');
         });
+        this.getInputValue('Medical Services Plan Facility Number').then(faciNum => {
+            expect(faciNum).toBe(this.jsonData[this.index].MSPFacilityNum, 'MSP Facility Num values should be the same');
+        });
         this.getInputValue('Physical address').then(address => {
             expect(address).toBe(this.jsonData[this.index].physicalAddress, 'Physical address values should be the same');
         });
         this.getInputValue('City').then(city => {
             expect(city).toBe(this.jsonData[this.index].city, 'City values should be the same');
         });
-        this.getInputValue('Postal Code').then(postalCode => {
+        this.getInputValue('Postal code').then(postalCode => {
             expect(postalCode.replace(/[^A-Z0-9]/g, '')).toBe(this.jsonData[this.index].postal, 'Postal values should be the same');
         });
         this.getInputValue('Fax number (optional)').then(faxNum => {
