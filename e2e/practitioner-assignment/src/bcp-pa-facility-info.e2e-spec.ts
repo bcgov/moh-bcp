@@ -1,35 +1,60 @@
 import { browser } from 'protractor';
-import { BCPInfoPage } from './bcp-pa.po';
+import { BCPFacilityInfoPage } from './bcp-pa.po';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../../src/app/modules/practitioner-registration/practitioner-registration-route-constants';
 
-fdescribe('BCP Practitioner Assignment- Info Page (Unit Test)', () => {
+describe('BCP Practitioner Assignment- Info Page (Unit Test)', () => {
 
-    let infoPage: BCPInfoPage;
-
-    const DEFAULT_DATA = 0;
-    const MAX_VAL_DATA = 1;
+    let infoPage: BCPFacilityInfoPage;
+    let index = 0;
 
     beforeEach(() => {
-        infoPage = new BCPInfoPage();
+        infoPage = new BCPFacilityInfoPage();
+    });
+    afterEach(() => {
+        index++;
     });
 
-    it('01. should not be able to continue if the required fields are not filled out', () => {
+    it('01. should be a MATCH since the facility number and postal code are valid', () => {
         infoPage.navigateTo();
+        infoPage.fillPage(index);
         infoPage.clickContinue();
-        expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.FACILITY_INFO.fullpath, 'should stay on the same page');
-    });
+        expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_ASSIGN.fullpath, 'should continue to the next page');
+    }, 100000);
 
-    it('02. should be able to input values in their maximum capacity', () => {
+    it('02. should be a NO MATCH (hard stop) since the information doesnt match the records', () => {
         infoPage.navigateTo();
-        infoPage.fillPage(MAX_VAL_DATA);
-        infoPage.checkInfoInputValues(MAX_VAL_DATA);
-    });
-
-    it('03. should be able to continue if all the required fields are filled out and valid', () => {
-        infoPage.navigateTo();
-        infoPage.fillPage(DEFAULT_DATA);
+        infoPage.fillPage(index);
         infoPage.clickContinue();
-        expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.REVIEW.fullpath, 'should continue to the next page');
-    });
+        expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.FACILITY_INFO.fullpath, 'should NOT navigate to the next page - hard stop');
+    }, 100000);
+
+    it('03. should be a MATCH since the facility number and postal code are valid', () => {
+        infoPage.navigateTo();
+        infoPage.fillPage(index);
+        browser.sleep(10000);
+        infoPage.clickContinue();
+        expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_ASSIGN.fullpath, 'should continue to the next page');
+    }, 100000);
+
+    it('04. should be a MATCH since the facility number and postal code are valid', () => {
+        infoPage.navigateTo();
+        infoPage.fillPage(index);
+        browser.sleep(10000);
+        infoPage.clickContinue();
+        expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_ASSIGN.fullpath, 'should continue to the next page');
+    }, 100000);
+
+    it('05. should result in an ERROR if the user inserts non-printable characters into the input fields', () => {
+        infoPage.navigateTo();
+        infoPage.fillPage(index);
+        infoPage.clickContinue();
+        expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.FACILITY_INFO.fullpath, 'should NOT navigate to the next page');
+    }, 100000);
+
+    it('06. should verify that a user can only enter up to the max length of input fields', () => {
+        infoPage.navigateTo();
+        infoPage.fillPage(index);
+        infoPage.checkInfoInputValues(index);
+    }, 100000);
 
 });

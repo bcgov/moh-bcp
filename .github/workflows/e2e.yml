@@ -24,10 +24,10 @@ jobs:
       run: npm run webdriver-update
     # This step runs unit test for Admin Info in BCP Register Facility
     - name: Run e2e for Admin Info in BCP RF 
-      run: npm run e2e:bcprf-sprint8
+      run: npm run e2e:bcprf
     # This step runs unit test for Admin Info in BCP Practitioner Assignment
     - name: Run e2e for Admin Info in BCP PA 
-      run: npm run e2e:bcppa-sprint8
+      run: npm run e2e:bcppa
     # This step should install the latest chrome stable
     - name: Install Google Chrome Stable
       run: npm run chrome-update
