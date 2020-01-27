@@ -1,37 +1,39 @@
-name: BCP e2e tests
+#name: BCP e2e tests
 # This workflow is triggered on push and pull request to the repository
-on: [push, pull_request]
-jobs:
-  build:
-    name: Run BCP e2e tests
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [12.x]
-    steps:
-    - uses: actions/checkout@v1
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
+#on: [push, pull_request]
+#jobs:
+#  build:
+#    name: Run BCP e2e tests
+#    runs-on: ubuntu-latest
+#    strategy:
+#      matrix:
+#        node-version: [12.x]
+#    steps:
+#    - uses: actions/checkout@v1
+#    - name: Use Node.js ${{ matrix.node-version }}
+#      uses: actions/setup-node@v1
+#      with:
+#        node-version: ${{ matrix.node-version }}
     # This step installs dependencies
-    - name: Install dependencies
-      run: npm install
-      env:
-        CI: true
+#    - name: Install dependencies
+#      run: npm install
+#      env:
+#        CI: true
     # This step should do a webdriver manager update
-    - name: Update webdriver manager
-      run: npm run webdriver-update
+#    - name: Update webdriver manager
+#      run: npm run webdriver-update
     # This step runs unit test for Admin Info in BCP Register Facility
-    - name: Run e2e for Admin Info in BCP RF 
-      run: npm run e2e:bcprf
+#    - name: Run e2e for Admin Info in BCP RF
+#      run: npm run e2e:bcprf
     # This step runs unit test for Admin Info in BCP Practitioner Assignment
-    - name: Run e2e for Admin Info in BCP PA 
-      run: npm run e2e:bcppa
+#    - name: Run e2e for Admin Info in BCP PA
+#      run: npm run e2e:bcppa
     # This step should install the latest chrome stable
-    - name: Install Google Chrome Stable
-      run: npm run chrome-update
+#    - name: Install Google Chrome Stable
+#      run: npm run chrome-update
       # This step runs e2e tests in Chrome
       # TODO: Make the chrome version (79.0.3945.36) compatible to e2e
       # - name: Run BCP e2e in Chrome
       #  run: npm run e2e:bcprf-chrome
+
+# e2e tests need to be run manually until able to automatically delete data created by scripts
