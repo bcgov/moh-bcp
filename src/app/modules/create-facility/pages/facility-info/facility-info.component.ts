@@ -109,21 +109,21 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
 
     form.get('address').valueChanges.subscribe(
       value => {
-        // console.log('%c ADDRESS changed: %o', 'color:red', value);
+        // console.log('%c ADDRESS (phys) changed: %o', 'color:blue', value);
         if (!value) {
           this.physicalAddress = null;
-          this.dataService.facInfoPhysicalAddress = null;
         }
+        this.dataService.facInfoPhysicalAddress = value ? value : null;
       }
     );
 
     form.get('mailingAddress').valueChanges.subscribe(
       value => {
-        // console.log('%c ADDRESS changed: %o', 'color:red', value);
+        // console.log('%c ADDRESS (mail) changed: %o', 'color:red', value);
         if (!value) {
           this.mailingAddress = null;
-          this.dataService.facInfoMailAddress = null;
         }
+        this.dataService.facInfoMailAddress = value ? value : null;
       }
     );
 
@@ -239,7 +239,7 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
     }
   }
   physicalAddressSelected(address: Address) {
-    // console.log(address);
+    // console.log('%c ADDRESS (physicalAddr): %o', 'color:red', address);
     this.facilityForm.patchValue({
       address: address.addressLine1,
       city: address.city
@@ -247,6 +247,7 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
 
     this.dataService.facInfoPhysicalAddress = address.addressLine1;
     this.dataService.facInfoCity = address.city;
+
     this.physicalAddress = address;
   }
   mailingAddressSelected(address: Address) {

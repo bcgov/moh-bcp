@@ -14,7 +14,11 @@
       <div class="print-hide">
         <h2 class="border-bottom"><strong>Next Steps</strong></h2>
         <common-page-section layout='noTips'>
-          ADD NEXT STEPS HERE
+          <ul>
+            <li>Please print this page for your records.</li>
+            <li>Health Insurance BC will mail you and the Facility Administrator a letter confirming the status of your request.</li>
+            <li>Please contact <a href='{{hibcLink}}' target='_blank'>Health Insurance BC</a> if you have any questions.</li>
+          </ul>
         </common-page-section>
       </div>
 
@@ -59,7 +63,7 @@
         </common-confirm-template>
 
         <h2 class='border-bottom'>Declaration</h2>
-        <p class="font-italic" [innerHtml]='declarationText'></p>
+        <p [innerHtml]='declarationText'></p>
 
         <img [src]='signature' alt='Signature'>
 

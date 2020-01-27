@@ -21,6 +21,9 @@ export class CoreFacilityInfoComponent {
 
   @Input() public formGroup: FormGroup;
 
+  facilityLabel: string = 'Facility or practice name';
+  physicalAddrLabel: string = 'Physical address';
+
   physicalAddressSelected(address: Address) {
     this.addressSelected.emit(address);
   }

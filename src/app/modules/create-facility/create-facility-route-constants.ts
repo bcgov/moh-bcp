@@ -4,7 +4,7 @@ export const CREATE_FACILITY_PAGES = {
     HOME: {
         path: 'home',
         fullpath: `${BCP_ROUTES.CREATE_FACILITY}/home`,
-        title: 'Application for Medical Services Plan Facility Number (New)'
+        title: 'Home'
     },
     FACILITY_ADMIN: {
         path: 'administrator-information',

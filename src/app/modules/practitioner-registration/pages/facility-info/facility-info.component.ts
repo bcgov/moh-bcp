@@ -39,9 +39,9 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit, AfterV
     super.ngOnInit();
 
     this.formGroup = this.fb.group({
-      name: [this.dataService.pracFacilityName, [Validators.required]],
+      name: [this.dataService.pracFacilityName, [Validators.required, Validators.pattern(/^[ -~]+$/)]],
       mspNumber: [this.dataService.pracFacilityNumber, [Validators.required]],
-      address: [this.dataService.pracFacilityAddress, [Validators.required]],
+      address: [this.dataService.pracFacilityAddress, [Validators.required, Validators.pattern(/^[ -~]+$/)]],
       city: [this.dataService.pracFacilityCity, [Validators.required]],
       province: [getProvinceDescription(this.dataService.pracFacilityProvince)],
       postalCode: [this.dataService.pracFacilityPostalCode, [Validators.required]],
@@ -56,7 +56,7 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit, AfterV
       // Update data service values
       this.dataService.pracFacilityName = value.name;
       this.dataService.pracFacilityNumber = value.mspNumber;
-      this.dataService.pracFacilityAddress = this.address ? this.address.addressLine1 : value.address;
+      this.dataService.pracFacilityAddress = value.address;
       this.dataService.pracFacilityCity = value.city;
       this.dataService.pracFacilityPostalCode = value.postalCode;
       this.dataService.pracFacilityFaxNumber = value.faxNumber;
