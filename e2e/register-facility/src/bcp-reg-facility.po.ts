@@ -153,10 +153,8 @@ export class BCPInfoPage extends BCPBasePage {
             .element(by.css('select[id^="month"]')).sendKeys(months[parseInt(month, 10) - 1]);
         // element(by.cssContainingText('legend', `${legendVal}`)).element(by.xpath('../..'))
         //     .element(by.css(`option[value="${month}"]`)).click();
-        element(by.cssContainingText('legend', `${legendVal}`)).element(by.xpath('../..'))
-            .element(by.css(`input[id^="day"]`)).sendKeys(day);
-        element(by.cssContainingText('legend', `${legendVal}`)).element(by.xpath('../..'))
-            .element(by.css(`input[id^="year"]`)).sendKeys(year);
+        element(by.css('input[id^="day"]')).sendKeys(day);
+        element(by.css(`input[id^="year"]`)).sendKeys(year);
     }
 
     fillPage(index: number) {
