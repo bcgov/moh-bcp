@@ -69,8 +69,8 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
 
   validFormControl: (fg: FormGroup, name: string) => boolean;
 
-  physicalAddress: any = null;
-  mailingAddress: any = null;
+  // physicalAddress: any = null;
+  // mailingAddress: any = null;
 
   get pageTitle() {
     return CREATE_FACILITY_PAGES.FACILITY_INFO.title;
@@ -109,21 +109,21 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
 
     form.get('address').valueChanges.subscribe(
       value => {
-        // console.log('%c ADDRESS (phys) changed: %o', 'color:blue', value);
-        if (!value) {
-          this.physicalAddress = null;
-        }
-        this.dataService.facInfoPhysicalAddress = value ? value : null;
+        console.log('%c ADDRESS (phys) changed: %o', 'color:blue', value);
+       // if (!value) {
+       //   this.physicalAddress = null;
+       // }
+        this.dataService.facInfoPhysicalAddress = value;
       }
     );
 
     form.get('mailingAddress').valueChanges.subscribe(
       value => {
-        // console.log('%c ADDRESS (mail) changed: %o', 'color:red', value);
-        if (!value) {
+        console.log('%c ADDRESS (mail) changed: %o', 'color:red', value);
+       /* if (!value) {
           this.mailingAddress = null;
-        }
-        this.dataService.facInfoMailAddress = value ? value : null;
+        }*/
+        this.dataService.facInfoMailAddress = value;
       }
     );
 
@@ -136,8 +136,8 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
     );
 
     this.showMailingAddress = this.dataService.facInfoIsSameMailingAddress ? !this.dataService.facInfoIsSameMailingAddress : false;
-    this.physicalAddress = { addressLine1: this.dataService.facInfoPhysicalAddress };
-    this.mailingAddress = { addressLine1: this.dataService.facInfoMailAddress };
+   // this.physicalAddress = { addressLine1: this.dataService.facInfoPhysicalAddress };
+   // this.mailingAddress = { addressLine1: this.dataService.facInfoMailAddress };
     return form;
   }
 
@@ -173,7 +173,7 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
 
     const fd = this.facilityForm.value;
     this.dataService.facInfoFacilityName = fd.facilityName;
-    this.dataService.facInfoPhysicalAddress = this.physicalAddress ? this.physicalAddress.addressLine1 : fd.address;
+    this.dataService.facInfoPhysicalAddress = fd.address; // this.physicalAddress ? this.physicalAddress.addressLine1 : fd.address;
     this.dataService.facInfoCity = fd.city;
     this.dataService.facInfoPostalCode = fd.postalCode;
     this.dataService.facInfoFaxNumber = fd.faxNumber;
@@ -181,7 +181,7 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
     this.dataService.facInfoIsQualifyForBCP = fd.isQualifyForBCP;
     this.dataService.facInfoEffectiveDate = fd.effectiveDate;
 
-    this.dataService.facInfoMailAddress = this.mailingAddress ? this.mailingAddress.addressLine1 : fd.mailingAddress;
+    this.dataService.facInfoMailAddress = fd.mailingAddress; // this.mailingAddress ? this.mailingAddress.addressLine1 : fd.mailingAddress;
     this.dataService.facInfoMailCity = fd.mailingCity;
     this.dataService.facInfoMailPostalCode = fd.mailingPostalCode;
   }
@@ -239,7 +239,7 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
     }
   }
   physicalAddressSelected(address: Address) {
-    // console.log('%c ADDRESS (physicalAddr): %o', 'color:red', address);
+    console.log('%c ADDRESS (physicalAddr): %o', 'color:red', address);
     this.facilityForm.patchValue({
       address: address.addressLine1,
       city: address.city
@@ -248,7 +248,7 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
     this.dataService.facInfoPhysicalAddress = address.addressLine1;
     this.dataService.facInfoCity = address.city;
 
-    this.physicalAddress = address;
+    // this.physicalAddress = address;
   }
   mailingAddressSelected(address: Address) {
     // console.log('%c ADDRESS: %o', 'color:red', address);
@@ -258,7 +258,7 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
     });
     this.dataService.facInfoMailAddress = address.addressLine1;
     this.dataService.facInfoMailCity = address.city;
-    this.mailingAddress = address;
+   // this.mailingAddress = address;
   }
 
   private handleError(): void {
