@@ -49,37 +49,41 @@
         <bcp-review-practitioner-info></bcp-review-practitioner-info>
         <bcp-review-practitioner-facility></bcp-review-practitioner-facility>
         <bcp-review-practitioner-attachment></bcp-review-practitioner-attachment>
-
-        <div class="print-page-break"></div>
-
-        <common-header [serviceName]='title' urlBaseName='bcp'></common-header>
-
-        <common-confirm-template [displayIcon]="displayIcon">
-
-          <div message>
-            <ng-container *ngTemplateOutlet="confirmMessage"></ng-container>
-          </div>
-
-        </common-confirm-template>
-
-        <h2 class='border-bottom'>Declaration</h2>
-        <p [innerHtml]='declarationText'></p>
-
-        <img [src]='signature' alt='Signature'>
-
-        <div class="row print-review-row">
-          <div class='col-6 review-key'>Date signed</div>
-          <div class="col-6 review-value">{{ dateOfAcceptance }}</div>
-        </div>
-
-        <div class="pt-4" [innerHTML]='privacyStatement'></div>
       </div>
+      <div class="print-page-break">&nbsp;</div>
     </div>
 
   </common-confirm-template>
 
 </common-page-framework>
 
+<common-page-framework layout="blank">
+  <div AdditionalInfo *ngIf="!isError">
+    <div class="print-only">
+      <common-header [serviceName]='title' urlBaseName='bcp'></common-header>
+
+      <common-confirm-template [displayIcon]="displayIcon">
+
+        <div message>
+          <ng-container *ngTemplateOutlet="confirmMessage"></ng-container>
+        </div>
+
+      </common-confirm-template>
+
+      <h2 class='border-bottom'>Declaration</h2>
+      <p [innerHtml]='declarationText'></p>
+
+      <img [src]='signature' alt='Signature'>
+
+      <div class="row print-review-row">
+        <div class='col-6 review-key'>Date signed</div>
+        <div class="col-6 review-value">{{ dateOfAcceptance }}</div>
+      </div>
+
+      <div class="pt-4" [innerHTML]='privacyStatement'></div>
+    </div>
+  </div>
+</common-page-framework>
 
 
 <ng-template #confirmTitle>
