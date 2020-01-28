@@ -40,7 +40,7 @@ export function stripPostalCodeSpaces( str: string ) {
 }
 
 export function prepareDeclarationTextForAPI( str: string): string {
-  let text =  str.replace(/(?:<\/li>|<ol class='no-bullets'>|<\/ol>|<em>|\/em>)/g, ''); // remove html characters
+  let text =  str.replace(/(?:<\/li>|<ol class='no-bullets'>|<\/ol>|<em>|<\/em>)/g, ''); // remove html characters
   text =  text.replace(/<li>(i?v?i{0,3}\.)/g, '$1\t'); // add \t character between roman numeral and first word
   return text;
 }
