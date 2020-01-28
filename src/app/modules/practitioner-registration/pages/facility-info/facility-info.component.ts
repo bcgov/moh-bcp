@@ -9,7 +9,7 @@ import { SplunkLoggerService } from '../../../../services/splunk-logger.service'
 import { RegisterPractitionerApiService } from '../../services/register-practitioner-api.service';
 import { stripPostalCodeSpaces } from '../../../core-bcp/models/helperFunc';
 import { ValidationResponse, ReturnCodes } from '../../../core-bcp/models/base-api.model';
-import { parseISO } from 'date-fns';
+import { parseISO, compareAsc, isAfter } from 'date-fns';
 
 
 @Component({
@@ -24,6 +24,9 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit, AfterV
   showValidationError: boolean = false;
   systemDownError: boolean = false;
   address: Address;
+
+  private _openEndedDate: Date = parseISO('9999-12-31');
+  private _bcpProgramStartDate: Date = parseISO('2020-04-01');
 
   constructor( protected containerService: ContainerService,
                protected router: Router,
@@ -103,9 +106,26 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit, AfterV
           if (res.returnCode === ReturnCodes.SUCCESS) {
 
             // BCP effective dates
-            this.dataService.facEffectiveDate = res.effectiveDate ?  parseISO( res.effectiveDate ) : null;
-            this.dataService.facCancelDate = res.cancelDate ? parseISO( res.cancelDate ) : null;
+            // Manual review will result in no dates returned therefore use BCP start date (April 1, 2020)
             this.dataService.manualReview = res.manualReview;
+
+            // Effective date prior to April 1, 2020 will use this date not the one returned by request
+            if ( res.effectiveDate ) {
+              const _effectiveDt = parseISO( res.effectiveDate );
+              this.dataService.facEffectiveDate = isAfter( _effectiveDt, this._bcpProgramStartDate ) ?
+                _effectiveDt : this._bcpProgramStartDate;
+
+            } else {
+              this.dataService.facEffectiveDate = this._bcpProgramStartDate;
+            }
+
+            // Dec 31, 9999 (openEndedDate) will cause facCancelDate to be set to null
+            if ( res.cancelDate  ) {
+              const _cancelDt = parseISO( res.cancelDate );
+              this.dataService.facCancelDate = compareAsc( this._openEndedDate, _cancelDt ) === 0 ? null : _cancelDt;
+            } else {
+              this.dataService.facCancelDate = null;
+            }
 
             this.handleValidation(true);
             this.navigate(PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_ASSIGN.fullpath);

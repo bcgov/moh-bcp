@@ -81,7 +81,7 @@ export class ReviewComponent extends BcpBaseForm implements OnInit, AfterViewIni
         this.dataService.jsonMaintPractitioner.response = res;
         this.splunkLoggerService.log(
           this.dataService.getSubmissionLogObject<SubmissionResponse>(
-            'Maintain Practitioner - ' + getAttachmentLabelByValue( this.dataService.attachmentType ),
+            'Maintain Practitioner - ' + getAttachmentLabelByValue( this.dataService.pracAttachmentType ),
             this.dataService.jsonMaintPractitioner.response
           )
         );
