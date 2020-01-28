@@ -218,7 +218,12 @@ input[type=number] {
   header {
     background-color: white;
     .title {color: black !important;}
-    .header-logo {content:url("./assets/logo_print.png"); }
+    .header-logo {
+      display: none !important;
+    }
+    .header-logo-print {
+      display: inline-block !important;
+    }
     border-bottom: 0 !important;
   }
 
