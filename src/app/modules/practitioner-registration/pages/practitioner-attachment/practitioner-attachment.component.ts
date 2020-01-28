@@ -3,7 +3,7 @@ import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ContainerService, ErrorMessage, PageStateService, LabelReplacementTag } from 'moh-common-lib';
-import { isBefore, isAfter } from 'date-fns';
+import { isBefore, isAfter, addDays } from 'date-fns';
 import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 import { PRACTITIONER_ATTACHMENT, PRAC_ATTACHMENT_TYPE } from '../../models/practitioner-attachment';
 import { IRadioItems } from 'moh-common-lib/lib/components/radio/radio.component';
@@ -15,7 +15,7 @@ import { formatDateForDisplay } from '../../../core-bcp/models/helperFunc';
   templateUrl: './practitioner-attachment.component.html',
   styleUrls: ['./practitioner-attachment.component.scss']
 })
-export class PractitionerAttachmentComponent extends BcpBaseForm implements OnInit, AfterViewInit, DoCheck {
+export class PractitionerAttachmentComponent extends BcpBaseForm implements OnInit, AfterViewInit {
 
   constructor( protected containerService: ContainerService,
                protected router: Router,
@@ -43,8 +43,6 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
     },
   ];
   changeAttachmentHasValue: boolean = false;
-  facilityEffectiveDate: Date;
-  facilityCancelDate: Date;
 
   facilityEffectiveDateErrMsg: ErrorMessage;
   facilityCancelDateErrMsg: ErrorMessage;
@@ -86,10 +84,9 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
   }
 
   get cancelDateStartRange(): Date {
-
     if ( this.dataService.attachmentEffectiveDate ) {
       return isBefore( this.dataService.attachmentEffectiveDate, this.dataService.facEffectiveDate ) ?
-        this.dataService.facEffectiveDate : this.dataService.attachmentEffectiveDate;
+      this.dataService.facEffectiveDate : this.dataService.attachmentEffectiveDate;
     }
 
     return this.dataService.facEffectiveDate;
@@ -106,9 +103,13 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
       this.facilityEffectiveDateErrMsg = {
         invalidRange: `${LabelReplacementTag} must be between ${formatDateForDisplay(this.effectiveDateStartRange)} and ${formatDateForDisplay(this.effectiveDateEndRange)}.`
       };
-    } else {
+    } else if ( this.effectiveDateStartRange && this.dataService.attachmentCancelDate ){
       this.facilityEffectiveDateErrMsg = {
         invalidRange: `${LabelReplacementTag} must be before the cancellation date.`
+      };
+    } else {
+      this.facilityEffectiveDateErrMsg = {
+        invalidRange: `${LabelReplacementTag} must be after ${formatDateForDisplay(this.effectiveDateStartRange)}.`
       };
     }
   }
@@ -116,17 +117,23 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
   setfacilityCancelDateErrMsg(): void {
     if ( this.effectiveDateStartRange && this.effectiveDateEndRange ) {
       this.facilityCancelDateErrMsg = {
-        invalidRange: `${LabelReplacementTag} must be between ${formatDateForDisplay(this.effectiveDateStartRange)} and ${formatDateForDisplay(this.effectiveDateEndRange)}.`
+        invalidRange: `${LabelReplacementTag} must be between ${formatDateForDisplay(this.cancelDateStartRange)} and ${formatDateForDisplay(this.cancelDateEndRange)}.`
+      };
+    } else if ( this.effectiveDateStartRange && this.dataService.attachmentEffectiveDate ) {
+      this.facilityCancelDateErrMsg = {
+        invalidRange: `${LabelReplacementTag} must be after the effective date.`
       };
     } else {
       this.facilityCancelDateErrMsg = {
-        invalidRange: `${LabelReplacementTag} must be after the effective date.`
+        invalidRange: `${LabelReplacementTag} must be after ${formatDateForDisplay(this.cancelDateStartRange)}.`
       };
     }
   }
 
   ngOnInit() {
     super.ngOnInit();
+
+    console.log( 'init' );
 
     this.formGroup = this.fb.group({
       attachmentType: [this.dataService.pracAttachmentType, Validators.required]
@@ -135,7 +142,7 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
     this.newAttachmentForm = this.fb.group({
       newAttachmentType: [this.dataService.pracNewAttachmentType, Validators.required],
       attachmentEffectiveDate: [this.dataService.attachmentEffectiveDate, Validators.required],
-      attachmentCancelDate: [this.dataService.attachmentCancelDate, Validators.required]
+      attachmentCancelDate: [this.dataService.attachmentCancelDate]
     });
 
     this.cancelAttachmentForm = this.fb.group ({
@@ -147,7 +154,6 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
       attachmentCancelDate: [this.dataService.attachmentCancelDate],
     });
 
-
     this.setFacilityEffectiveDateErrMsg();
     this.setfacilityCancelDateErrMsg();
   }
@@ -158,37 +164,37 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
     // Listens for the attachment type, initializes dates to null.
     this.formGroup.valueChanges.subscribe( value => {
       this.dataService.pracAttachmentType = value.attachmentType;
-      this.dataService.attachmentEffectiveDate = null;
-      this.dataService.attachmentCancelDate = null;
     });
 
     this.newAttachmentForm.valueChanges.subscribe( value => {
-      this.dataService.attachmentEffectiveDate = value.effectiveDate;
+
+      this.setFacilityEffectiveDateErrMsg();
+      this.dataService.attachmentEffectiveDate = value.attachmentEffectiveDate;
 
       // new temporary attachment
       if ( value.newAttachmentType === true ) {
-        this.dataService.attachmentCancelDate = value.cancelDate;
+        this.setfacilityCancelDateErrMsg();
+        this.dataService.attachmentCancelDate = value.attachmentCancelDate;
       }
     });
 
     // Catch change on this field as it willl determine which dates are required.
     this.newAttachmentForm.controls.newAttachmentType.valueChanges.subscribe ( value => {
+      this.setfacilityCancelDateErrMsg();
       this._updateNewAttachmentType( value );
     });
 
     this.cancelAttachmentForm.valueChanges.subscribe( value => {
-      this.dataService.attachmentCancelDate = value;
+      this.setfacilityCancelDateErrMsg();
+      this.dataService.attachmentCancelDate = value.attachmentCancelDate;
     });
 
     this.changeAttachmentForm.valueChanges.subscribe( value => {
-      this.dataService.attachmentEffectiveDate = value.effectiveDate;
-      this.dataService.attachmentCancelDate = value.cancelDate;
+      this.setFacilityEffectiveDateErrMsg();
+      this.dataService.attachmentEffectiveDate = value.attachmentEffectiveDate;
+      this.setfacilityCancelDateErrMsg();
+      this.dataService.attachmentCancelDate = value.attachmentCancelDate;
     });
-  }
-
-  ngDoCheck() {
-    this.setFacilityEffectiveDateErrMsg();
-    this.setfacilityCancelDateErrMsg();
   }
 
   continue() {
@@ -198,7 +204,7 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
       forms.push( this.newAttachmentForm);
     } else if (this.dataService.pracAttachmentType ===  PRAC_ATTACHMENT_TYPE.CANCEL ) {
       forms.push( this.cancelAttachmentForm );
-    } else {
+    } else if (this.dataService.pracAttachmentType ===  PRAC_ATTACHMENT_TYPE.CHANGE ) {
       this.changeAttachmentHasValue =
         !!(this.dataService.attachmentEffectiveDate || this.dataService.attachmentCancelDate);
       console.log( 'continue: ', this.changeAttachmentHasValue );
@@ -220,17 +226,25 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
   }
 
   // Update validator on cancel date field based on new attachment type
-  private _updateNewAttachmentType( tempAttachment: boolean ) {
+  private _updateNewAttachmentType( tempAttachment: boolean | null ) {
     console.log( 'Update New Attachment Type: ', tempAttachment );
 
-    if ( tempAttachment === true ) {
-      this.newAttachmentForm.controls.attachmentCancelDate.setValidators( Validators.required );
-    } else {
-      this.newAttachmentForm.controls.attachmentCancelDate.clearValidators();
-      this.newAttachmentForm.controls.attachmentCancelDate.patchValue(null);
-      this.dataService.attachmentCancelDate = null;
-    }
+    if (tempAttachment !== null && tempAttachment !== undefined ) {
+      if ( tempAttachment === true ) {
 
-    this.dataService.pracNewAttachmentType = tempAttachment;
+        console.log( 'set validator' );
+        this.newAttachmentForm.controls.attachmentCancelDate.setValidators( Validators.required );
+        this.newAttachmentForm.controls.attachmentCancelDate.reset();
+
+      } else {
+        console.log( 'clear validator' );
+        this.newAttachmentForm.controls.attachmentCancelDate.clearValidators();
+        this.newAttachmentForm.controls.attachmentCancelDate.patchValue(null);
+      }
+
+      this.dataService.pracNewAttachmentType = tempAttachment;
+      this.newAttachmentForm.controls.attachmentCancelDate.updateValueAndValidity();
+      this.newAttachmentForm.updateValueAndValidity({ onlySelf: false });
+    }
   }
 }

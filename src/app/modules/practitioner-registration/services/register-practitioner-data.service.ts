@@ -81,13 +81,12 @@ export class RegisterPractitionerDataService extends BaseDataService {
   pracFacilityFaxNumber: string;
 
   facEffectiveDate: Date; // Date received from facility validation.
-  facCancelDate: Date; // *Date received from facility validation.
+  facCancelDate: Date; // Date received from facility validation.
   manualReview: boolean;
 
   pracAttachmentType: string;
   pracNewAttachmentType: boolean;
 
-  // attachmentType: PRAC_ATTACHMENT_TYPE;
   attachmentEffectiveDate: Date;
   attachmentCancelDate: Date;
 
