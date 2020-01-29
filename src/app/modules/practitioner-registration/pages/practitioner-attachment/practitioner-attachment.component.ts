@@ -258,8 +258,8 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
     let _facilityCancelDate = this.dataService.facCancelDate;
 
     if ( this.dataService.attachmentEffectiveDate && this.dataService.facEffectiveDate ) {
-      // Is after or same as date 
-      if ( compareAsc( this.dataService.attachmentCancelDate, _facilityCancelDate ) < 0 ) { 
+      // Is after or same as date
+      if ( compareAsc( this.dataService.attachmentCancelDate, _facilityCancelDate ) < 0 ) {
         _facilityCancelDate = this.dataService.attachmentCancelDate;
       }
     }
@@ -277,8 +277,8 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
     let _facilityEffectiveDate = this.dataService.facEffectiveDate;
 
     if ( this.dataService.attachmentEffectiveDate && this.dataService.facEffectiveDate ) {
-      // Is Before or same as date 
-      if ( compareAsc( this.dataService.attachmentEffectiveDate, _facilityEffectiveDate ) > 0 ) { 
+      // Is Before or same as date
+      if ( compareAsc( this.dataService.attachmentEffectiveDate, _facilityEffectiveDate ) > 0 ) {
         _facilityEffectiveDate = this.dataService.attachmentEffectiveDate;
       }
     }
