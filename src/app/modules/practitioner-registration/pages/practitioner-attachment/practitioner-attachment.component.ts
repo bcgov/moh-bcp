@@ -123,7 +123,7 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
     this._effectiveDateEndRange = this._updateEffectiveDateEndRange();
 
     // Cancel date cannot be the same as the effective date for the facility.
-    this._cancelDateStartRange = this._updateCancelDateStartRange()
+    this._cancelDateStartRange = this._updateCancelDateStartRange();
 
     this.formGroup = this.fb.group({
       attachmentType: [this.dataService.pracAttachmentType, Validators.required]
@@ -169,7 +169,7 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
     });
 
     this.newAttachmentForm.valueChanges.subscribe( value => {
-      
+
       this.dataService.attachmentEffectiveDate = value.attachmentEffectiveDate;
       // new temporary attachment
       if ( value.newAttachmentType === true ) {
@@ -200,7 +200,7 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
     this._effectiveDateEndRange = this._updateEffectiveDateEndRange();
     this.setFacilityEffectiveDateErrMsg();
 
-    this._cancelDateStartRange = this._updateCancelDateStartRange()
+    this._cancelDateStartRange = this._updateCancelDateStartRange();
     this.setfacilityCancelDateErrMsg();
   }
 
