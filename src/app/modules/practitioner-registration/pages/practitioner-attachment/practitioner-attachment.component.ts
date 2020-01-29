@@ -3,7 +3,7 @@ import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ContainerService, ErrorMessage, PageStateService, LabelReplacementTag } from 'moh-common-lib';
-import { isBefore, isAfter, addDays, subDays } from 'date-fns';
+import { isBefore, isAfter, addDays, subDays, compareAsc } from 'date-fns';
 import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 import { PRACTITIONER_ATTACHMENT, PRAC_ATTACHMENT_TYPE } from '../../models/practitioner-attachment';
 import { IRadioItems } from 'moh-common-lib/lib/components/radio/radio.component';
@@ -70,20 +70,18 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
 
   // Dates set by the facility information component
   get effectiveDateStartRange(): Date {
-
     return this.dataService.facEffectiveDate;
   }
 
   get effectiveDateEndRange(): Date {
-    return this._effectiveDateEndRange ? subDays( this._effectiveDateEndRange, 1) : null;
+    return this._effectiveDateEndRange;
   }
 
   get cancelDateStartRange(): Date {
-    return this._cancelDateStartRange ? addDays( this._cancelDateStartRange, 1 ) : null;
+    return this._cancelDateStartRange;
   }
 
   get cancelDateEndRange(): Date {
-
     return this.dataService.facCancelDate;
   }
 
@@ -96,7 +94,7 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
       };
     } else {
       this.facilityEffectiveDateErrMsg = {
-        invalidRange: `${LabelReplacementTag} must be on or after ${formatDateForDisplay(this.effectiveDateStartRange)}.`
+        invalidRange: `${LabelReplacementTag} must be after ${formatDateForDisplay(this.effectiveDateStartRange)}.`
       };
     }
   }
@@ -111,7 +109,7 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
       };
     } else {
       this.facilityCancelDateErrMsg = {
-        invalidRange: `${LabelReplacementTag} must be on or after ${formatDateForDisplay(this.cancelDateStartRange)}.`
+        invalidRange: `${LabelReplacementTag} must be after ${formatDateForDisplay(this.cancelDateStartRange)}.`
       };
     }
   }
@@ -120,10 +118,10 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
     super.ngOnInit();
 
     // Effective date cannot be the same as the cancel date for the facility.
-    this._effectiveDateEndRange = this._updateEffectiveDateEndRange();
+    this._effectiveDateEndRange = this._getEffectiveDateEndRange();
 
     // Cancel date cannot be the same as the effective date for the facility.
-    this._cancelDateStartRange = this._updateCancelDateStartRange();
+    this._cancelDateStartRange = this._getCancelDateStartRange();
 
     this.formGroup = this.fb.group({
       attachmentType: [this.dataService.pracAttachmentType, Validators.required]
@@ -162,6 +160,12 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
       this.dataService.attachmentEffectiveDate = null;
       this.dataService.attachmentCancelDate = null;
 
+      // Reset values
+      this._effectiveDateEndRange = this._getEffectiveDateEndRange();
+      this.setFacilityEffectiveDateErrMsg();
+      this._cancelDateStartRange = this._getCancelDateStartRange();
+      this.setfacilityCancelDateErrMsg();
+
       // Reset forms on change
       this.newAttachmentForm.reset();
       this.cancelAttachmentForm.reset();
@@ -197,10 +201,10 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
 
   ngDoCheck() {
     // console.log( 'ngDoCheck: ' );
-    this._effectiveDateEndRange = this._updateEffectiveDateEndRange();
+    this._effectiveDateEndRange = this._getEffectiveDateEndRange();
     this.setFacilityEffectiveDateErrMsg();
 
-    this._cancelDateStartRange = this._updateCancelDateStartRange();
+    this._cancelDateStartRange = this._getCancelDateStartRange();
     this.setfacilityCancelDateErrMsg();
   }
 
@@ -238,7 +242,7 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
         this.newAttachmentForm.controls.attachmentCancelDate.reset();
 
       } else {
-        // Clearn validator on field
+        // Clear validator on field
         this.newAttachmentForm.controls.attachmentCancelDate.clearValidators();
         this.newAttachmentForm.controls.attachmentCancelDate.reset();
         this.dataService.attachmentCancelDate = null;
@@ -250,27 +254,40 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
     }
   }
 
-  private _updateEffectiveDateEndRange() {
+  private _getEffectiveDateEndRange() {
+    let _facilityCancelDate = this.dataService.facCancelDate;
 
-    // Facility cancel date can be open-ended => null
-    if ( this.dataService.attachmentCancelDate && this.dataService.facCancelDate ) {
-
-      // Cancel date entered by user is after cancel date on record, return date on record, otherwise value entered
-      return isAfter( this.dataService.attachmentCancelDate, this.dataService.facCancelDate ) ?
-        this.dataService.facCancelDate : this.dataService.attachmentCancelDate;
+    if ( this.dataService.attachmentEffectiveDate && this.dataService.facEffectiveDate ) {
+      // Is after or same as date 
+      if ( compareAsc( this.dataService.attachmentCancelDate, _facilityCancelDate ) < 0 ) { 
+        _facilityCancelDate = this.dataService.attachmentCancelDate;
+      }
     }
 
-    return this.dataService.facCancelDate;
+    if ( this.dataService.pracAttachmentType === PRAC_ATTACHMENT_TYPE.NEW && _facilityCancelDate ) {
+      // Business rules state that new Attachments cannot end the same date at Facility Cancel date
+      _facilityCancelDate = subDays(_facilityCancelDate, 1);
+    }
+
+    return _facilityCancelDate;
   }
 
-  private _updateCancelDateStartRange() {
+  private _getCancelDateStartRange() {
 
-    if ( this.dataService.attachmentEffectiveDate ) {
+    let _facilityEffectiveDate = this.dataService.facEffectiveDate;
 
-      return isBefore( this.dataService.attachmentEffectiveDate, this.dataService.facEffectiveDate ) ?
-      this.dataService.facEffectiveDate : this.dataService.attachmentEffectiveDate;
+    if ( this.dataService.attachmentEffectiveDate && this.dataService.facEffectiveDate ) {
+      // Is Before or same as date 
+      if ( compareAsc( this.dataService.attachmentEffectiveDate, _facilityEffectiveDate ) > 0 ) { 
+        _facilityEffectiveDate = this.dataService.attachmentEffectiveDate;
+      }
     }
 
-    return this.dataService.facEffectiveDate;
+    if ( this.dataService.pracAttachmentType === PRAC_ATTACHMENT_TYPE.NEW && _facilityEffectiveDate ) {
+      // Business rules state that new Attachments cannot end the same date at Facility Cancel date
+      _facilityEffectiveDate = addDays(_facilityEffectiveDate, 1);
+    }
+
+    return _facilityEffectiveDate;
   }
 }
