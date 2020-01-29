@@ -56,11 +56,11 @@ export class RegisterPractitionerDataService extends BaseDataService {
       this.pracFacilityPostalCode = 'v4v4v7';
       this.pracFacilityFaxNumber = '234 567-8901';
 
-      this.pracAttachmentType = 'new';
-      this.pracNewAttachmentType = true;
-      this.attachmentType = PRAC_ATTACHMENT_TYPE.NEW;
-      this.attachmentEffectiveDate = addMonths( startOfToday(), 4 );
-      this.attachmentCancelDate = addMonths( this.attachmentEffectiveDate, 6 );
+    //  this.pracAttachmentType = 'new';
+    //  this.pracNewAttachmentType = true;
+    //  this.attachmentType = PRAC_ATTACHMENT_TYPE.NEW;
+    //  this.attachmentEffectiveDate = addMonths( startOfToday(), 4 );
+    //  this.attachmentCancelDate = addMonths( this.attachmentEffectiveDate, 6 );
 
      }
   }
@@ -87,7 +87,6 @@ export class RegisterPractitionerDataService extends BaseDataService {
   pracAttachmentType: string;
   pracNewAttachmentType: boolean;
 
-  attachmentType: PRAC_ATTACHMENT_TYPE;
   attachmentEffectiveDate: Date;
   attachmentCancelDate: Date;
 
@@ -137,7 +136,7 @@ export class RegisterPractitionerDataService extends BaseDataService {
       // Update section for schema - needs to be reflected in the data service to only have 2 dates to keep code maintainable
       pracAssignment: {
         // when a flag is false, the corresponding date must be null.
-          action: this.attachmentType,
+          action: this.pracAttachmentType,
           effectiveDate: this.attachmentEffectiveDate ? convertToJSONDate( this.attachmentEffectiveDate ) : null,
           cancelDate: this.attachmentCancelDate ? convertToJSONDate( this.attachmentCancelDate ) : null,
           manualReview: this.manualReview  // Indicated whether MT needs to send request to MAXHUB only
