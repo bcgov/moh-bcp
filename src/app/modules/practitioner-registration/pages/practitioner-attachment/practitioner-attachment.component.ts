@@ -3,7 +3,7 @@ import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ContainerService, ErrorMessage, PageStateService, LabelReplacementTag } from 'moh-common-lib';
-import { isBefore, isAfter, addDays } from 'date-fns';
+import { isBefore, isAfter, addDays, subDays } from 'date-fns';
 import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 import { PRACTITIONER_ATTACHMENT, PRAC_ATTACHMENT_TYPE } from '../../models/practitioner-attachment';
 import { IRadioItems } from 'moh-common-lib/lib/components/radio/radio.component';
@@ -15,7 +15,7 @@ import { formatDateForDisplay } from '../../../core-bcp/models/helperFunc';
   templateUrl: './practitioner-attachment.component.html',
   styleUrls: ['./practitioner-attachment.component.scss']
 })
-export class PractitionerAttachmentComponent extends BcpBaseForm implements OnInit, AfterViewInit {
+export class PractitionerAttachmentComponent extends BcpBaseForm implements OnInit, AfterViewInit, DoCheck {
 
   constructor( protected containerService: ContainerService,
                protected router: Router,
@@ -53,6 +53,9 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
   cancelAttachmentForm: FormGroup;
   changeAttachmentForm: FormGroup;
 
+  private _effectiveDateEndRange: Date;
+  private _cancelDateStartRange: Date;
+
   get shouldShowNewSection() {
     return this.dataService.pracAttachmentType === PRAC_ATTACHMENT_TYPE.NEW;
   }
@@ -72,24 +75,11 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
   }
 
   get effectiveDateEndRange(): Date {
-
-    if ( this.dataService.attachmentCancelDate ) {
-
-      // Cancel date entered by user is after cancel date on record, return date on record, otherwise value entered
-      return isAfter( this.dataService.attachmentCancelDate, this.dataService.facCancelDate ) ?
-        this.dataService.facCancelDate : this.dataService.attachmentCancelDate;
-    }
-
-    return this.dataService.facCancelDate;
+    return this._effectiveDateEndRange ? subDays( this._effectiveDateEndRange, 1) : null;
   }
 
   get cancelDateStartRange(): Date {
-    if ( this.dataService.attachmentEffectiveDate ) {
-      return isBefore( this.dataService.attachmentEffectiveDate, this.dataService.facEffectiveDate ) ?
-      this.dataService.facEffectiveDate : this.dataService.attachmentEffectiveDate;
-    }
-
-    return this.dataService.facEffectiveDate;
+    return this._cancelDateStartRange ? addDays( this._cancelDateStartRange, 1 ) : null;
   }
 
   get cancelDateEndRange(): Date {
@@ -100,32 +90,28 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
   private setFacilityEffectiveDateErrMsg(): void {
 
     if ( this.effectiveDateStartRange && this.effectiveDateEndRange ) {
+      // Displays effective end range as the day before the cancel date
       this.facilityEffectiveDateErrMsg = {
         invalidRange: `${LabelReplacementTag} must be between ${formatDateForDisplay(this.effectiveDateStartRange)} and ${formatDateForDisplay(this.effectiveDateEndRange)}.`
       };
-    } else if ( this.effectiveDateStartRange && this.dataService.attachmentCancelDate ){
-      this.facilityEffectiveDateErrMsg = {
-        invalidRange: `${LabelReplacementTag} must be before the cancellation date.`
-      };
     } else {
       this.facilityEffectiveDateErrMsg = {
-        invalidRange: `${LabelReplacementTag} must be after ${formatDateForDisplay(this.effectiveDateStartRange)}.`
+        invalidRange: `${LabelReplacementTag} must be on or after ${formatDateForDisplay(this.effectiveDateStartRange)}.`
       };
     }
   }
 
   setfacilityCancelDateErrMsg(): void {
-    if ( this.effectiveDateStartRange && this.effectiveDateEndRange ) {
+
+    if ( this.cancelDateStartRange && this.cancelDateEndRange ) {
+
+      // Displays cancel start range as the day after the effective date
       this.facilityCancelDateErrMsg = {
         invalidRange: `${LabelReplacementTag} must be between ${formatDateForDisplay(this.cancelDateStartRange)} and ${formatDateForDisplay(this.cancelDateEndRange)}.`
       };
-    } else if ( this.effectiveDateStartRange && this.dataService.attachmentEffectiveDate ) {
-      this.facilityCancelDateErrMsg = {
-        invalidRange: `${LabelReplacementTag} must be after the effective date.`
-      };
     } else {
       this.facilityCancelDateErrMsg = {
-        invalidRange: `${LabelReplacementTag} must be after ${formatDateForDisplay(this.cancelDateStartRange)}.`
+        invalidRange: `${LabelReplacementTag} must be on or after ${formatDateForDisplay(this.cancelDateStartRange)}.`
       };
     }
   }
@@ -133,7 +119,11 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
   ngOnInit() {
     super.ngOnInit();
 
-    console.log( 'init' );
+    // Effective date cannot be the same as the cancel date for the facility.
+    this._effectiveDateEndRange = this._updateEffectiveDateEndRange();
+
+    // Cancel date cannot be the same as the effective date for the facility.
+    this._cancelDateStartRange = this._updateCancelDateStartRange()
 
     this.formGroup = this.fb.group({
       attachmentType: [this.dataService.pracAttachmentType, Validators.required]
@@ -163,88 +153,124 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
 
     // Listens for the attachment type, initializes dates to null.
     this.formGroup.valueChanges.subscribe( value => {
+
+      // Set the Attachment Type for practi
       this.dataService.pracAttachmentType = value.attachmentType;
+
+      // Clear data - new selection made
+      this.dataService.pracNewAttachmentType = null;
+      this.dataService.attachmentEffectiveDate = null;
+      this.dataService.attachmentCancelDate = null;
+
+      // Reset forms on change
+      this.newAttachmentForm.reset();
+      this.cancelAttachmentForm.reset();
+      this.changeAttachmentForm.reset();
     });
 
     this.newAttachmentForm.valueChanges.subscribe( value => {
-
-      this.setFacilityEffectiveDateErrMsg();
+      
       this.dataService.attachmentEffectiveDate = value.attachmentEffectiveDate;
-
       // new temporary attachment
       if ( value.newAttachmentType === true ) {
-        this.setfacilityCancelDateErrMsg();
         this.dataService.attachmentCancelDate = value.attachmentCancelDate;
       }
     });
 
     // Catch change on this field as it willl determine which dates are required.
     this.newAttachmentForm.controls.newAttachmentType.valueChanges.subscribe ( value => {
-      this.setfacilityCancelDateErrMsg();
       this._updateNewAttachmentType( value );
     });
 
     this.cancelAttachmentForm.valueChanges.subscribe( value => {
-      this.setfacilityCancelDateErrMsg();
+
       this.dataService.attachmentCancelDate = value.attachmentCancelDate;
     });
 
     this.changeAttachmentForm.valueChanges.subscribe( value => {
-      this.setFacilityEffectiveDateErrMsg();
       this.dataService.attachmentEffectiveDate = value.attachmentEffectiveDate;
-      this.setfacilityCancelDateErrMsg();
       this.dataService.attachmentCancelDate = value.attachmentCancelDate;
+
+      this.changeAttachmentHasValue = !!(value.attachmentEffectiveDate || value.attachmentCancelDate);
     });
+  }
+
+  ngDoCheck() {
+    // console.log( 'ngDoCheck: ' );
+    this._effectiveDateEndRange = this._updateEffectiveDateEndRange();
+    this.setFacilityEffectiveDateErrMsg();
+
+    this._cancelDateStartRange = this._updateCancelDateStartRange()
+    this.setfacilityCancelDateErrMsg();
   }
 
   continue() {
     const forms = [ this.formGroup ];
+    let continueFlag = true;
 
     if ( this.dataService.pracAttachmentType ===  PRAC_ATTACHMENT_TYPE.NEW ) {
       forms.push( this.newAttachmentForm);
     } else if (this.dataService.pracAttachmentType ===  PRAC_ATTACHMENT_TYPE.CANCEL ) {
       forms.push( this.cancelAttachmentForm );
     } else if (this.dataService.pracAttachmentType ===  PRAC_ATTACHMENT_TYPE.CHANGE ) {
-      this.changeAttachmentHasValue =
-        !!(this.dataService.attachmentEffectiveDate || this.dataService.attachmentCancelDate);
-      console.log( 'continue: ', this.changeAttachmentHasValue );
-
-      if ( !this.changeAttachmentHasValue ) {
-        return;
-      }
-
       forms.push( this.changeAttachmentForm );
+      continueFlag = this.changeAttachmentHasValue;
     }
 
     this.markAllInputsTouched(forms);
 
     console.log( 'forms: ', forms );
 
-    if ( forms.every( (x) => x.valid === true ) ) {
+
+    if ( forms.every( (x) => x.valid === true ) && continueFlag ) {
       this.navigate(PRACTITIONER_REGISTRATION_PAGES.REVIEW.fullpath);
     }
   }
 
   // Update validator on cancel date field based on new attachment type
   private _updateNewAttachmentType( tempAttachment: boolean | null ) {
-    console.log( 'Update New Attachment Type: ', tempAttachment );
 
     if (tempAttachment !== null && tempAttachment !== undefined ) {
       if ( tempAttachment === true ) {
 
-        console.log( 'set validator' );
+        // Set the required validator on field
         this.newAttachmentForm.controls.attachmentCancelDate.setValidators( Validators.required );
         this.newAttachmentForm.controls.attachmentCancelDate.reset();
 
       } else {
-        console.log( 'clear validator' );
+        // Clearn validator on field
         this.newAttachmentForm.controls.attachmentCancelDate.clearValidators();
-        this.newAttachmentForm.controls.attachmentCancelDate.patchValue(null);
+        this.newAttachmentForm.controls.attachmentCancelDate.reset();
+        this.dataService.attachmentCancelDate = null;
       }
 
       this.dataService.pracNewAttachmentType = tempAttachment;
       this.newAttachmentForm.controls.attachmentCancelDate.updateValueAndValidity();
       this.newAttachmentForm.updateValueAndValidity({ onlySelf: false });
     }
+  }
+
+  private _updateEffectiveDateEndRange() {
+
+    // Facility cancel date can be open-ended => null
+    if ( this.dataService.attachmentCancelDate && this.dataService.facCancelDate ) {
+
+      // Cancel date entered by user is after cancel date on record, return date on record, otherwise value entered
+      return isAfter( this.dataService.attachmentCancelDate, this.dataService.facCancelDate ) ?
+        this.dataService.facCancelDate : this.dataService.attachmentCancelDate;
+    }
+
+    return this.dataService.facCancelDate;
+  }
+
+  private _updateCancelDateStartRange() {
+
+    if ( this.dataService.attachmentEffectiveDate ) {
+
+      return isBefore( this.dataService.attachmentEffectiveDate, this.dataService.facEffectiveDate ) ?
+      this.dataService.facEffectiveDate : this.dataService.attachmentEffectiveDate;
+    }
+
+    return this.dataService.facEffectiveDate;
   }
 }

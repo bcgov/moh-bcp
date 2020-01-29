@@ -87,7 +87,8 @@
     </common-date>
   </div>
 
-  <common-error-container [displayError]="changeAttachmentHasValue">
+  <common-error-container 
+    [displayError]="!changeAttachmentHasValue && (changeAttachmentForm.dirty || changeAttachmentForm.touched)">
       At least one of the date fields is required
   </common-error-container>
 </form>
