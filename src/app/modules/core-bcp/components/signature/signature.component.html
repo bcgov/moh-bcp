@@ -11,9 +11,6 @@
         <button class="btn btn-primary ml-4 d-block"
                 (click)='open()'>Sign</button>
 
-
-        <span *ngIf='controlDir?.touched && controlDir?.valid'>Success!</span>
-
         <common-error-container [displayError]='(controlDir?.touched || controlDir?.dirty) && controlDir?.errors?.required'>
            {{errorMessage}}
         </common-error-container>
