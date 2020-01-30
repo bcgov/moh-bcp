@@ -32,7 +32,7 @@ export class ReviewPractitionerInfoComponent implements OnInit {
       [
         { label: 'First name', value: this.dataService.pracInfoFirstName, },
         { label: 'Last name', value: this.dataService.pracInfoLastName },
-        { label: 'Medical Services Plan practitioner number', value: this.dataService.pracInfoMSPPracNumber },
+        { label: 'Medical Services Plan Practitioner Number', value: this.dataService.pracInfoMSPPracNumber },
         { label: 'Email address (optional)', value: setNotApplicable(this.dataService.pracInfoEmail) },
         phoneNumberEntry,
       ],
