@@ -8,7 +8,7 @@ import { formatDateForDisplay, setNotApplicable } from '../../../core-bcp/models
 interface ReviewItem {
   label: string;
   value: any;
-  hideColon? : boolean;
+  hideColon?: boolean;
 }
 
 @Component({
