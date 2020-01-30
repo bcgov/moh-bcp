@@ -20,7 +20,7 @@
     <div class="row mb-2" *ngFor="let item of form; let i=index">
       <ng-container *ngIf='item.label'>
         <div class='col-md-6'>
-          {{item.label}}:
+          {{item.label}}{{item.hideColon ? '' : ':'}}
         </div>
         <div class='col-md-6'>
           <b>{{item.value}}</b>
