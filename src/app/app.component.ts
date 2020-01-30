@@ -65,7 +65,7 @@ export class AppComponent implements OnInit {
 
   /** Set the page title. Includes basic formatting and fallback */
   private setTitle(title?: string) {
-    const app = 'Business Cost Premiums | ';
+    const app = 'Business Cost Premium | ';
 
     // If title is null, use default title
     this.titleService.setTitle( app.concat( (title ? title : this.title) ) );
