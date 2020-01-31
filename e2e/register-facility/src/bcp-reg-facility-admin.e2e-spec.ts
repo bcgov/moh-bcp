@@ -19,6 +19,7 @@ describe('BCP Create Facility - Administrator Information Page (Unit Test)', () 
         adminPage.navigateTo();
         adminPage.fillPage(index);
         adminPage.clickContinue();
+        browser.sleep(10000);
         expect(browser.getCurrentUrl()).toContain(CREATE_FACILITY_PAGES.FACILITY_INFO.fullpath, 'should go to the Facility Info Page');
     }, 100000);
 
