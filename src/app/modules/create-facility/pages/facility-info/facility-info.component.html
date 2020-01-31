@@ -60,6 +60,7 @@
         <!-- Postal Code has masks by default not maxlength required-->
         <common-postal-code name='facilityPostalCode'
                             label='Postal code'
+                            placeholder=''
                             formControlName='postalCode'></common-postal-code>
       </div>
 
@@ -67,6 +68,7 @@
         <common-phone-number name='facilityFaxNumber'
                               label='Contact fax number (optional)'
                               formControlName='faxNumber'
+                              [enablePlaceHolder]='false'
                               [allowInternational]='false'></common-phone-number>
       </div>
 
@@ -148,6 +150,7 @@
           <!-- Postal Code component defaults to Canadian-->
           <common-postal-code name="mailingPostalCode"
                               label='Postal code'
+                              placeholder=''
                               formControlName="mailingPostalCode">
           </common-postal-code>
         </div>

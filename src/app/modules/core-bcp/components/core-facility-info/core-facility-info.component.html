@@ -56,6 +56,7 @@
     <div class="form-group">
       <common-postal-code name='postalCode'
                           label='Postal code'
+                          placeholder=''
                           formControlName='postalCode'></common-postal-code>
       <common-error-container [displayError]='showValidationError'>
         {{ validationErrorMessage }}
@@ -66,6 +67,7 @@
         <common-phone-number name='faxNumber'
             formControlName='faxNumber'
             label='Fax number (optional)'
+            [enablePlaceHolder]='false'
             [allowInternational]='false'></common-phone-number>
     </div>
   </form>
