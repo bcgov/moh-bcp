@@ -59,7 +59,9 @@
 
 <div *ngIf="!isError" class="print-only">
   <div class="print-page-break">&nbsp;</div>
-  <common-header [serviceName]='title' urlBaseName='bcp'></common-header>
+  <common-header [serviceName]='title'
+                 urlBaseName='bcp'
+                 [shouldShowPrintLogo]='true'></common-header>
 
   <common-page-framework layout="blank">
     <div class="print-only">
