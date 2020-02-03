@@ -10,6 +10,12 @@
     src: url('app/fonts/MyriadWebPro.ttf');
 }
 
+@font-face {
+    font-family: 'Myriad-Pro';
+    src: url('app/fonts/MyriadProSemibold.ttf');
+    font-weight: bold;
+}
+
 //------------------------------------------------------------------------------
 // Customizing which bootstrap files get imported, copied from bootstrap.scss
 // Overriding the "variables.scss" file with our custom theme
