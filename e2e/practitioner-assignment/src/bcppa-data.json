@@ -11,7 +11,11 @@
         "physicalAddress": "12345 Douglas Street",
         "city": "Victoria",
         "postal": "V8R3C2",
-        "faxNum": "2501234568"
+        "faxNum": "2501234568",
+        "changeAttach": "new",
+        "effectiveDate": "2020-10-10",
+        "isAttachmentLocum": true,
+        "cancellationDate": "2021-10-10"
     },
     {
         "firstName": "F",

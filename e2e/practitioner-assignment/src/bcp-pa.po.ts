@@ -65,6 +65,22 @@ export class BCPBasePage extends AbstractTestPage {
     getExtension() {
         return element(by.css('input[name="extension"]')).getAttribute('value');
     }
+
+    typeDate(legendVal: string, year: string, month: string, day: string) {
+        const months = [ 'January', 'February', 'March', 'April', 'May', 'June',
+           'July', 'August', 'September', 'October', 'November', 'December' ];
+        element(by.cssContainingText('legend', `${legendVal}`)).element(by.xpath('../..'))
+            .element(by.css('select[id^="month"]')).sendKeys(months[parseInt(month, 10) - 1]);
+        // element(by.cssContainingText('legend', `${legendVal}`)).element(by.xpath('../..'))
+        //     .element(by.css(`option[value="${month}"]`)).click();
+        element(by.cssContainingText('legend', `${legendVal}`)).element(by.xpath('../..'))
+            .element(by.css(`input[id^="day"]`)).click();
+        element(by.cssContainingText('legend', `${legendVal}`)).element(by.xpath('../..'))
+            .element(by.css(`input[id^="day"]`)).sendKeys(day);
+        browser.sleep(10000);
+        element(by.cssContainingText('legend', `${legendVal}`)).element(by.xpath('../..'))
+            .element(by.css(`input[id^="year"]`)).sendKeys(year);
+    }
 }
 
 export class BCPHomePage extends BCPBasePage {
@@ -145,19 +161,6 @@ export class BCPFacilityInfoPage extends BCPBasePage {
         element(by.css('common-postal-code[name="facilityPostalCode"]')).element(by.css('input')).sendKeys(text);
     }
 
-    typeDate(legendVal: string, year: string, month: string, day: string) {
-        const months = [ 'January', 'February', 'March', 'April', 'May', 'June',
-           'July', 'August', 'September', 'October', 'November', 'December' ];
-        element(by.cssContainingText('legend', `${legendVal}`)).element(by.xpath('../..'))
-            .element(by.css('select[id^="month"]')).sendKeys(months[parseInt(month, 10) - 1]);
-        // element(by.cssContainingText('legend', `${legendVal}`)).element(by.xpath('../..'))
-        //     .element(by.css(`option[value="${month}"]`)).click();
-        element(by.cssContainingText('legend', `${legendVal}`)).element(by.xpath('../..'))
-            .element(by.css(`input[id^="day"]`)).sendKeys(day);
-        element(by.cssContainingText('legend', `${legendVal}`)).element(by.xpath('../..'))
-            .element(by.css(`input[id^="year"]`)).sendKeys(year);
-    }
-
     fillPage(index: number) {
         this.setIndex(index);
         this.typeText('Facility or practice name', this.jsonData[this.index].facilityName);
@@ -194,6 +197,49 @@ export class BCPPractitionerAttachmentPage extends BCPBasePage {
 
     navigateTo() {
         return browser.get(PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_ASSIGN.fullpath);
+    }
+
+    fillPage(index: number) {
+        this.setIndex(index);
+        const changeAttach = this.jsonData[this.index].changeAttach;
+        this.clickOption('What change are you making for this attachment', changeAttach);
+        this.scrollDown();
+        browser.sleep(10000);
+        if (changeAttach === 'new') {
+            const effectiveDate = this.jsonData[this.index].effectiveDate;
+            const eYear = effectiveDate.split('-')[0];
+            const eMonth = effectiveDate.split('-')[1];
+            const eDay = effectiveDate.split('-')[2];
+            this.typeDate('Effective date for new attachment', eYear, eMonth, eDay);
+            this.scrollDown();
+            this.clickOption('Is this attachment a Locum or temporary?', this.jsonData[this.index].isAttachmentLocum);
+            if (this.jsonData[this.index].isAttachmentLocum.toString()) {
+                const cancellationDate = this.jsonData[this.index].cancellationDate;
+                const cYear = cancellationDate.split('-')[0];
+                const cMonth = cancellationDate.split('-')[1];
+                const cDay = cancellationDate.split('-')[2];
+                this.typeDate('Cancellation date for new attachment', cYear, cMonth, cDay);
+            }
+        }
+        else if (changeAttach === 'cancel') {
+            const cancellationDate = this.jsonData[this.index].cancellationDate;
+            const cYear = cancellationDate.split('-')[0];
+            const cMonth = cancellationDate.split('-')[1];
+            const cDay = cancellationDate.split('-')[2];
+            this.typeDate('Cancellation date for existing attachment', cYear, cMonth, cDay);
+        }
+        else if (changeAttach === 'change') {
+            const newEffectiveDate = this.jsonData[this.index].newEffectiveDate;
+            const neYear = newEffectiveDate.split('-')[0];
+            const neMonth = newEffectiveDate.split('-')[1];
+            const neDay = newEffectiveDate.split('-')[2];
+            this.typeDate('New effective date for existing attachment (if applicable)', neYear, neMonth, neDay);
+            const newCancellationDate = this.jsonData[this.index].newCancellationDate;
+            const ncYear = newCancellationDate.split('-')[0];
+            const ncMonth = newCancellationDate.split('-')[1];
+            const ncDay = newCancellationDate.split('-')[2];
+            this.typeDate('New cancellation date for existing attachment (if applicable)', ncYear, ncMonth, ncDay);
+        }
     }
 
 }
