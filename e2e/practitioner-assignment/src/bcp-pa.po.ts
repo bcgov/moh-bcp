@@ -220,15 +220,13 @@ export class BCPPractitionerAttachmentPage extends BCPBasePage {
                 const cDay = cancellationDate.split('-')[2];
                 this.typeDate('Cancellation date for new attachment', cYear, cMonth, cDay);
             }
-        }
-        else if (changeAttach === 'cancel') {
+        } else if (changeAttach === 'cancel') {
             const cancellationDate = this.jsonData[this.index].cancellationDate;
             const cYear = cancellationDate.split('-')[0];
             const cMonth = cancellationDate.split('-')[1];
             const cDay = cancellationDate.split('-')[2];
             this.typeDate('Cancellation date for existing attachment', cYear, cMonth, cDay);
-        }
-        else if (changeAttach === 'change') {
+        } else if (changeAttach === 'change') {
             const newEffectiveDate = this.jsonData[this.index].newEffectiveDate;
             const neYear = newEffectiveDate.split('-')[0];
             const neMonth = newEffectiveDate.split('-')[1];
@@ -239,6 +237,8 @@ export class BCPPractitionerAttachmentPage extends BCPBasePage {
             const ncMonth = newCancellationDate.split('-')[1];
             const ncDay = newCancellationDate.split('-')[2];
             this.typeDate('New cancellation date for existing attachment (if applicable)', ncYear, ncMonth, ncDay);
+        } else {
+            return;
         }
     }
 
