@@ -32,6 +32,7 @@ describe('BCP Practitioner Assignment - Practitioner Info Page (Unit Test)', () 
     it('03. should be a MATCH since the admin info data for private practice is valid', () => {
         pracInfoPage.navigateTo();
         pracInfoPage.fillPage(index);
+        browser.sleep(5000);
         pracInfoPage.clickContinue();
         expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.FACILITY_INFO.fullpath, 'should go to the Facility Info Page');
     }, 100000);

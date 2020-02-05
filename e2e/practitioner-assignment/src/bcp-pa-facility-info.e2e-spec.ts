@@ -31,7 +31,6 @@ describe('BCP Practitioner Assignment- Info Page (Unit Test)', () => {
     it('03. should be a MATCH since the facility number and postal code are valid', () => {
         infoPage.navigateTo();
         infoPage.fillPage(index);
-        browser.sleep(10000);
         infoPage.clickContinue();
         expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_ASSIGN.fullpath, 'should continue to the next page');
     }, 100000);
@@ -39,8 +38,8 @@ describe('BCP Practitioner Assignment- Info Page (Unit Test)', () => {
     it('04. should be a MATCH since the facility number and postal code are valid', () => {
         infoPage.navigateTo();
         infoPage.fillPage(index);
-        browser.sleep(10000);
         infoPage.clickContinue();
+        browser.sleep(10000);
         expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_ASSIGN.fullpath, 'should continue to the next page');
     }, 100000);
 
