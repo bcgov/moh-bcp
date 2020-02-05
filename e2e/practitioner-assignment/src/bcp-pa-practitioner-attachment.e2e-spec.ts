@@ -2,7 +2,7 @@ import { browser } from 'protractor';
 import { BCPPractitionerAttachmentPage } from './bcp-pa.po';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../../src/app/modules/practitioner-registration/practitioner-registration-route-constants';
 
-fdescribe('BCP Practitioner Assignment - Practitioner Attachment Page (Unit Test)', () => {
+xdescribe('BCP Practitioner Assignment - Practitioner Attachment Page (Unit Test)', () => {
 
     let pracAttachPage: BCPPractitionerAttachmentPage;
     let index = 0;
