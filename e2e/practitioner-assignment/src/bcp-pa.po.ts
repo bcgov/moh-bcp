@@ -77,7 +77,6 @@ export class BCPBasePage extends AbstractTestPage {
             .element(by.css(`input[id^="day"]`)).click();
         element(by.cssContainingText('legend', `${legendVal}`)).element(by.xpath('../..'))
             .element(by.css(`input[id^="day"]`)).sendKeys(day);
-        browser.sleep(10000);
         element(by.cssContainingText('legend', `${legendVal}`)).element(by.xpath('../..'))
             .element(by.css(`input[id^="year"]`)).sendKeys(year);
     }
@@ -204,7 +203,6 @@ export class BCPPractitionerAttachmentPage extends BCPBasePage {
         const changeAttach = this.jsonData[this.index].changeAttach;
         this.clickOption('What change are you making for this attachment', changeAttach);
         this.scrollDown();
-        browser.sleep(10000);
         if (changeAttach === 'new') {
             const effectiveDate = this.jsonData[this.index].effectiveDate;
             const eYear = effectiveDate.split('-')[0];
@@ -213,7 +211,7 @@ export class BCPPractitionerAttachmentPage extends BCPBasePage {
             this.typeDate('Effective date for new attachment', eYear, eMonth, eDay);
             this.scrollDown();
             this.clickOption('Is this attachment a Locum or temporary?', this.jsonData[this.index].isAttachmentLocum);
-            if (this.jsonData[this.index].isAttachmentLocum.toString()) {
+            if (this.jsonData[this.index].isAttachmentLocum === true) {
                 const cancellationDate = this.jsonData[this.index].cancellationDate;
                 const cYear = cancellationDate.split('-')[0];
                 const cMonth = cancellationDate.split('-')[1];

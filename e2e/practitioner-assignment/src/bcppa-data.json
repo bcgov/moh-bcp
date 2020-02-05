@@ -13,9 +13,9 @@
         "postal": "V8R3C2",
         "faxNum": "2501234568",
         "changeAttach": "new",
-        "effectiveDate": "2020-10-10",
+        "effectiveDate": "2020-04-15",
         "isAttachmentLocum": true,
-        "cancellationDate": "2021-10-10"
+        "cancellationDate": "2019-04-15"
     },
     {
         "firstName": "F",
@@ -29,7 +29,11 @@
         "physicalAddress": "12345 Douglas Street",
         "city": "Victoria",
         "postal": "V8R3C2",
-        "faxNum": "2501234568"
+        "faxNum": "2501234568",
+        "changeAttach": "new",
+        "effectiveDate": "2020-04-15",
+        "isAttachmentLocum": true,
+        "cancellationDate": "2020-04-30"
     },
     {
         "firstName": "TEST",
@@ -43,7 +47,10 @@
         "physicalAddress": "12345 Douglas Street",
         "city": "Victoria",
         "postal": "V9C3V6",
-        "faxNum": "2501234568"
+        "faxNum": "2501234568",
+        "changeAttach": "new",
+        "effectiveDate": "2020-03-31",
+        "isAttachmentLocum": false
     },
     {
         "firstName": "TEST",
@@ -57,7 +64,10 @@
         "physicalAddress": "12345 Douglas Street",
         "city": "Victoria",
         "postal": "V8R3C2",
-        "faxNum": "2501234568"
+        "faxNum": "2501234568",
+        "changeAttach": "new",
+        "effectiveDate": "2020-04-02",
+        "isAttachmentLocum": false
     },
     {
         "firstName": "Non-printable first name",
@@ -71,7 +81,11 @@
         "physicalAddress": "12345_Douglas-Rd \u00A8 Street",
         "city": "Victoria \u00A9",
         "postal": "V8R\u00AAC2",
-        "faxNum": "250123\u00AB568"
+        "faxNum": "250123\u00AB568",
+        "changeAttach": "new",
+        "effectiveDate": "2020-04-01",
+        "isAttachmentLocum": true,
+        "cancellationDate": "2020-03-31"
     },
     {
         "firstName": "SamMaxFirstName",
@@ -85,6 +99,18 @@
         "physicalAddress": "12345 qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzx Street",
         "city": "Victoriaqwertyuiopasdfghjklzxc",
         "postal": "V8R3C2",
-        "faxNum": "2501234568"
+        "faxNum": "2501234568",
+        "changeAttach": "new",
+        "effectiveDate": "2020-04-15",
+        "isAttachmentLocum": true,
+        "cancellationDate": "2020-04-30"
+    },
+    {
+        "changeAttach": "cancel",
+        "cancellationDate": "2020-03-31"
+    },
+    {
+        "changeAttach": "cancel",
+        "cancellationDate": "2020-04-01"
     }
 ]
