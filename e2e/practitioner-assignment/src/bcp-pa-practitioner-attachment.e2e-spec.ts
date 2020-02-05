@@ -3,7 +3,7 @@ import { BCPPractitionerAttachmentPage, BCPPractitionerInfoPage, BCPFacilityInfo
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../../src/app/modules/practitioner-registration/practitioner-registration-route-constants';
 import { constants } from 'perf_hooks';
 
-describe('BCP Practitioner Assignment - Practitioner Attachment Page (Unit Test)', () => {
+fdescribe('BCP Practitioner Assignment - Practitioner Attachment Page (Unit Test)', () => {
 
     let pracInfoPage: BCPPractitionerInfoPage;
     let faciInfoPage: BCPFacilityInfoPage;
@@ -72,6 +72,7 @@ describe('BCP Practitioner Assignment - Practitioner Attachment Page (Unit Test)
     it('08. should be VALID if Cancellation date for existing attachment is after to April 01, 2020', () => {
         pracAttachPage.fillPage(index);
         pracAttachPage.clickContinue();
+        browser.sleep(2000);
         expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.REVIEW.fullpath, 'should navigate on the next page');
     }, 100000);
 });
