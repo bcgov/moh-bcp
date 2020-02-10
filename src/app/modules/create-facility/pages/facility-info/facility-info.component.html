@@ -22,11 +22,14 @@
       </div>
 
       <div class="form-group">
+      <!-- NOTE: Removed until we are able to resolve issues with GeoCoder component
         <common-geocoder-input label='Physical address'
                                 formControlName="address"
                                 maxlength="60"
                                 (select)="physicalAddressSelected($event)">
-        </common-geocoder-input>
+        </common-geocoder-input> -->
+        <label class="control-label" for="address">Physical address</label>
+        <input id="PhysAddress" formControlName="address" class="form-control" maxlength="60">
 
         <common-error-container
           [displayError]="facilityForm.controls?.address?.touched && facilityForm.controls?.address?.errors">
@@ -109,11 +112,13 @@
       <form [formGroup]="facilityForm">
 
         <div class="form-group">
-          <common-geocoder-input label='Mailing address'
+          <!-- NOTE: Removed until we are able to resolve issues with GeoCoder component
+            <common-geocoder-input label='Mailing address'
             formControlName="mailingAddress" maxlength="60"
             (select)="mailingAddressSelected($event)">
-          </common-geocoder-input>
-
+          </common-geocoder-input> -->
+        <label class="control-label" for="mailingAddress">Mailing address</label>
+        <input id="MailingsAddress" formControlName="mailingAddress" class="form-control" maxlength="60">
         <common-error-container
           [displayError]="facilityForm.controls?.mailingAddress?.touched && facilityForm.controls?.mailingAddress?.errors">
           <div *ngIf="facilityForm.controls?.mailingAddress?.errors?.required">

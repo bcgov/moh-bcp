@@ -24,11 +24,15 @@
     </div>
 
     <div class="form-group">
+      <!-- NOTE: Removed until we are able to resolve issues with GeoCoder component
       <common-geocoder-input label='{{physicalAddrLabel}}'
         formControlName="address"
         maxlength="60"
         (select)="physicalAddressSelected($event)">
-      </common-geocoder-input>
+      </common-geocoder-input>-->
+
+      <label class="control-label" for="address">{{physicalAddrLabel}}</label>
+      <input id="Address" formControlName="address" class="form-control" maxlength="60">
       <!-- Empty validation case is required here due to GeoCoderInput incompatibility. -->
       <common-error-container
         [displayError]="formGroup.controls?.address?.touched && formGroup.controls?.address?.errors">
