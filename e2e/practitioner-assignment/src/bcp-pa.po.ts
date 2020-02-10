@@ -69,6 +69,7 @@ export class BCPBasePage extends AbstractTestPage {
     typeDate(legendVal: string, year: string, month: string, day: string) {
         const months = [ 'January', 'February', 'March', 'April', 'May', 'June',
            'July', 'August', 'September', 'October', 'November', 'December' ];
+        console.log('MONTH: ', month);
         element(by.cssContainingText('legend', `${legendVal}`)).element(by.xpath('../..'))
             .element(by.css('select[id^="month"]')).sendKeys(months[parseInt(month, 10) - 1]);
         // element(by.cssContainingText('legend', `${legendVal}`)).element(by.xpath('../..'))

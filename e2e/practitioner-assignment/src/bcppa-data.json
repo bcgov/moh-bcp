@@ -111,6 +111,26 @@
     },
     {
         "changeAttach": "cancel",
-        "cancellationDate": "2020-04-15"
+        "cancellationDate": "2020-07-15"
+    },
+    {
+        "changeAttach": "change",
+        "newEffectiveDate": "2020-03-15",
+        "newCancellationDate": "2020-04-15"
+    },
+    {
+        "changeAttach": "change",
+        "newEffectiveDate": "2020-04-01",
+        "newCancellationDate": "2020-04-15"
+    },
+    {
+        "changeAttach": "change",
+        "newEffectiveDate": "2020-02-15",
+        "newCancellationDate": "2020-03-15"
+    },
+    {
+        "changeAttach": "change",
+        "newEffectiveDate": "2020-04-02",
+        "newCancellationDate": "2020-04-30"
     }
 ]

@@ -13,7 +13,7 @@ exports.config = {
     {
       browserName: 'firefox',
       "moz:firefoxOptions": {
-       "args": ["-headless"],
+      // "args": ["-headless"],
       }
     }
   ],
