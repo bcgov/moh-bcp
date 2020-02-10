@@ -3,7 +3,7 @@ import { BCPPractitionerAttachmentPage, BCPPractitionerInfoPage, BCPFacilityInfo
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../../src/app/modules/practitioner-registration/practitioner-registration-route-constants';
 import { constants } from 'perf_hooks';
 
-fdescribe('BCP Practitioner Assignment - Practitioner Attachment Page (Unit Test)', () => {
+describe('BCP Practitioner Assignment - Practitioner Attachment Page (Unit Test)', () => {
 
     let pracInfoPage: BCPPractitionerInfoPage;
     let faciInfoPage: BCPFacilityInfoPage;
@@ -71,6 +71,7 @@ fdescribe('BCP Practitioner Assignment - Practitioner Attachment Page (Unit Test
 
     it('08. should be VALID if Cancellation date for existing attachment is after to April 01, 2020', () => {
         pracAttachPage.fillPage(index);
+        pracAttachPage.scrollDown();
         pracAttachPage.clickContinue();
         browser.sleep(10000);
         expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.REVIEW.fullpath, 'should navigate on the next page');
@@ -79,11 +80,14 @@ fdescribe('BCP Practitioner Assignment - Practitioner Attachment Page (Unit Test
     it('09. should be INVALID if New Effective date for existing attachment is prior to April 01, 2020', () => {
         pracAttachPage.fillPage(index);
         pracAttachPage.clickContinue();
-        expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.REVIEW.fullpath, 'should navigate on the next page');
+        browser.sleep(10000);
+        expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_ASSIGN.fullpath, 'should stay on the same page');
+
     }, 100000);
 
     it('10. should be VALID if New Effective date for existing attachment is after to April 01, 2020', () => {
         pracAttachPage.fillPage(index);
+        pracAttachPage.scrollDown();
         pracAttachPage.clickContinue();
         expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.REVIEW.fullpath, 'should navigate on the next page');
     }, 100000);
@@ -91,11 +95,12 @@ fdescribe('BCP Practitioner Assignment - Practitioner Attachment Page (Unit Test
     it('11. should be INVALID if New Cancellation date for existing attachment is prior to April 01, 2020', () => {
         pracAttachPage.fillPage(index);
         pracAttachPage.clickContinue();
-        expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.REVIEW.fullpath, 'should navigate on the next page');
+        expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_ASSIGN.fullpath, 'should stay on the same page');
     }, 100000);
 
     it('12. should be VALID if New Cancellation date for existing attachment is after to April 01, 2020', () => {
-        pracAttachPage.fillPage(index);
+        pracAttachPage.fillPage(11);
+        pracAttachPage.scrollDown();
         pracAttachPage.clickContinue();
         expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.REVIEW.fullpath, 'should navigate on the next page');
     }, 100000);
