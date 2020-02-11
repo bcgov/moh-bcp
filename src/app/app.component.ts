@@ -53,7 +53,6 @@ export class AppComponent implements OnInit {
       filter(route => route.outlet === 'primary'),
       mergeMap(route => route.data)
     ).subscribe((data: { title?: string }) => {
-      console.log( 'data title: ', data.title );
       this.setTitle(data.title);
       this.splunkLogger.log({
         event: CommonLogEvents.navigation,
@@ -69,6 +68,5 @@ export class AppComponent implements OnInit {
 
     // If title is null, use default title
     this.titleService.setTitle( app.concat( (title ? title : this.title) ) );
-    console.log( 'Title from service: ', this.titleService.getTitle() );
   }
 }
