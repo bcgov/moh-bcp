@@ -211,7 +211,7 @@ export class BCPPractitionerAttachmentPage extends BCPBasePage {
             const eDay = effectiveDate.split('-')[2];
             this.typeDate('Effective date for new attachment', eYear, eMonth, eDay);
             this.scrollDown();
-            this.clickOption('Is this attachment a Locum or temporary?', this.jsonData[this.index].isAttachmentLocum);
+            this.clickOption('Is this a Locum or other temporary attachment?', this.jsonData[this.index].isAttachmentLocum);
             if (this.jsonData[this.index].isAttachmentLocum === true) {
                 const cancellationDate = this.jsonData[this.index].cancellationDate;
                 const cYear = cancellationDate.split('-')[0];
