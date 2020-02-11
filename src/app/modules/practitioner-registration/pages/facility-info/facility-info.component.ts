@@ -135,6 +135,7 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit, AfterV
           }
 
         }, error => {
+          // console.log('apiService onerror', error);
           this.handleError();
         });
     }

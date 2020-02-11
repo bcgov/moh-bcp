@@ -234,6 +234,7 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
           this.navigate(CREATE_FACILITY_PAGES.REVIEW.fullpath);
 
         }, error => {
+          // console.log('apiService onerror', error);
           this.handleError();
         });
     }

@@ -95,6 +95,7 @@ export class PractitionerInfoComponent extends BcpBaseForm implements OnInit, Af
           this.handleError();
         }
       }, error => {
+        // console.log('apiService onerror', error);
         this.handleError();
       });
     }
