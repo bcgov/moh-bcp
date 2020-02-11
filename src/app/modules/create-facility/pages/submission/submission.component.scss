@@ -8,6 +8,11 @@ app-submission {
     // Needs to be adjusted because there is no ComonFormActionBar / Stepper
     min-height: calc(100vh - 132px)
   }
+  @media print {
+    common-page-framework {
+      min-height: auto;
+    }
+  }
 
   // Based off of .message-container styles in <common-confirm-template>'s .scss file in common lib.
   .under-review {
