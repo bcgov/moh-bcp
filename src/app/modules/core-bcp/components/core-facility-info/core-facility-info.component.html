@@ -30,19 +30,20 @@
         maxlength="60"
         (select)="physicalAddressSelected($event)">
       </common-geocoder-input>-->
-
-      <label class="control-label" for="address">{{physicalAddrLabel}}</label>
-      <input id="Address" formControlName="address" class="form-control" maxlength="60">
-      <!-- Empty validation case is required here due to GeoCoderInput incompatibility. -->
-      <common-error-container
-        [displayError]="formGroup.controls?.address?.touched && formGroup.controls?.address?.errors">
-        <div *ngIf="formGroup.controls?.address?.errors?.required">
-            {{physicalAddrLabel}} is a required field.
-        </div>
-        <div *ngIf="formGroup.controls?.address?.errors?.pattern">
-            {{physicalAddrLabel}} must contain letters, numbers and/or symbols(e.g. #, @, !).
-        </div>
-      </common-error-container>
+      <div>
+        <label class="control-label" for="address">{{physicalAddrLabel}}</label>
+        <input id="Address" formControlName="address" class="form-control" maxlength="60">
+        <!-- Empty validation case is required here due to GeoCoderInput incompatibility. -->
+        <common-error-container
+          [displayError]="formGroup.controls?.address?.touched && formGroup.controls?.address?.errors">
+          <div *ngIf="formGroup.controls?.address?.errors?.required">
+              {{physicalAddrLabel}} is a required field.
+          </div>
+          <div *ngIf="formGroup.controls?.address?.errors?.pattern">
+              {{physicalAddrLabel}} must contain letters, numbers and/or symbols(e.g. #, @, !).
+          </div>
+        </common-error-container>
+      </div>
     </div>
 
     <div class="form-group">
