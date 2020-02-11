@@ -147,9 +147,10 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
     const city = this.facilityForm.get('mailingCity');
     const postalCode = this.facilityForm.get('mailingPostalCode');
     if (!isRequired) {
-      address.setValidators(Validators.required);
-      city.setValidators(Validators.required);
-      postalCode.setValidators(Validators.required);
+
+      address.setValidators(cCreateFacilityValidators.address.streetAddress);
+      city.setValidators(cCreateFacilityValidators.address.city);
+      postalCode.setValidators(cCreateFacilityValidators.address.postalCode);
     } else {
       address.clearValidators();
       city.clearValidators();
@@ -238,6 +239,8 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
         });
     }
   }
+
+  /* NOTE: Removed until GeoCoder component is fixed
   physicalAddressSelected(address: Address) {
     console.log('%c ADDRESS (physicalAddr): %o', 'color:red', address);
     this.facilityForm.patchValue({
@@ -250,6 +253,8 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
 
     // this.physicalAddress = address;
   }
+  */
+  /* NOTE: Removed until GeoCoder component is fixed
   mailingAddressSelected(address: Address) {
     // console.log('%c ADDRESS: %o', 'color:red', address);
     this.facilityForm.patchValue({
@@ -260,6 +265,7 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
     this.dataService.facInfoMailCity = address.city;
    // this.mailingAddress = address;
   }
+  */
 
   private handleError(): void {
     this.systemDownError = true;
