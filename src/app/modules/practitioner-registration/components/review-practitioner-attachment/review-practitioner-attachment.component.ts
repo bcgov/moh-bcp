@@ -31,7 +31,7 @@ export class ReviewPractitionerAttachmentComponent implements OnInit {
     this.review.header = PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_ASSIGN.title + ' For Business Cost Premium';
 
     const newAttachmentType: ReviewItem = {
-      label: 'Is the attachment a locum or temporary?',
+      label: 'Is this a Locum or other temporary attachment?',
       value: this.dataService.pracNewAttachmentType ? 'Yes' : 'No',
       hideColon: true
     };
