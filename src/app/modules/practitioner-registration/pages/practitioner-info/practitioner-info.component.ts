@@ -63,9 +63,6 @@ export class PractitionerInfoComponent extends BcpBaseForm implements OnInit, Af
   continue() {
     this.markAllInputsTouched();
 
-    console.log('Continue: Practitioner Info');
-    console.log('Items', this.formGroup.value);
-
     if (this.formGroup.valid) {
 
       this.containerService.setIsLoading();
@@ -98,7 +95,6 @@ export class PractitionerInfoComponent extends BcpBaseForm implements OnInit, Af
           this.handleError();
         }
       }, error => {
-        console.log('apiService onerror', error);
         this.handleError();
       });
     }

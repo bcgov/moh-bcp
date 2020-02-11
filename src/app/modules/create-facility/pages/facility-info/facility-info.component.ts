@@ -109,17 +109,17 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
 
     form.get('address').valueChanges.subscribe(
       value => {
-        console.log('%c ADDRESS (phys) changed: %o', 'color:blue', value);
-       // if (!value) {
-       //   this.physicalAddress = null;
-       // }
+        // console.log('%c ADDRESS (phys) changed: %o', 'color:blue', value);
+        // if (!value) {
+        //   this.physicalAddress = null;
+        // }
         this.dataService.facInfoPhysicalAddress = value;
       }
     );
 
     form.get('mailingAddress').valueChanges.subscribe(
       value => {
-        console.log('%c ADDRESS (mail) changed: %o', 'color:red', value);
+        // console.log('%c ADDRESS (mail) changed: %o', 'color:red', value);
        /* if (!value) {
           this.mailingAddress = null;
         }*/
@@ -234,7 +234,6 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
           this.navigate(CREATE_FACILITY_PAGES.REVIEW.fullpath);
 
         }, error => {
-          console.log('apiService onerror', error);
           this.handleError();
         });
     }
@@ -242,7 +241,7 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
 
   /* NOTE: Removed until GeoCoder component is fixed
   physicalAddressSelected(address: Address) {
-    console.log('%c ADDRESS (physicalAddr): %o', 'color:red', address);
+    // console.log('%c ADDRESS (physicalAddr): %o', 'color:red', address);
     this.facilityForm.patchValue({
       address: address.addressLine1,
       city: address.city
