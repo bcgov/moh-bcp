@@ -8,6 +8,7 @@ import { formatDateForDisplay, setNotApplicable } from '../../../core-bcp/models
 interface ReviewItem {
   label: string;
   value: any;
+  hideColon?: boolean;
 }
 
 @Component({
@@ -31,7 +32,8 @@ export class ReviewPractitionerAttachmentComponent implements OnInit {
 
     const newAttachmentType: ReviewItem = {
       label: 'Is the attachment a locum or temporary?',
-      value: this.dataService.pracNewAttachmentType ? 'Yes' : 'No'
+      value: this.dataService.pracNewAttachmentType ? 'Yes' : 'No',
+      hideColon: true
     };
     const newAttachmentEffectiveDate: ReviewItem = {
       label: 'Effective date for new attachment',
