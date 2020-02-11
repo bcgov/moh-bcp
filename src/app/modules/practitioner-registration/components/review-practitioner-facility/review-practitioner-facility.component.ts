@@ -27,7 +27,7 @@ export class ReviewPractitionerFacilityComponent implements OnInit {
     const items = [
       [
         { label: 'Facility name', value: this.dataService.pracFacilityName },
-        { label: 'Medical Services Plan facility number', value: this.dataService.pracFacilityNumber },
+        { label: 'Medical Services Plan Facility Number', value: this.dataService.pracFacilityNumber },
         { label: 'Address', value: this.dataService.pracFacilityAddress },
         { label: 'City', value: this.dataService.pracFacilityCity },
         { label: 'Province', value: getProvinceDescription( this.dataService.pracFacilityProvince )},
