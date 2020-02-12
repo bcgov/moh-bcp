@@ -69,7 +69,6 @@ export class BCPBasePage extends AbstractTestPage {
     typeDate(legendVal: string, year: string, month: string, day: string) {
         const months = [ 'January', 'February', 'March', 'April', 'May', 'June',
            'July', 'August', 'September', 'October', 'November', 'December' ];
-        console.log('MONTH: ', month);
         element(by.cssContainingText('legend', `${legendVal}`)).element(by.xpath('../..'))
             .element(by.css('select[id^="month"]')).sendKeys(months[parseInt(month, 10) - 1]);
         // element(by.cssContainingText('legend', `${legendVal}`)).element(by.xpath('../..'))
@@ -224,20 +223,17 @@ export class BCPPractitionerAttachmentPage extends BCPBasePage {
             const cYear = cancellationDate.split('-')[0];
             const cMonth = cancellationDate.split('-')[1];
             const cDay = cancellationDate.split('-')[2];
-            console.log(`CANCELLATION DATE: ${cMonth} - ${cDay} - ${cYear}`);
             this.typeDate('Cancellation date for existing attachment', cYear, cMonth, cDay);
         } else if (changeAttach === 'change') {
             const newEffectiveDate = this.jsonData[this.index].newEffectiveDate;
             const neYear = newEffectiveDate.split('-')[0];
             const neMonth = newEffectiveDate.split('-')[1];
             const neDay = newEffectiveDate.split('-')[2];
-            console.log(`NEW EFFECTIVE DATE: ${neMonth} - ${neDay} - ${neYear}`);
             this.typeDate('New effective date for existing attachment (if applicable)', neYear, neMonth, neDay);
             const newCancellationDate = this.jsonData[this.index].newCancellationDate;
             const ncYear = newCancellationDate.split('-')[0];
             const ncMonth = newCancellationDate.split('-')[1];
             const ncDay = newCancellationDate.split('-')[2];
-            console.log(`NEW CANCELLATION DATE: ${ncMonth} - ${ncDay} - ${ncYear}`);
             this.typeDate('New cancellation date for existing attachment (if applicable)', ncYear, ncMonth, ncDay);
         } else {
             return;
