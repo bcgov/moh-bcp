@@ -57,4 +57,11 @@ describe('BCP Practitioner Assignment - Practitioner Info Page (Unit Test)', () 
         pracInfoPage.checkPracInfoInputValues(index);
     });
 
+    it('07. should result in an ERROR if the user inserts a non-numeric practitioner number', () => {
+        pracInfoPage.navigateTo();
+        pracInfoPage.fillPage(index);
+        pracInfoPage.clickContinue();
+        expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_INFO.fullpath, 'should NOT navigate to the next page');
+    });
+
 });

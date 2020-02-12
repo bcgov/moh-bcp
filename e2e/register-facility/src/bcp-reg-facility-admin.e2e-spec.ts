@@ -58,4 +58,11 @@ describe('BCP Create Facility - Administrator Information Page (Unit Test)', () 
         adminPage.checkAdminInputValues(index);
     }, 100000);
 
+    it('07. should result in an ERROR if the user inserts a non-numeric practitioner number', () => {
+        adminPage.navigateTo();
+        adminPage.fillPage(index);
+        adminPage.clickContinue();
+        expect(browser.getCurrentUrl()).toContain(CREATE_FACILITY_PAGES.FACILITY_ADMIN.fullpath, 'should NOT navigate to the next page');
+    }, 100000);
+
 });
