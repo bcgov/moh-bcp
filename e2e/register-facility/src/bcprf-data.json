@@ -1,8 +1,8 @@
 [
     {
-        "facilityAdminFirstName": "F",
-        "facilityAdminLastName": "TEST-JONES",
-        "MSPPractitionerNum": "89900",
+        "facilityAdminFirstName": "TEST",
+        "facilityAdminLastName": "PRIVATEPRACTICE",
+        "MSPPractitionerNum": "89902",
         "emailAdd": "test@sample.com",
         "phoneNum": "2501234567",
         "extension": "123",
