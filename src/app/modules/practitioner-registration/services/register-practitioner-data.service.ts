@@ -136,7 +136,7 @@ export class RegisterPractitionerDataService extends BaseDataService {
       // Update section for schema - needs to be reflected in the data service to only have 2 dates to keep code maintainable
       pracAssignment: {
         // when a flag is false, the corresponding date must be null.
-          action: this.pracAttachmentType,
+          action: this.pracNewAttachmentType ? PRAC_ATTACHMENT_TYPE.TEMP : this.pracAttachmentType,
           effectiveDate: this.attachmentEffectiveDate ? convertToJSONDate( this.attachmentEffectiveDate ) : null,
           cancelDate: this.attachmentCancelDate ? convertToJSONDate( this.attachmentCancelDate ) : null,
           manualReview: this.manualReview  // Indicated whether MT needs to send request to MAXHUB only
