@@ -240,9 +240,12 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
     }
   }
 
-  /* NOTE: Removed until GeoCoder component is fixed
   physicalAddressSelected(address: Address) {
     // console.log('%c ADDRESS (physicalAddr): %o', 'color:red', address);
+
+    if (!address.addressLine1 && !address.city) {
+      return;
+    }
     this.facilityForm.patchValue({
       address: address.addressLine1,
       city: address.city
@@ -253,10 +256,13 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
 
     // this.physicalAddress = address;
   }
-  */
-  /* NOTE: Removed until GeoCoder component is fixed
+
   mailingAddressSelected(address: Address) {
     // console.log('%c ADDRESS: %o', 'color:red', address);
+
+    if (!address.addressLine1 && !address.city) {
+      return;
+    }
     this.facilityForm.patchValue({
       mailingAddress: address.addressLine1,
       mailingCity: address.city
@@ -265,7 +271,6 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
     this.dataService.facInfoMailCity = address.city;
    // this.mailingAddress = address;
   }
-  */
 
   private handleError(): void {
     this.systemDownError = true;
