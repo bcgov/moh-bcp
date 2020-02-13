@@ -32,7 +32,7 @@ export class BCPApiService extends AbstractHttpService {
     this.logger.logHttpError(error);
 
     // TODO: Improve / reduce logging here once done development.
-    console.log('BCP API ERRROR', error);
+    // console.log('BCP API ERRROR', error);
     throw new Error('BCP API Error');
   }
 

@@ -20,40 +20,48 @@ describe('BCP Practitioner Assignment - Practitioner Info Page (Unit Test)', () 
         pracInfoPage.fillPage(index);
         pracInfoPage.clickContinue();
         expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_INFO.fullpath, 'should NOT navigate to the next page');
-    }, 100000);
+    });
 
     it('02. should be a NO MATCH since the practitioner number for chiropractor is invalid', () => {
         pracInfoPage.navigateTo();
         pracInfoPage.fillPage(index);
         pracInfoPage.clickContinue();
         expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_INFO.fullpath, 'should NOT navigate to the next page');
-    }, 100000);
+    });
 
     it('03. should be a MATCH since the admin info data for private practice is valid', () => {
         pracInfoPage.navigateTo();
         pracInfoPage.fillPage(index);
+        browser.sleep(5000);
         pracInfoPage.clickContinue();
         expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.FACILITY_INFO.fullpath, 'should go to the Facility Info Page');
-    }, 100000);
+    });
 
     it('04. should be a NO MATCH since the last name for private practice is invalid', () => {
         pracInfoPage.navigateTo();
         pracInfoPage.fillPage(index);
         pracInfoPage.clickContinue();
         expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_INFO.fullpath, 'should NOT navigate to the next page');
-    }, 100000);
+    });
 
     it('05. should result in an ERROR if the user inserts non-printable characters into the input fields', () => {
         pracInfoPage.navigateTo();
         pracInfoPage.fillPage(index);
         pracInfoPage.clickContinue();
         expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_INFO.fullpath, 'should NOT navigate to the next page');
-    }, 100000);
+    });
 
     it('06. should verify that a user can only enter up to the max length of input fields', () => {
         pracInfoPage.navigateTo();
         pracInfoPage.fillPage(index);
         pracInfoPage.checkPracInfoInputValues(index);
-    }, 100000);
+    });
+
+    it('07. should result in an ERROR if the user inserts a non-numeric practitioner number', () => {
+        pracInfoPage.navigateTo();
+        pracInfoPage.fillPage(index);
+        pracInfoPage.clickContinue();
+        expect(browser.getCurrentUrl()).toContain(PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_INFO.fullpath, 'should NOT navigate to the next page');
+    });
 
 });

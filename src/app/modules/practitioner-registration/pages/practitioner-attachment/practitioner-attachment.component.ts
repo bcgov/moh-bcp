@@ -223,9 +223,6 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
 
     this.markAllInputsTouched(forms);
 
-    console.log( 'forms: ', forms );
-
-
     if ( forms.every( (x) => x.valid === true ) && continueFlag ) {
       this.navigate(PRACTITIONER_REGISTRATION_PAGES.REVIEW.fullpath);
     }

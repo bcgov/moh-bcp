@@ -19,6 +19,7 @@ describe('BCP Create Facility - Administrator Information Page (Unit Test)', () 
         adminPage.navigateTo();
         adminPage.fillPage(index);
         adminPage.clickContinue();
+        browser.sleep(10000);
         expect(browser.getCurrentUrl()).toContain(CREATE_FACILITY_PAGES.FACILITY_INFO.fullpath, 'should go to the Facility Info Page');
     }, 100000);
 
@@ -55,6 +56,13 @@ describe('BCP Create Facility - Administrator Information Page (Unit Test)', () 
         adminPage.fillPage(index);
         adminPage.clickContinue();
         adminPage.checkAdminInputValues(index);
+    }, 100000);
+
+    it('07. should result in an ERROR if the user inserts a non-numeric practitioner number', () => {
+        adminPage.navigateTo();
+        adminPage.fillPage(index);
+        adminPage.clickContinue();
+        expect(browser.getCurrentUrl()).toContain(CREATE_FACILITY_PAGES.FACILITY_ADMIN.fullpath, 'should NOT navigate to the next page');
     }, 100000);
 
 });

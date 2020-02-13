@@ -67,7 +67,7 @@ export class SpaEnvService extends AbstractHttpService {
   }
 
   protected handleError(error: HttpErrorResponse) {
-    console.log( 'Error handleError: ', error );
+    // console.log( 'Error handleError: ', error );
 
     if (error.error instanceof ErrorEvent) {
       // Client-side / network error occured

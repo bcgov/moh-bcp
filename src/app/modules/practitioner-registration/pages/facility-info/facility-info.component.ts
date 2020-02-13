@@ -79,8 +79,6 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit, AfterV
   continue() {
     this.markAllInputsTouched();
 
-    console.log( 'Continue: Facility Info');
-    console.log('Items', this.formGroup.value);
     if (this.formGroup.valid) {
 
       this.containerService.setIsLoading();
@@ -137,7 +135,7 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit, AfterV
           }
 
         }, error => {
-          console.log('ARC apiService onerror', error);
+          // console.log('apiService onerror', error);
           this.handleError();
         });
     }

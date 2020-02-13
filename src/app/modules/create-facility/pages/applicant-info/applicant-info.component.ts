@@ -97,7 +97,7 @@ export class ApplicantInfoComponent extends BcpBaseForm implements OnInit, After
           this.handleError();
         }
       }, error => {
-        console.log('apiService onerror', error);
+        // console.log('apiService onerror', error);
         this.handleError();
       });
 
