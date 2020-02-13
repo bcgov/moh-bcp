@@ -27,5 +27,4 @@ export class CoreFacilityInfoComponent {
   physicalAddressSelected(address: Address) {
     this.addressSelected.emit(address);
   }
-  
 }
