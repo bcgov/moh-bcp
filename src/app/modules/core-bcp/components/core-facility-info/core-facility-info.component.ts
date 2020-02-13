@@ -24,9 +24,8 @@ export class CoreFacilityInfoComponent {
   facilityLabel: string = 'Facility or practice name';
   physicalAddrLabel: string = 'Physical address';
 
-  /* NOTE: Removed until we are able to resolve issues with GeoCoder component
   physicalAddressSelected(address: Address) {
     this.addressSelected.emit(address);
   }
-  */
+  
 }
