@@ -3,7 +3,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { BCPApiService } from './bcp-api.service';
 
-fdescribe('BCPApiService', () => {
+describe('BCPApiService', () => {
   let httpClientSpy;
   let loggerSpy;
   let dataServiceSpy;
