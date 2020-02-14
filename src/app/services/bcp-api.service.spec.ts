@@ -29,7 +29,7 @@ fdescribe('BCPApiService', () => {
     class BCPApiServiceTest extends BCPApiService {
       handleErrorTest() {
         const mockError = 'mock-error';
-        expect(() => { this.handleError(<any> mockError )}).toThrowError();
+        expect(() => { this.handleError(mockError as any); }).toThrowError();
         expect(loggerSpy.logHttpError).toHaveBeenCalledWith(mockError);
       }
     }
@@ -58,8 +58,8 @@ fdescribe('BCPApiService', () => {
     class BCPApiServiceTest extends BCPApiService {
       uploadSignatureTest(attachment, applicationUUID) {
         this.uploadAttachment = jasmine.createSpy();
-        this.uploadSignature(<any> attachment, applicationUUID);
-        expect(this.uploadAttachment).toHaveBeenCalledWith(jasmine.any(String), <any> mockAttachment);
+        this.uploadSignature(attachment as any, applicationUUID);
+        expect(this.uploadAttachment).toHaveBeenCalledWith(jasmine.any(String), mockAttachment as any);
       }
     }
     const service: BCPApiServiceTest = new BCPApiServiceTest(httpClientSpy, loggerSpy, dataServiceSpy);
@@ -75,7 +75,7 @@ fdescribe('BCPApiService', () => {
       validatePractitionerTest(practitioner, applicationUUID) {
         this.generateUUID = jasmine.createSpy().and.returnValue(mockRequestUUID);
         this.post = jasmine.createSpy();
-        this.validatePractitioner(<any> practitioner, applicationUUID);
+        this.validatePractitioner(practitioner as any, applicationUUID);
         expect(this.post).toHaveBeenCalledWith(jasmine.any(String), jasmine.any(Object));
       }
     }
@@ -92,7 +92,7 @@ fdescribe('BCPApiService', () => {
       validateFacilityTest(facility, applicationUUID) {
         this.generateUUID = jasmine.createSpy().and.returnValue(mockRequestUUID);
         this.post = jasmine.createSpy();
-        this.validateFacility(<any> facility, applicationUUID);
+        this.validateFacility(facility as any, applicationUUID);
         expect(this.post).toHaveBeenCalledWith(jasmine.any(String), jasmine.any(Object));
       }
     }
