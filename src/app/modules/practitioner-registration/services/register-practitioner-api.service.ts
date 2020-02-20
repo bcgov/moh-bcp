@@ -26,7 +26,7 @@ export class RegisterPractitionerApiService extends BCPApiService {
       );
   }
 
-  private submitMaintPracJson(jsonPayLoad: any, applicationUUID: string, signature: CommonImage<BCPDocumentTypes> ) {
+  protected submitMaintPracJson(jsonPayLoad: any, applicationUUID: string, signature: CommonImage<BCPDocumentTypes> ) {
     const requestUUID = this.generateUUID();
     const payload = {
       maintainPractitionerSubmission: jsonPayLoad,
