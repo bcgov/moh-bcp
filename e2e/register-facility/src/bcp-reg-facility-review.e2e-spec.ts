@@ -22,15 +22,4 @@ describe('BCP Create Facility - Review Page (Unit Test)', () => {
         expect(browser.getCurrentUrl()).toContain(CREATE_FACILITY_PAGES.REVIEW.fullpath, 'should stay on the Review Page');
     });
 
-    /*
-    it('02. should not be able to check if the information provided is the same as the one displayed on the Review Page', () => {
-        adminPage.navigateTo();
-        adminPage.fillPage(END_TO_END_INDEX);
-        adminPage.clickContinue();
-        infoPage.fillPage(END_TO_END_INDEX);
-        infoPage.clickContinue();
-    });
-    */
-
-
 });
