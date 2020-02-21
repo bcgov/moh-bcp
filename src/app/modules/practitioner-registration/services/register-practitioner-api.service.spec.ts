@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { of } from 'rxjs';
 
 import { RegisterPractitionerApiService } from './register-practitioner-api.service';
 
@@ -8,6 +9,11 @@ class RegisterPractitionerApiServiceTest extends RegisterPractitionerApiService 
     this.post = jasmine.createSpy();
     this.submitMaintPracJson(jsonPayLoad, applicationUUID, signature);
     expect(this.post).toHaveBeenCalled();
+  }
+  maintainPractitionerTest(jsonPayLoad, signature, applicationUUID) {
+    this.uploadSignature = jasmine.createSpy().and.returnValue(of('test'));
+    this.maintainPractitioner(jsonPayLoad, signature, applicationUUID);
+    expect(this.uploadSignature).toHaveBeenCalledWith(signature, applicationUUID);
   }
 }
 
@@ -24,16 +30,13 @@ describe('RegisterPractitionerApiService', () => {
 
   it('should submit maintain practitioner JSON', () => {
     const service: RegisterPractitionerApiServiceTest = TestBed.get(RegisterPractitionerApiServiceTest);
-    const mockSignature = jasmine.createSpyObj('signature', ['toJSON'])
+    const mockSignature = jasmine.createSpyObj('signature', ['toJSON']);
     service.submitMaintPracJsonTest({}, '', mockSignature as any);
     expect(mockSignature.toJSON).toHaveBeenCalled();
   });
-  /*
+
   it('should upload signature', () => {
     const service: RegisterPractitionerApiServiceTest = TestBed.get(RegisterPractitionerApiServiceTest);
-    const mockSignature = jasmine.createSpyObj('signature', ['toJSON'])
-    service.submitMaintPracJsonTest({}, '', mockSignature as any);
-    expect(mockSignature.toJSON).toHaveBeenCalled();
+    service.maintainPractitionerTest({}, {}, '');
   });
-  */
 });

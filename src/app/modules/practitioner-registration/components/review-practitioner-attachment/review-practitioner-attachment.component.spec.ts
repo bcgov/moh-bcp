@@ -16,13 +16,18 @@ describe('ReviewPractitionerAttachmentComponent', () => {
     .compileComponents();
   }));
 
-  beforeEach(() => {
+  it('should create', () => {
     fixture = TestBed.createComponent(ReviewPractitionerAttachmentComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    expect(component).toBeTruthy();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should get review items', () => {
+    fixture = TestBed.createComponent(ReviewPractitionerAttachmentComponent);
+    component = fixture.componentInstance;
+    expect(component.review.sectionItems).not.toBeDefined();
+    fixture.detectChanges();
+    expect(component.review.sectionItems instanceof Array).toBeDefined();
   });
 });

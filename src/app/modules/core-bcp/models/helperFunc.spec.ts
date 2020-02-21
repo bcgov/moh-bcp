@@ -1,4 +1,11 @@
-import {setNotApplicable, formatDateForDisplay, convertToJSONDate, stripPhoneFormatting, stripPostalCodeSpaces} from './helperFunc';
+import {
+    setNotApplicable,
+    formatDateForDisplay,
+    convertToJSONDate,
+    stripPhoneFormatting,
+    stripPostalCodeSpaces,
+    prepareDeclarationTextForAPI
+} from './helperFunc';
 
 describe('setNotApplicable', () => {
     it('should return value when value passed is defined', () => {
@@ -61,5 +68,12 @@ describe('stripPostalCodeSpaces', () => {
     it('should return null when postal code is undefined', () => {
         expect(stripPostalCodeSpaces(undefined)).toEqual(null);
         expect(stripPostalCodeSpaces(null)).toEqual(null);
+    });
+});
+
+describe('stripPostalCodeSpaces', () => {
+    it('should strip specific HTML', () => {
+        const mockDeclarationText = '<ol class=\'no-bullets\'>mock-declaration-text</ol>';
+        expect(prepareDeclarationTextForAPI(mockDeclarationText)).toEqual('mock-declaration-text');
     });
 });
