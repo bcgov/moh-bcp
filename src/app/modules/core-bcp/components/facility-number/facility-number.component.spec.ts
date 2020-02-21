@@ -35,14 +35,14 @@ describe('PractitionerNumberComponent', () => {
 
   it('should trigger change event', () => {
     const input = fixture.debugElement.query(By.css('input'));
-    spyOn(component, 'inputChange');
+    spyOn(component, 'inputChange').and.callThrough();
     input.triggerEventHandler('change', {});
     expect(component.inputChange).toHaveBeenCalled();
   });
 
   it('should trigger blur event', () => {
     const input = fixture.debugElement.query(By.css('input'));
-    spyOn(component, 'onBlur');
+    spyOn(component, 'onBlur').and.callThrough();
     input.triggerEventHandler('blur', {});
     expect(component.onBlur).toHaveBeenCalled();
   });

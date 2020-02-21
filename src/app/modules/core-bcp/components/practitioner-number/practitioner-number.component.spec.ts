@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { SharedCoreModule } from 'moh-common-lib';
 
 import { PractitionerNumberComponent } from './practitioner-number.component';
@@ -31,5 +32,25 @@ describe('PractitionerNumberComponent', () => {
     fixture.detectChanges();
     const errorContainerEl = fixture.debugElement.nativeElement.querySelector('common-error-container');
     expect(errorContainerEl).toBeTruthy();
+  });
+
+  it('should handle change event', () => {
+    const input = fixture.debugElement.query(By.css('input'));
+    spyOn(component, 'inputChange').and.callThrough();
+    input.triggerEventHandler('change', {target: {value: 'mock-value'}});
+    expect(component.inputChange).toHaveBeenCalled();
+  });
+
+  it('should handle blur event', () => {
+    const input = fixture.debugElement.query(By.css('input'));
+    spyOn(component, 'onBlur').and.callThrough();
+    input.triggerEventHandler('blur', {target: {value: 'mock-value'}});
+    expect(component.onBlur).toHaveBeenCalled();
+  });
+
+  it('should write value', () => {
+    const mockValue = 'mock-value';
+    component.writeValue(mockValue);
+    expect(component.pracNumber).toEqual(mockValue);
   });
 });

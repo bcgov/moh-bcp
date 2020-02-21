@@ -29,4 +29,16 @@ describe('FacilityInfoComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should update mailing validators', () => {
+    spyOn(component.facilityForm, 'updateValueAndValidity').and.callThrough();
+    component.updateMailingValidity(true);
+    expect(component.facilityForm.updateValueAndValidity).toHaveBeenCalled();
+  });
+
+  it('should update data service', () => {
+    spyOn(component.facilityForm, 'updateValueAndValidity').and.callThrough();
+    component.updateMailingValidity(true);
+    expect(component.facilityForm.updateValueAndValidity).toHaveBeenCalled();
+  });
 });

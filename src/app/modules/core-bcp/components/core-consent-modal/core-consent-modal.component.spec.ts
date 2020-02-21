@@ -29,14 +29,14 @@ describe('CoreConsentModalComponent', () => {
 
   it('should handle acceptance checkbox', () => {
     const input = fixture.debugElement.query(By.css('common-consent-modal'));
-    spyOn(component, 'handleAccept');
+    spyOn(component, 'handleAccept').and.callThrough();
     input.triggerEventHandler('accept', {});
     expect(component.handleAccept).toHaveBeenCalled();
   });
 
   it('should handle token response', () => {
     const input = fixture.debugElement.query(By.css('common-captcha'));
-    spyOn(component, 'handleToken');
+    spyOn(component, 'handleToken').and.callThrough();
     input.triggerEventHandler('onValidToken', {});
     expect(component.handleToken).toHaveBeenCalled();
   });

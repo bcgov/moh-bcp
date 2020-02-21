@@ -105,13 +105,13 @@ export class ApplicantInfoComponent extends BcpBaseForm implements OnInit, After
 
   }
 
-  private handleError(): void {
+  protected handleError(): void {
     this.systemDownError = true;
     this.containerService.setIsLoading(false);
     this.cdr.detectChanges();
   }
 
-  private handleValidation(isValid: boolean): void {
+  protected handleValidation(isValid: boolean): void {
     this.showValidationError = !isValid;
     this.containerService.setIsLoading(false);
     this.systemDownError = false;

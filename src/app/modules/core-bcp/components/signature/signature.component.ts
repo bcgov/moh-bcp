@@ -21,7 +21,7 @@ export class SignatureComponent implements AfterViewInit {
   @Input() label: string = 'Add your signature';
 
   public image: CommonImage;
-  private blankCanvas = true;
+  protected blankCanvas = true;
 
   public signaturePadOptions: object = { // passed through to szimek/signature_pad constructor
     canvasWidth: 500,
