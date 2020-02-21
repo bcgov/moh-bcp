@@ -4,8 +4,8 @@ import { CreateFacilityDataService } from '../../services/create-facility-data.s
 import { Router } from '@angular/router';
 import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
 
-import { BCPApiService } from '../../../../services/bcp-api.service';
 import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
+import { CreateFacilityApiService } from '../../services/create-facility-api.service';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +19,7 @@ export class HomeComponent extends BcpBaseForm implements OnInit, AfterViewInit 
   constructor(private dataService: CreateFacilityDataService,
               protected router: Router,
               protected pageStateService: PageStateService,
-              private ApiService: BCPApiService,
+              private ApiService: CreateFacilityApiService,
               protected containerService: ContainerService) {
     super(router, containerService, pageStateService);
   }

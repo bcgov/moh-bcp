@@ -4,10 +4,10 @@ import { ConsentModalComponent, PageStateService } from 'moh-common-lib';
 import { UUID } from 'angular2-uuid';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration-route-constants';
 import { ContainerService } from 'moh-common-lib';
-import { BCPApiService } from '../../../../services/bcp-api.service';
 import { RegisterPractitionerDataService } from '../../services/register-practitioner-data.service';
 import { environment } from '../../../../../environments/environment';
 import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
+import { RegisterPractitionerApiService } from '../../services/register-practitioner-api.service';
 
 @Component({
   selector: 'bcp-home',
@@ -24,11 +24,10 @@ export class HomeComponent extends BcpBaseForm implements OnInit {
   constructor( protected containerService: ContainerService,
                protected router: Router,
                protected pageStateService: PageStateService,
-               private apiService: BCPApiService,
+               private apiService: RegisterPractitionerApiService,
                private dataService: RegisterPractitionerDataService ) {
     super(router, containerService, pageStateService);
   }
-
 
   ngOnInit() {
     super.ngOnInit();
