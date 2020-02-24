@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { PRACTITIONER_REGISTRATION_PAGES } from '../../update-facility-route-constants';
+import { UPDATE_FACILITY_PAGES } from '../../update-facility-route-constants';
 import { RegisterPractitionerDataService } from '../../services/register-practitioner-data.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ContainerService, PageStateService } from 'moh-common-lib';
@@ -9,7 +9,6 @@ import { SignatureComponent } from '../../../core-bcp/components/signature/signa
 import { RegisterPractitionerApiService } from '../../services/register-practitioner-api.service';
 import { SubmissionResponse } from '../../../core-bcp/models/base-api.model';
 import { SplunkLoggerService } from '../../../../services/splunk-logger.service';
-import { getAttachmentLabelByValue } from '../../models/practitioner-attachment';
 import { PrivacyStmt } from '../../../core-bcp/components/core-consent-modal/core-consent-modal.component';
 
 @Component({
@@ -81,14 +80,14 @@ export class ReviewComponent extends BcpBaseForm implements OnInit, AfterViewIni
         this.dataService.jsonMaintPractitioner.response = res;
         this.splunkLoggerService.log(
           this.dataService.getSubmissionLogObject<SubmissionResponse>(
-            'Maintain Practitioner - ' + getAttachmentLabelByValue( this.dataService.pracAttachmentType ),
+            'Maintain Practitioner - ',
             this.dataService.jsonMaintPractitioner.response
           )
         );
 
         this.containerService.setIsLoading(false);
         // TODO: Handle failure case, e.g. no backend, failed request, etc.
-        this.navigate(PRACTITIONER_REGISTRATION_PAGES.SUBMISSION.fullpath);
+        this.navigate(UPDATE_FACILITY_PAGES.SUBMISSION.fullpath);
       }, error => {
         // console.log('apiService onerror', error);
         this.containerService.setIsLoading(false);

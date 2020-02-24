@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConsentModalComponent, PageStateService } from 'moh-common-lib';
 import { UUID } from 'angular2-uuid';
-import { PRACTITIONER_REGISTRATION_PAGES } from '../../update-facility-route-constants';
+import { UPDATE_FACILITY_PAGES } from '../../update-facility-route-constants';
 import { ContainerService } from 'moh-common-lib';
 import { RegisterPractitionerDataService } from '../../services/register-practitioner-data.service';
 import { environment } from '../../../../../environments/environment';
@@ -36,7 +36,7 @@ export class HomeComponent extends BcpBaseForm implements OnInit {
 
   continue() {
     // console.log( 'Continue');
-    this.navigate(PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_INFO.fullpath);
+    this.navigate(UPDATE_FACILITY_PAGES.FORM_PAGE.fullpath);
   }
 
   hasToken(): boolean {
@@ -52,6 +52,6 @@ export class HomeComponent extends BcpBaseForm implements OnInit {
   }
 
   get pageTitle() {
-    return PRACTITIONER_REGISTRATION_PAGES.HOME.title;
+    return UPDATE_FACILITY_PAGES.HOME.title;
   }
 }

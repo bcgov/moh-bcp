@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { PRACTITIONER_REGISTRATION_PAGES } from '../../update-facility-route-constants';
+import { UPDATE_FACILITY_PAGES } from '../../update-facility-route-constants';
 import { ApiStatusCodes, PageStateService } from 'moh-common-lib';
 import { RegisterPractitionerDataService } from '../../services/register-practitioner-data.service';
 import { ConfirmBaseForm } from '../../../core-bcp/models/confirm-base-form';
@@ -58,7 +58,7 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
 
   // Title for route
   get pageTitle() {
-    return PRACTITIONER_REGISTRATION_PAGES.SUBMISSION.title;
+    return UPDATE_FACILITY_PAGES.SUBMISSION.title;
   }
 
   get referenceNumber() {

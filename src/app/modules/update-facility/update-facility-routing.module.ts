@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { PRACTITIONER_REGISTRATION_PAGES } from './update-facility-route-constants';
+import { UPDATE_FACILITY_PAGES } from './update-facility-route-constants';
 import { SubmissionComponent } from './pages/submission/submission.component';
 import { RegistrationContainerComponent } from './components/registration-container/registration-container.component';
 import { pages } from './update-facility-page-routes';
@@ -14,9 +14,9 @@ const routes: Routes = [
     canActivateChild: [LoadPageGuardService]
   },
   {
-    path: PRACTITIONER_REGISTRATION_PAGES.SUBMISSION.path,
+    path: UPDATE_FACILITY_PAGES.SUBMISSION.path,
     component: SubmissionComponent,
-    data: {title: PRACTITIONER_REGISTRATION_PAGES.SUBMISSION.title}
+    data: {title: UPDATE_FACILITY_PAGES.SUBMISSION.title}
   },
 ];
 

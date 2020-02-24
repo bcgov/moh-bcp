@@ -1,34 +1,24 @@
 import { BCP_ROUTES } from '../core-bcp/models/bcp-route-constanst';
 
-export const PRACTITIONER_REGISTRATION_PAGES = {
+export const UPDATE_FACILITY_PAGES = {
     HOME: {
         path: 'home',
-        fullpath: `${BCP_ROUTES.PRACTITIONER_REGISTRATION}/home`,
+        fullpath: `${BCP_ROUTES.UPDATE_FACILITY}/home`,
         title: 'Home'
     },
-    PRACTITIONER_INFO: {
-        path: 'practitioner-information',
-        fullpath: `${BCP_ROUTES.PRACTITIONER_REGISTRATION}/practitioner-information`,
-        title: 'Practitioner Information'
+    FORM_PAGE: {
+        path: 'form-page',
+        fullpath: `${BCP_ROUTES.UPDATE_FACILITY}/form-page`,
+        title: 'Form Page'
     },
-    FACILITY_INFO: {
-        path: 'facility-information',
-        fullpath: `${BCP_ROUTES.PRACTITIONER_REGISTRATION}/facility-information`,
-        title: 'Facility Information'
-    },
-    PRACTITIONER_ASSIGN: {
-      path: 'practitioner-attachment',
-      fullpath: `${BCP_ROUTES.PRACTITIONER_REGISTRATION}/practitioner-attachment`,
-      title: 'Practitioner Attachment'
-  },
     REVIEW: {
         path: 'review',
-        fullpath: `${BCP_ROUTES.PRACTITIONER_REGISTRATION}/review`,
-        title: 'Review Pracitioner Attachment'
+        fullpath: `${BCP_ROUTES.UPDATE_FACILITY}/review`,
+        title: 'Review Form Page'
     },
     SUBMISSION: {
         path: 'submission',
-        fullpath: `${BCP_ROUTES.PRACTITIONER_REGISTRATION}/submission`,
+        fullpath: `${BCP_ROUTES.UPDATE_FACILITY}/submission`,
         title: 'Confirmation of Submission'
     },
 };

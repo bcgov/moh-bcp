@@ -7,8 +7,7 @@ import {
   stripPostalCodeSpaces,
   stripPhoneFormatting,
   convertToJSONDate } from '../../core-bcp/models/helperFunc';
-import { PRAC_ATTACHMENT_TYPE } from '../models/practitioner-attachment';
-import { addMonths, startOfToday, parseISO } from 'date-fns';
+import { parseISO } from 'date-fns';
 
 @Injectable({
   providedIn: 'root'
@@ -55,12 +54,6 @@ export class RegisterPractitionerDataService extends BaseDataService {
       this.pracFacilityProvince = BRITISH_COLUMBIA;
       this.pracFacilityPostalCode = 'v4v4v7';
       this.pracFacilityFaxNumber = '234 567-8901';
-
-    //  this.pracAttachmentType = 'new';
-    //  this.pracNewAttachmentType = true;
-    //  this.attachmentType = PRAC_ATTACHMENT_TYPE.NEW;
-    //  this.attachmentEffectiveDate = addMonths( startOfToday(), 4 );
-    //  this.attachmentCancelDate = addMonths( this.attachmentEffectiveDate, 6 );
 
      }
   }
@@ -134,13 +127,6 @@ export class RegisterPractitionerDataService extends BaseDataService {
         phoneNumberExtension: this.pracInfoPhoneNumberExt ? this.pracInfoPhoneNumberExt : null,  // optional
       },
       // Update section for schema - needs to be reflected in the data service to only have 2 dates to keep code maintainable
-      pracAssignment: {
-        // when a flag is false, the corresponding date must be null.
-          action: this.pracNewAttachmentType ? PRAC_ATTACHMENT_TYPE.TEMP : this.pracAttachmentType,
-          effectiveDate: this.attachmentEffectiveDate ? convertToJSONDate( this.attachmentEffectiveDate ) : null,
-          cancelDate: this.attachmentCancelDate ? convertToJSONDate( this.attachmentCancelDate ) : null,
-          manualReview: this.manualReview  // Indicated whether MT needs to send request to MAXHUB only
-      },
       dateOfAcceptance: convertToJSONDate(this.dateOfAcceptance),
       declarationText: this.declarationTextForAPI,
     };

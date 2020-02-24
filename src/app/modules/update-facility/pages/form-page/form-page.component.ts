@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
-import { PRACTITIONER_REGISTRATION_PAGES } from '../../update-facility-route-constants';
+import { UPDATE_FACILITY_PAGES } from '../../update-facility-route-constants';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegisterPractitionerDataService } from '../../services/register-practitioner-data.service';
@@ -12,11 +12,11 @@ import { SplunkLoggerService } from '../../../../services/splunk-logger.service'
 
 
 @Component({
-  selector: 'bcp-practitioner-info',
-  templateUrl: './practitioner-info.component.html',
-  styleUrls: ['./practitioner-info.component.scss']
+  selector: 'bcp-form-page',
+  templateUrl: './form-page.component.html',
+  styleUrls: ['./form-page.component.scss']
 })
-export class PractitionerInfoComponent extends BcpBaseForm implements OnInit, AfterViewInit {
+export class FormPageComponent extends BcpBaseForm implements OnInit, AfterViewInit {
 
   pageTitle: string = 'Practitioner Information';
   formGroup: FormGroup;
@@ -87,7 +87,7 @@ export class PractitionerInfoComponent extends BcpBaseForm implements OnInit, Af
 
         if (res.returnCode === ReturnCodes.SUCCESS) {
           this.handleValidation(true);
-          this.navigate(PRACTITIONER_REGISTRATION_PAGES.FACILITY_INFO.fullpath);
+          this.navigate(UPDATE_FACILITY_PAGES.REVIEW.fullpath);
         } else if (res.returnCode === ReturnCodes.FAILURE) {
           this.handleValidation(false);
         } else { // Negative response codes

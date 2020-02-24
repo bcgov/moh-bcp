@@ -1,42 +1,30 @@
-import { PRACTITIONER_REGISTRATION_PAGES } from './update-facility-route-constants';
-import { PractitionerInfoComponent } from './pages/practitioner-info/practitioner-info.component';
+import { UPDATE_FACILITY_PAGES } from './update-facility-route-constants';
+import { FormPageComponent } from './pages/form-page/form-page.component';
 
 import { Route } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
-import { FacilityInfoComponent } from './pages/facility-info/facility-info.component';
 import { ReviewComponent } from './pages/review/review.component';
-import { PractitionerAttachmentComponent } from './pages/practitioner-attachment/practitioner-attachment.component';
 
 /** The individual page routes only, does not include container */
 export const pages: Route[] = [
   {
-    path: PRACTITIONER_REGISTRATION_PAGES.HOME.path,
+    path: UPDATE_FACILITY_PAGES.HOME.path,
     component: HomeComponent,
-    data: {title: PRACTITIONER_REGISTRATION_PAGES.HOME.title}
+    data: {title: UPDATE_FACILITY_PAGES.HOME.title}
   },
   {
-    path: PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_INFO.path,
-    component: PractitionerInfoComponent,
-    data: {title: PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_INFO.title}
+    path: UPDATE_FACILITY_PAGES.FORM_PAGE.path,
+    component: FormPageComponent,
+    data: {title: UPDATE_FACILITY_PAGES.FORM_PAGE.title}
   },
   {
-    path: PRACTITIONER_REGISTRATION_PAGES.FACILITY_INFO.path,
-    component: FacilityInfoComponent,
-    data: {title: PRACTITIONER_REGISTRATION_PAGES.FACILITY_INFO.title}
-  },
-  {
-    path: PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_ASSIGN.path,
-    component: PractitionerAttachmentComponent,
-    data: {title: PRACTITIONER_REGISTRATION_PAGES.PRACTITIONER_ASSIGN.title}
-  },
-  {
-    path: PRACTITIONER_REGISTRATION_PAGES.REVIEW.path,
+    path: UPDATE_FACILITY_PAGES.REVIEW.path,
     component: ReviewComponent,
-    data: {title: PRACTITIONER_REGISTRATION_PAGES.REVIEW.title}
+    data: {title: UPDATE_FACILITY_PAGES.REVIEW.title}
   },
   {
     path: '',
-    redirectTo: PRACTITIONER_REGISTRATION_PAGES.HOME.path,
+    redirectTo: UPDATE_FACILITY_PAGES.HOME.path,
     pathMatch: 'full'
   }
 ];
