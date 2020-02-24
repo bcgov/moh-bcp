@@ -4,9 +4,7 @@ import { SharedCoreModule } from 'moh-common-lib';
 import { CoreBCPModule } from '../../../core-bcp/core-bcp.module';
 
 import { SubmissionComponent } from './submission.component';
-import { ReviewPractitionerInfoComponent } from '../../components/review-practitioner-info/review-practitioner-info.component';
-import { ReviewPractitionerFacilityComponent } from '../../components/review-practitioner-facility/review-practitioner-facility.component';
-import { ReviewPractitionerAttachmentComponent } from '../../components/review-practitioner-attachment/review-practitioner-attachment.component';
+import { ReviewFormPageComponent } from '../../components/review-form-page/review-form-page.component';
 
 describe('SubmissionComponent', () => {
   let component: SubmissionComponent;
@@ -20,9 +18,7 @@ describe('SubmissionComponent', () => {
         SharedCoreModule
       ],
       declarations: [
-        ReviewPractitionerAttachmentComponent,
-        ReviewPractitionerFacilityComponent,
-        ReviewPractitionerInfoComponent,
+        ReviewFormPageComponent,
         SubmissionComponent
       ]
     })

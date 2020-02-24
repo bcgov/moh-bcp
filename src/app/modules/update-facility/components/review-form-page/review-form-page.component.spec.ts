@@ -1,23 +1,23 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ReviewPractitionerInfoComponent } from './review-practitioner-info.component';
+import { ReviewFormPageComponent } from './review-form-page.component';
 import { CoreBCPModule } from '../../../core-bcp/core-bcp.module';
 import { RouterTestingModule } from '@angular/router/testing';
 
-describe('ReviewPractitionerInfoComponent', () => {
-  let component: ReviewPractitionerInfoComponent;
-  let fixture: ComponentFixture<ReviewPractitionerInfoComponent>;
+describe('ReviewFormPageComponent', () => {
+  let component: ReviewFormPageComponent;
+  let fixture: ComponentFixture<ReviewFormPageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ CoreBCPModule, RouterTestingModule ],
-      declarations: [ ReviewPractitionerInfoComponent ]
+      declarations: [ ReviewFormPageComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ReviewPractitionerInfoComponent);
+    fixture = TestBed.createComponent(ReviewFormPageComponent);
     component = fixture.componentInstance;
   });
 
