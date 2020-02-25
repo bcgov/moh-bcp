@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { UPDATE_FACILITY_PAGES } from '../../update-facility-route-constants';
 import { ApiStatusCodes, PageStateService } from 'moh-common-lib';
-import { RegisterPractitionerDataService } from '../../services/register-practitioner-data.service';
+import { UpdateFacilityDataService } from '../../services/update-facility-data.service';
 import { ConfirmBaseForm } from '../../../core-bcp/models/confirm-base-form';
 import { PrivacyStmt } from '../../../core-bcp/components/core-consent-modal/core-consent-modal.component';
 import { HeaderService } from '../../../../services/header.service';
@@ -18,7 +18,7 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
   readonly privacyStatement = PrivacyStmt;
   readonly hibcLink: string = environment.links.hibc;
 
-  constructor(protected dataService: RegisterPractitionerDataService,
+  constructor(protected dataService: UpdateFacilityDataService,
               protected pageStateService: PageStateService,
               protected headerService: HeaderService) {
     super(dataService, pageStateService, headerService);

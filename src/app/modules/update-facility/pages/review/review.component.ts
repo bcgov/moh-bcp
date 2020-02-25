@@ -1,12 +1,12 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { UPDATE_FACILITY_PAGES } from '../../update-facility-route-constants';
-import { RegisterPractitionerDataService } from '../../services/register-practitioner-data.service';
+import { UpdateFacilityDataService } from '../../services/update-facility-data.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ContainerService, PageStateService } from 'moh-common-lib';
 import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 import { SignatureComponent } from '../../../core-bcp/components/signature/signature.component';
-import { RegisterPractitionerApiService } from '../../services/register-practitioner-api.service';
+import { UpdateFacilityApiService } from '../../services/update-facility-api.service';
 import { SubmissionResponse } from '../../../core-bcp/models/base-api.model';
 import { SplunkLoggerService } from '../../../../services/splunk-logger.service';
 import { PrivacyStmt } from '../../../core-bcp/components/core-consent-modal/core-consent-modal.component';
@@ -27,12 +27,12 @@ export class ReviewComponent extends BcpBaseForm implements OnInit, AfterViewIni
   signatureLabel: string = 'Practitioner Signature';
   errorMessage: string = `${this.signatureLabel } is required to submit the form`;
 
-  constructor(public dataService: RegisterPractitionerDataService,
+  constructor(public dataService: UpdateFacilityDataService,
               protected containerService: ContainerService,
               protected router: Router,
               protected pageStateService: PageStateService,
               private fb: FormBuilder,
-              private apiService: RegisterPractitionerApiService,
+              private apiService: UpdateFacilityApiService,
               private splunkLoggerService: SplunkLoggerService) {
     super(router, containerService, pageStateService);
   }

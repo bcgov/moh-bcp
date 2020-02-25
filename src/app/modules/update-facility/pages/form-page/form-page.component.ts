@@ -1,12 +1,11 @@
-import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { UPDATE_FACILITY_PAGES } from '../../update-facility-route-constants';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RegisterPractitionerDataService } from '../../services/register-practitioner-data.service';
-import { CorePractitionerInfoFormItems } from '../../../core-bcp/components/core-practitioner-info/core-practitioner-info.component';
+import { UpdateFacilityDataService } from '../../services/update-facility-data.service';
 import { ContainerService, PageStateService } from 'moh-common-lib';
 import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
-import { RegisterPractitionerApiService } from '../../services/register-practitioner-api.service';
+import { UpdateFacilityApiService } from '../../services/update-facility-api.service';
 import { ValidationResponse, ReturnCodes } from '../../../core-bcp/models/base-api.model';
 import { SplunkLoggerService } from '../../../../services/splunk-logger.service';
 
@@ -28,9 +27,9 @@ export class FormPageComponent extends BcpBaseForm implements OnInit, AfterViewI
                protected router: Router,
                protected pageStateService: PageStateService,
                private fb: FormBuilder,
-               public dataService: RegisterPractitionerDataService,
+               public dataService: UpdateFacilityDataService,
                private splunkLoggerService: SplunkLoggerService,
-               private apiService: RegisterPractitionerApiService ) {
+               private apiService: UpdateFacilityApiService ) {
     super(router, containerService, pageStateService);
   }
 
@@ -38,25 +37,17 @@ export class FormPageComponent extends BcpBaseForm implements OnInit, AfterViewI
     super.ngOnInit();
 
     this.formGroup = this.fb.group({
-      firstName: [this.dataService.pracInfoFirstName, [Validators.required]],
-      lastName: [this.dataService.pracInfoLastName, [Validators.required]],
-      mspPracNumber: [this.dataService.pracInfoMSPPracNumber, [Validators.required]],
-      email: [this.dataService.pracInfoEmail, [Validators.email]],
-      phoneNumber: [this.dataService.pracInfoPhoneNumber, [Validators.required]],
-      phoneNumberExt: [this.dataService.pracInfoPhoneNumberExt],
+      sampleFormInput: [this.dataService.sampleFormInput, [Validators.required]],
+      sampleTextarea: [this.dataService.sampleTextarea, [Validators.required]]
     });
   }
 
   ngAfterViewInit() {
     super.ngAfterViewInit();
+    // Update data service values
     this.formGroup.valueChanges.subscribe( value => {
-      // Update data service values
-      this.dataService.pracInfoFirstName = value.firstName;
-      this.dataService.pracInfoLastName = value.lastName;
-      this.dataService.pracInfoMSPPracNumber = value.mspPracNumber;
-      this.dataService.pracInfoEmail = value.email;
-      this.dataService.pracInfoPhoneNumber = value.phoneNumber;
-      this.dataService.pracInfoPhoneNumberExt = value.phoneNumberExt;
+      this.dataService.sampleFormInput = value.sampleFormInput;
+      this.dataService.sampleTextarea = value.sampleTextarea;
     });
   }
 
@@ -68,9 +59,9 @@ export class FormPageComponent extends BcpBaseForm implements OnInit, AfterViewI
       this.containerService.setIsLoading();
 
       this.apiService.validatePractitioner({
-        firstName: this.dataService.pracInfoFirstName,
-        lastName: this.dataService.pracInfoLastName,
-        number: this.dataService.pracInfoMSPPracNumber,
+        firstName: null,
+        lastName: null,
+        number: null,
         doctor: true
       }, this.dataService.applicationUUID).subscribe((res: ValidationResponse) => {
         // console.log('apiService response', res);

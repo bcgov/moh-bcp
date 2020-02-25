@@ -1,11 +1,26 @@
 <h1>{{pageTitle}}</h1>
-<p class="border-bottom">To qualify as an Eligible Physician, you must be responsible to pay for some or all of the lease, rental, or ownership costs of the community-based office that has been issued a Medical Services Plan Facility Number.</p>
+<p>Description Text.</p>
+<hr/>
 
 <common-page-section>
-  <bcp-core-practitioner-info [formGroup]='formGroup'
-    [showValidationError]='showValidationError'></bcp-core-practitioner-info>
+  <form [formGroup]="formGroup">
+    <div class="form-group">
+      <common-name label="Sample Form Input"
+                  name='sampleFormInput'
+                  formControlName='sampleFormInput'></common-name>
+    </div>
 
-  <common-error-container [displayError]='systemDownError'>
-    Unable to continue, system unavailable. Please try again later.
-  </common-error-container>
+    <div class="form-group">
+      <label class="control-label" for="sampleTextarea">Sample Textarea</label>
+      <textarea class='form-control'
+                id='sampleTextarea'
+                name='sampleTextarea'
+                formControlName='sampleTextarea'
+                rows='10'></textarea>
+    </div>
+
+    <common-error-container [displayError]='systemDownError'>
+      Unable to continue, system unavailable. Please try again later.
+    </common-error-container>
+  </form>
 </common-page-section>

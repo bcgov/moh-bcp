@@ -12,77 +12,24 @@ import { parseISO } from 'date-fns';
 @Injectable({
   providedIn: 'root'
 })
-export class RegisterPractitionerDataService extends BaseDataService {
+export class UpdateFacilityDataService extends BaseDataService {
 
   constructor() {
     super();
     if (environment.useDummyData) {
-      this.pracInfoFirstName = 'John';
-      this.pracInfoLastName = 'Doe';
-      this.pracInfoMSPPracNumber = '12345';
-      this.pracInfoEmail = 'john.doe@example.com';
-      this.pracInfoPhoneNumber = '234 567-8901';
-      this.pracInfoPhoneNumberExt = '123';
-
-      this.pracFacilityName = 'Medical Facility';
-      this.pracFacilityNumber = '12345';
-      this.pracFacilityAddress = '123 Fake St.';
-      this.pracFacilityCity = 'Victoria';
-      this.pracFacilityProvince = BRITISH_COLUMBIA;
-      this.pracFacilityPostalCode = 'V9V 9V9';
-      this.pracFacilityFaxNumber = '234 567-8901';
-
-      this.pracAttachmentType = 'new';
-
-      this.facEffectiveDate = parseISO('2020-01-01');
-      this.facCancelDate = parseISO('2020-12-31');
+      this.sampleFormInput = 'Dummy Data';
+      this.sampleTextarea = 'Dummy Textarea data\nnext line\nother line';
     }
 
         // Partial setup for using data in back end
     if (environment.useMockBackendData) {
-      this.pracInfoFirstName = 'test';
-      this.pracInfoLastName = 'privatepractice';
-      this.pracInfoMSPPracNumber = '99901';
-      this.pracInfoEmail = 'john.doe@example.com';
-      this.pracInfoPhoneNumber = '234 567-8901';
-      this.pracInfoPhoneNumberExt = '123';
-
-      this.pracFacilityName = 'Medical Facility';
-      this.pracFacilityNumber = 'DA007';
-      this.pracFacilityAddress = '123 Fake St.';
-      this.pracFacilityCity = 'Victoria';
-      this.pracFacilityProvince = BRITISH_COLUMBIA;
-      this.pracFacilityPostalCode = 'v4v4v7';
-      this.pracFacilityFaxNumber = '234 567-8901';
-
+      this.sampleFormInput = 'Mock Backend Data';
+      this.sampleTextarea = 'Mock textarea data';
      }
   }
 
-  pracInfoFirstName: string;
-  pracInfoLastName: string;
-  pracInfoMSPPracNumber: string;
-  pracInfoEmail: string;
-  pracInfoPhoneNumber: string;
-  pracInfoPhoneNumberExt: string;
-
-  pracFacilityName: string;
-  pracFacilityNumber: string;
-  pracFacilityAddress: string;
-  pracFacilityCity: string;
-  pracFacilityProvince: string = BRITISH_COLUMBIA;
-  pracFacilityPostalCode: string;
-  pracFacilityFaxNumber: string;
-
-  facEffectiveDate: Date; // Date received from facility validation.
-  facCancelDate: Date; // Date received from facility validation.
-  manualReview: boolean;
-
-  pracAttachmentType: string;
-  pracNewAttachmentType: boolean;
-
-  attachmentEffectiveDate: Date;
-  attachmentCancelDate: Date;
-
+  sampleFormInput: string;
+  sampleTextarea: string;
 
   jsonMaintPractitioner = {
     request: null,
@@ -109,22 +56,8 @@ export class RegisterPractitionerDataService extends BaseDataService {
     const jsonPayLoad: any = {
 
       informationConsentAgreement: this.informationCollectionNoticeConsent,
-      facility: {
-        number: this.pracFacilityNumber,
-        name: this.pracFacilityName,
-        address: this.pracFacilityAddress,
-        city: this.pracFacilityCity,
-        province: this.pracFacilityProvince,
-        postalCode: stripPostalCodeSpaces(this.pracFacilityPostalCode),
-        faxNumber: stripPhoneFormatting(this.pracFacilityFaxNumber) // Optional
-      },
-      practitioner: {
-        number: this.pracInfoMSPPracNumber,
-        firstName: this.pracInfoFirstName,
-        lastName: this.pracInfoLastName,
-        email: this.pracInfoEmail ? this.pracInfoEmail : null,       // optional
-        phoneNumber: stripPhoneFormatting(this.pracInfoPhoneNumber),
-        phoneNumberExtension: this.pracInfoPhoneNumberExt ? this.pracInfoPhoneNumberExt : null,  // optional
+      sampleEntry: {
+        sampleFormInput: this.sampleFormInput,
       },
       // Update section for schema - needs to be reflected in the data service to only have 2 dates to keep code maintainable
       dateOfAcceptance: convertToJSONDate(this.dateOfAcceptance),

@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ReviewContainerComponent } from '../../../core-bcp/components/review-container/review-container.component';
-import { RegisterPractitionerDataService } from '../../services/register-practitioner-data.service';
+import { UpdateFacilityDataService } from '../../services/update-facility-data.service';
 import { UPDATE_FACILITY_PAGES } from '../../update-facility-route-constants';
-import { setNotApplicable } from '../../../core-bcp/models/helperFunc';
 
 @Component({
   selector: 'bcp-review-form-page',
@@ -12,7 +11,7 @@ import { setNotApplicable } from '../../../core-bcp/models/helperFunc';
 export class ReviewFormPageComponent implements OnInit {
   @ViewChild(ReviewContainerComponent, { static: true }) review: ReviewContainerComponent;
 
-  constructor(public dataService: RegisterPractitionerDataService) { }
+  constructor(public dataService: UpdateFacilityDataService) { }
 
   ngOnInit() {
     this.reviewItems();
@@ -23,18 +22,10 @@ export class ReviewFormPageComponent implements OnInit {
     this.review.redirectPath = UPDATE_FACILITY_PAGES.FORM_PAGE.fullpath;
     this.review.header = UPDATE_FACILITY_PAGES.FORM_PAGE.title;
 
-    const phoneNumberEntry = { label: 'Phone number', value: this.dataService.pracInfoPhoneNumber };
-    if ( this.dataService.pracInfoPhoneNumberExt ) {
-      phoneNumberEntry.value = phoneNumberEntry.value.concat( ' Ext. ' + this.dataService.pracInfoPhoneNumberExt );
-    }
-
     const items = [
       [
-        { label: 'First name', value: this.dataService.pracInfoFirstName, },
-        { label: 'Last name', value: this.dataService.pracInfoLastName },
-        { label: 'Medical Services Plan Practitioner Number', value: this.dataService.pracInfoMSPPracNumber },
-        { label: 'Email address (optional)', value: setNotApplicable(this.dataService.pracInfoEmail) },
-        phoneNumberEntry,
+        { label: 'Sample Form Input', value: this.dataService.sampleFormInput, },
+        { label: 'Sample Textarea Input', value: this.dataService.sampleTextarea, },
       ],
     ];
     this.review.sectionItems = items;

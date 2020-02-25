@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-import { RegisterPractitionerApiService } from './register-practitioner-api.service';
+import { UpdateFacilityApiService } from './update-facility-api.service';
 
 describe('RegisterPractitionerApiService', () => {
   beforeEach(() => TestBed.configureTestingModule({
@@ -9,7 +9,7 @@ describe('RegisterPractitionerApiService', () => {
   }));
 
   it('should be created', () => {
-    const service: RegisterPractitionerApiService = TestBed.get(RegisterPractitionerApiService);
+    const service: UpdateFacilityApiService = TestBed.get(UpdateFacilityApiService);
     expect(service).toBeTruthy();
   });
 });

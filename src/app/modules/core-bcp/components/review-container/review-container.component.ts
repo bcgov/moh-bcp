@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { getLineCount } from '../../models/helperFunc';
 
 @Component({
     selector: 'bcp-review-container',
@@ -22,5 +23,12 @@ export class ReviewContainerComponent implements OnInit {
 
     redirect(routeName: string) {
         this.router.navigate([routeName]);
+    }
+
+    containsMultiLine(text: string): boolean {
+        if (!text) {
+            return false;
+        }
+        return getLineCount(text) > 1;
     }
 }
