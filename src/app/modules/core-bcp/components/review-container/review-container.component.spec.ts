@@ -3,6 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
 
 import { ReviewContainerComponent } from './review-container.component';
+import { CoreBCPModule } from '../../core-bcp.module';
 
 describe('ReviewContainerComponent', () => {
   let component: ReviewContainerComponent;
@@ -10,8 +11,7 @@ describe('ReviewContainerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
-      declarations: [ ReviewContainerComponent ]
+      imports: [RouterTestingModule, CoreBCPModule],
     })
     .compileComponents();
   }));

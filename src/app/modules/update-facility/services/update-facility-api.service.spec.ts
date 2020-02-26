@@ -3,7 +3,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { UpdateFacilityApiService } from './update-facility-api.service';
 
-describe('RegisterPractitionerApiService', () => {
+describe('UpdateFacilityApiService', () => {
   beforeEach(() => TestBed.configureTestingModule({
     imports: [ HttpClientTestingModule ]
   }));

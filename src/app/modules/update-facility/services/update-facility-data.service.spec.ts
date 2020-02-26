@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { UpdateFacilityApiService } from './update-facility-api.service';
+import { UpdateFacilityDataService } from './update-facility-data.service';
 
-describe('UpdateFacilityApiService', () => {
+describe('UpdateFacilityDataService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: UpdateFacilityApiService = TestBed.get(UpdateFacilityApiService);
+    const service: UpdateFacilityDataService = TestBed.get(UpdateFacilityDataService);
     expect(service).toBeTruthy();
   });
 });

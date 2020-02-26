@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormPageComponent } from './form-page.component';
 import { CoreBCPModule } from '../../../core-bcp/core-bcp.module';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('FormPageComponent', () => {
   let component: FormPageComponent;
@@ -10,7 +11,7 @@ describe('FormPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ CoreBCPModule, RouterTestingModule ],
+      imports: [ CoreBCPModule, ReactiveFormsModule, RouterTestingModule ],
       declarations: [ FormPageComponent ]
     })
     .compileComponents();
@@ -24,16 +25,5 @@ describe('FormPageComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should mark inputs as touched when attempting to continue', () => {
-    const markAllInputsTouchedSpy = jasmine.createSpy('markAllInputsTouched');
-    Object.defineProperty(component, 'markAllInputsTouched', {value: markAllInputsTouchedSpy});
-    Object.defineProperty(component.formGroup, 'valid', {value: false});
-    const setIsLoadingSpy = jasmine.createSpy('setIsLoading');
-    Object.defineProperty(component, 'containerService', {value: {setIsLoading: setIsLoadingSpy}});
-    component.continue();
-    expect(markAllInputsTouchedSpy).toHaveBeenCalled();
-    expect(setIsLoadingSpy).not.toHaveBeenCalled();
   });
 });

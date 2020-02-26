@@ -11,7 +11,6 @@ describe('MultiLineContainerComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ CoreBCPModule, RouterTestingModule ],
-      declarations: [ MultiLineContainerComponent ]
     })
     .compileComponents();
   }));
