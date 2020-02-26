@@ -91,7 +91,7 @@
 
 <ng-template #confirmMessage>
 
-  <div class='mt-0 p-2 text-dark confirmation-message'>{{confirmationMessage}}</div>
+  <div class='mt-0 p-2 text-dark confirmation-message' [innerHTML]='confirmationMessage'></div>
 
   <div *ngIf="!isError" class="row">
     <div class='col-6 review-key'>Date of Submission</div>
