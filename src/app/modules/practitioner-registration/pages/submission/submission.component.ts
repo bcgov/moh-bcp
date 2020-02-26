@@ -47,7 +47,7 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
   get confirmationMessage() {
     let confirmMessage = 'Your application has been submitted';
     if (this.displayIcon === ApiStatusCodes.WARNING) {
-      confirmMessage = 'YELLOW 1 Message';
+      confirmMessage = 'Your application has been submitted. To complete your application, contact Health Insurance BC <u>two business days</u> following the date of submission noted below at (604) 456-6950 (lower mainland) or 1-866-456-6950 (elsewhere in B.C.).';
     } else if (this.displayIcon === ApiStatusCodes.ERROR) {
       confirmMessage = 'Sorry, there was an error processing your application. ' +
         'Please try again. If you continue to receive this error please contact HIBC.';
