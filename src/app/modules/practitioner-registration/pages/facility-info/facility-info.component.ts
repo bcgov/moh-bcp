@@ -67,6 +67,9 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit, AfterV
   }
 
   addressSelected(address: Address) {
+    if (!address.addressLine1 && !address.city) {
+      return;
+    }
     this.formGroup.patchValue({
       address: address.addressLine1,
       city: address.city
