@@ -29,8 +29,7 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
   readonly privacyStatement: string = PrivacyStmt;
   readonly practitionerAttachmentLink: string = environment.links.practitionerAttachment;
 
-  private _warningConfirmationMsg: string = 'Your application has been submitted. To complete your application you must ' +
-                                            'contact Health Insurance BC at (604) 456-6950 (lower mainland) or 1-866-456-6950 (elsewhere in B.C.).';
+  private _warningConfirmationMsg: string = 'Your application has been submitted. To complete your application, contact Health Insurance BC <u>two business days</u> following the date of submission noted below at (604) 456-6950 (lower mainland) or 1-866-456-6950 (elsewhere in B.C.).';
 
   constructor(protected dataService: CreateFacilityDataService,
               protected pageStateService: PageStateService,
