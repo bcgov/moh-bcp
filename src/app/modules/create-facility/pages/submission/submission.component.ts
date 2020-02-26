@@ -75,7 +75,7 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
 
     if (this.displayIcon === ApiStatusCodes.WARNING) {
       let msg = 'Your application has been submitted but there may be a Facility Number assigned to that ' +
-                'facility already, contact HIBC at (604) 456-6950 (lower mainland) or 1-866-456-6950 (elsewhere in B.C.).';
+                'facility already. To complete your application, contact Health Insurance BC <u>two business days</u> following the date of submission noted below at (604) 456-6950 (lower mainland) or 1-866-456-6950 (elsewhere in B.C.).';
 
       if ( this.warningMessage === WarningMessage.FAILED_VALIDATE_FACIL ) {
         msg = this._warningConfirmationMsg;
