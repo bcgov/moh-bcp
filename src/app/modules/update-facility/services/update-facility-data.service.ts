@@ -17,6 +17,9 @@ export class UpdateFacilityDataService extends BaseDataService {
   constructor() {
     super();
     if (environment.useDummyData) {
+      this.firstName = 'Mock First Name';
+      this.lastName = 'Mock Last Name';
+
       this.sampleFormInput = 'Dummy Data';
       this.sampleTextarea = 'Dummy Textarea data\nnext line\nother line';
     }
@@ -27,6 +30,9 @@ export class UpdateFacilityDataService extends BaseDataService {
       this.sampleTextarea = 'Mock textarea data';
      }
   }
+
+  firstName: string;
+  lastName: string;
 
   sampleFormInput: string;
   sampleTextarea: string;

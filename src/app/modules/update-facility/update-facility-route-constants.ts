@@ -6,6 +6,11 @@ export const UPDATE_FACILITY_PAGES = {
         fullpath: `${BCP_ROUTES.UPDATE_FACILITY}/home`,
         title: 'Home'
     },
+    FACILITY_ADMIN: {
+        path: 'facility-administrator',
+        fullpath: `${BCP_ROUTES.UPDATE_FACILITY}/facility-administrator`,
+        title: 'Facility Administrator'
+    },
     FORM_PAGE: {
         path: 'form-page',
         fullpath: `${BCP_ROUTES.UPDATE_FACILITY}/form-page`,

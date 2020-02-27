@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { ReviewComponent } from './review.component';
+import { ReviewFacilityAdminComponent } from '../../components/review-facility-admin/review-facility-admin.component';
 import { ReviewFormPageComponent } from '../../components/review-form-page/review-form-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CoreBCPModule } from '../../../core-bcp/core-bcp.module';
@@ -15,6 +16,7 @@ describe('ReviewComponent', () => {
       imports: [ CoreBCPModule, ReactiveFormsModule, RouterTestingModule ],
       declarations: [
         ReviewComponent,
+        ReviewFacilityAdminComponent,
         ReviewFormPageComponent,
       ]
     })

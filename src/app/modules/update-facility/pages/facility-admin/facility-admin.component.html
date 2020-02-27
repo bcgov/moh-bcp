@@ -1,0 +1,24 @@
+<h1>{{pageTitle}}</h1>
+<p>Description Text.</p>
+<hr/>
+
+<common-page-section>
+  <form [formGroup]="formGroup">
+    <div class="form-group">
+      <common-name label="Administrator First Name"
+                  name='firstName'
+                  formControlName='firstName'></common-name>
+    </div>
+
+    <div class="form-group">
+      <common-name label="Administrator Last Name"
+                  name='lastName'
+                  formControlName='lastName'></common-name>
+    </div>
+
+
+    <common-error-container [displayError]='systemDownError'>
+      Unable to continue, system unavailable. Please try again later.
+    </common-error-container>
+  </form>
+</common-page-section>
