@@ -1,24 +1,75 @@
-<h1>{{pageTitle}}</h1>
-<p>Description Text.</p>
+<h1>Facility and Administrator Information</h1>
+<p>Please provide us with information on your current registration so that we can update the proper account.</p>
 <hr/>
-
-<common-page-section>
-  <form [formGroup]="formGroup">
+<form [formGroup]="formGroup">
+  <h2>Administrator Information</h2>
+  <hr />
+  
+  <common-page-section>
     <div class="form-group">
-      <common-name label="Administrator First Name"
+      <common-name label="First name"
                   name='firstName'
                   formControlName='firstName'></common-name>
     </div>
 
     <div class="form-group">
-      <common-name label="Administrator Last Name"
+      <common-name label="Last name"
                   name='lastName'
                   formControlName='lastName'></common-name>
     </div>
 
+    <div class="form-group">
+      <common-email label="Contact email (optional)"
+                    name='email'
+                    formControlName='email'></common-email>
+    </div>
 
-    <common-error-container [displayError]='systemDownError'>
-      Unable to continue, system unavailable. Please try again later.
-    </common-error-container>
-  </form>
-</common-page-section>
+    <div class="d-sm-flex">
+      <div class="form-group col-sm-8 pl-0">
+        <common-phone-number name='phone'
+                              formControlName='phone'
+                              label='Contact phone number'
+                              [enablePlaceHolder]='false'
+                              [allowInternational]='false'></common-phone-number>
+      </div>
+
+      <div class="form-group col-sm-4 pl-0, pr-0">
+        <bcp-phone-extension name='phoneExt'
+                             formControlName='phoneExt'
+                             label='Extension'></bcp-phone-extension>
+      </div>
+    </div>
+  </common-page-section>
+
+  <h2>Facility Information</h2>
+  <hr/>
+  <common-page-section>
+    <div class='form-group'>
+      <div>
+        <label class="control-label" for="facilityName">Facility or Practice Name</label>
+        <input id="facilityName" formControlName="facilityName" class="form-control" maxlength="70">
+        <common-error-container [displayError]="validFormControl(formGroup, 'facilityName')">
+          <div *ngIf ="formGroup.controls?.facilityName?.errors?.required">
+            Facility Name is a required field
+          </div>
+          <div *ngIf ="formGroup.controls?.facilityName?.errors?.pattern">
+            Facility Name must contain letters, numbers and/or symbols(e.g. #, @, !).
+          </div>
+        </common-error-container>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <bcp-facility-number name='facilityMSPNumber'
+                           formControlName='facilityMSPNumber'></bcp-facility-number>
+    </div>
+
+    <div class="form-group">
+      <common-phone-number name='facilityFax'
+                          formControlName='facilityFax'
+                          label='Contact fax number (optional)'
+                          [enablePlaceHolder]='false'
+                          [allowInternational]='false'></common-phone-number>
+    </div>
+  </common-page-section>
+</form>

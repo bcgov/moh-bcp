@@ -19,9 +19,12 @@ export class UpdateFacilityDataService extends BaseDataService {
     if (environment.useDummyData) {
       this.firstName = 'Mock First Name';
       this.lastName = 'Mock Last Name';
-
-      this.sampleFormInput = 'Dummy Data';
-      this.sampleTextarea = 'Dummy Textarea data\nnext line\nother line';
+      this.email = 'test@example.com';
+      this.phone = '250-123-1234';
+      this.phoneExt = '123';
+      this.facilityName = 'Test Facility';
+      this.facilityMSPNumber = '89902';
+      this.facilityFax = '251-123-1234';
     }
 
         // Partial setup for using data in back end
@@ -33,6 +36,12 @@ export class UpdateFacilityDataService extends BaseDataService {
 
   firstName: string;
   lastName: string;
+  email: string;
+  phone: string;
+  phoneExt: string;
+  facilityName: string;
+  facilityMSPNumber: string;
+  facilityFax: string;
 
   sampleFormInput: string;
   sampleTextarea: string;

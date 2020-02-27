@@ -17,11 +17,8 @@ import { SplunkLoggerService } from '../../../../services/splunk-logger.service'
 })
 export class FormPageComponent extends BcpBaseForm implements OnInit, AfterViewInit {
 
-  pageTitle: string = 'Practitioner Information';
+  pageTitle: string = 'Form Page Placeholder';
   formGroup: FormGroup;
-  showValidationError: boolean = false;
-  systemDownError: boolean = false;
-
 
   constructor( protected containerService: ContainerService,
                protected router: Router,
