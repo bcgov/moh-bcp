@@ -44,10 +44,3 @@ export function prepareDeclarationTextForAPI( str: string): string {
   text =  text.replace(/<li>(i?v?i{0,3}\.)/g, '$1\t'); // add \t character between roman numeral and first word
   return text;
 }
-
-export function getLineCount(text: string) {
-  if (text) {
-    return text.split(/\r\n|\r|\n/).length;
-  }
-  return 0;
-}

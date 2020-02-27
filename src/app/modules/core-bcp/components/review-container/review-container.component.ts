@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { getLineCount } from '../../models/helperFunc';
 
 @Component({
     selector: 'bcp-review-container',
@@ -29,6 +28,19 @@ export class ReviewContainerComponent implements OnInit {
         if (!text) {
             return false;
         }
-        return getLineCount(text) > 1;
+        const lineCount = text.split(/\r\n|\r|\n/).length;
+        return lineCount > 1;
+    }
+
+    getMultiLineHTML(text: string): string {
+        if (!text) {
+            return null;
+        }
+        let str = this.escapeHTML(text);
+        return str.replace(/\n/g, '<br\/>');
+    }
+
+    private escapeHTML(text: string): string {
+        return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     }
 }

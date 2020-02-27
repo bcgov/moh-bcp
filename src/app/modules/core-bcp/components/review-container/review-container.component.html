@@ -24,7 +24,7 @@
         </div>
         <div class='col-md-6'>
           <ng-container *ngIf='containsMultiLine(item.value)'>
-            <bcp-multi-line-container [value]='item.value'></bcp-multi-line-container>
+            <b [innerHTML]='getMultiLineHTML(item.value)'></b>
           </ng-container>
           <ng-container *ngIf='!containsMultiLine(item.value)'>
             <b>{{item.value}}</b>

@@ -13,14 +13,12 @@ import { CoreConsentModalComponent } from './components/core-consent-modal/core-
 import { CaptchaModule } from 'moh-common-lib/captcha';
 import { FacilityNumberComponent } from './components/facility-number/facility-number.component';
 import { PhoneExtensionComponent } from './components/phone-extension/phone-extension.component';
-import { MultiLineContainerComponent } from './components/multi-line-container/multi-line-container.component';
 
 const exportables = [
   CoreFacilityInfoComponent,
   CorePractitionerInfoComponent,
   CoreConsentModalComponent,
   FacilityNumberComponent,
-  MultiLineContainerComponent,
   PractitionerNumberComponent,
   ReviewContainerComponent,
   SignatureComponent,

@@ -1,3 +1,5 @@
+@import '../../../../styles/variables.scss';
+
 .review--header {
   margin-left: 0px;
   margin-right: auto;
@@ -19,4 +21,13 @@
   background-color: #F2F2F2;
 }
 
-
+:host {
+  textarea {
+    border: none;
+    background: none;
+    font-weight: bold;
+    resize: none;
+    padding: 0;
+    color: $body-color;
+  }
+}
