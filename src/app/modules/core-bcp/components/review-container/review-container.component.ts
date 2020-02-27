@@ -36,7 +36,7 @@ export class ReviewContainerComponent implements OnInit {
         if (!text) {
             return null;
         }
-        let str = this.escapeHTML(text);
+        const str = this.escapeHTML(text);
         return str.replace(/\n/g, '<br\/>');
     }
 
