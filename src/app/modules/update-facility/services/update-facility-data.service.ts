@@ -37,7 +37,7 @@ export class UpdateFacilityDataService extends BaseDataService {
   sampleFormInput: string;
   sampleTextarea: string;
 
-  jsonMaintPractitioner = {
+  jsonSubmission = {
     request: null,
     response: null
   };

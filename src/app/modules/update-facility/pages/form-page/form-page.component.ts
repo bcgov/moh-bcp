@@ -55,51 +55,7 @@ export class FormPageComponent extends BcpBaseForm implements OnInit, AfterViewI
     this.markAllInputsTouched();
 
     if (this.formGroup.valid) {
-
-      this.containerService.setIsLoading();
-
-      this.apiService.validatePractitioner({
-        firstName: null,
-        lastName: null,
-        number: null,
-        doctor: true
-      }, this.dataService.applicationUUID).subscribe((res: ValidationResponse) => {
-        // console.log('apiService response', res);
-
-        this.dataService.jsonApplicantValidation.response = res;
-
-        this.splunkLoggerService.log(
-          this.dataService.getSubmissionLogObject<ValidationResponse>(
-            'Validate practitioner',
-            this.dataService.jsonApplicantValidation.response
-          )
-        );
-        // console.log( 'res: ', res );
-
-        if (res.returnCode === ReturnCodes.SUCCESS) {
-          this.handleValidation(true);
-          this.navigate(UPDATE_FACILITY_PAGES.REVIEW.fullpath);
-        } else if (res.returnCode === ReturnCodes.FAILURE) {
-          this.handleValidation(false);
-        } else { // Negative response codes
-          // fall-through case, likely an error
-          this.handleError();
-        }
-      }, error => {
-        // console.log('apiService onerror', error);
-        this.handleError();
-      });
+      this.navigate(UPDATE_FACILITY_PAGES.REVIEW.fullpath);
     }
-  }
-
-  private handleError(): void {
-    this.systemDownError = true;
-    this.containerService.setIsLoading(false);
-  }
-
-  private handleValidation(isValid: boolean): void {
-    this.showValidationError = !isValid;
-    this.systemDownError = false;
-    this.containerService.setIsLoading(false);
   }
 }

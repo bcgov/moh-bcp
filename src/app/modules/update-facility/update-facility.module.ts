@@ -6,7 +6,7 @@ import { FacilityAdminComponent } from './pages/facility-admin/facility-admin.co
 import { FormPageComponent } from './pages/form-page/form-page.component';
 import { ReviewComponent } from './pages/review/review.component';
 import { SubmissionComponent } from './pages/submission/submission.component';
-import { RegistrationContainerComponent } from './components/registration-container/registration-container.component';
+import { FacilityContainerComponent } from './components/facility-container/facility-container.component';
 import { CoreBCPModule } from '../core-bcp/core-bcp.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
@@ -29,7 +29,7 @@ import { environment } from '../../../environments/environment';
     FormPageComponent,
     ReviewComponent,
     SubmissionComponent,
-    RegistrationContainerComponent,
+    FacilityContainerComponent,
     ReviewFacilityAdminComponent,
     ReviewFormPageComponent
   ],

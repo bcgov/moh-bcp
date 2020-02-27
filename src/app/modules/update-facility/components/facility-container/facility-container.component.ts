@@ -6,11 +6,11 @@ import { UPDATE_FACILITY_PAGES } from '../../update-facility-route-constants';
 
 
 @Component({
-  selector: 'bcp-registration-container',
-  templateUrl: './registration-container.component.html',
-  styleUrls: ['./registration-container.component.scss']
+  selector: 'bcp-facility-container',
+  templateUrl: './facility-container.component.html',
+  styleUrls: ['./facility-container.component.scss']
 })
-export class RegistrationContainerComponent extends Container implements AfterViewInit, OnDestroy {
+export class FacilityContainerComponent extends Container implements AfterViewInit, OnDestroy {
 
   constructor( private headerService: HeaderService,
                private pageStateService: PageStateService,

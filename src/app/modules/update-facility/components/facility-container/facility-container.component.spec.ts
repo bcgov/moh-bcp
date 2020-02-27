@@ -1,23 +1,23 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RegistrationContainerComponent } from './registration-container.component';
+import { FacilityContainerComponent } from './facility-container.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SharedCoreModule } from 'moh-common-lib';
 
-describe('RegistrationContainerComponent', () => {
-  let component: RegistrationContainerComponent;
-  let fixture: ComponentFixture<RegistrationContainerComponent>;
+describe('FacilityContainerComponent', () => {
+  let component: FacilityContainerComponent;
+  let fixture: ComponentFixture<FacilityContainerComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ RouterTestingModule, SharedCoreModule ],
-      declarations: [ RegistrationContainerComponent ]
+      declarations: [ FacilityContainerComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RegistrationContainerComponent);
+    fixture = TestBed.createComponent(FacilityContainerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

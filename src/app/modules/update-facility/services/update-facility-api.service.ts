@@ -18,28 +18,5 @@ export class UpdateFacilityApiService extends BCPApiService {
     super(http, logger, dataService);
   }
 
-  maintainPractitioner(jsonPayLoad, signature: CommonImage, applicationUUID) {
-    return this.uploadSignature(signature, applicationUUID)
-      .pipe(
-        flatMap(attachRes => this.submitMaintPracJson(jsonPayLoad, applicationUUID, signature)),
-        catchError(this.handleError.bind(this))
-      );
-  }
-
-  private submitMaintPracJson(jsonPayLoad: any, applicationUUID: string, signature: CommonImage<BCPDocumentTypes> ) {
-    const requestUUID = this.generateUUID();
-    const payload = {
-      maintainPractitionerSubmission: jsonPayLoad,
-      requestUUID,
-      applicationUUID,
-      attachments: [signature.toJSON()]
-    };
-
-    this.dataService.jsonMaintPractitioner.request = payload;
-
-    // TODO: Update URL once we know what it is
-    const url = `${this.baseUrl}/maintainPractitioner`;
-    return this.post(url, payload);
-  }
 
 }

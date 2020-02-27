@@ -16,7 +16,6 @@ import { environment } from '../../../../../environments/environment';
 export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
 
   readonly privacyStatement = PrivacyStmt;
-  readonly hibcLink: string = environment.links.hibc;
 
   constructor(protected dataService: UpdateFacilityDataService,
               protected pageStateService: PageStateService,
@@ -27,32 +26,17 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
   ngOnInit() {
     super.ngOnInit();
 
-    // Set icon to be displayed
-    if (this.dataService.jsonMaintPractitioner.response) {
-
-      if ( this.dataService.jsonMaintPractitioner.response.returnCode === ApiStatusCodes.SUCCESS ) {
-
-        // Assumed all is good - processed automatically or has multiple BCP effective periods (manual review)
-        this.displayIcon = ApiStatusCodes.SUCCESS;
-      } else {
-
-        if ( this.dataService.jsonMaintPractitioner.response.referenceNumber ) {
-          // Assumed something went wrong with automated processing but is in MAXHUB
-          this.displayIcon = ApiStatusCodes.SUCCESS;
-        }
-      }
-    }
+    // TODO: Set icon to be displayed
+    this.displayIcon = ApiStatusCodes.SUCCESS;
   }
 
   get confirmationMessage() {
-    let confirmMessage = 'Your application has been submitted';
+    const confirmMessage = 'Your application has been submitted';
     if (this.displayIcon === ApiStatusCodes.WARNING) {
-      confirmMessage = 'YELLOW 1 Message';
+      // TODO: Set warning message.
     } else if (this.displayIcon === ApiStatusCodes.ERROR) {
-      confirmMessage = 'Sorry, there was an error processing your application. ' +
-        'Please try again. If you continue to receive this error please contact HIBC.';
+      // TODO: Set error message.
     }
-
     return confirmMessage;
   }
 
@@ -62,7 +46,8 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
   }
 
   get referenceNumber() {
-    return this.dataService.jsonMaintPractitioner.response.referenceNumber;
+    // TODO: Return reference number recieved from API response.
+    return '';
   }
 
   get declarationText() {
