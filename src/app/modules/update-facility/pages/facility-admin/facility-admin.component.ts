@@ -67,7 +67,7 @@ export class FacilityAdminComponent extends BcpBaseForm implements OnInit, After
     this.markAllInputsTouched();
 
     if (this.formGroup.valid) {
-      this.navigate(UPDATE_FACILITY_PAGES.REVIEW.fullpath);
+      this.navigate(UPDATE_FACILITY_PAGES.CANCEL_CHANGE.fullpath);
     }
   }
 }

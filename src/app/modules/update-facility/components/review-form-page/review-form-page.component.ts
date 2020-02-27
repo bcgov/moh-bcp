@@ -19,13 +19,12 @@ export class ReviewFormPageComponent implements OnInit {
 
   reviewItems() {
     this.review.displayPrintView = this.dataService.isPrintView;
-    this.review.redirectPath = UPDATE_FACILITY_PAGES.FORM_PAGE.fullpath;
-    this.review.header = UPDATE_FACILITY_PAGES.FORM_PAGE.title;
+    this.review.redirectPath = UPDATE_FACILITY_PAGES.CANCEL_CHANGE.fullpath;
+    this.review.header = UPDATE_FACILITY_PAGES.CANCEL_CHANGE.title;
 
     const items = [
       [
-        { label: 'Sample Form Input', value: this.dataService.sampleFormInput, },
-        { label: 'Sample Textarea Input', value: this.dataService.sampleTextarea, },
+        { label: 'Sample Form Input', value: null, },
       ],
     ];
     this.review.sectionItems = items;

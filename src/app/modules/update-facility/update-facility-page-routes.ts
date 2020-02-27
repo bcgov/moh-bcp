@@ -3,7 +3,7 @@ import { UPDATE_FACILITY_PAGES } from './update-facility-route-constants';
 import { Route } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { FacilityAdminComponent } from './pages/facility-admin/facility-admin.component';
-import { FormPageComponent } from './pages/form-page/form-page.component';
+import { CancelChangeComponent } from './pages/cancel-change/cancel-change.component';
 import { ReviewComponent } from './pages/review/review.component';
 
 /** The individual page routes only, does not include container */
@@ -19,9 +19,9 @@ export const pages: Route[] = [
     data: {title: UPDATE_FACILITY_PAGES.FACILITY_ADMIN.title}
   },
   {
-    path: UPDATE_FACILITY_PAGES.FORM_PAGE.path,
-    component: FormPageComponent,
-    data: {title: UPDATE_FACILITY_PAGES.FORM_PAGE.title}
+    path: UPDATE_FACILITY_PAGES.CANCEL_CHANGE.path,
+    component: CancelChangeComponent,
+    data: {title: UPDATE_FACILITY_PAGES.CANCEL_CHANGE.title}
   },
   {
     path: UPDATE_FACILITY_PAGES.REVIEW.path,

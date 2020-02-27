@@ -11,10 +11,10 @@ export const UPDATE_FACILITY_PAGES = {
         fullpath: `${BCP_ROUTES.UPDATE_FACILITY}/facility-administrator`,
         title: 'Facility Administrator'
     },
-    FORM_PAGE: {
-        path: 'form-page',
-        fullpath: `${BCP_ROUTES.UPDATE_FACILITY}/form-page`,
-        title: 'Form Page'
+    CANCEL_CHANGE: {
+        path: 'cancel-change',
+        fullpath: `${BCP_ROUTES.UPDATE_FACILITY}/cancel-change`,
+        title: 'Cancel/Change'
     },
     REVIEW: {
         path: 'review',

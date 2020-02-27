@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { UpdateFacilityRoutingModule } from './update-facility-routing.module';
 import { HomeComponent } from './pages/home/home.component';
 import { FacilityAdminComponent } from './pages/facility-admin/facility-admin.component';
-import { FormPageComponent } from './pages/form-page/form-page.component';
+import { CancelChangeComponent } from './pages/cancel-change/cancel-change.component';
 import { ReviewComponent } from './pages/review/review.component';
 import { SubmissionComponent } from './pages/submission/submission.component';
 import { FacilityContainerComponent } from './components/facility-container/facility-container.component';
@@ -26,7 +26,7 @@ import { environment } from '../../../environments/environment';
   declarations: [
     HomeComponent,
     FacilityAdminComponent,
-    FormPageComponent,
+    CancelChangeComponent,
     ReviewComponent,
     SubmissionComponent,
     FacilityContainerComponent,

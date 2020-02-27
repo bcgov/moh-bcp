@@ -29,9 +29,7 @@ export class UpdateFacilityDataService extends BaseDataService {
 
         // Partial setup for using data in back end
     if (environment.useMockBackendData) {
-      this.sampleFormInput = 'Mock Backend Data';
-      this.sampleTextarea = 'Mock textarea data';
-     }
+    }
   }
 
   firstName: string;
@@ -43,8 +41,8 @@ export class UpdateFacilityDataService extends BaseDataService {
   facilityMSPNumber: string;
   facilityFax: string;
 
-  sampleFormInput: string;
-  sampleTextarea: string;
+  checkChangeFacilityAddress: string;
+
 
   jsonSubmission = {
     request: null,
@@ -72,7 +70,6 @@ export class UpdateFacilityDataService extends BaseDataService {
 
       informationConsentAgreement: this.informationCollectionNoticeConsent,
       sampleEntry: {
-        sampleFormInput: this.sampleFormInput,
       },
       // Update section for schema - needs to be reflected in the data service to only have 2 dates to keep code maintainable
       dateOfAcceptance: convertToJSONDate(this.dateOfAcceptance),

@@ -36,7 +36,7 @@ export class HomeComponent extends BcpBaseForm implements OnInit {
 
   continue() {
     // console.log( 'Continue');
-    this.navigate(UPDATE_FACILITY_PAGES.FORM_PAGE.fullpath);
+    this.navigate(UPDATE_FACILITY_PAGES.FACILITY_ADMIN.fullpath);
   }
 
   hasToken(): boolean {

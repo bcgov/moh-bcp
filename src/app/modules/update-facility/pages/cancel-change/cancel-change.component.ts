@@ -11,11 +11,11 @@ import { SplunkLoggerService } from '../../../../services/splunk-logger.service'
 
 
 @Component({
-  selector: 'bcp-form-page',
-  templateUrl: './form-page.component.html',
-  styleUrls: ['./form-page.component.scss']
+  selector: 'bcp-cancel-change',
+  templateUrl: './cancel-change.component.html',
+  styleUrls: ['./cancel-change.component.scss']
 })
-export class FormPageComponent extends BcpBaseForm implements OnInit, AfterViewInit {
+export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterViewInit {
 
   pageTitle: string = 'Form Page Placeholder';
   formGroup: FormGroup;
@@ -34,8 +34,7 @@ export class FormPageComponent extends BcpBaseForm implements OnInit, AfterViewI
     super.ngOnInit();
 
     this.formGroup = this.fb.group({
-      sampleFormInput: [this.dataService.sampleFormInput, [Validators.required]],
-      sampleTextarea: [this.dataService.sampleTextarea, [Validators.required]]
+      checkChangeFacilityAddress: [this.dataService.checkChangeFacilityAddress, []],
     });
   }
 
@@ -43,8 +42,7 @@ export class FormPageComponent extends BcpBaseForm implements OnInit, AfterViewI
     super.ngAfterViewInit();
     // Update data service values
     this.formGroup.valueChanges.subscribe( value => {
-      this.dataService.sampleFormInput = value.sampleFormInput;
-      this.dataService.sampleTextarea = value.sampleTextarea;
+      this.dataService.checkChangeFacilityAddress = value.checkChangeFacilityAddress;
     });
   }
 
