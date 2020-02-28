@@ -20,6 +20,7 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
   pageTitle: string = 'Cancel / Change';
   formGroup: FormGroup;
   changeFacilityAddressFG: FormGroup;
+  changeMailingAddressFG: FormGroup;
 
   constructor( protected containerService: ContainerService,
                protected router: Router,
@@ -36,6 +37,7 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
 
     this.formGroup = this.fb.group({
       checkChangeFacilityAddress: [this.dataService.checkChangeFacilityAddress, []],
+      checkChangeMailingAddress: [this.dataService.checkChangeMailingAddress, []],
     });
 
     this.changeFacilityAddressFG = this.fb.group({
@@ -43,6 +45,20 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
       changeFacilityAddressPreviousCity: [this.dataService.changeFacilityAddressPreviousCity, []],
       changeFacilityAddressPreviousPostalCode: [this.dataService.changeFacilityAddressPreviousPostalCode, []],
       changeFacilityAddressPreviousFax: [this.dataService.changeFacilityAddressPreviousFax, []],
+      changeFacilityAddressNewAddress: [this.dataService.changeFacilityAddressNewAddress, [Validators.required]],
+      changeFacilityAddressNewCity: [this.dataService.changeFacilityAddressNewCity, [Validators.required]],
+      changeFacilityAddressNewPostalCode: [this.dataService.changeFacilityAddressNewPostalCode, [Validators.required]],
+      changeFacilityAddressNewFax: [this.dataService.changeFacilityAddressNewFax, []],
+      changeFacilityAddressEffectiveDate: [this.dataService.changeFacilityAddressEffectiveDate, [Validators.required]],
+    });
+    this.changeMailingAddressFG = this.fb.group({
+      changeMailingAddressPreviousAddress: [this.dataService.changeMailingAddressPreviousAddress, []],
+      changeMailingAddressPreviousCity: [this.dataService.changeMailingAddressPreviousCity, []],
+      changeMailingAddressPreviousPostalCode: [this.dataService.changeMailingAddressPreviousPostalCode, []],
+      changeMailingAddressNewAddress: [this.dataService.changeMailingAddressNewAddress, [Validators.required]],
+      changeMailingAddressNewCity: [this.dataService.changeMailingAddressNewCity, [Validators.required]],
+      changeMailingAddressNewPostalCode: [this.dataService.changeMailingAddressNewPostalCode, [Validators.required]],
+      changeMailingAddressEffectiveDate: [this.dataService.changeMailingAddressEffectiveDate, [Validators.required]],
     });
   }
 
@@ -51,19 +67,91 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
     // Update data service values
     this.formGroup.valueChanges.subscribe( value => {
       this.dataService.checkChangeFacilityAddress = value.checkChangeFacilityAddress;
+      this.dataService.checkChangeMailingAddress = value.checkChangeMailingAddress;
+    });
+    this.changeFacilityAddressFG.valueChanges.subscribe( value => {
+      this.dataService.changeFacilityAddressPreviousAddress = value.changeFacilityAddressPreviousAddress;
+      this.dataService.changeFacilityAddressPreviousCity = value.changeFacilityAddressPreviousCity;
+      this.dataService.changeFacilityAddressPreviousPostalCode = value.changeFacilityAddressPreviousPostalCode;
+      this.dataService.changeFacilityAddressPreviousFax = value.changeFacilityAddressPreviousFax;
+      this.dataService.changeFacilityAddressNewAddress = value.changeFacilityAddressNewAddress;
+      this.dataService.changeFacilityAddressNewCity = value.changeFacilityAddressNewCity;
+      this.dataService.changeFacilityAddressNewPostalCode = value.changeFacilityAddressNewPostalCode;
+      this.dataService.changeFacilityAddressNewFax = value.changeFacilityAddressNewFax;
+      this.dataService.changeFacilityAddressEffectiveDate = value.changeFacilityAddressEffectiveDate;
+    });
+    this.changeMailingAddressFG.valueChanges.subscribe( value => {
+      this.dataService.changeMailingAddressPreviousAddress = value.changeMailingAddressPreviousAddress;
+      this.dataService.changeMailingAddressPreviousCity = value.changeMailingAddressPreviousCity;
+      this.dataService.changeMailingAddressPreviousPostalCode = value.changeMailingAddressPreviousPostalCode;
+      this.dataService.changeMailingAddressNewAddress = value.changeMailingAddressNewAddress;
+      this.dataService.changeMailingAddressNewCity = value.changeMailingAddressNewCity;
+      this.dataService.changeMailingAddressNewPostalCode = value.changeMailingAddressNewPostalCode;
+      this.dataService.changeMailingAddressEffectiveDate = value.changeMailingAddressEffectiveDate;
     });
   }
 
   continue() {
-    this.markAllInputsTouched();
+    const forms = [];
 
-    if (this.formGroup.valid) {
+    if (this.dataService.checkChangeFacilityAddress) {
+      forms.push(this.changeFacilityAddressFG);
+    }
+    if (this.dataService.checkChangeMailingAddress) {
+      forms.push(this.changeMailingAddressFG);
+    }
+    this.markAllInputsTouched(forms);
+
+    if (forms.every( (x) => x.valid === true )) {
       this.navigate(UPDATE_FACILITY_PAGES.REVIEW.fullpath);
     }
   }
 
-  selectChangeFacilityAddress(checked: boolean) {
-    console.log('Checked: ', checked);
+  changeFacilityAddressPreviousAddressSelected(address: any) {
+    if (!address.addressLine1 && !address.city) {
+      return;
+    }
+    this.changeFacilityAddressFG.patchValue({
+      changeFacilityAddressPreviousAddress: address.addressLine1,
+      changeFacilityAddressPreviousCity: address.city
+    });
+    this.dataService.changeFacilityAddressPreviousAddress = address.addressLine1;
+    this.dataService.changeFacilityAddressPreviousCity = address.city;
+  }
 
+  changeFacilityAddressNewAddressSelected(address: any) {
+    if (!address.addressLine1 && !address.city) {
+      return;
+    }
+    this.changeFacilityAddressFG.patchValue({
+      changeFacilityAddressNewAddress: address.addressLine1,
+      changeFacilityAddressNewCity: address.city
+    });
+    this.dataService.changeFacilityAddressNewAddress = address.addressLine1;
+    this.dataService.changeFacilityAddressNewCity = address.city;
+  }
+
+  changeMailingAddressPreviousAddressSelected(address: any) {
+    if (!address.addressLine1 && !address.city) {
+      return;
+    }
+    this.changeMailingAddressFG.patchValue({
+      changeMailingAddressPreviousAddress: address.addressLine1,
+      changeMailingAddressPreviousCity: address.city
+    });
+    this.dataService.changeMailingAddressPreviousAddress = address.addressLine1;
+    this.dataService.changeMailingAddressPreviousCity = address.city;
+  }
+
+  changeMailingAddressNewAddressSelected(address: any) {
+    if (!address.addressLine1 && !address.city) {
+      return;
+    }
+    this.changeMailingAddressFG.patchValue({
+      changeMailingAddressNewAddress: address.addressLine1,
+      changeMailingAddressNewCity: address.city
+    });
+    this.dataService.changeMailingAddressNewAddress = address.addressLine1;
+    this.dataService.changeMailingAddressNewCity = address.city;
   }
 }

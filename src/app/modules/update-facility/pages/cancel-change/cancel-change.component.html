@@ -24,9 +24,25 @@
       <hr/>
 
       <form [formGroup]="changeFacilityAddressFG">
+
+        <!-- Change Facility Address -->
+
         <div class="form-group">
           <common-geocoder-input label='Physical address'
-                            formControlName='changeFacilityAddressPreviousAddress'></common-geocoder-input>
+                            formControlName='changeFacilityAddressPreviousAddress'
+                            maxlength='60'
+                            (select)='changeFacilityAddressPreviousAddressSelected($event)'></common-geocoder-input>
+          <common-error-container [displayError]="changeFacilityAddressFG.controls?.changeFacilityAddressPreviousAddress?.touched && changeFacilityAddressFG.controls?.changeFacilityAddressPreviousAddress?.errors">
+            <div *ngIf="changeFacilityAddressFG.controls?.changeFacilityAddressPreviousAddress?.errors?.required">
+                Facility Address is a required field
+            </div>
+            <div *ngIf="changeFacilityAddressFG.controls?.changeFacilityAddressPreviousAddress?.errors?.maxlength">
+                Facility Address max length must be 60 or fewer characters.
+            </div>
+            <div *ngIf="changeFacilityAddressFG.controls?.changeFacilityAddressPreviousAddress?.errors?.pattern">
+                Facility Address must contain letters, numbers and/or symbols(e.g. #, @, !).
+            </div>
+          </common-error-container>
         </div>
 
         <div class="form-group">
@@ -53,13 +69,178 @@
         <div class="form-group">
           <common-phone-number name='changeFacilityAddressPreviousFax'
                                formControlName='changeFacilityAddressPreviousFax'
-                               label='Contact fax number'
+                               label='Contact fax number (optional)'
                                [enablePlaceHolder]='false'
                                [allowInternational]='false'></common-phone-number>
+        </div>
+
+        <h3>New Facility Address</h3>
+        <hr/>
+
+        <div class="form-group">
+          <common-geocoder-input label='Physical address'
+                            formControlName='changeFacilityAddressNewAddress'
+                            maxlength='60'
+                            (select)='changeFacilityAddressNewAddressSelected($event)'></common-geocoder-input>
+          <common-error-container [displayError]="changeFacilityAddressFG.controls?.changeFacilityAddressNewAddress?.touched && changeFacilityAddressFG.controls?.changeFacilityAddressNewAddress?.errors">
+            <div *ngIf="changeFacilityAddressFG.controls?.changeFacilityAddressNewAddress?.errors?.required">
+                Facility Address is a required field
+            </div>
+            <div *ngIf="changeFacilityAddressFG.controls?.changeFacilityAddressNewAddress?.errors?.maxlength">
+                Facility Address max length must be 60 or fewer characters.
+            </div>
+            <div *ngIf="changeFacilityAddressFG.controls?.changeFacilityAddressNewAddress?.errors?.pattern">
+                Facility Address must contain letters, numbers and/or symbols(e.g. #, @, !).
+            </div>
+          </common-error-container>
+        </div>
+
+        <div class="form-group">
+          <common-city label='City'
+                        name="changeFacilityAddressNewCity"
+                        formControlName="changeFacilityAddressNewCity"
+                        placeholder=""
+                        [maxlength]="30"></common-city>
+        </div>
+
+        <div class="form-group">
+          <div class='label'>Province</div>
+          <div class='pb-2'>British Columbia</div>
+        </div>
+
+        <div class="form-group">
+          <common-postal-code name="changeFacilityAddressNewPostalCode"
+                              label='Postal code'
+                              placeholder=''
+                              formControlName="changeFacilityAddressNewPostalCode">
+          </common-postal-code>
+        </div>
+
+        <div class="form-group">
+          <common-phone-number name='changeFacilityAddressNewFax'
+                               formControlName='changeFacilityAddressNewFax'
+                               label='Contact fax number (optional)'
+                               [enablePlaceHolder]='false'
+                               [allowInternational]='false'></common-phone-number>
+        </div>
+
+        <div class="form-group">
+          <common-date name='changeFacilityAddressEffectiveDate'
+                       formControlName='changeFacilityAddressEffectiveDate'
+                       label='Effective date of address change'></common-date>
         </div>
       </form>
       
     </div>
+
+<!-- Change Mailing Address-->
+
+    <div class="form-group pl-4">
+      <common-checkbox label='Change facility address'
+                        formControlName='checkChangeMailingAddress'></common-checkbox>
+    </div>
+
+    <div *ngIf='dataService.checkChangeMailingAddress'
+          class='border-left ml-4 pl-3'>
+      <h3>Previous Mailing Address (Optional)</h3>
+      <hr/>
+
+      <form [formGroup]="changeMailingAddressFG">
+        <div class="form-group">
+          <common-geocoder-input label='Mailing address'
+                            formControlName='changeMailingAddressPreviousAddress'
+                            maxlength='60'
+                            (select)='changeMailingAddressPreviousAddressSelected($event)'></common-geocoder-input>
+          <common-error-container [displayError]="changeMailingAddressFG.controls?.changeMailingAddressPreviousAddress?.touched && changeMailingAddressFG.controls?.changeMailingAddressPreviousAddress?.errors">
+            <div *ngIf="changeMailingAddressFG.controls?.changeMailingAddressPreviousAddress?.errors?.required">
+                Mailing Address is a required field
+            </div>
+            <div *ngIf="changeMailingAddressFG.controls?.changeMailingAddressPreviousAddress?.errors?.maxlength">
+                Mailing Address max length must be 60 or fewer characters.
+            </div>
+            <div *ngIf="changeMailingAddressFG.controls?.changeMailingAddressPreviousAddress?.errors?.pattern">
+                Mailing Address must contain letters, numbers and/or symbols(e.g. #, @, !).
+            </div>
+          </common-error-container>
+        </div>
+
+        <div class="form-group">
+          <common-city label='City'
+                        name="changeMailingAddressPreviousCity"
+                        formControlName="changeMailingAddressPreviousCity"
+                        placeholder=""
+                        [maxlength]="30"></common-city>
+        </div>
+
+        <div class="form-group">
+          <div class='label'>Province</div>
+          <div class='pb-2'>British Columbia</div>
+        </div>
+
+        <div class="form-group">
+          <common-postal-code name="changeMailingAddressPreviousPostalCode"
+                              label='Postal code'
+                              placeholder=''
+                              formControlName="changeMailingAddressPreviousPostalCode">
+          </common-postal-code>
+        </div>
+
+        <h3>New Mailing Address</h3>
+        <hr/>
+
+        <div class="form-group">
+          <common-geocoder-input label='Mailing address'
+                            formControlName='changeMailingAddressNewAddress'
+                            maxlength='60'
+                            (select)='changeMailingAddressNewAddressSelected($event)'></common-geocoder-input>
+          <common-error-container [displayError]="changeMailingAddressFG.controls?.changeMailingAddressNewAddress?.touched && changeMailingAddressFG.controls?.changeMailingAddressNewAddress?.errors">
+            <div *ngIf="changeMailingAddressFG.controls?.changeMailingAddressNewAddress?.errors?.required">
+                Mailing Address is a required field
+            </div>
+            <div *ngIf="changeMailingAddressFG.controls?.changeMailingAddressNewAddress?.errors?.maxlength">
+                Mailing Address max length must be 60 or fewer characters.
+            </div>
+            <div *ngIf="changeMailingAddressFG.controls?.changeMailingAddressNewAddress?.errors?.pattern">
+                Mailing Address must contain letters, numbers and/or symbols(e.g. #, @, !).
+            </div>
+          </common-error-container>
+        </div>
+
+        <div class="form-group">
+          <common-city label='City'
+                        name="changeMailingAddressNewCity"
+                        formControlName="changeMailingAddressNewCity"
+                        placeholder=""
+                        [maxlength]="30"></common-city>
+        </div>
+
+        <div class="form-group">
+          <div class='label'>Province</div>
+          <div class='pb-2'>British Columbia</div>
+        </div>
+
+        <div class="form-group">
+          <common-postal-code name="changeMailingAddressNewPostalCode"
+                              label='Postal code'
+                              placeholder=''
+                              formControlName="changeMailingAddressNewPostalCode">
+          </common-postal-code>
+        </div>
+
+        <div class="form-group">
+          <common-date name='changeMailingAddressEffectiveDate'
+                        formControlName='changeMailingAddressEffectiveDate'
+                        label='Effective date of address change'></common-date>
+        </div>
+      </form>
+    </div>
     
+<!-- Business Cost Premium -->
+
+    <h2 class='mt-5'>Business Cost Premium</h2>
+    <p>The <strong>Business Cost Premium</strong> applies to Eligible Fees claimed by Eligible Physicians for services that are provided in a community-based office that has been issued an MSP Facility Number. MSP Facility Numbers are issued to qualifying facilities, based on the physical location of the facility.</p>
+    <p><strong>Eligible Physicians</strong> are those practitioners who are responsible to pay for some or all of the lease, rental, or ownership costs of the community-based office that has been issued an MSP Facility Number. Eligible Physicians must apply to be attached to the MSP Number for a facility to claim the Business Cost Premium on Eligible Fees for services provided at that facility.</p>
+
+
   </form>
 </common-page-section>
