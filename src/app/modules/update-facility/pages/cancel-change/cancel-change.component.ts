@@ -17,8 +17,9 @@ import { SplunkLoggerService } from '../../../../services/splunk-logger.service'
 })
 export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterViewInit {
 
-  pageTitle: string = 'Form Page Placeholder';
+  pageTitle: string = 'Cancel / Change';
   formGroup: FormGroup;
+  changeFacilityAddressFG: FormGroup;
 
   constructor( protected containerService: ContainerService,
                protected router: Router,
@@ -36,6 +37,13 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
     this.formGroup = this.fb.group({
       checkChangeFacilityAddress: [this.dataService.checkChangeFacilityAddress, []],
     });
+
+    this.changeFacilityAddressFG = this.fb.group({
+      changeFacilityAddressPreviousAddress: [this.dataService.changeFacilityAddressPreviousAddress, []],
+      changeFacilityAddressPreviousCity: [this.dataService.changeFacilityAddressPreviousCity, []],
+      changeFacilityAddressPreviousPostalCode: [this.dataService.changeFacilityAddressPreviousPostalCode, []],
+      changeFacilityAddressPreviousFax: [this.dataService.changeFacilityAddressPreviousFax, []],
+    });
   }
 
   ngAfterViewInit() {
@@ -52,5 +60,10 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
     if (this.formGroup.valid) {
       this.navigate(UPDATE_FACILITY_PAGES.REVIEW.fullpath);
     }
+  }
+
+  selectChangeFacilityAddress(checked: boolean) {
+    console.log('Checked: ', checked);
+
   }
 }

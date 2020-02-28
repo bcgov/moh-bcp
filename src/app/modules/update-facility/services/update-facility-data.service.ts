@@ -41,7 +41,11 @@ export class UpdateFacilityDataService extends BaseDataService {
   facilityMSPNumber: string;
   facilityFax: string;
 
-  checkChangeFacilityAddress: string;
+  checkChangeFacilityAddress: boolean;
+  changeFacilityAddressPreviousAddress: string;
+  changeFacilityAddressPreviousCity: string;
+  changeFacilityAddressPreviousPostalCode: string;
+  changeFacilityAddressPreviousFax: string;
 
 
   jsonSubmission = {

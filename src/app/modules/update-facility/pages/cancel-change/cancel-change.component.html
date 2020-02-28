@@ -1,11 +1,65 @@
 <h1>{{pageTitle}}</h1>
-<p>Description Text.</p>
+<p>To apply for a Medical Services Plan Facility Number, the Administrator must be an active medical practitioner.</p>
 <hr/>
 
-<common-page-section>
+<common-page-section layout='noTips'>
   <form [formGroup]="formGroup">
+    <h2>Change of Facility Address or Mailing Address</h2>
+    <p>To change the address of the facility associated with an MSP Facility Number, provide the effective date of the address change, the previous address and the new address.</p>
+    <p>A change in the physical location of the facility may result in a new MSP Facility Number being issued for the facility and may also impact</p>
+    <ol>
+      <li>eligibility for the Business Cost Premium; and</li>
+      <li>the Business Cost Premium amount payable.</li>
+    </ol>
+    <hr/>
+    
     <div class="form-group pl-4">
-      <common-checkbox label='Checkbox label'></common-checkbox>
+      <common-checkbox label='Change facility address'
+                       formControlName='checkChangeFacilityAddress'></common-checkbox>
     </div>
+
+    <div *ngIf='dataService.checkChangeFacilityAddress'
+         class='border-left ml-4 pl-3'>
+      <h3>Previous Facility Address (Optional)</h3>
+      <hr/>
+
+      <form [formGroup]="changeFacilityAddressFG">
+        <div class="form-group">
+          <common-geocoder-input label='Physical address'
+                            formControlName='changeFacilityAddressPreviousAddress'></common-geocoder-input>
+        </div>
+
+        <div class="form-group">
+          <common-city label='City'
+                       name="changeFacilityAddressPreviousCity"
+                       formControlName="changeFacilityAddressPreviousCity"
+                       placeholder=""
+                       [maxlength]="30"></common-city>
+        </div>
+
+        <div class="form-group">
+          <div class='label'>Province</div>
+          <div class='pb-2'>British Columbia</div>
+        </div>
+
+        <div class="form-group">
+          <common-postal-code name="changeFacilityAddressPreviousPostalCode"
+                              label='Postal code'
+                              placeholder=''
+                              formControlName="changeFacilityAddressPreviousPostalCode">
+          </common-postal-code>
+        </div>
+
+        <div class="form-group">
+          <common-phone-number name='changeFacilityAddressPreviousFax'
+                               formControlName='changeFacilityAddressPreviousFax'
+                               label='Contact fax number'
+                               [enablePlaceHolder]='false'
+                               [allowInternational]='false'></common-phone-number>
+        </div>
+      </form>
+      
+    </div>
+    
   </form>
 </common-page-section>
