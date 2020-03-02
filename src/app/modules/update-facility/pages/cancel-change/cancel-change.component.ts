@@ -112,6 +112,70 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
       this.dataService.checkChangeAdminInfo = value.checkChangeAdminInfo;
       this.dataService.checkCancelFacilityNumber = value.checkCancelFacilityNumber;
       this.dataService.otherChangeRequests = value.otherChangeRequests;
+
+      // Reset values.
+      if (!this.dataService.checkChangeFacilityAddress) {
+        this.changeFacilityAddressFG.patchValue({
+          changeFacilityAddressPreviousAddress: null,
+          changeFacilityAddressPreviousCity: null,
+          changeFacilityAddressPreviousPostalCode: null,
+          changeFacilityAddressPreviousFax: null,
+          changeFacilityAddressNewAddress: null,
+          changeFacilityAddressNewCity: null,
+          changeFacilityAddressNewPostalCode: null,
+          changeFacilityAddressNewFax: null,
+          changeFacilityAddressEffectiveDate: null,
+        });
+      }
+      if (!this.dataService.checkChangeMailingAddress) {
+        this.changeMailingAddressFG.patchValue({
+          changeMailingAddressPreviousAddress: null,
+          changeMailingAddressPreviousCity: null,
+          changeMailingAddressPreviousPostalCode: null,
+          changeMailingAddressPreviousFax: null,
+          changeMailingAddressNewAddress: null,
+          changeMailingAddressNewCity: null,
+          changeMailingAddressNewPostalCode: null,
+          changeMailingAddressNewFax: null,
+          changeMailingAddressEffectiveDate: null,
+        });
+      }
+      if (!this.dataService.checkChangeAppliesFees) {
+        this.changeAppliesFeesFG.patchValue({
+          changeAppliesFeesEffectiveDate: null,
+        });
+      }
+      if (!this.dataService.checkCancelBCP) {
+        this.cancelBCPFG.patchValue({
+          cancelBCPEffectiveDate: null,
+        });
+      }
+      if (!this.dataService.checkChangeBCPEffectiveDate) {
+        this.changeBCPEffectiveDateFG.patchValue({
+          changeBCPEffectiveDateEffectiveDate: null,
+        });
+      }
+      if (!this.dataService.checkChangeBCPCancelDate) {
+        this.changeBCPCancelDateFG.patchValue({
+          changeBCPCancelDateCancelDate: null,
+        });
+      }
+      if (!this.dataService.checkChangeAdminInfo) {
+        this.changeAdminInfoFG.patchValue({
+          firstName: null,
+          lastName: null,
+          mspPracNumber: null,
+          email: null,
+          phoneNumber: null,
+          phoneNumberExt: null,
+          changeAdminInfoEffectiveDate: null,
+        });
+      }
+      if (!this.dataService.checkCancelFacilityNumber) {
+        this.cancelFacilityNumberFG.patchValue({
+          cancelFacilityNumberCancelDate: null
+        });
+      }
     });
     this.changeFacilityAddressFG.valueChanges.subscribe( value => {
       this.dataService.changeFacilityAddressPreviousAddress = value.changeFacilityAddressPreviousAddress;

@@ -41,14 +41,14 @@ export class UpdateFacilityDataService extends BaseDataService {
   facilityMSPNumber: string;
   facilityFax: string;
 
-  checkChangeFacilityAddress: boolean;
-  checkChangeMailingAddress: boolean;
-  checkChangeAppliesFees: boolean;
-  checkCancelBCP: boolean;
-  checkChangeBCPEffectiveDate: boolean;
-  checkChangeBCPCancelDate: boolean;
-  checkChangeAdminInfo: boolean;
-  checkCancelFacilityNumber: boolean;
+  checkChangeFacilityAddress: boolean = false;
+  checkChangeMailingAddress: boolean = false;
+  checkChangeAppliesFees: boolean = false;
+  checkCancelBCP: boolean = false;
+  checkChangeBCPEffectiveDate: boolean = false;
+  checkChangeBCPCancelDate: boolean = false;
+  checkChangeAdminInfo: boolean = false;
+  checkCancelFacilityNumber: boolean = false;
   otherChangeRequests: string;
 
   changeFacilityAddressPreviousAddress: string;
