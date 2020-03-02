@@ -19,6 +19,12 @@ export class FacilityContainerComponent extends Container implements AfterViewIn
     this.setProgressSteps(pages);
     this.pageStateService.setPages( pages, UPDATE_FACILITY_PAGES );
     this.headerService.setTitle('Cancel or Change Details Of Facility Number for Business Cost Premium');
+
+    // Set breadcrumb step titles to route title.
+    this.progressSteps.forEach((step) => {
+      const routeName = Object.keys(UPDATE_FACILITY_PAGES).find(key => UPDATE_FACILITY_PAGES[key].path === step.route);
+      step.title = UPDATE_FACILITY_PAGES[routeName].title;
+    });
   }
 
   ngAfterViewInit() {

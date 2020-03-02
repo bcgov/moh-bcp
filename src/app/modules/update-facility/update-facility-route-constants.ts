@@ -7,19 +7,19 @@ export const UPDATE_FACILITY_PAGES = {
         title: 'Home'
     },
     FACILITY_ADMIN: {
-        path: 'facility-administrator',
-        fullpath: `${BCP_ROUTES.UPDATE_FACILITY}/facility-administrator`,
-        title: 'Facility Administrator'
+        path: 'administrator-and-facility-info',
+        fullpath: `${BCP_ROUTES.UPDATE_FACILITY}/administrator-and-facility-info`,
+        title: 'Administrator and Facility Info'
     },
     CANCEL_CHANGE: {
         path: 'cancel-change',
         fullpath: `${BCP_ROUTES.UPDATE_FACILITY}/cancel-change`,
-        title: 'Cancel/Change'
+        title: 'Cancel / Change'
     },
     REVIEW: {
         path: 'review',
         fullpath: `${BCP_ROUTES.UPDATE_FACILITY}/review`,
-        title: 'Review Form Page'
+        title: 'Review'
     },
     SUBMISSION: {
         path: 'submission',
