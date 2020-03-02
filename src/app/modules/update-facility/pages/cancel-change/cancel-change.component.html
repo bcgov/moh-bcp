@@ -314,5 +314,31 @@
       </form>
     </div>
 
+    <h2 class='mt-5'>Change Responsible Administrator</h2>
+    <p>Describe who is a responsible admin?</p>
+    <hr/>
+
+<!-- BCP Change Cancel Date -->
+    
+    <div class="form-group pl-4">
+      <common-checkbox label='Change administrator information'
+                        formControlName='checkChangeAdminInfo'></common-checkbox>
+    </div>
+
+    <div *ngIf='dataService.checkChangeAdminInfo'
+          class='border-left ml-4 pl-3'>
+      <form [formGroup]="changeAdminInfoFG">
+        <bcp-core-practitioner-info [formGroup]='changeAdminInfoFG'></bcp-core-practitioner-info>
+
+        <div class="form-group">
+          <common-date name='changeAdminInfoEffectiveDate'
+                        formControlName='changeAdminInfoEffectiveDate'
+                        label='New BCP cancel date'></common-date>
+        </div>
+      </form>
+    </div>
+
+    
+
   </form>
 </common-page-section>

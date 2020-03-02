@@ -47,6 +47,7 @@ export class UpdateFacilityDataService extends BaseDataService {
   checkCancelBCP: boolean;
   checkChangeBCPEffectiveDate: boolean;
   checkChangeBCPCancelDate: boolean;
+  checkChangeAdminInfo: boolean;
 
   changeFacilityAddressPreviousAddress: string;
   changeFacilityAddressPreviousCity: string;
@@ -70,6 +71,14 @@ export class UpdateFacilityDataService extends BaseDataService {
   cancelBCPEffectiveDate: Date;
   changeBCPEffectiveDateEffectiveDate: Date;
   changeBCPCancelDateCancelDate: Date;
+
+  changeAdminInfoFirstName: string;
+  changeAdminInfoLastName: string;
+  changeAdminInfoMSPPracNumber: string;
+  changeAdminInfoEmail: string;
+  changeAdminInfoPhoneNumber: string;
+  changeAdminInfoPhoneNumberExt: string;
+  changeAdminInfoEffectiveDate: Date;
 
 
   jsonSubmission = {
