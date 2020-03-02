@@ -240,7 +240,79 @@
     <h2 class='mt-5'>Business Cost Premium</h2>
     <p>The <strong>Business Cost Premium</strong> applies to Eligible Fees claimed by Eligible Physicians for services that are provided in a community-based office that has been issued an MSP Facility Number. MSP Facility Numbers are issued to qualifying facilities, based on the physical location of the facility.</p>
     <p><strong>Eligible Physicians</strong> are those practitioners who are responsible to pay for some or all of the lease, rental, or ownership costs of the community-based office that has been issued an MSP Facility Number. Eligible Physicians must apply to be attached to the MSP Number for a facility to claim the Business Cost Premium on Eligible Fees for services provided at that facility.</p>
+    <hr/>
 
+<!-- BCP Change applies to fees -->
+    
+    <div class="form-group pl-4">
+      <common-checkbox label='Request that BCP applies to eligible fees of eligible physicians attached to this facility.'
+                        formControlName='checkChangeAppliesFees'></common-checkbox>
+    </div>
+
+    <div *ngIf='dataService.checkChangeAppliesFees'
+          class='border-left ml-4 pl-3'>
+      <form [formGroup]="changeAppliesFeesFG">
+        <div class="form-group">
+          <common-date name='changeAppliesFeesEffectiveDate'
+                       formControlName='changeAppliesFeesEffectiveDate'
+                       label='Effective date'></common-date>
+        </div>
+      </form>
+    </div>
+
+<!-- BCP Cancel -->
+    
+    <div class="form-group pl-4">
+      <common-checkbox label='Cancel BCP'
+                        formControlName='checkCancelBCP'></common-checkbox>
+    </div>
+
+    <div *ngIf='dataService.checkCancelBCP'
+          class='border-left ml-4 pl-3'>
+      <form [formGroup]="cancelBCPFG">
+        <div class="form-group">
+          <common-date name='cancelBCPEffectiveDate'
+                        formControlName='cancelBCPEffectiveDate'
+                        label='Cancel effective date'></common-date>
+        </div>
+      </form>
+    </div>
+
+<!-- BCP Change Effective Date -->
+    
+    <div class="form-group pl-4">
+      <common-checkbox label='Change BCP effective date'
+                        formControlName='checkChangeBCPEffectiveDate'></common-checkbox>
+    </div>
+
+    <div *ngIf='dataService.checkChangeBCPEffectiveDate'
+          class='border-left ml-4 pl-3'>
+      <form [formGroup]="changeBCPEffectiveDateFG">
+        <div class="form-group">
+          <common-date name='changeBCPEffectiveDateEffectiveDate'
+                        formControlName='changeBCPEffectiveDateEffectiveDate'
+                        label='New BCP effective date'></common-date>
+        </div>
+      </form>
+    </div>
+
+<!-- BCP Change Cancel Date -->
+    
+    <div class="form-group pl-4">
+      <common-checkbox label='Change BCP cancellation date'
+                        formControlName='checkChangeBCPCancelDate'></common-checkbox>
+    </div>
+
+    <div *ngIf='dataService.checkChangeBCPCancelDate'
+          class='border-left ml-4 pl-3'>
+      <form [formGroup]="changeBCPCancelDateFG">
+        <div class="form-group">
+          <common-date name='changeBCPCancelDateCancelDate'
+                        formControlName='changeBCPCancelDateCancelDate'
+                        label='New BCP cancel date'></common-date>
+        </div>
+      </form>
+    </div>
 
   </form>
 </common-page-section>

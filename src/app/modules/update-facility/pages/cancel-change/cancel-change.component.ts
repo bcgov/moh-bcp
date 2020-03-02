@@ -21,6 +21,10 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
   formGroup: FormGroup;
   changeFacilityAddressFG: FormGroup;
   changeMailingAddressFG: FormGroup;
+  changeAppliesFeesFG: FormGroup;
+  cancelBCPFG: FormGroup;
+  changeBCPEffectiveDateFG: FormGroup;
+  changeBCPCancelDateFG: FormGroup;
 
   constructor( protected containerService: ContainerService,
                protected router: Router,
@@ -38,6 +42,10 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
     this.formGroup = this.fb.group({
       checkChangeFacilityAddress: [this.dataService.checkChangeFacilityAddress, []],
       checkChangeMailingAddress: [this.dataService.checkChangeMailingAddress, []],
+      checkChangeAppliesFees: [this.dataService.checkChangeAppliesFees, []],
+      checkCancelBCP: [this.dataService.checkCancelBCP, []],
+      checkChangeBCPEffectiveDate: [this.dataService.checkChangeBCPEffectiveDate, []],
+      checkChangeBCPCancelDate: [this.dataService.checkChangeBCPCancelDate, []],
     });
 
     this.changeFacilityAddressFG = this.fb.group({
@@ -60,6 +68,18 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
       changeMailingAddressNewPostalCode: [this.dataService.changeMailingAddressNewPostalCode, [Validators.required]],
       changeMailingAddressEffectiveDate: [this.dataService.changeMailingAddressEffectiveDate, [Validators.required]],
     });
+    this.changeAppliesFeesFG = this.fb.group({
+      changeAppliesFeesEffectiveDate: [this.dataService.changeAppliesFeesEffectiveDate, [Validators.required]],
+    });
+    this.cancelBCPFG = this.fb.group({
+      cancelBCPEffectiveDate: [this.dataService.cancelBCPEffectiveDate, [Validators.required]],
+    });
+    this.changeBCPEffectiveDateFG = this.fb.group({
+      changeBCPEffectiveDateEffectiveDate: [this.dataService.changeBCPEffectiveDateEffectiveDate, [Validators.required]],
+    });
+    this.changeBCPCancelDateFG = this.fb.group({
+      changeBCPCancelDateCancelDate: [this.dataService.changeBCPCancelDateCancelDate, [Validators.required]],
+    });
   }
 
   ngAfterViewInit() {
@@ -68,6 +88,10 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
     this.formGroup.valueChanges.subscribe( value => {
       this.dataService.checkChangeFacilityAddress = value.checkChangeFacilityAddress;
       this.dataService.checkChangeMailingAddress = value.checkChangeMailingAddress;
+      this.dataService.checkChangeAppliesFees = value.checkChangeAppliesFees;
+      this.dataService.checkCancelBCP = value.checkCancelBCP;
+      this.dataService.checkChangeBCPEffectiveDate = value.checkChangeBCPEffectiveDate;
+      this.dataService.checkChangeBCPCancelDate = value.checkChangeBCPCancelDate;
     });
     this.changeFacilityAddressFG.valueChanges.subscribe( value => {
       this.dataService.changeFacilityAddressPreviousAddress = value.changeFacilityAddressPreviousAddress;
@@ -88,6 +112,18 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
       this.dataService.changeMailingAddressNewCity = value.changeMailingAddressNewCity;
       this.dataService.changeMailingAddressNewPostalCode = value.changeMailingAddressNewPostalCode;
       this.dataService.changeMailingAddressEffectiveDate = value.changeMailingAddressEffectiveDate;
+    });
+    this.changeAppliesFeesFG.valueChanges.subscribe( value => {
+      this.dataService.changeAppliesFeesEffectiveDate = value.changeAppliesFeesEffectiveDate;
+    });
+    this.cancelBCPFG.valueChanges.subscribe( value => {
+      this.dataService.cancelBCPEffectiveDate = value.cancelBCPEffectiveDate;
+    });
+    this.changeBCPEffectiveDateFG.valueChanges.subscribe( value => {
+      this.dataService.changeBCPEffectiveDateEffectiveDate = value.changeBCPEffectiveDateEffectiveDate;
+    });
+    this.changeBCPCancelDateFG.valueChanges.subscribe( value => {
+      this.dataService.changeBCPCancelDateCancelDate = value.changeBCPCancelDateCancelDate;
     });
   }
 
