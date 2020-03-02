@@ -338,7 +338,43 @@
       </form>
     </div>
 
-    
+<!-- Cancel Facility Number -->
+
+    <h2 class='mt-5'>Cancellation of Facility Number</h2>
+    <p>To authorize cancellation of a MSP Facility Number</p>
+    <hr/>
+    <div class="form-group pl-4">
+      <common-checkbox label='Cancel Facility Number'
+                        formControlName='checkCancelFacilityNumber'></common-checkbox>
+    </div>
+
+    <div *ngIf='dataService.checkCancelFacilityNumber'
+          class='border-left ml-4 pl-3'>
+      <form [formGroup]="cancelFacilityNumberFG">
+        <div class="form-group">
+          <common-date name='cancelFacilityNumberCancelDate'
+                        formControlName='cancelFacilityNumberCancelDate'
+                        label='Cancellation Date'></common-date>
+        </div>
+      </form>
+    </div>
+
+    <h2 class='mt-5'>Other Change or Request</h2>
+    <p>Administrators may request other changes or provide additional information associated with an MSP Facility Number not included in the standard fields provided in this form, including where a prior Eligible Physician is no longer providing services at this facility for which the Business Cost Premium on Eligible Fees would otherwise be paid. Requests in this field may be manually entered by HIBC against the MSP Facility Number, following which the Administrator will be notified of any such changes.</p>
+    <hr/>
+
+    <div class='form-group'>
+      <div>
+        <label class='control-label'
+               for='otherChangeRequests'>Please write any other change or request here</label>
+        <textarea class='form-control'
+                  rows='7'
+                  name='otherChangeRequests'
+                  formControlName='otherChangeRequests'
+                  id='otherChangeRequests'
+                  maxlength='4000'></textarea>
+      </div>
+    </div>
 
   </form>
 </common-page-section>

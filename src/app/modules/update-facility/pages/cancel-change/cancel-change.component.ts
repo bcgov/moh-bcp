@@ -26,6 +26,7 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
   changeBCPEffectiveDateFG: FormGroup;
   changeBCPCancelDateFG: FormGroup;
   changeAdminInfoFG: FormGroup;
+  cancelFacilityNumberFG: FormGroup;
 
   constructor( protected containerService: ContainerService,
                protected router: Router,
@@ -48,6 +49,8 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
       checkChangeBCPEffectiveDate: [this.dataService.checkChangeBCPEffectiveDate, []],
       checkChangeBCPCancelDate: [this.dataService.checkChangeBCPCancelDate, []],
       checkChangeAdminInfo: [this.dataService.checkChangeAdminInfo, []],
+      checkCancelFacilityNumber: [this.dataService.checkCancelFacilityNumber, []],
+      otherChangeRequests: [this.dataService.otherChangeRequests, []],
     });
 
     this.changeFacilityAddressFG = this.fb.group({
@@ -88,8 +91,11 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
       mspPracNumber: [this.dataService.changeAdminInfoMSPPracNumber, [Validators.required]],
       email: [this.dataService.changeAdminInfoEmail, [Validators.required]],
       phoneNumber: [this.dataService.changeAdminInfoPhoneNumber, [Validators.required]],
-      phoneNumberExt: [this.dataService.changeAdminInfoPhoneNumberExt, [Validators.required]],
+      phoneNumberExt: [this.dataService.changeAdminInfoPhoneNumberExt, []],
       changeAdminInfoEffectiveDate: [this.dataService.changeAdminInfoEffectiveDate, [Validators.required]],
+    });
+    this.cancelFacilityNumberFG = this.fb.group({
+      cancelFacilityNumberCancelDate: [this.dataService.cancelFacilityNumberCancelDate, [Validators.required]],
     });
   }
 
@@ -104,6 +110,8 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
       this.dataService.checkChangeBCPEffectiveDate = value.checkChangeBCPEffectiveDate;
       this.dataService.checkChangeBCPCancelDate = value.checkChangeBCPCancelDate;
       this.dataService.checkChangeAdminInfo = value.checkChangeAdminInfo;
+      this.dataService.checkCancelFacilityNumber = value.checkCancelFacilityNumber;
+      this.dataService.otherChangeRequests = value.otherChangeRequests;
     });
     this.changeFacilityAddressFG.valueChanges.subscribe( value => {
       this.dataService.changeFacilityAddressPreviousAddress = value.changeFacilityAddressPreviousAddress;
@@ -146,6 +154,9 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
       this.dataService.changeAdminInfoPhoneNumberExt = value.phoneNumberExt;
       this.dataService.changeAdminInfoEffectiveDate = value.changeAdminInfoEffectiveDate;
     });
+    this.cancelFacilityNumberFG.valueChanges.subscribe( value => {
+      this.dataService.cancelFacilityNumberCancelDate = value.cancelFacilityNumberCancelDate;
+    });
   }
 
   continue() {
@@ -156,6 +167,24 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
     }
     if (this.dataService.checkChangeMailingAddress) {
       forms.push(this.changeMailingAddressFG);
+    }
+    if (this.dataService.checkChangeAppliesFees) {
+      forms.push(this.changeAppliesFeesFG);
+    }
+    if (this.dataService.checkCancelBCP) {
+      forms.push(this.cancelBCPFG);
+    }
+    if (this.dataService.checkChangeBCPEffectiveDate) {
+      forms.push(this.changeBCPEffectiveDateFG);
+    }
+    if (this.dataService.checkChangeBCPCancelDate) {
+      forms.push(this.changeBCPCancelDateFG);
+    }
+    if (this.dataService.checkChangeAdminInfo) {
+      forms.push(this.changeAdminInfoFG);
+    }
+    if (this.dataService.checkCancelFacilityNumber) {
+      forms.push(this.cancelFacilityNumberFG);
     }
     this.markAllInputsTouched(forms);
 
