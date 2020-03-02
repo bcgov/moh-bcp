@@ -46,7 +46,7 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
   get confirmationMessage() {
     let confirmMessage = 'Your application has been submitted. You can now use your Facility Number to submit claims for the Business Cost Premium.';
     if (this.displayIcon === ApiStatusCodes.WARNING) {
-      confirmMessage = 'Your application has been submitted and will be processed within 5-10 business days.';
+      confirmMessage = 'Your application has been submitted and will be processed within 5-10 business days. Health Insurance BC may contact you if there are questions about your application.';
     } else if (this.displayIcon === ApiStatusCodes.ERROR) {
       confirmMessage = 'Sorry, there was an error processing your application. ' +
         'Please try again. If you continue to receive this error please contact HIBC.';
