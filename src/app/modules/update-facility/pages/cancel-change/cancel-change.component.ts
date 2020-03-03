@@ -307,7 +307,7 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
     this.dataService.changeMailingAddressNewAddress = address.addressLine1;
     this.dataService.changeMailingAddressNewCity = address.city;
   }
-  
+
   get dateErrorMessage(): ErrorMessage {
     return {
       invalidRange: `${LabelReplacementTag} must be after ${formatDateForDisplay(this.bcpStartDate)}.`
