@@ -44,7 +44,7 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
   }
 
   get confirmationMessage() {
-    let confirmMessage = 'Your application has been successfully processed. You can now use your Facility Number to submit claims for the Business Cost Premium.';
+    let confirmMessage = 'Your application has been successfully processed. You can now submit this Facility Number on your MSP claims for the Business Cost Premium.';
     if (this.displayIcon === ApiStatusCodes.WARNING) {
       confirmMessage = 'Your application has been submitted and will be processed within 5-10 business days. Health Insurance BC may contact you if there are questions about your application.';
     } else if (this.displayIcon === ApiStatusCodes.ERROR) {
