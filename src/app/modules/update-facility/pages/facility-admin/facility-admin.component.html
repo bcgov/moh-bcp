@@ -9,19 +9,22 @@
     <div class="form-group">
       <common-name label="First name"
                   name='firstName'
-                  formControlName='firstName'></common-name>
+                  formControlName='firstName'
+                  [maxlength]='15'></common-name>
     </div>
 
     <div class="form-group">
       <common-name label="Last name"
                   name='lastName'
-                  formControlName='lastName'></common-name>
+                  formControlName='lastName'
+                  [maxlength]='35'></common-name>
     </div>
 
     <div class="form-group">
       <common-email label="Contact email (optional)"
                     name='email'
-                    formControlName='email'></common-email>
+                    formControlName='email'
+                    [maxlength]="50"></common-email>
     </div>
 
     <div class="d-sm-flex">
@@ -61,7 +64,8 @@
 
     <div class="form-group">
       <bcp-facility-number name='facilityMSPNumber'
-                           formControlName='facilityMSPNumber'></bcp-facility-number>
+                           formControlName='facilityMSPNumber'
+                           [maxlength]="5"></bcp-facility-number>
     </div>
 
     <div class="form-group">
