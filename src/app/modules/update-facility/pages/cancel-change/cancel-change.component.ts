@@ -3,11 +3,12 @@ import { UPDATE_FACILITY_PAGES } from '../../update-facility-route-constants';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UpdateFacilityDataService } from '../../services/update-facility-data.service';
-import { ContainerService, PageStateService } from 'moh-common-lib';
+import { ContainerService, ErrorMessage, LabelReplacementTag, PageStateService } from 'moh-common-lib';
 import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 import { UpdateFacilityApiService } from '../../services/update-facility-api.service';
 import { ValidationResponse, ReturnCodes } from '../../../core-bcp/models/base-api.model';
 import { SplunkLoggerService } from '../../../../services/splunk-logger.service';
+import { formatDateForDisplay } from '../../../core-bcp/models/helperFunc';
 
 
 @Component({
@@ -305,5 +306,17 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
     });
     this.dataService.changeMailingAddressNewAddress = address.addressLine1;
     this.dataService.changeMailingAddressNewCity = address.city;
+  }
+  
+  get dateErrorMessage(): ErrorMessage {
+    return {
+      invalidRange: `${LabelReplacementTag} must be after ${formatDateForDisplay(this.bcpStartDate)}.`
+    };
+  }
+
+  get cancelFacilityDateErrorMessage(): ErrorMessage {
+    return {
+      invalidRange: `${LabelReplacementTag} must be after ${formatDateForDisplay(this.bcpCancelDateStartLimit)}.`
+    };
   }
 }

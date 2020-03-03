@@ -128,7 +128,8 @@
           <common-date name='changeFacilityAddressEffectiveDate'
                        formControlName='changeFacilityAddressEffectiveDate'
                        label='Effective date of address change'
-                       [dateRangeStart]='bcpStartDate'></common-date>
+                       [dateRangeStart]='bcpStartDate'
+                       [errorMessage]='dateErrorMessage'></common-date>
         </div>
       </form>
       
@@ -232,7 +233,8 @@
           <common-date name='changeMailingAddressEffectiveDate'
                         formControlName='changeMailingAddressEffectiveDate'
                         label='Effective date of address change'
-                        [dateRangeStart]='bcpStartDate'></common-date>
+                        [dateRangeStart]='bcpStartDate'
+                        [errorMessage]='dateErrorMessage'></common-date>
         </div>
       </form>
     </div>
@@ -258,7 +260,8 @@
           <common-date name='changeAppliesFeesEffectiveDate'
                        formControlName='changeAppliesFeesEffectiveDate'
                        label='Effective date'
-                       [dateRangeStart]='bcpStartDate'></common-date>
+                       [dateRangeStart]='bcpStartDate'
+                       [errorMessage]='dateErrorMessage'></common-date>
         </div>
       </form>
     </div>
@@ -277,7 +280,8 @@
           <common-date name='cancelBCPEffectiveDate'
                         formControlName='cancelBCPEffectiveDate'
                         label='Cancel effective date'
-                        [dateRangeStart]='bcpStartDate'></common-date>
+                        [dateRangeStart]='bcpStartDate'
+                        [errorMessage]='dateErrorMessage'></common-date>
         </div>
       </form>
     </div>
@@ -296,7 +300,8 @@
           <common-date name='changeBCPEffectiveDateEffectiveDate'
                         formControlName='changeBCPEffectiveDateEffectiveDate'
                         label='New BCP effective date'
-                        [dateRangeStart]='bcpStartDate'></common-date>
+                        [dateRangeStart]='bcpStartDate'
+                        [errorMessage]='dateErrorMessage'></common-date>
         </div>
       </form>
     </div>
@@ -315,7 +320,8 @@
           <common-date name='changeBCPCancelDateCancelDate'
                         formControlName='changeBCPCancelDateCancelDate'
                         label='New BCP cancel date'
-                        [dateRangeStart]='bcpStartDate'></common-date>
+                        [dateRangeStart]='bcpStartDate'
+                        [errorMessage]='dateErrorMessage'></common-date>
         </div>
       </form>
     </div>
@@ -340,7 +346,8 @@
           <common-date name='changeAdminInfoEffectiveDate'
                         formControlName='changeAdminInfoEffectiveDate'
                         label='New BCP cancel date'
-                        [dateRangeStart]='bcpStartDate'></common-date>
+                        [dateRangeStart]='bcpStartDate'
+                        [errorMessage]='dateErrorMessage'></common-date>
         </div>
       </form>
     </div>
@@ -362,7 +369,8 @@
           <common-date name='cancelFacilityNumberCancelDate'
                         formControlName='cancelFacilityNumberCancelDate'
                         label='Cancellation Date'
-                        [dateRangeStart]='bcpCancelDateStartLimit'></common-date>
+                        [dateRangeStart]='bcpCancelDateStartLimit'
+                        [errorMessage]='cancelFacilityDateErrorMessage'></common-date>
         </div>
       </form>
     </div>
