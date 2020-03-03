@@ -4,7 +4,7 @@ import { SharedCoreModule } from 'moh-common-lib';
 import { CoreBCPModule } from '../../../core-bcp/core-bcp.module';
 
 import { SubmissionComponent } from './submission.component';
-import { ReviewFormPageComponent } from '../../components/review-form-page/review-form-page.component';
+import { ReviewCancelChangeComponent } from '../../components/review-cancel-change/review-cancel-change.component';
 
 describe('SubmissionComponent', () => {
   let component: SubmissionComponent;
@@ -18,7 +18,7 @@ describe('SubmissionComponent', () => {
         SharedCoreModule
       ],
       declarations: [
-        ReviewFormPageComponent,
+        ReviewCancelChangeComponent,
         SubmissionComponent
       ]
     })

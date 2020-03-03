@@ -19,7 +19,7 @@ import {
 } from 'moh-common-lib';
 import { UPDATE_FACILITY_PAGES } from './update-facility-route-constants';
 import { ReviewFacilityAdminComponent } from './components/review-facility-admin/review-facility-admin.component';
-import { ReviewFormPageComponent } from './components/review-form-page/review-form-page.component';
+import { ReviewCancelChangeComponent } from './components/review-cancel-change/review-cancel-change.component';
 import { environment } from '../../../environments/environment';
 
 @NgModule({
@@ -31,7 +31,7 @@ import { environment } from '../../../environments/environment';
     SubmissionComponent,
     FacilityContainerComponent,
     ReviewFacilityAdminComponent,
-    ReviewFormPageComponent
+    ReviewCancelChangeComponent
   ],
   imports: [
     CommonModule,

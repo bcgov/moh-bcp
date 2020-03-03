@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { ReviewComponent } from './review.component';
 import { ReviewFacilityAdminComponent } from '../../components/review-facility-admin/review-facility-admin.component';
-import { ReviewFormPageComponent } from '../../components/review-form-page/review-form-page.component';
+import { ReviewCancelChangeComponent } from '../../components/review-cancel-change/review-cancel-change.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CoreBCPModule } from '../../../core-bcp/core-bcp.module';
 
@@ -17,7 +17,7 @@ describe('ReviewComponent', () => {
       declarations: [
         ReviewComponent,
         ReviewFacilityAdminComponent,
-        ReviewFormPageComponent,
+        ReviewCancelChangeComponent,
       ]
     })
     .compileComponents();

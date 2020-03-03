@@ -4,11 +4,11 @@ import { UpdateFacilityDataService } from '../../services/update-facility-data.s
 import { UPDATE_FACILITY_PAGES } from '../../update-facility-route-constants';
 
 @Component({
-  selector: 'bcp-review-form-page',
-  templateUrl: './review-form-page.component.html',
-  styleUrls: ['./review-form-page.component.scss']
+  selector: 'bcp-review-cancel-change',
+  templateUrl: './review-cancel-change.component.html',
+  styleUrls: ['./review-cancel-change.component.scss']
 })
-export class ReviewFormPageComponent implements OnInit {
+export class ReviewCancelChangeComponent implements OnInit {
   @ViewChild(ReviewContainerComponent, { static: true }) review: ReviewContainerComponent;
 
   constructor(public dataService: UpdateFacilityDataService) { }
