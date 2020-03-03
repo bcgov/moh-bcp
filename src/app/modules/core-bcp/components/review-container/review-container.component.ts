@@ -23,4 +23,24 @@ export class ReviewContainerComponent implements OnInit {
     redirect(routeName: string) {
         this.router.navigate([routeName]);
     }
+
+    containsMultiLine(text: string): boolean {
+        if (!text) {
+            return false;
+        }
+        const lineCount = text.split(/\r\n|\r|\n/).length;
+        return lineCount > 1;
+    }
+
+    getMultiLineHTML(text: string): string {
+        if (!text) {
+            return null;
+        }
+        const str = this.escapeHTML(text);
+        return str.replace(/\n/g, '<br\/>');
+    }
+
+    private escapeHTML(text: string): string {
+        return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
 }

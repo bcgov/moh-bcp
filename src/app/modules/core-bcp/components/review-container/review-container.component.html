@@ -23,7 +23,13 @@
           {{item.label}}{{item.hideColon ? '' : ':'}}
         </div>
         <div class='col-md-6'>
-          <b>{{item.value}}</b>
+          <ng-container *ngIf='containsMultiLine(item.value)'>
+            <b [innerHTML]='getMultiLineHTML(item.value)'></b>
+          </ng-container>
+          <ng-container *ngIf='!containsMultiLine(item.value)'>
+            <b>{{item.value}}</b>
+          </ng-container>
+          
         </div>
       </ng-container>
       <ng-container *ngIf='!item.label'>
