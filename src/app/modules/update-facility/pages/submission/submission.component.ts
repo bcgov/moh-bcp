@@ -16,6 +16,7 @@ import { environment } from '../../../../../environments/environment';
 export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
 
   readonly privacyStatement = PrivacyStmt;
+  readonly hibcLink = environment.links.hibc;
 
   constructor(protected dataService: UpdateFacilityDataService,
               protected pageStateService: PageStateService,
@@ -52,6 +53,10 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
 
   get declarationText() {
     return this.dataService.declarationText;
+  }
+
+  printPage() {
+    window.print();
   }
 
 }

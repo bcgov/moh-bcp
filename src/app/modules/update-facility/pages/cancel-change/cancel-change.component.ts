@@ -27,6 +27,8 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
   changeBCPCancelDateFG: FormGroup;
   changeAdminInfoFG: FormGroup;
   cancelFacilityNumberFG: FormGroup;
+  readonly bcpStartDate = new Date(2020, 3, 1);
+  readonly bcpCancelDateStartLimit = new Date(1966, 0, 1);
 
   constructor( protected containerService: ContainerService,
                protected router: Router,
