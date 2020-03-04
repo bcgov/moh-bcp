@@ -7,7 +7,6 @@ import {
   stripPostalCodeSpaces,
   stripPhoneFormatting,
   convertToJSONDate } from '../../core-bcp/models/helperFunc';
-import { parseISO } from 'date-fns';
 
 @Injectable({
   providedIn: 'root'
@@ -110,7 +109,68 @@ export class UpdateFacilityDataService extends BaseDataService {
     const jsonPayLoad: any = {
 
       informationConsentAgreement: this.informationCollectionNoticeConsent,
-      sampleEntry: {
+      administrator: {
+        firstName: this.firstName,
+        lastName: this.lastName,
+        email: this.email,
+        phoneNumber: this.phone,
+        extension: this.phoneExt
+      },
+      facility: {
+        name: this.facilityName,
+        number: this.facilityMSPNumber,
+        faxNumber: this.facilityFax,
+      },
+      changeFacilityAddress: {
+        prevAddress: this.changeFacilityAddressPreviousAddress,
+        prevCity: this.changeFacilityAddressPreviousCity,
+        prevProvince: 'BC',
+        prevPostalCode: stripPostalCodeSpaces(this.changeFacilityAddressPreviousPostalCode),
+        prevFaxNumber: stripPhoneFormatting(this.changeFacilityAddressPreviousFax),
+        newAddress: this.changeFacilityAddressNewAddress,
+        newCity: this.changeFacilityAddressNewCity,
+        newProvince: 'BC',
+        newPostalCode: stripPostalCodeSpaces(this.changeFacilityAddressNewPostalCode),
+        newFaxNumber: stripPhoneFormatting(this.changeFacilityAddressNewFax),
+        effectiveDate: convertToJSONDate(this.changeFacilityAddressEffectiveDate)
+      },
+      changeMailingAddress: {
+        prevAddress: this.changeMailingAddressPreviousAddress,
+        prevCity: this.changeMailingAddressPreviousCity,
+        prevProvince: 'BC',
+        prevPostalCode: stripPostalCodeSpaces(this.changeMailingAddressPreviousPostalCode),
+        newAddress: this.changeMailingAddressNewAddress,
+        newCity: this.changeMailingAddressNewCity,
+        newProvince: 'BC',
+        newPostalCode: stripPostalCodeSpaces(this.changeMailingAddressNewPostalCode),
+        effectiveDate: convertToJSONDate(this.changeMailingAddressEffectiveDate)
+      },
+      requestBCP: {
+        effectiveDate: convertToJSONDate(this.changeAppliesFeesEffectiveDate)
+      },
+      cancelBCP: {
+        cancelDate: convertToJSONDate(this.cancelBCPEffectiveDate)
+      },
+      changeBCPEffectiveDate: {
+        effectiveDate: convertToJSONDate(this.changeBCPEffectiveDateEffectiveDate)
+      },
+      changeBCPCancelDate: {
+        cancelDate: convertToJSONDate(this.changeBCPCancelDateCancelDate)
+      },
+      changeAdministrator: {
+        firstName: this.changeAdminInfoFirstName,
+        lastName: this.changeAdminInfoLastName,
+        pracNumber: this.changeAdminInfoMSPPracNumber,
+        email: this.changeAdminInfoEmail,
+        phoneNumber: this.changeAdminInfoPhoneNumber,
+        extension: this.changeAdminInfoPhoneNumberExt,
+        effectiveDate: convertToJSONDate(this.changeAdminInfoEffectiveDate)
+      },
+      cancelFacilityNumber: {
+        cancelDate: convertToJSONDate(this.cancelFacilityNumberCancelDate)
+      },
+      otherChange: {
+        request: this.otherChangeRequests
       },
       // Update section for schema - needs to be reflected in the data service to only have 2 dates to keep code maintainable
       dateOfAcceptance: convertToJSONDate(this.dateOfAcceptance),

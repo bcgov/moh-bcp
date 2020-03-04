@@ -76,6 +76,7 @@ export class ReviewComponent extends BcpBaseForm implements OnInit, AfterViewIni
     const jsonPayLoad = this.dataService.getJSONPayload();
 
     // TODO: Make submission API request.
+    this.containerService.setIsLoading(false);
     this.navigate(UPDATE_FACILITY_PAGES.SUBMISSION.fullpath);
   }
 }
