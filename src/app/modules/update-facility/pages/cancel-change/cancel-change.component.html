@@ -340,7 +340,8 @@
     <div *ngIf='dataService.checkChangeAdminInfo'
           class='border-left ml-4 pl-3'>
       <form [formGroup]="changeAdminInfoFG">
-        <bcp-core-practitioner-info [formGroup]='changeAdminInfoFG'></bcp-core-practitioner-info>
+        <bcp-core-practitioner-info [formGroup]='changeAdminInfoFG'
+                                    [showValidationError]='showValidationError'></bcp-core-practitioner-info>
 
         <div class="form-group">
           <common-date name='changeAdminInfoEffectiveDate'
@@ -391,6 +392,10 @@
                   maxlength='4000'></textarea>
       </div>
     </div>
+
+    <common-error-container [displayError]='systemDownError'>
+      Unable to continue, system unavailable. Please try again later.
+    </common-error-container>
 
   </form>
 </common-page-section>

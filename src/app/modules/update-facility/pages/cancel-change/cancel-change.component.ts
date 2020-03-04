@@ -30,6 +30,8 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
   cancelFacilityNumberFG: FormGroup;
   readonly bcpStartDate = new Date(2020, 3, 1);
   readonly bcpCancelDateStartLimit = new Date(1966, 0, 1);
+  systemDownError: boolean = false;
+  showValidationError: boolean = false;
 
   constructor( protected containerService: ContainerService,
                protected router: Router,
@@ -256,8 +258,54 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
     this.markAllInputsTouched(forms);
 
     if (forms.every( (x) => x.valid === true )) {
-      this.navigate(UPDATE_FACILITY_PAGES.REVIEW.fullpath);
+      if (this.dataService.checkChangeAdminInfo && this.canContinue()) {
+        this.containerService.setIsLoading();
+  
+        this.apiService.validatePractitioner({
+          firstName: this.dataService.changeAdminInfoFirstName,
+          lastName: this.dataService.changeAdminInfoLastName,
+          number: this.dataService.changeAdminInfoMSPPracNumber,
+          doctor: false
+        }, this.dataService.applicationUUID).subscribe((res: ValidationResponse) => {
+          debugger;
+          this.dataService.jsonApplicantValidation.response = res;
+  
+          this.splunkLoggerService.log(
+            this.dataService.getSubmissionLogObject<ValidationResponse>(
+              'Validate Pracitioner',
+              this.dataService.jsonApplicantValidation.response
+            )
+          );
+  
+          if (res.returnCode === ReturnCodes.SUCCESS) {
+            this.handleValidation(true);
+            this.navigate(UPDATE_FACILITY_PAGES.REVIEW.fullpath);
+          } else if (res.returnCode === ReturnCodes.FAILURE) { // Note: Warning is never returned by this request
+            this.handleValidation(false);
+          } else { // Negative response codes
+            // fall-through case, likely an error
+            this.handleError();
+          }
+        }, error => {
+          this.handleError();
+        });
+      } else {
+        this.handleValidation(true);
+        this.navigate(UPDATE_FACILITY_PAGES.REVIEW.fullpath);
+      }
+      
     }
+  }
+
+  private handleError(): void {
+    this.systemDownError = true;
+    this.containerService.setIsLoading(false);
+  }
+
+  private handleValidation(isValid: boolean): void {
+    this.showValidationError = !isValid;
+    this.containerService.setIsLoading(false);
+    this.systemDownError = false;
   }
 
   changeFacilityAddressPreviousAddressSelected(address: any) {

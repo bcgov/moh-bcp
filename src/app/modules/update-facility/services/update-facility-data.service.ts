@@ -24,6 +24,14 @@ export class UpdateFacilityDataService extends BaseDataService {
       this.facilityName = 'Test Facility';
       this.facilityMSPNumber = '89902';
       this.facilityFax = '251-123-1234';
+
+      this.checkChangeAdminInfo = true;
+      this.changeAdminInfoFirstName = 'TEST';
+      this.changeAdminInfoLastName = 'PRIVATEPRACTICE';
+      this.changeAdminInfoMSPPracNumber = '89902';
+      this.changeAdminInfoEmail = 'email@email.com';
+      this.changeAdminInfoPhoneNumber = '2501231231';
+      this.changeAdminInfoEffectiveDate = new Date(2020, 3, 1);
     }
 
         // Partial setup for using data in back end
