@@ -5,11 +5,11 @@ import { UPDATE_FACILITY_PAGES } from '../../update-facility-route-constants';
 import { setNotApplicable } from '../../../core-bcp/models/helperFunc';
 
 @Component({
-  selector: 'bcp-review-facility-admin',
-  templateUrl: './review-facility-admin.component.html',
-  styleUrls: ['./review-facility-admin.component.scss']
+  selector: 'bcp-review-facility-info',
+  templateUrl: './review-facility-info.component.html',
+  styleUrls: ['./review-facility-info.component.scss']
 })
-export class ReviewFacilityAdminComponent implements OnInit {
+export class ReviewFacilityInfoComponent implements OnInit {
   @ViewChild(ReviewContainerComponent, { static: true }) review: ReviewContainerComponent;
 
   constructor(public dataService: UpdateFacilityDataService) { }
@@ -21,22 +21,13 @@ export class ReviewFacilityAdminComponent implements OnInit {
   reviewItems() {
     this.review.displayPrintView = this.dataService.isPrintView;
     this.review.redirectPath = UPDATE_FACILITY_PAGES.FACILITY_ADMIN.fullpath;
-    this.review.header = 'Facility Administrator Information';
-
-    const phoneNumberEntry = {
-      label: 'Phone number',
-      value: this.dataService.phone
-    };
-    if (this.dataService.phoneExt) {
-      phoneNumberEntry.value = phoneNumberEntry.value.concat(' Ext. ' + this.dataService.phoneExt);
-    }
+    this.review.header = 'Facility Information';
 
     const items = [
       [
-        { label: 'First name', value: this.dataService.firstName, },
-        { label: 'Last name', value: this.dataService.lastName, },
-        { label: 'Email address (optional)', value: this.dataService.email, },
-        phoneNumberEntry,
+        { label: 'Facility or practice name', value: this.dataService.facilityName, },
+        { label: 'Medical Services Plan Facility Number', value: this.dataService.facilityMSPNumber, },
+        { label: 'Contact fax number', value: setNotApplicable(this.dataService.facilityFax), },
       ],
     ];
     this.review.sectionItems = items;

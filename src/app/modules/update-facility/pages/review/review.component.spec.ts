@@ -6,6 +6,8 @@ import { ReviewFacilityAdminComponent } from '../../components/review-facility-a
 import { ReviewCancelChangeComponent } from '../../components/review-cancel-change/review-cancel-change.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CoreBCPModule } from '../../../core-bcp/core-bcp.module';
+import { ReviewFacilityInfoComponent } from '../../components/review-facility-info/review-facility-info.component';
+import { ReviewBCPComponent } from '../../components/review-bcp/review-bcp.component';
 
 describe('ReviewComponent', () => {
   let component: ReviewComponent;
@@ -16,7 +18,9 @@ describe('ReviewComponent', () => {
       imports: [ CoreBCPModule, ReactiveFormsModule, RouterTestingModule ],
       declarations: [
         ReviewComponent,
+        ReviewBCPComponent,
         ReviewFacilityAdminComponent,
+        ReviewFacilityInfoComponent,
         ReviewCancelChangeComponent,
       ]
     })
