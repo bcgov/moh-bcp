@@ -260,23 +260,22 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
     if (forms.every( (x) => x.valid === true )) {
       if (this.dataService.checkChangeAdminInfo && this.canContinue()) {
         this.containerService.setIsLoading();
-  
+
         this.apiService.validatePractitioner({
           firstName: this.dataService.changeAdminInfoFirstName,
           lastName: this.dataService.changeAdminInfoLastName,
           number: this.dataService.changeAdminInfoMSPPracNumber,
           doctor: false
         }, this.dataService.applicationUUID).subscribe((res: ValidationResponse) => {
-          debugger;
           this.dataService.jsonApplicantValidation.response = res;
-  
+
           this.splunkLoggerService.log(
             this.dataService.getSubmissionLogObject<ValidationResponse>(
               'Validate Pracitioner',
               this.dataService.jsonApplicantValidation.response
             )
           );
-  
+
           if (res.returnCode === ReturnCodes.SUCCESS) {
             this.handleValidation(true);
             this.navigate(UPDATE_FACILITY_PAGES.REVIEW.fullpath);
@@ -293,7 +292,6 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
         this.handleValidation(true);
         this.navigate(UPDATE_FACILITY_PAGES.REVIEW.fullpath);
       }
-      
     }
   }
 
