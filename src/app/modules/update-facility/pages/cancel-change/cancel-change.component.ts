@@ -18,7 +18,7 @@ import { formatDateForDisplay } from '../../../core-bcp/models/helperFunc';
 })
 export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterViewInit {
 
-  pageTitle: string = 'Cancel / Change';
+  pageTitle: string = 'Cancel or Change Facility Details';
   formGroup: FormGroup;
   changeFacilityAddressFG: FormGroup;
   changeMailingAddressFG: FormGroup;

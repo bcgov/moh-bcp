@@ -14,13 +14,13 @@
     <hr/>
     
     <div class="form-group pl-4">
-      <common-checkbox label='Change facility address'
+      <common-checkbox label='Change physical facility address'
                        formControlName='checkChangeFacilityAddress'></common-checkbox>
     </div>
 
     <div *ngIf='dataService.checkChangeFacilityAddress'
          class='border-left ml-4 pl-3'>
-      <h3>Previous Facility Address (Optional)</h3>
+      <h3>Previous physical facility address (Optional)</h3>
       <hr/>
 
       <form [formGroup]="changeFacilityAddressFG">
@@ -28,19 +28,19 @@
         <!-- Change Facility Address -->
 
         <div class="form-group">
-          <common-geocoder-input label='Physical address'
+          <common-geocoder-input label='Physical facility address'
                             formControlName='changeFacilityAddressPreviousAddress'
                             maxlength='60'
                             (select)='changeFacilityAddressPreviousAddressSelected($event)'></common-geocoder-input>
           <common-error-container [displayError]="changeFacilityAddressFG.controls?.changeFacilityAddressPreviousAddress?.touched && changeFacilityAddressFG.controls?.changeFacilityAddressPreviousAddress?.errors">
             <div *ngIf="changeFacilityAddressFG.controls?.changeFacilityAddressPreviousAddress?.errors?.required">
-                Facility Address is a required field
+                Facility address is a required field
             </div>
             <div *ngIf="changeFacilityAddressFG.controls?.changeFacilityAddressPreviousAddress?.errors?.maxlength">
-                Facility Address max length must be 60 or fewer characters.
+                Facility address max length must be 60 or fewer characters.
             </div>
             <div *ngIf="changeFacilityAddressFG.controls?.changeFacilityAddressPreviousAddress?.errors?.pattern">
-                Facility Address must contain letters, numbers and/or symbols(e.g. #, @, !).
+                Facility address must contain letters, numbers and/or symbols(e.g. #, @, !).
             </div>
           </common-error-container>
         </div>
@@ -74,23 +74,23 @@
                                [allowInternational]='false'></common-phone-number>
         </div>
 
-        <h3>New Facility Address</h3>
+        <h3>New physical facility address</h3>
         <hr/>
 
         <div class="form-group">
-          <common-geocoder-input label='Physical address'
+          <common-geocoder-input label='Physical facility address'
                             formControlName='changeFacilityAddressNewAddress'
                             maxlength='60'
                             (select)='changeFacilityAddressNewAddressSelected($event)'></common-geocoder-input>
           <common-error-container [displayError]="changeFacilityAddressFG.controls?.changeFacilityAddressNewAddress?.touched && changeFacilityAddressFG.controls?.changeFacilityAddressNewAddress?.errors">
             <div *ngIf="changeFacilityAddressFG.controls?.changeFacilityAddressNewAddress?.errors?.required">
-                Facility Address is a required field
+                Facility address is a required field
             </div>
             <div *ngIf="changeFacilityAddressFG.controls?.changeFacilityAddressNewAddress?.errors?.maxlength">
-                Facility Address max length must be 60 or fewer characters.
+                Facility address max length must be 60 or fewer characters.
             </div>
             <div *ngIf="changeFacilityAddressFG.controls?.changeFacilityAddressNewAddress?.errors?.pattern">
-                Facility Address must contain letters, numbers and/or symbols(e.g. #, @, !).
+                Facility address must contain letters, numbers and/or symbols(e.g. #, @, !).
             </div>
           </common-error-container>
         </div>
@@ -138,13 +138,13 @@
 <!-- Change Mailing Address-->
 
     <div class="form-group pl-4">
-      <common-checkbox label='Change mailing address'
+      <common-checkbox label='Change facility mailing address'
                         formControlName='checkChangeMailingAddress'></common-checkbox>
     </div>
 
     <div *ngIf='dataService.checkChangeMailingAddress'
           class='border-left ml-4 pl-3'>
-      <h3>Previous Mailing Address (Optional)</h3>
+      <h3>Previous mailing address (Optional)</h3>
       <hr/>
 
       <form [formGroup]="changeMailingAddressFG">
@@ -155,13 +155,13 @@
                             (select)='changeMailingAddressPreviousAddressSelected($event)'></common-geocoder-input>
           <common-error-container [displayError]="changeMailingAddressFG.controls?.changeMailingAddressPreviousAddress?.touched && changeMailingAddressFG.controls?.changeMailingAddressPreviousAddress?.errors">
             <div *ngIf="changeMailingAddressFG.controls?.changeMailingAddressPreviousAddress?.errors?.required">
-                Mailing Address is a required field
+                Mailing address is a required field
             </div>
             <div *ngIf="changeMailingAddressFG.controls?.changeMailingAddressPreviousAddress?.errors?.maxlength">
-                Mailing Address max length must be 60 or fewer characters.
+                Mailing address max length must be 60 or fewer characters.
             </div>
             <div *ngIf="changeMailingAddressFG.controls?.changeMailingAddressPreviousAddress?.errors?.pattern">
-                Mailing Address must contain letters, numbers and/or symbols(e.g. #, @, !).
+                Mailing address must contain letters, numbers and/or symbols(e.g. #, @, !).
             </div>
           </common-error-container>
         </div>
@@ -197,13 +197,13 @@
                             (select)='changeMailingAddressNewAddressSelected($event)'></common-geocoder-input>
           <common-error-container [displayError]="changeMailingAddressFG.controls?.changeMailingAddressNewAddress?.touched && changeMailingAddressFG.controls?.changeMailingAddressNewAddress?.errors">
             <div *ngIf="changeMailingAddressFG.controls?.changeMailingAddressNewAddress?.errors?.required">
-                Mailing Address is a required field
+                Mailing address is a required field
             </div>
             <div *ngIf="changeMailingAddressFG.controls?.changeMailingAddressNewAddress?.errors?.maxlength">
-                Mailing Address max length must be 60 or fewer characters.
+                Mailing address max length must be 60 or fewer characters.
             </div>
             <div *ngIf="changeMailingAddressFG.controls?.changeMailingAddressNewAddress?.errors?.pattern">
-                Mailing Address must contain letters, numbers and/or symbols(e.g. #, @, !).
+                Mailing address must contain letters, numbers and/or symbols(e.g. #, @, !).
             </div>
           </common-error-container>
         </div>
@@ -249,7 +249,7 @@
 <!-- BCP Change applies to fees -->
     
     <div class="form-group pl-4">
-      <common-checkbox label='Request that BCP applies to eligible fees of eligible physicians attached to this facility.'
+      <common-checkbox label='Request that BCP applies to Eligible Fees of Eligible Physicians attached to this facility.'
                         formControlName='checkChangeAppliesFees'></common-checkbox>
     </div>
 
@@ -327,13 +327,13 @@
     </div>
 
     <h2 class='mt-5'>Change Responsible Administrator</h2>
-    <p>Describe who is a responsible admin?</p>
+    <p>The Administrator must be an active medical practitioner.</p>
     <hr/>
 
 <!-- BCP Change Cancel Date -->
     
     <div class="form-group pl-4">
-      <common-checkbox label='Change administrator information'
+      <common-checkbox label='Change Administrator information'
                         formControlName='checkChangeAdminInfo'></common-checkbox>
     </div>
 
@@ -346,7 +346,7 @@
         <div class="form-group">
           <common-date name='changeAdminInfoEffectiveDate'
                         formControlName='changeAdminInfoEffectiveDate'
-                        label='New BCP cancel date'
+                        label='Effective date of change'
                         [dateRangeStart]='bcpStartDate'
                         [errorMessage]='dateErrorMessage'></common-date>
         </div>
