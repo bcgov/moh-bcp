@@ -35,7 +35,7 @@ export class ReviewFacilityAdminComponent implements OnInit {
       [
         { label: 'First name', value: this.dataService.firstName, },
         { label: 'Last name', value: this.dataService.lastName, },
-        { label: 'Email address (optional)', value: this.dataService.email, },
+        { label: 'Email address (optional)', value: setNotApplicable(this.dataService.email), },
         phoneNumberEntry,
       ],
     ];

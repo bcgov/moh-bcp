@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ReviewContainerComponent } from '../../../core-bcp/components/review-container/review-container.component';
 import { UpdateFacilityDataService } from '../../services/update-facility-data.service';
 import { UPDATE_FACILITY_PAGES } from '../../update-facility-route-constants';
+import { setNotApplicable } from '../../../core-bcp/models/helperFunc';
 
 @Component({
   selector: 'bcp-review-other-request',
@@ -24,7 +25,7 @@ export class ReviewOtherRequestComponent implements OnInit {
 
     const items = [
       [
-        { label: null, value: this.dataService.otherChangeRequests, },
+        { label: null, value: setNotApplicable(this.dataService.otherChangeRequests), },
       ],
     ];
     this.review.sectionItems = items;

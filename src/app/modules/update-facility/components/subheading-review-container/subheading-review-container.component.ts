@@ -11,6 +11,7 @@ export class SubheadingReviewContainerComponent implements OnInit {
     @Input() header: string | null;
     @Input() redirectPath: string | null;
     @Input() sectionItems: any | null;
+    @Input() sections: any | null;
     @Input() showCheckBoxList: boolean = false;
 
     // Display as print view - no icons, no grey boxes

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { SubheadingReviewContainerComponent } from '../subheading-review-container/subheading-review-container.component';
 import { UpdateFacilityDataService } from '../../services/update-facility-data.service';
 import { UPDATE_FACILITY_PAGES } from '../../update-facility-route-constants';
+import { formatDateForDisplay, setNotApplicable } from '../../../core-bcp/models/helperFunc';
 
 @Component({
   selector: 'bcp-review-physical-address',
@@ -28,6 +29,36 @@ export class ReviewPhysicalAddressComponent implements OnInit {
       ],
     ];
     this.review.sectionItems = items;
+
+    this.review.sections = [
+      {
+        isSubSection: true,
+        title: 'Previous physical facility address',
+        items: [
+          { label: 'Physical facility address', value: setNotApplicable(this.dataService.changeFacilityAddressPreviousAddress) },
+          { label: 'City', value: setNotApplicable(this.dataService.changeFacilityAddressPreviousCity) },
+          { label: 'Province', value: 'British Columbia' },
+          { label: 'Postal code', value: setNotApplicable(this.dataService.changeFacilityAddressPreviousPostalCode) },
+          { label: 'Fax number (optional)', value: setNotApplicable(this.dataService.changeFacilityAddressPreviousFax) },
+        ]
+      },
+      {
+        isSubSection: true,
+        title: 'New physical facility address',
+        items: [
+          { label: 'Physical facility address', value: setNotApplicable(this.dataService.changeFacilityAddressNewAddress) },
+          { label: 'City', value: setNotApplicable(this.dataService.changeFacilityAddressNewCity) },
+          { label: 'Province', value: 'British Columbia' },
+          { label: 'Postal code', value: setNotApplicable(this.dataService.changeFacilityAddressNewPostalCode) },
+          { label: 'Fax number (optional)', value: setNotApplicable(this.dataService.changeFacilityAddressNewFax) },
+        ]
+      },
+      {
+        isSubSection: false,
+        label: 'Effective date of address change',
+        value: formatDateForDisplay(this.dataService.changeFacilityAddressEffectiveDate),
+      },
+    ];
   }
 
 }
