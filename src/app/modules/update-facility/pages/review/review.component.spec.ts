@@ -7,8 +7,10 @@ import { ReviewCancelFacilityComponent } from '../../components/review-cancel-fa
 import { ReviewFacilityAdminComponent } from '../../components/review-facility-admin/review-facility-admin.component';
 import { ReviewFacilityInfoComponent } from '../../components/review-facility-info/review-facility-info.component';
 import { ReviewOtherRequestComponent } from '../../components/review-other-request/review-other-request.component';
+import { ReviewPhysicalAddressComponent } from '../../components/review-physical-address/review-physical-address.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CoreBCPModule } from '../../../core-bcp/core-bcp.module';
+import { SubheadingReviewContainerComponent } from '../../components/subheading-review-container/subheading-review-container.component';
 
 
 describe('ReviewComponent', () => {
@@ -25,6 +27,8 @@ describe('ReviewComponent', () => {
         ReviewFacilityAdminComponent,
         ReviewFacilityInfoComponent,
         ReviewOtherRequestComponent,
+        ReviewPhysicalAddressComponent,
+        SubheadingReviewContainerComponent,
       ]
     })
     .compileComponents();

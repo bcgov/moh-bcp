@@ -23,6 +23,8 @@ import { ReviewCancelFacilityComponent } from './components/review-cancel-facili
 import { ReviewFacilityAdminComponent } from './components/review-facility-admin/review-facility-admin.component';
 import { ReviewFacilityInfoComponent } from './components/review-facility-info/review-facility-info.component';
 import { ReviewOtherRequestComponent } from './components/review-other-request/review-other-request.component';
+import { ReviewPhysicalAddressComponent } from './components/review-physical-address/review-physical-address.component';
+import { SubheadingReviewContainerComponent } from './components/subheading-review-container/subheading-review-container.component';
 import { environment } from '../../../environments/environment';
 
 @NgModule({
@@ -38,6 +40,8 @@ import { environment } from '../../../environments/environment';
     ReviewFacilityAdminComponent,
     ReviewFacilityInfoComponent,
     ReviewOtherRequestComponent,
+    ReviewPhysicalAddressComponent,
+    SubheadingReviewContainerComponent,
   ],
   imports: [
     CommonModule,
