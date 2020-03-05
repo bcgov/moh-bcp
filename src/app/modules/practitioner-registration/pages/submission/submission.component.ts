@@ -48,8 +48,7 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
     if (this.displayIcon === ApiStatusCodes.WARNING) {
       confirmMessage = 'Your application has been submitted and will be processed within 5-10 business days. Health Insurance BC may contact you if there are questions about your application.';
     } else if (this.displayIcon === ApiStatusCodes.ERROR) {
-      confirmMessage = 'Sorry, there was an error processing your application. ' +
-        'Please try again. If you continue to receive this error please contact HIBC.';
+      confirmMessage = 'There was an error processing your application. Please try again. If you continue to receive this message, contact HIBC at (604) 456-6950 (lower mainland) or 1-866-456-6950 (elsewhere in BC).';
     }
 
     return confirmMessage;
