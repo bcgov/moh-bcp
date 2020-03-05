@@ -115,7 +115,6 @@ export class UpdateFacilityDataService extends BaseDataService {
   getJSONPayload() {
 
     const jsonPayLoad: any = {
-
       informationConsentAgreement: this.informationCollectionNoticeConsent,
       administrator: {
         firstName: this.firstName,
@@ -129,7 +128,14 @@ export class UpdateFacilityDataService extends BaseDataService {
         number: this.facilityMSPNumber,
         faxNumber: this.facilityFax,
       },
-      changeFacilityAddress: {
+      otherChangeRequest: this.otherChangeRequests,
+      // Update section for schema - needs to be reflected in the data service to only have 2 dates to keep code maintainable
+      dateOfAcceptance: convertToJSONDate(this.dateOfAcceptance),
+      declarationText: this.declarationTextForAPI,
+    };
+
+    if (this.checkChangeFacilityAddress) {
+      jsonPayLoad.changeFacilityAddress = {
         prevAddress: this.changeFacilityAddressPreviousAddress,
         prevCity: this.changeFacilityAddressPreviousCity,
         prevProvince: 'BC',
@@ -141,8 +147,10 @@ export class UpdateFacilityDataService extends BaseDataService {
         newPostalCode: stripPostalCodeSpaces(this.changeFacilityAddressNewPostalCode),
         newFaxNumber: stripPhoneFormatting(this.changeFacilityAddressNewFax),
         effectiveDate: convertToJSONDate(this.changeFacilityAddressEffectiveDate)
-      },
-      changeMailingAddress: {
+      };
+    }
+    if (this.checkChangeMailingAddress) {
+      jsonPayLoad.changeMailingAddress = {
         prevAddress: this.changeMailingAddressPreviousAddress,
         prevCity: this.changeMailingAddressPreviousCity,
         prevProvince: 'BC',
@@ -152,20 +160,22 @@ export class UpdateFacilityDataService extends BaseDataService {
         newProvince: 'BC',
         newPostalCode: stripPostalCodeSpaces(this.changeMailingAddressNewPostalCode),
         effectiveDate: convertToJSONDate(this.changeMailingAddressEffectiveDate)
-      },
-      requestBCP: {
-        effectiveDate: convertToJSONDate(this.changeAppliesFeesEffectiveDate)
-      },
-      cancelBCP: {
-        cancelDate: convertToJSONDate(this.cancelBCPEffectiveDate)
-      },
-      changeBCPEffectiveDate: {
-        effectiveDate: convertToJSONDate(this.changeBCPEffectiveDateEffectiveDate)
-      },
-      changeBCPCancelDate: {
-        cancelDate: convertToJSONDate(this.changeBCPCancelDateCancelDate)
-      },
-      changeAdministrator: {
+      };
+    }
+    if (this.checkChangeAppliesFees) {
+      jsonPayLoad.requestBCPEffectiveDate = convertToJSONDate(this.changeAppliesFeesEffectiveDate);
+    }
+    if (this.checkCancelBCP) {
+      jsonPayLoad.cancelBCPDate = convertToJSONDate(this.cancelBCPEffectiveDate);
+    }
+    if (this.checkChangeBCPEffectiveDate) {
+      jsonPayLoad.changeBCPEffectiveDate = convertToJSONDate(this.changeBCPEffectiveDateEffectiveDate);
+    }
+    if (this.checkChangeBCPCancelDate) {
+      jsonPayLoad.changeBCPCancelDate = convertToJSONDate(this.changeBCPCancelDateCancelDate);
+    }
+    if (this.checkChangeAdminInfo) {
+      jsonPayLoad.changeAdministrator = {
         firstName: this.changeAdminInfoFirstName,
         lastName: this.changeAdminInfoLastName,
         pracNumber: this.changeAdminInfoMSPPracNumber,
@@ -173,17 +183,11 @@ export class UpdateFacilityDataService extends BaseDataService {
         phoneNumber: this.changeAdminInfoPhoneNumber,
         extension: this.changeAdminInfoPhoneNumberExt,
         effectiveDate: convertToJSONDate(this.changeAdminInfoEffectiveDate)
-      },
-      cancelFacilityNumber: {
-        cancelDate: convertToJSONDate(this.cancelFacilityNumberCancelDate)
-      },
-      otherChange: {
-        request: this.otherChangeRequests
-      },
-      // Update section for schema - needs to be reflected in the data service to only have 2 dates to keep code maintainable
-      dateOfAcceptance: convertToJSONDate(this.dateOfAcceptance),
-      declarationText: this.declarationTextForAPI,
-    };
+      };
+    }
+    if (this.checkCancelFacilityNumber) {
+      jsonPayLoad.cancelFacilityNumberDate = convertToJSONDate(this.cancelFacilityNumberCancelDate);
+    }
 
     return jsonPayLoad;
   }
