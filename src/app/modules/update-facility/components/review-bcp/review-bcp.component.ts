@@ -25,20 +25,41 @@ export class ReviewBCPComponent implements OnInit {
 
     const items = [
       [
-        { label: 'The applicant requests that the Business Cost Premium be applied to Eligible Fees paid to Eligible Physicians attached to this facility.', value: convertToYesNo(this.dataService.checkChangeAppliesFees), },
-        { label: 'Effective date', value: setNotApplicable(formatDateForDisplay(this.dataService.changeAppliesFeesEffectiveDate)), },
+        {
+          label: 'The applicant requests that the Business Cost Premium be applied to Eligible Fees paid to Eligible Physicians attached to this facility.',
+          value: convertToYesNo(this.dataService.checkChangeAppliesFees),
+        },
+        {
+          label: 'Effective date',
+          value: setNotApplicable(formatDateForDisplay(this.dataService.changeAppliesFeesEffectiveDate)),
+        },
 
-        { label: 'Cancel BCP', value: convertToYesNo(this.dataService.checkCancelBCP), },
-        { label: 'Effective cancel date', value: setNotApplicable(formatDateForDisplay(this.dataService.cancelBCPEffectiveDate)), },
+        {
+          label: 'Cancel BCP',
+          value: convertToYesNo(this.dataService.checkCancelBCP),
+        },
+        {
+          label: 'Effective cancel date',
+          value: setNotApplicable(formatDateForDisplay(this.dataService.cancelBCPEffectiveDate)),
+        },
 
-        { label: 'Change BCP effective date', value: convertToYesNo(this.dataService.checkChangeBCPEffectiveDate), },
+        {
+          label: 'Change BCP effective date',
+          value: convertToYesNo(this.dataService.checkChangeBCPEffectiveDate),
+        },
         {
           label: 'New BCP effective date',
           value: setNotApplicable(formatDateForDisplay(this.dataService.changeBCPEffectiveDateEffectiveDate)),
         },
 
-        { label: 'Change BCP cancellation date', value: convertToYesNo(this.dataService.checkChangeBCPCancelDate), },
-        { label: 'New BCP cancel date', value: setNotApplicable(formatDateForDisplay(this.dataService.changeBCPCancelDateCancelDate)), },
+        {
+          label: 'Change BCP cancellation date',
+          value: convertToYesNo(this.dataService.checkChangeBCPCancelDate),
+        },
+        {
+          label: 'New BCP cancel date',
+          value: setNotApplicable(formatDateForDisplay(this.dataService.changeBCPCancelDateCancelDate)),
+        },
       ],
     ];
     this.review.sectionItems = items;

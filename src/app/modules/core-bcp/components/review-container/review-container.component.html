@@ -34,7 +34,12 @@
       </ng-container>
       <ng-container *ngIf='!item.label'>
         <div class='col-md-12'>
-          {{item.value}}
+          <ng-container *ngIf='containsMultiLine(item.value)'>
+            <span [innerHTML]='getMultiLineHTML(item.value)'></span>
+          </ng-container>
+          <ng-container *ngIf='!containsMultiLine(item.value)'>
+            {{item.value}}
+          </ng-container>
         </div>
       </ng-container>
     </div>

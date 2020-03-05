@@ -4,11 +4,11 @@ import { UpdateFacilityDataService } from '../../services/update-facility-data.s
 import { UPDATE_FACILITY_PAGES } from '../../update-facility-route-constants';
 
 @Component({
-  selector: 'bcp-review-cancel-change',
-  templateUrl: './review-cancel-change.component.html',
-  styleUrls: ['./review-cancel-change.component.scss']
+  selector: 'bcp-review-other-request',
+  templateUrl: './review-other-request.component.html',
+  styleUrls: ['./review-other-request.component.scss']
 })
-export class ReviewCancelChangeComponent implements OnInit {
+export class ReviewOtherRequestComponent implements OnInit {
   @ViewChild(ReviewContainerComponent, { static: true }) review: ReviewContainerComponent;
 
   constructor(public dataService: UpdateFacilityDataService) { }
@@ -20,11 +20,11 @@ export class ReviewCancelChangeComponent implements OnInit {
   reviewItems() {
     this.review.displayPrintView = this.dataService.isPrintView;
     this.review.redirectPath = UPDATE_FACILITY_PAGES.CANCEL_CHANGE.fullpath;
-    this.review.header = UPDATE_FACILITY_PAGES.CANCEL_CHANGE.title;
+    this.review.header = 'Other Change or Request';
 
     const items = [
       [
-        { label: 'Sample Form Input', value: null, },
+        { label: null, value: this.dataService.otherChangeRequests, },
       ],
     ];
     this.review.sectionItems = items;
