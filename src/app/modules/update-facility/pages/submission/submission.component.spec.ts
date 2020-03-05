@@ -6,6 +6,7 @@ import { CoreBCPModule } from '../../../core-bcp/core-bcp.module';
 import { SubmissionComponent } from './submission.component';
 import { ReviewBCPComponent } from '../../components/review-bcp/review-bcp.component';
 import { ReviewCancelFacilityComponent } from '../../components/review-cancel-facility/review-cancel-facility.component';
+import { ReviewChangeAdminComponent } from '../../components/review-change-admin/review-change-admin.component';
 import { ReviewFacilityAdminComponent } from '../../components/review-facility-admin/review-facility-admin.component';
 import { ReviewFacilityInfoComponent } from '../../components/review-facility-info/review-facility-info.component';
 import { ReviewMailingAddressComponent } from '../../components/review-mailing-address/review-mailing-address.component';
@@ -28,6 +29,7 @@ describe('SubmissionComponent', () => {
       declarations: [
         ReviewBCPComponent,
         ReviewCancelFacilityComponent,
+        ReviewChangeAdminComponent,
         ReviewFacilityAdminComponent,
         ReviewFacilityInfoComponent,
         ReviewMailingAddressComponent,

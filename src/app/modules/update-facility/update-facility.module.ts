@@ -20,6 +20,7 @@ import {
 import { UPDATE_FACILITY_PAGES } from './update-facility-route-constants';
 import { ReviewBCPComponent } from './components/review-bcp/review-bcp.component';
 import { ReviewCancelFacilityComponent } from './components/review-cancel-facility/review-cancel-facility.component';
+import { ReviewChangeAdminComponent } from './components/review-change-admin/review-change-admin.component';
 import { ReviewFacilityAdminComponent } from './components/review-facility-admin/review-facility-admin.component';
 import { ReviewFacilityInfoComponent } from './components/review-facility-info/review-facility-info.component';
 import { ReviewMailingAddressComponent } from './components/review-mailing-address/review-mailing-address.component';
@@ -38,6 +39,7 @@ import { environment } from '../../../environments/environment';
     FacilityContainerComponent,
     ReviewBCPComponent,
     ReviewCancelFacilityComponent,
+    ReviewChangeAdminComponent,
     ReviewFacilityAdminComponent,
     ReviewFacilityInfoComponent,
     ReviewMailingAddressComponent,
