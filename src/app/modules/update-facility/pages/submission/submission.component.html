@@ -26,11 +26,14 @@
       <div class="print-only">
         <bcp-review-facility-admin></bcp-review-facility-admin>
         <bcp-review-facility-info></bcp-review-facility-info>
-        <bcp-review-physical-address></bcp-review-physical-address>
-        <bcp-review-mailing-address></bcp-review-mailing-address>
-        <bcp-review-bcp></bcp-review-bcp>
-        <bcp-review-change-admin></bcp-review-change-admin>
-        <bcp-review-cancel-facility></bcp-review-cancel-facility>
+        <bcp-review-physical-address *ngIf='dataService.checkChangeFacilityAddress'></bcp-review-physical-address>
+        <bcp-review-mailing-address *ngIf='dataService.checkChangeMailingAddress'></bcp-review-mailing-address>
+        <bcp-review-bcp *ngIf='dataService.checkChangeAppliesFees
+                            || dataService.checkCancelBCP
+                            || dataService.checkChangeBCPEffectiveDate
+                            || dataService.checkChangeBCPCancelDate'></bcp-review-bcp>
+        <bcp-review-change-admin *ngIf='dataService.checkChangeAdminInfo'></bcp-review-change-admin>
+        <bcp-review-cancel-facility *ngIf='dataService.checkCancelFacilityNumber'></bcp-review-cancel-facility>
         <bcp-review-other-request></bcp-review-other-request>
       </div>
       

@@ -94,7 +94,7 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
       firstName: [this.dataService.changeAdminInfoFirstName, [Validators.required]],
       lastName: [this.dataService.changeAdminInfoLastName, [Validators.required]],
       mspPracNumber: [this.dataService.changeAdminInfoMSPPracNumber, [Validators.required]],
-      email: [this.dataService.changeAdminInfoEmail, [Validators.required]],
+      email: [this.dataService.changeAdminInfoEmail, []],
       phoneNumber: [this.dataService.changeAdminInfoPhoneNumber, [Validators.required]],
       phoneNumberExt: [this.dataService.changeAdminInfoPhoneNumberExt, []],
       changeAdminInfoEffectiveDate: [this.dataService.changeAdminInfoEffectiveDate, [Validators.required]],

@@ -56,7 +56,7 @@ export class UpdateFacilityDataService extends BaseDataService {
   checkChangeBCPCancelDate: boolean = false;
   checkChangeAdminInfo: boolean = false;
   checkCancelFacilityNumber: boolean = false;
-  otherChangeRequests: string;
+  otherChangeRequests: string = '';
 
   changeFacilityAddressPreviousAddress: string;
   changeFacilityAddressPreviousCity: string;

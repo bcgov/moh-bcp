@@ -1,16 +1,20 @@
 <form [formGroup]="formGroup" novalidate>
   <h1>{{pageTitle}}</h1>
-  <p class="border-bottom">Review your request for practitioner attachment before submission</p>
+  <p>Review your request for practitioner attachment before submission</p>
+  <hr/>
 
   <div class='border-warning'></div>
 
   <bcp-review-facility-admin></bcp-review-facility-admin>
   <bcp-review-facility-info></bcp-review-facility-info>
-  <bcp-review-physical-address></bcp-review-physical-address>
-  <bcp-review-mailing-address></bcp-review-mailing-address>
-  <bcp-review-bcp></bcp-review-bcp>
-  <bcp-review-change-admin></bcp-review-change-admin>
-  <bcp-review-cancel-facility></bcp-review-cancel-facility>
+  <bcp-review-physical-address *ngIf='dataService.checkChangeFacilityAddress'></bcp-review-physical-address>
+  <bcp-review-mailing-address *ngIf='dataService.checkChangeMailingAddress'></bcp-review-mailing-address>
+  <bcp-review-bcp *ngIf='dataService.checkChangeAppliesFees
+                      || dataService.checkCancelBCP
+                      || dataService.checkChangeBCPEffectiveDate
+                      || dataService.checkChangeBCPCancelDate'></bcp-review-bcp>
+  <bcp-review-change-admin *ngIf='dataService.checkChangeAdminInfo'></bcp-review-change-admin>
+  <bcp-review-cancel-facility *ngIf='dataService.checkCancelFacilityNumber'></bcp-review-cancel-facility>
   <bcp-review-other-request></bcp-review-other-request>
   
   <div class="row col-md-12 ml-0 pl-0 align-items-center">
