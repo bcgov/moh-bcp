@@ -19,11 +19,11 @@ export class UpdateFacilityDataService extends BaseDataService {
       this.firstName = 'Mock First Name';
       this.lastName = 'Mock Last Name';
       this.email = 'test@example.com';
-      this.phone = '250-123-1234';
+      this.phone = '2501231234';
       this.phoneExt = '123';
       this.facilityName = 'Test Facility';
       this.facilityMSPNumber = '89902';
-      this.facilityFax = '251-123-1234';
+      this.facilityFax = '2511231234';
 
       this.checkChangeAdminInfo = true;
       this.changeAdminInfoFirstName = 'TEST';

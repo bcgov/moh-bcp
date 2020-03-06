@@ -27,14 +27,24 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
   ngOnInit() {
     super.ngOnInit();
 
-    // TODO: Set icon to be displayed
-    this.displayIcon = ApiStatusCodes.SUCCESS;
+    // Set icon to be displayed
+    if (this.dataService.jsonSubmission.response) {
+
+      if ( this.dataService.jsonSubmission.response.returnCode === ApiStatusCodes.SUCCESS ) {
+        this.displayIcon = ApiStatusCodes.SUCCESS;
+      } else {
+        if ( this.dataService.jsonSubmission.response.referenceNumber ) {
+          // Assumed something went wrong with automated processing but is in MAXHUB
+          this.displayIcon = ApiStatusCodes.WARNING;
+        }
+      }
+    }
   }
 
   get confirmationMessage() {
     let confirmMessage = 'Your application has been submitted and will be processed within 5-10 business days. Health Insurance BC may contact you if there are questions about your application.';
     if (this.displayIcon === ApiStatusCodes.WARNING) {
-      // TODO: Set warning message.
+      // OPTIONAL: Set warning message.
     } else if (this.displayIcon === ApiStatusCodes.ERROR) {
       confirmMessage = 'There was an error processing your application. Please try again. If you continue to receive this message, contact HIBC at (604) 456-6950 (lower mainland) or 1-866-456-6950 (elsewhere in BC).';
     }

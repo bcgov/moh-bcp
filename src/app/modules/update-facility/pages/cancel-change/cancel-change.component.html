@@ -394,6 +394,10 @@
       <div class='text-right'>Characters remaining: {{ OTHER_REQUEST_MAX_LENGTH - dataService.otherChangeRequests.length }}</div>
     </div>
 
+    <common-error-container [displayError]='!hasValidChange && hasValidChange !== undefined'>
+      Please select at least one update to continue.
+    </common-error-container>
+
     <common-error-container [displayError]='systemDownError'>
       Unable to continue, system unavailable. Please try again later.
     </common-error-container>
