@@ -389,8 +389,9 @@
                   name='otherChangeRequests'
                   formControlName='otherChangeRequests'
                   id='otherChangeRequests'
-                  maxlength='4000'></textarea>
+                  [maxlength]='OTHER_REQUEST_MAX_LENGTH'></textarea>
       </div>
+      <div class='text-right'>Characters remaining: {{ OTHER_REQUEST_MAX_LENGTH - dataService.otherChangeRequests.length }}</div>
     </div>
 
     <common-error-container [displayError]='systemDownError'>

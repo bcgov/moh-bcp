@@ -28,8 +28,9 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
   changeBCPCancelDateFG: FormGroup;
   changeAdminInfoFG: FormGroup;
   cancelFacilityNumberFG: FormGroup;
-  readonly bcpStartDate = new Date(2020, 3, 1);
-  readonly bcpCancelDateStartLimit = new Date(1966, 0, 1);
+  readonly bcpStartDate: Date = new Date(2020, 3, 1);
+  readonly bcpCancelDateStartLimit: Date = new Date(1966, 0, 1);
+  readonly OTHER_REQUEST_MAX_LENGTH: number = 4000;
   systemDownError: boolean = false;
   showValidationError: boolean = false;
 
