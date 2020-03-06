@@ -74,10 +74,24 @@ export class ReviewComponent extends BcpBaseForm implements OnInit, AfterViewIni
     this.containerService.setIsLoading();
     this.dataService.dateOfSubmission = new Date();
     const jsonPayLoad = this.dataService.getJSONPayload();
+    this.apiService.submitForm(jsonPayLoad, this.dataService.signature, this.dataService.applicationUUID)
+      .subscribe((res: SubmissionResponse) => {
 
-    // TODO: Make submission API request.
-    this.containerService.setIsLoading(false);
-    this.navigate(UPDATE_FACILITY_PAGES.SUBMISSION.fullpath);
+        this.dataService.jsonSubmission.response = res;
+        this.splunkLoggerService.log(
+          this.dataService.getSubmissionLogObject<SubmissionResponse>(
+            'Maintain Facility',
+            this.dataService.jsonSubmission.response
+          )
+        );
+
+        this.containerService.setIsLoading(false);
+        // TODO: Handle failure case, e.g. no backend, failed request, etc.
+        this.navigate(UPDATE_FACILITY_PAGES.SUBMISSION.fullpath);
+      }, error => {
+        // console.log('apiService onerror', error);
+        this.containerService.setIsLoading(false);
+      });
   }
 }
 

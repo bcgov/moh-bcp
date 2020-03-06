@@ -120,16 +120,15 @@ export class UpdateFacilityDataService extends BaseDataService {
         firstName: this.firstName,
         lastName: this.lastName,
         email: this.email,
-        phoneNumber: this.phone,
+        phoneNumber: stripPhoneFormatting(this.phone),
         extension: this.phoneExt
       },
       facility: {
         name: this.facilityName,
         number: this.facilityMSPNumber,
-        faxNumber: this.facilityFax,
+        faxNumber: stripPhoneFormatting(this.facilityFax),
       },
       otherChangeRequest: this.otherChangeRequests,
-      // Update section for schema - needs to be reflected in the data service to only have 2 dates to keep code maintainable
       dateOfAcceptance: convertToJSONDate(this.dateOfAcceptance),
       declarationText: this.declarationTextForAPI,
     };
@@ -180,7 +179,7 @@ export class UpdateFacilityDataService extends BaseDataService {
         lastName: this.changeAdminInfoLastName,
         pracNumber: this.changeAdminInfoMSPPracNumber,
         email: this.changeAdminInfoEmail,
-        phoneNumber: this.changeAdminInfoPhoneNumber,
+        phoneNumber: stripPhoneFormatting(this.changeAdminInfoPhoneNumber),
         extension: this.changeAdminInfoPhoneNumberExt,
         effectiveDate: convertToJSONDate(this.changeAdminInfoEffectiveDate)
       };
