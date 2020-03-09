@@ -3,7 +3,7 @@ import { UPDATE_FACILITY_PAGES } from '../../update-facility-route-constants';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UpdateFacilityDataService } from '../../services/update-facility-data.service';
-import { ContainerService, ErrorMessage, LabelReplacementTag, PageStateService } from 'moh-common-lib';
+import { ContainerService, ErrorMessage, LabelReplacementTag, PageStateService, scrollToError } from 'moh-common-lib';
 import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 import { UpdateFacilityApiService } from '../../services/update-facility-api.service';
 import { ValidationResponse, ReturnCodes } from '../../../core-bcp/models/base-api.model';
@@ -299,6 +299,9 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
             this.navigate(UPDATE_FACILITY_PAGES.REVIEW.fullpath);
           } else if (res.returnCode === ReturnCodes.FAILURE) { // Note: Warning is never returned by this request
             this.handleValidation(false);
+            setTimeout(() => {
+              scrollToError();
+            }, 50);
           } else { // Negative response codes
             // fall-through case, likely an error
             this.handleError();
