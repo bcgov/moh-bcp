@@ -62,7 +62,7 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
   }
 
   get declarationText() {
-    return this.dataService.declarationText;
+    return this.dataService.declarationTextForHtml;
   }
 
   printPage() {
