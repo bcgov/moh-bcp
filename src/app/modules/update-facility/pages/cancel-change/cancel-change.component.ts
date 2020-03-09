@@ -299,15 +299,15 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
             this.navigate(UPDATE_FACILITY_PAGES.REVIEW.fullpath);
           } else if (res.returnCode === ReturnCodes.FAILURE) { // Note: Warning is never returned by this request
             this.handleValidation(false);
-            setTimeout(() => {
-              scrollToError();
-            }, 50);
+            this.scrollToError();
           } else { // Negative response codes
             // fall-through case, likely an error
             this.handleError();
+            this.scrollToError();
           }
         }, error => {
           this.handleError();
+          this.scrollToError();
         });
       } else {
         this.handleValidation(true);
@@ -325,6 +325,12 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
     this.showValidationError = !isValid;
     this.containerService.setIsLoading(false);
     this.systemDownError = false;
+  }
+
+  scrollToError() {
+    setTimeout(() => {
+      scrollToError();
+    }, 50);
   }
 
   changeFacilityAddressPreviousAddressSelected(address: any) {
