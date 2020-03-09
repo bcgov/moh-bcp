@@ -37,7 +37,6 @@ export class UpdateFacilityApiService extends BCPApiService {
 
     this.dataService.jsonSubmission.request = payload;
 
-    // TODO: Update URL once we know what it is
     const url = `${this.baseUrl}/maintainFacility`;
     return this.post(url, payload);
   }
