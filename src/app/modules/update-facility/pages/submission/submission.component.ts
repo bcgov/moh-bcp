@@ -57,8 +57,7 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
   }
 
   get referenceNumber() {
-    // TODO: Return reference number recieved from API response.
-    return '';
+    return this. dataService.jsonSubmission.response.referenceNumber;
   }
 
   get declarationText() {
