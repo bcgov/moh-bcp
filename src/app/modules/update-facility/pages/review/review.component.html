@@ -15,7 +15,7 @@
                       || dataService.checkChangeBCPCancelDate'></bcp-review-bcp>
   <bcp-review-change-admin *ngIf='dataService.checkChangeAdminInfo'></bcp-review-change-admin>
   <bcp-review-cancel-facility *ngIf='dataService.checkCancelFacilityNumber'></bcp-review-cancel-facility>
-  <bcp-review-other-request></bcp-review-other-request>
+  <bcp-review-other-request *ngIf='dataService.otherChangeRequests !== ""'></bcp-review-other-request>
   
   <div class="row col-md-12 ml-0 pl-0 align-items-center">
     <div class="col-md-12 pl-0">
