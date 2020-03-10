@@ -21,6 +21,7 @@ export class ReviewOtherRequestComponent implements OnInit {
   reviewItems() {
     this.review.displayPrintView = this.dataService.isPrintView;
     this.review.redirectPath = UPDATE_FACILITY_PAGES.CANCEL_CHANGE.fullpath;
+    this.review.pageSection = 'other-request';
     this.review.header = 'Other Change or Request';
 
     const items = [

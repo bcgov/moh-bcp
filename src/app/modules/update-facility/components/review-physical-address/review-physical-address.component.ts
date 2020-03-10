@@ -21,14 +21,8 @@ export class ReviewPhysicalAddressComponent implements OnInit {
   reviewItems() {
     this.review.displayPrintView = this.dataService.isPrintView;
     this.review.redirectPath = UPDATE_FACILITY_PAGES.CANCEL_CHANGE.fullpath;
+    this.review.pageSection = 'physical-address';
     this.review.header = 'Change Facility Physical Address';
-
-    const items = [
-      [
-        { label: 'label', value: 'value', },
-      ],
-    ];
-    this.review.sectionItems = items;
 
     this.review.sections = [
       {

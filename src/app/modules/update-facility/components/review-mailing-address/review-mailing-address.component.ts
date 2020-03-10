@@ -21,6 +21,7 @@ export class ReviewMailingAddressComponent implements OnInit {
   reviewItems() {
     this.review.displayPrintView = this.dataService.isPrintView;
     this.review.redirectPath = UPDATE_FACILITY_PAGES.CANCEL_CHANGE.fullpath;
+    this.review.pageSection = 'mailing-address';
     this.review.header = 'Change Facility Mailing Address';
 
     this.review.sections = [

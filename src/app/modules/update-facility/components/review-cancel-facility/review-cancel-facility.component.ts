@@ -21,6 +21,7 @@ export class ReviewCancelFacilityComponent implements OnInit {
   reviewItems() {
     this.review.displayPrintView = this.dataService.isPrintView;
     this.review.redirectPath = UPDATE_FACILITY_PAGES.CANCEL_CHANGE.fullpath;
+    this.review.pageSection = 'cancel-facility';
     this.review.header = 'Cancellation of Facility Number';
 
     const items = [

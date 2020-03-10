@@ -21,6 +21,7 @@ export class ReviewChangeAdminComponent implements OnInit {
   reviewItems() {
     this.review.displayPrintView = this.dataService.isPrintView;
     this.review.redirectPath = UPDATE_FACILITY_PAGES.CANCEL_CHANGE.fullpath;
+    this.review.pageSection = 'change-admin';
     this.review.header = 'Change Responsible Administrator';
 
     const phoneNumberEntry = {
