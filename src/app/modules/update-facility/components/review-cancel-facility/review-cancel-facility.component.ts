@@ -30,7 +30,17 @@ export class ReviewCancelFacilityComponent implements OnInit {
         { label: 'Cancellation date', value: setNotApplicable(formatDateForDisplay(this.dataService.cancelFacilityNumberCancelDate)), },
       ],
     ];
-    this.review.sectionItems = items;
+    if (this.dataService.checkCancelFacilityNumber) {
+      this.review.sectionItems = items;
+    } else {
+      this.review.sectionItems = [
+        [
+          {
+            label: null,
+            value: 'N/A'
+          }
+        ]
+      ];
+    }
   }
-
 }

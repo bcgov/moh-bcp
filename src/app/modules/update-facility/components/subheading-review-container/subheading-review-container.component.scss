@@ -21,13 +21,8 @@
   background-color: #F2F2F2;
 }
 
-:host {
-  textarea {
-    border: none;
-    background: none;
-    font-weight: bold;
-    resize: none;
-    padding: 0;
-    color: $body-color;
+@media print {
+  :host .review-container {
+    page-break-inside: avoid;
   }
 }

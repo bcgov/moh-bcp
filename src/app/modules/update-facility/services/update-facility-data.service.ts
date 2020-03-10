@@ -25,13 +25,14 @@ export class UpdateFacilityDataService extends BaseDataService {
       this.facilityMSPNumber = '89902';
       this.facilityFax = '2511231234';
 
-      this.checkChangeAdminInfo = true;
+      this.checkChangeAdminInfo = false;
       this.changeAdminInfoFirstName = 'TEST';
       this.changeAdminInfoLastName = 'PRIVATEPRACTICE';
       this.changeAdminInfoMSPPracNumber = '89902';
       this.changeAdminInfoEmail = 'email@email.com';
       this.changeAdminInfoPhoneNumber = '2501231231';
       this.changeAdminInfoEffectiveDate = new Date(2020, 3, 1);
+      this.otherChangeRequests = 'test\ntest\ntest\ntest\ntest\ntest';
     }
 
         // Partial setup for using data in back end
@@ -100,8 +101,8 @@ export class UpdateFacilityDataService extends BaseDataService {
   readonly declarationText = `I understand that:
   <ol class='no-bullets'>
       <li>i. this is a legal document and I represent that the information that I have provided on this document is true to the best of my knowledge;</li>
-      <li>ii. MSP is a public system based on trust, but also that claims, including those portions relating to the Business Cost Premium, are subject to audit</li>
-      <li>iii. and financial recovery for claims made contrary to the Medicare Protection Act (the "Act"); and submitting false or misleading claims information is an offence under the Act and may be an offence under the Criminal Code of Canada.</li>
+      <li>ii. MSP is a public system based on trust, but also that claims, including those portions relating to the Business Cost Premium, are subject to audit and financial recovery for claims made contrary to the Medicare Protection Act (the "Act"); and</li>
+      <li>iii. submitting false or misleading claims information is an offence under the Act and may be an offence under the Criminal Code of Canada.</li>
   </ol>`;
 
   get declarationTextForAPI() {

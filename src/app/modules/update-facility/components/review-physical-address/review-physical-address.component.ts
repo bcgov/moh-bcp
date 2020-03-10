@@ -24,35 +24,44 @@ export class ReviewPhysicalAddressComponent implements OnInit {
     this.review.pageSection = 'physical-address';
     this.review.header = 'Change Facility Physical Address';
 
-    this.review.sections = [
-      {
-        isSubSection: true,
-        title: 'Previous physical facility address',
-        items: [
-          { label: 'Physical facility address', value: setNotApplicable(this.dataService.changeFacilityAddressPreviousAddress) },
-          { label: 'City', value: setNotApplicable(this.dataService.changeFacilityAddressPreviousCity) },
-          { label: 'Province', value: 'British Columbia' },
-          { label: 'Postal code', value: setNotApplicable(this.dataService.changeFacilityAddressPreviousPostalCode) },
-          { label: 'Fax number (optional)', value: setNotApplicable(this.dataService.changeFacilityAddressPreviousFax) },
-        ]
-      },
-      {
-        isSubSection: true,
-        title: 'New physical facility address',
-        items: [
-          { label: 'Physical facility address', value: setNotApplicable(this.dataService.changeFacilityAddressNewAddress) },
-          { label: 'City', value: setNotApplicable(this.dataService.changeFacilityAddressNewCity) },
-          { label: 'Province', value: 'British Columbia' },
-          { label: 'Postal code', value: setNotApplicable(this.dataService.changeFacilityAddressNewPostalCode) },
-          { label: 'Fax number (optional)', value: setNotApplicable(this.dataService.changeFacilityAddressNewFax) },
-        ]
-      },
-      {
-        isSubSection: false,
-        label: 'Effective date of address change',
-        value: formatDateForDisplay(this.dataService.changeFacilityAddressEffectiveDate),
-      },
-    ];
+    if (this.dataService.checkChangeFacilityAddress) {
+      this.review.sections = [
+        {
+          isSubSection: true,
+          title: 'Previous physical facility address',
+          items: [
+            { label: 'Physical facility address', value: setNotApplicable(this.dataService.changeFacilityAddressPreviousAddress) },
+            { label: 'City', value: setNotApplicable(this.dataService.changeFacilityAddressPreviousCity) },
+            { label: 'Province', value: 'British Columbia' },
+            { label: 'Postal code', value: setNotApplicable(this.dataService.changeFacilityAddressPreviousPostalCode) },
+            { label: 'Fax number (optional)', value: setNotApplicable(this.dataService.changeFacilityAddressPreviousFax) },
+          ]
+        },
+        {
+          isSubSection: true,
+          title: 'New physical facility address',
+          items: [
+            { label: 'Physical facility address', value: setNotApplicable(this.dataService.changeFacilityAddressNewAddress) },
+            { label: 'City', value: setNotApplicable(this.dataService.changeFacilityAddressNewCity) },
+            { label: 'Province', value: 'British Columbia' },
+            { label: 'Postal code', value: setNotApplicable(this.dataService.changeFacilityAddressNewPostalCode) },
+            { label: 'Fax number (optional)', value: setNotApplicable(this.dataService.changeFacilityAddressNewFax) },
+          ]
+        },
+        {
+          isSubSection: false,
+          label: 'Effective date of address change',
+          value: formatDateForDisplay(this.dataService.changeFacilityAddressEffectiveDate),
+        },
+      ];
+    } else {
+      this.review.sections = [
+        {
+          isSubSection: false,
+          label: null,
+          value: 'N/A'
+        }
+      ];
+    }
   }
-
 }

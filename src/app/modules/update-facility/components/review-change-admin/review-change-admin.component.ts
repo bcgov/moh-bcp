@@ -45,7 +45,18 @@ export class ReviewChangeAdminComponent implements OnInit {
         },
       ],
     ];
-    this.review.sectionItems = items;
-  }
 
+    if (this.dataService.checkChangeAdminInfo) {
+      this.review.sectionItems = items;
+    } else {
+      this.review.sectionItems = [
+        [
+          {
+            label: null,
+            value: 'N/A'
+          }
+        ]
+      ];
+    }
+  }
 }

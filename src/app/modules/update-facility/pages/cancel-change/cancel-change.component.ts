@@ -30,7 +30,7 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
   cancelFacilityNumberFG: FormGroup;
   readonly bcpStartDate: Date = new Date(2020, 3, 1);
   readonly bcpCancelDateStartLimit: Date = new Date(1966, 0, 1);
-  readonly OTHER_REQUEST_MAX_LENGTH: number = 4000;
+  readonly OTHER_REQUEST_MAX_LENGTH: number = 1000;
   systemDownError: boolean = false;
   showValidationError: boolean = false;
   hasValidChange: boolean;
@@ -61,9 +61,9 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
     });
 
     this.changeFacilityAddressFG = this.fb.group({
-      changeFacilityAddressPreviousAddress: [this.dataService.changeFacilityAddressPreviousAddress, []],
-      changeFacilityAddressPreviousCity: [this.dataService.changeFacilityAddressPreviousCity, []],
-      changeFacilityAddressPreviousPostalCode: [this.dataService.changeFacilityAddressPreviousPostalCode, []],
+      changeFacilityAddressPreviousAddress: [this.dataService.changeFacilityAddressPreviousAddress, [Validators.required]],
+      changeFacilityAddressPreviousCity: [this.dataService.changeFacilityAddressPreviousCity, [Validators.required]],
+      changeFacilityAddressPreviousPostalCode: [this.dataService.changeFacilityAddressPreviousPostalCode, [Validators.required]],
       changeFacilityAddressPreviousFax: [this.dataService.changeFacilityAddressPreviousFax, []],
       changeFacilityAddressNewAddress: [this.dataService.changeFacilityAddressNewAddress, [Validators.required]],
       changeFacilityAddressNewCity: [this.dataService.changeFacilityAddressNewCity, [Validators.required]],
@@ -72,9 +72,9 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
       changeFacilityAddressEffectiveDate: [this.dataService.changeFacilityAddressEffectiveDate, [Validators.required]],
     });
     this.changeMailingAddressFG = this.fb.group({
-      changeMailingAddressPreviousAddress: [this.dataService.changeMailingAddressPreviousAddress, []],
-      changeMailingAddressPreviousCity: [this.dataService.changeMailingAddressPreviousCity, []],
-      changeMailingAddressPreviousPostalCode: [this.dataService.changeMailingAddressPreviousPostalCode, []],
+      changeMailingAddressPreviousAddress: [this.dataService.changeMailingAddressPreviousAddress, [Validators.required]],
+      changeMailingAddressPreviousCity: [this.dataService.changeMailingAddressPreviousCity, [Validators.required]],
+      changeMailingAddressPreviousPostalCode: [this.dataService.changeMailingAddressPreviousPostalCode, [Validators.required]],
       changeMailingAddressNewAddress: [this.dataService.changeMailingAddressNewAddress, [Validators.required]],
       changeMailingAddressNewCity: [this.dataService.changeMailingAddressNewCity, [Validators.required]],
       changeMailingAddressNewPostalCode: [this.dataService.changeMailingAddressNewPostalCode, [Validators.required]],
