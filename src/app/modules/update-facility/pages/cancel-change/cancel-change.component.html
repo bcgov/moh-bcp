@@ -1,5 +1,5 @@
 <h1>{{pageTitle}}</h1>
-<p>To apply for a Medical Services Plan Facility Number, the Administrator must be an active medical practitioner.</p>
+<p>To cancel or change details for a Medical Services Plan Facility Number, the Administrator must be an active medical practitioner.</p>
 <hr/>
 
 <common-page-section layout='noTips'>
@@ -15,13 +15,13 @@
     
     <a name='physical-address'></a>
     <div class="form-group pl-4">
-      <common-checkbox label='Change physical facility address'
+      <common-checkbox label='Change facility physical address'
                        formControlName='checkChangeFacilityAddress'></common-checkbox>
     </div>
 
     <div *ngIf='dataService.checkChangeFacilityAddress'
          class='border-left ml-4 pl-3'>
-      <h3>Previous physical facility address</h3>
+      <h3>Previous facility physical address</h3>
       <hr/>
 
       <form [formGroup]="changeFacilityAddressFG">
@@ -29,7 +29,7 @@
         <!-- Change Facility Address -->
 
         <div class="form-group">
-          <common-geocoder-input label='Physical facility address'
+          <common-geocoder-input label='Facility physical address'
                             formControlName='changeFacilityAddressPreviousAddress'
                             maxlength='60'
                             (select)='changeFacilityAddressPreviousAddressSelected($event)'></common-geocoder-input>
@@ -75,11 +75,11 @@
                                [allowInternational]='false'></common-phone-number>
         </div>
 
-        <h3>New physical facility address</h3>
+        <h3>New facility physical address</h3>
         <hr/>
 
         <div class="form-group">
-          <common-geocoder-input label='Physical facility address'
+          <common-geocoder-input label='Facility physical address'
                             formControlName='changeFacilityAddressNewAddress'
                             maxlength='60'
                             (select)='changeFacilityAddressNewAddressSelected($event)'></common-geocoder-input>
@@ -146,7 +146,7 @@
 
     <div *ngIf='dataService.checkChangeMailingAddress'
           class='border-left ml-4 pl-3'>
-      <h3>Previous mailing address (Optional)</h3>
+      <h3>Previous mailing address</h3>
       <hr/>
 
       <form [formGroup]="changeMailingAddressFG">
@@ -252,7 +252,7 @@
 <!-- BCP Change applies to fees -->
     
     <div class="form-group pl-4">
-      <common-checkbox label='Request that BCP applies to Eligible Fees of Eligible Physicians attached to this facility.'
+      <common-checkbox label='The applicant requests that BCP applies to Eligible Fees of Eligible Physicians attached to this facility.'
                         formControlName='checkChangeAppliesFees'></common-checkbox>
     </div>
 
@@ -268,6 +268,8 @@
         </div>
       </form>
     </div>
+
+    <p>Indicate below to cancel BCP enrolment or change the BCP effective/cancellation date.</p>
 
 <!-- BCP Cancel -->
     
@@ -389,7 +391,7 @@
     <div class='form-group'>
       <div>
         <label class='control-label'
-               for='otherChangeRequests'>Please write any other change or request here</label>
+               for='otherChangeRequests'>Please enter any other change or request here</label>
         <textarea class='form-control'
                   rows='7'
                   name='otherChangeRequests'

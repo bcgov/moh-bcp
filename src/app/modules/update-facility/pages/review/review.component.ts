@@ -24,7 +24,7 @@ export class ReviewComponent extends BcpBaseForm implements OnInit, AfterViewIni
   readonly privacyStatement = PrivacyStmt;
 
   pageTitle: string = 'Review Application';
-  signatureLabel: string = 'Facility Administrator Signature';
+  signatureLabel: string = 'Signature of Administrator';
   errorMessage: string = `${this.signatureLabel } is required to submit the form`;
 
   constructor(public dataService: UpdateFacilityDataService,
