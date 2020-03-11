@@ -3,11 +3,12 @@ import { UPDATE_FACILITY_PAGES } from '../../update-facility-route-constants';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UpdateFacilityDataService } from '../../services/update-facility-data.service';
-import { ContainerService, PageStateService } from 'moh-common-lib';
+import { ContainerService, ErrorMessage, LabelReplacementTag, PageStateService, scrollToError } from 'moh-common-lib';
 import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 import { UpdateFacilityApiService } from '../../services/update-facility-api.service';
 import { ValidationResponse, ReturnCodes } from '../../../core-bcp/models/base-api.model';
 import { SplunkLoggerService } from '../../../../services/splunk-logger.service';
+import { formatDateForDisplay } from '../../../core-bcp/models/helperFunc';
 
 
 @Component({
@@ -17,7 +18,7 @@ import { SplunkLoggerService } from '../../../../services/splunk-logger.service'
 })
 export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterViewInit {
 
-  pageTitle: string = 'Cancel / Change';
+  pageTitle: string = 'Cancel or Change Facility Details';
   formGroup: FormGroup;
   changeFacilityAddressFG: FormGroup;
   changeMailingAddressFG: FormGroup;
@@ -27,6 +28,12 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
   changeBCPCancelDateFG: FormGroup;
   changeAdminInfoFG: FormGroup;
   cancelFacilityNumberFG: FormGroup;
+  readonly bcpStartDate: Date = new Date(2020, 3, 1);
+  readonly bcpCancelDateStartLimit: Date = new Date(1966, 0, 1);
+  readonly OTHER_REQUEST_MAX_LENGTH: number = 1000;
+  systemDownError: boolean = false;
+  showValidationError: boolean = false;
+  hasValidChange: boolean;
 
   constructor( protected containerService: ContainerService,
                protected router: Router,
@@ -50,13 +57,13 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
       checkChangeBCPCancelDate: [this.dataService.checkChangeBCPCancelDate, []],
       checkChangeAdminInfo: [this.dataService.checkChangeAdminInfo, []],
       checkCancelFacilityNumber: [this.dataService.checkCancelFacilityNumber, []],
-      otherChangeRequests: [this.dataService.otherChangeRequests, []],
+      otherChangeRequests: [this.dataService.otherChangeRequests, [Validators.pattern(/^[ -~]+$/)]],
     });
 
     this.changeFacilityAddressFG = this.fb.group({
-      changeFacilityAddressPreviousAddress: [this.dataService.changeFacilityAddressPreviousAddress, []],
-      changeFacilityAddressPreviousCity: [this.dataService.changeFacilityAddressPreviousCity, []],
-      changeFacilityAddressPreviousPostalCode: [this.dataService.changeFacilityAddressPreviousPostalCode, []],
+      changeFacilityAddressPreviousAddress: [this.dataService.changeFacilityAddressPreviousAddress, [Validators.required]],
+      changeFacilityAddressPreviousCity: [this.dataService.changeFacilityAddressPreviousCity, [Validators.required]],
+      changeFacilityAddressPreviousPostalCode: [this.dataService.changeFacilityAddressPreviousPostalCode, [Validators.required]],
       changeFacilityAddressPreviousFax: [this.dataService.changeFacilityAddressPreviousFax, []],
       changeFacilityAddressNewAddress: [this.dataService.changeFacilityAddressNewAddress, [Validators.required]],
       changeFacilityAddressNewCity: [this.dataService.changeFacilityAddressNewCity, [Validators.required]],
@@ -65,9 +72,9 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
       changeFacilityAddressEffectiveDate: [this.dataService.changeFacilityAddressEffectiveDate, [Validators.required]],
     });
     this.changeMailingAddressFG = this.fb.group({
-      changeMailingAddressPreviousAddress: [this.dataService.changeMailingAddressPreviousAddress, []],
-      changeMailingAddressPreviousCity: [this.dataService.changeMailingAddressPreviousCity, []],
-      changeMailingAddressPreviousPostalCode: [this.dataService.changeMailingAddressPreviousPostalCode, []],
+      changeMailingAddressPreviousAddress: [this.dataService.changeMailingAddressPreviousAddress, [Validators.required]],
+      changeMailingAddressPreviousCity: [this.dataService.changeMailingAddressPreviousCity, [Validators.required]],
+      changeMailingAddressPreviousPostalCode: [this.dataService.changeMailingAddressPreviousPostalCode, [Validators.required]],
       changeMailingAddressNewAddress: [this.dataService.changeMailingAddressNewAddress, [Validators.required]],
       changeMailingAddressNewCity: [this.dataService.changeMailingAddressNewCity, [Validators.required]],
       changeMailingAddressNewPostalCode: [this.dataService.changeMailingAddressNewPostalCode, [Validators.required]],
@@ -89,7 +96,7 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
       firstName: [this.dataService.changeAdminInfoFirstName, [Validators.required]],
       lastName: [this.dataService.changeAdminInfoLastName, [Validators.required]],
       mspPracNumber: [this.dataService.changeAdminInfoMSPPracNumber, [Validators.required]],
-      email: [this.dataService.changeAdminInfoEmail, [Validators.required]],
+      email: [this.dataService.changeAdminInfoEmail, []],
       phoneNumber: [this.dataService.changeAdminInfoPhoneNumber, [Validators.required]],
       phoneNumberExt: [this.dataService.changeAdminInfoPhoneNumberExt, []],
       changeAdminInfoEffectiveDate: [this.dataService.changeAdminInfoEffectiveDate, [Validators.required]],
@@ -112,6 +119,19 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
       this.dataService.checkChangeAdminInfo = value.checkChangeAdminInfo;
       this.dataService.checkCancelFacilityNumber = value.checkCancelFacilityNumber;
       this.dataService.otherChangeRequests = value.otherChangeRequests;
+      if ( this.dataService.checkChangeFacilityAddress
+        || this.dataService.checkChangeMailingAddress
+        || this.dataService.checkChangeAppliesFees
+        || this.dataService.checkCancelBCP
+        || this.dataService.checkChangeBCPEffectiveDate
+        || this.dataService.checkChangeBCPCancelDate
+        || this.dataService.checkChangeAdminInfo
+        || this.dataService.checkCancelFacilityNumber
+        || this.dataService.otherChangeRequests !== '') {
+        this.hasValidChange = true;
+      } else {
+        this.hasValidChange = false;
+      }
 
       // Reset values.
       if (!this.dataService.checkChangeFacilityAddress) {
@@ -224,6 +244,8 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
   }
 
   continue() {
+    this.formGroup.patchValue({});
+
     const forms = [];
 
     if (this.dataService.checkChangeFacilityAddress) {
@@ -252,9 +274,63 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
     }
     this.markAllInputsTouched(forms);
 
-    if (forms.every( (x) => x.valid === true )) {
-      this.navigate(UPDATE_FACILITY_PAGES.REVIEW.fullpath);
+    if (this.hasValidChange
+      && forms.every( (x) => x.valid === true )) {
+      if (this.dataService.checkChangeAdminInfo && this.canContinue()) {
+        this.containerService.setIsLoading();
+
+        this.apiService.validatePractitioner({
+          firstName: this.dataService.changeAdminInfoFirstName,
+          lastName: this.dataService.changeAdminInfoLastName,
+          number: this.dataService.changeAdminInfoMSPPracNumber,
+          doctor: false
+        }, this.dataService.applicationUUID).subscribe((res: ValidationResponse) => {
+          this.dataService.jsonApplicantValidation.response = res;
+
+          this.splunkLoggerService.log(
+            this.dataService.getSubmissionLogObject<ValidationResponse>(
+              'Validate Pracitioner',
+              this.dataService.jsonApplicantValidation.response
+            )
+          );
+
+          if (res.returnCode === ReturnCodes.SUCCESS) {
+            this.handleValidation(true);
+            this.navigate(UPDATE_FACILITY_PAGES.REVIEW.fullpath);
+          } else if (res.returnCode === ReturnCodes.FAILURE) { // Note: Warning is never returned by this request
+            this.handleValidation(false);
+            this.scrollToError();
+          } else { // Negative response codes
+            // fall-through case, likely an error
+            this.handleError();
+            this.scrollToError();
+          }
+        }, error => {
+          this.handleError();
+          this.scrollToError();
+        });
+      } else {
+        this.handleValidation(true);
+        this.navigate(UPDATE_FACILITY_PAGES.REVIEW.fullpath);
+      }
     }
+  }
+
+  private handleError(): void {
+    this.systemDownError = true;
+    this.containerService.setIsLoading(false);
+  }
+
+  private handleValidation(isValid: boolean): void {
+    this.showValidationError = !isValid;
+    this.containerService.setIsLoading(false);
+    this.systemDownError = false;
+  }
+
+  scrollToError() {
+    setTimeout(() => {
+      scrollToError();
+    }, 50);
   }
 
   changeFacilityAddressPreviousAddressSelected(address: any) {
@@ -303,5 +379,17 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
     });
     this.dataService.changeMailingAddressNewAddress = address.addressLine1;
     this.dataService.changeMailingAddressNewCity = address.city;
+  }
+
+  get dateErrorMessage(): ErrorMessage {
+    return {
+      invalidRange: `${LabelReplacementTag} must be after ${formatDateForDisplay(this.bcpStartDate)}.`
+    };
+  }
+
+  get cancelFacilityDateErrorMessage(): ErrorMessage {
+    return {
+      invalidRange: `${LabelReplacementTag} must be after ${formatDateForDisplay(this.bcpCancelDateStartLimit)}.`
+    };
   }
 }

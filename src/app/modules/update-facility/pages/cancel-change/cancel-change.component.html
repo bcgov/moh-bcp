@@ -1,5 +1,5 @@
 <h1>{{pageTitle}}</h1>
-<p>To apply for a Medical Services Plan Facility Number, the Administrator must be an active medical practitioner.</p>
+<p>To cancel or change details for a Medical Services Plan Facility Number, the Administrator must be an active medical practitioner.</p>
 <hr/>
 
 <common-page-section layout='noTips'>
@@ -13,14 +13,15 @@
     </ol>
     <hr/>
     
+    <a name='physical-address'></a>
     <div class="form-group pl-4">
-      <common-checkbox label='Change facility address'
+      <common-checkbox label='Change facility physical address'
                        formControlName='checkChangeFacilityAddress'></common-checkbox>
     </div>
 
     <div *ngIf='dataService.checkChangeFacilityAddress'
          class='border-left ml-4 pl-3'>
-      <h3>Previous Facility Address (Optional)</h3>
+      <h3>Previous facility physical address</h3>
       <hr/>
 
       <form [formGroup]="changeFacilityAddressFG">
@@ -28,19 +29,19 @@
         <!-- Change Facility Address -->
 
         <div class="form-group">
-          <common-geocoder-input label='Physical address'
+          <common-geocoder-input label='Facility physical address'
                             formControlName='changeFacilityAddressPreviousAddress'
                             maxlength='60'
                             (select)='changeFacilityAddressPreviousAddressSelected($event)'></common-geocoder-input>
           <common-error-container [displayError]="changeFacilityAddressFG.controls?.changeFacilityAddressPreviousAddress?.touched && changeFacilityAddressFG.controls?.changeFacilityAddressPreviousAddress?.errors">
             <div *ngIf="changeFacilityAddressFG.controls?.changeFacilityAddressPreviousAddress?.errors?.required">
-                Facility Address is a required field
+                Facility address is a required field
             </div>
             <div *ngIf="changeFacilityAddressFG.controls?.changeFacilityAddressPreviousAddress?.errors?.maxlength">
-                Facility Address max length must be 60 or fewer characters.
+                Facility address max length must be 60 or fewer characters.
             </div>
             <div *ngIf="changeFacilityAddressFG.controls?.changeFacilityAddressPreviousAddress?.errors?.pattern">
-                Facility Address must contain letters, numbers and/or symbols(e.g. #, @, !).
+                Facility address must contain letters, numbers and/or symbols(e.g. #, @, !).
             </div>
           </common-error-container>
         </div>
@@ -74,23 +75,24 @@
                                [allowInternational]='false'></common-phone-number>
         </div>
 
-        <h3>New Facility Address</h3>
+        <h3>New facility physical address</h3>
         <hr/>
 
         <div class="form-group">
-          <common-geocoder-input label='Physical address'
+          <!-- Label has intentional trailing space for accessiblity validators -->
+          <common-geocoder-input label='Facility physical address '
                             formControlName='changeFacilityAddressNewAddress'
                             maxlength='60'
                             (select)='changeFacilityAddressNewAddressSelected($event)'></common-geocoder-input>
           <common-error-container [displayError]="changeFacilityAddressFG.controls?.changeFacilityAddressNewAddress?.touched && changeFacilityAddressFG.controls?.changeFacilityAddressNewAddress?.errors">
             <div *ngIf="changeFacilityAddressFG.controls?.changeFacilityAddressNewAddress?.errors?.required">
-                Facility Address is a required field
+                Facility address is a required field
             </div>
             <div *ngIf="changeFacilityAddressFG.controls?.changeFacilityAddressNewAddress?.errors?.maxlength">
-                Facility Address max length must be 60 or fewer characters.
+                Facility address max length must be 60 or fewer characters.
             </div>
             <div *ngIf="changeFacilityAddressFG.controls?.changeFacilityAddressNewAddress?.errors?.pattern">
-                Facility Address must contain letters, numbers and/or symbols(e.g. #, @, !).
+                Facility address must contain letters, numbers and/or symbols(e.g. #, @, !).
             </div>
           </common-error-container>
         </div>
@@ -127,7 +129,9 @@
         <div class="form-group">
           <common-date name='changeFacilityAddressEffectiveDate'
                        formControlName='changeFacilityAddressEffectiveDate'
-                       label='Effective date of address change'></common-date>
+                       label='Effective date of address change'
+                       [dateRangeStart]='bcpStartDate'
+                       [errorMessage]='dateErrorMessage'></common-date>
         </div>
       </form>
       
@@ -135,14 +139,15 @@
 
 <!-- Change Mailing Address-->
 
+    <a name='mailing-address'></a>
     <div class="form-group pl-4">
-      <common-checkbox label='Change facility address'
+      <common-checkbox label='Change facility mailing address'
                         formControlName='checkChangeMailingAddress'></common-checkbox>
     </div>
 
     <div *ngIf='dataService.checkChangeMailingAddress'
           class='border-left ml-4 pl-3'>
-      <h3>Previous Mailing Address (Optional)</h3>
+      <h3>Previous mailing address</h3>
       <hr/>
 
       <form [formGroup]="changeMailingAddressFG">
@@ -153,13 +158,13 @@
                             (select)='changeMailingAddressPreviousAddressSelected($event)'></common-geocoder-input>
           <common-error-container [displayError]="changeMailingAddressFG.controls?.changeMailingAddressPreviousAddress?.touched && changeMailingAddressFG.controls?.changeMailingAddressPreviousAddress?.errors">
             <div *ngIf="changeMailingAddressFG.controls?.changeMailingAddressPreviousAddress?.errors?.required">
-                Mailing Address is a required field
+                Mailing address is a required field
             </div>
             <div *ngIf="changeMailingAddressFG.controls?.changeMailingAddressPreviousAddress?.errors?.maxlength">
-                Mailing Address max length must be 60 or fewer characters.
+                Mailing address max length must be 60 or fewer characters.
             </div>
             <div *ngIf="changeMailingAddressFG.controls?.changeMailingAddressPreviousAddress?.errors?.pattern">
-                Mailing Address must contain letters, numbers and/or symbols(e.g. #, @, !).
+                Mailing address must contain letters, numbers and/or symbols(e.g. #, @, !).
             </div>
           </common-error-container>
         </div>
@@ -189,19 +194,20 @@
         <hr/>
 
         <div class="form-group">
-          <common-geocoder-input label='Mailing address'
+          <!-- Label has intentional trailing space for accessiblity validators -->
+          <common-geocoder-input label='Mailing address '
                             formControlName='changeMailingAddressNewAddress'
                             maxlength='60'
                             (select)='changeMailingAddressNewAddressSelected($event)'></common-geocoder-input>
           <common-error-container [displayError]="changeMailingAddressFG.controls?.changeMailingAddressNewAddress?.touched && changeMailingAddressFG.controls?.changeMailingAddressNewAddress?.errors">
             <div *ngIf="changeMailingAddressFG.controls?.changeMailingAddressNewAddress?.errors?.required">
-                Mailing Address is a required field
+                Mailing address is a required field
             </div>
             <div *ngIf="changeMailingAddressFG.controls?.changeMailingAddressNewAddress?.errors?.maxlength">
-                Mailing Address max length must be 60 or fewer characters.
+                Mailing address max length must be 60 or fewer characters.
             </div>
             <div *ngIf="changeMailingAddressFG.controls?.changeMailingAddressNewAddress?.errors?.pattern">
-                Mailing Address must contain letters, numbers and/or symbols(e.g. #, @, !).
+                Mailing address must contain letters, numbers and/or symbols(e.g. #, @, !).
             </div>
           </common-error-container>
         </div>
@@ -230,13 +236,16 @@
         <div class="form-group">
           <common-date name='changeMailingAddressEffectiveDate'
                         formControlName='changeMailingAddressEffectiveDate'
-                        label='Effective date of address change'></common-date>
+                        label='Effective date of address change'
+                        [dateRangeStart]='bcpStartDate'
+                        [errorMessage]='dateErrorMessage'></common-date>
         </div>
       </form>
     </div>
     
 <!-- Business Cost Premium -->
 
+    <a name='bcp'></a>
     <h2 class='mt-5'>Business Cost Premium</h2>
     <p>The <strong>Business Cost Premium</strong> applies to Eligible Fees claimed by Eligible Physicians for services that are provided in a community-based office that has been issued an MSP Facility Number. MSP Facility Numbers are issued to qualifying facilities, based on the physical location of the facility.</p>
     <p><strong>Eligible Physicians</strong> are those practitioners who are responsible to pay for some or all of the lease, rental, or ownership costs of the community-based office that has been issued an MSP Facility Number. Eligible Physicians must apply to be attached to the MSP Number for a facility to claim the Business Cost Premium on Eligible Fees for services provided at that facility.</p>
@@ -245,7 +254,7 @@
 <!-- BCP Change applies to fees -->
     
     <div class="form-group pl-4">
-      <common-checkbox label='Request that BCP applies to eligible fees of eligible physicians attached to this facility.'
+      <common-checkbox label='The applicant requests that BCP applies to Eligible Fees of Eligible Physicians attached to this facility.'
                         formControlName='checkChangeAppliesFees'></common-checkbox>
     </div>
 
@@ -255,10 +264,14 @@
         <div class="form-group">
           <common-date name='changeAppliesFeesEffectiveDate'
                        formControlName='changeAppliesFeesEffectiveDate'
-                       label='Effective date'></common-date>
+                       label='Effective date'
+                       [dateRangeStart]='bcpStartDate'
+                       [errorMessage]='dateErrorMessage'></common-date>
         </div>
       </form>
     </div>
+
+    <p>Indicate below to cancel BCP enrolment or change the BCP effective/cancellation date.</p>
 
 <!-- BCP Cancel -->
     
@@ -273,7 +286,9 @@
         <div class="form-group">
           <common-date name='cancelBCPEffectiveDate'
                         formControlName='cancelBCPEffectiveDate'
-                        label='Cancel effective date'></common-date>
+                        label='Cancel effective date'
+                        [dateRangeStart]='bcpStartDate'
+                        [errorMessage]='dateErrorMessage'></common-date>
         </div>
       </form>
     </div>
@@ -291,7 +306,9 @@
         <div class="form-group">
           <common-date name='changeBCPEffectiveDateEffectiveDate'
                         formControlName='changeBCPEffectiveDateEffectiveDate'
-                        label='New BCP effective date'></common-date>
+                        label='New BCP effective date'
+                        [dateRangeStart]='bcpStartDate'
+                        [errorMessage]='dateErrorMessage'></common-date>
         </div>
       </form>
     </div>
@@ -309,37 +326,44 @@
         <div class="form-group">
           <common-date name='changeBCPCancelDateCancelDate'
                         formControlName='changeBCPCancelDateCancelDate'
-                        label='New BCP cancel date'></common-date>
+                        label='New BCP cancel date'
+                        [dateRangeStart]='bcpStartDate'
+                        [errorMessage]='dateErrorMessage'></common-date>
         </div>
       </form>
     </div>
 
+    <a name='change-admin'></a>
     <h2 class='mt-5'>Change Responsible Administrator</h2>
-    <p>Describe who is a responsible admin?</p>
+    <p>The Administrator must be an active medical practitioner.</p>
     <hr/>
 
 <!-- BCP Change Cancel Date -->
-    
+
     <div class="form-group pl-4">
-      <common-checkbox label='Change administrator information'
+      <common-checkbox label='Change Administrator information'
                         formControlName='checkChangeAdminInfo'></common-checkbox>
     </div>
 
     <div *ngIf='dataService.checkChangeAdminInfo'
           class='border-left ml-4 pl-3'>
       <form [formGroup]="changeAdminInfoFG">
-        <bcp-core-practitioner-info [formGroup]='changeAdminInfoFG'></bcp-core-practitioner-info>
+        <bcp-core-practitioner-info [formGroup]='changeAdminInfoFG'
+                                    [showValidationError]='showValidationError'></bcp-core-practitioner-info>
 
         <div class="form-group">
           <common-date name='changeAdminInfoEffectiveDate'
                         formControlName='changeAdminInfoEffectiveDate'
-                        label='New BCP cancel date'></common-date>
+                        label='Effective date of change'
+                        [dateRangeStart]='bcpStartDate'
+                        [errorMessage]='dateErrorMessage'></common-date>
         </div>
       </form>
     </div>
 
 <!-- Cancel Facility Number -->
 
+    <a name='cancel-facility'></a>
     <h2 class='mt-5'>Cancellation of Facility Number</h2>
     <p>To authorize cancellation of a MSP Facility Number</p>
     <hr/>
@@ -354,7 +378,9 @@
         <div class="form-group">
           <common-date name='cancelFacilityNumberCancelDate'
                         formControlName='cancelFacilityNumberCancelDate'
-                        label='Cancellation Date'></common-date>
+                        label='Cancellation Date'
+                        [dateRangeStart]='bcpCancelDateStartLimit'
+                        [errorMessage]='cancelFacilityDateErrorMessage'></common-date>
         </div>
       </form>
     </div>
@@ -363,18 +389,28 @@
     <p>Administrators may request other changes or provide additional information associated with an MSP Facility Number not included in the standard fields provided in this form, including where a prior Eligible Physician is no longer providing services at this facility for which the Business Cost Premium on Eligible Fees would otherwise be paid. Requests in this field may be manually entered by HIBC against the MSP Facility Number, following which the Administrator will be notified of any such changes.</p>
     <hr/>
 
+    <a name='other-request'></a>
     <div class='form-group'>
       <div>
         <label class='control-label'
-               for='otherChangeRequests'>Please write any other change or request here</label>
+               for='otherChangeRequests'>Please enter any other change or request here</label>
         <textarea class='form-control'
                   rows='7'
                   name='otherChangeRequests'
                   formControlName='otherChangeRequests'
                   id='otherChangeRequests'
-                  maxlength='4000'></textarea>
+                  [maxlength]='OTHER_REQUEST_MAX_LENGTH'></textarea>
       </div>
+      <div class='text-right'>Characters remaining: {{ OTHER_REQUEST_MAX_LENGTH - dataService.otherChangeRequests.length }}</div>
     </div>
+
+    <common-error-container [displayError]='!hasValidChange && hasValidChange !== undefined'>
+      You need to choose at least one option in this page in order to continue.
+    </common-error-container>
+
+    <common-error-container [displayError]='systemDownError'>
+      Unable to continue, system unavailable. Please try again later.
+    </common-error-container>
 
   </form>
 </common-page-section>

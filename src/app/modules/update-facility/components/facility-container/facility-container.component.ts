@@ -18,7 +18,7 @@ export class FacilityContainerComponent extends Container implements AfterViewIn
     super( containerService );
     this.setProgressSteps(pages);
     this.pageStateService.setPages( pages, UPDATE_FACILITY_PAGES );
-    this.headerService.setTitle('Cancel or Change Details Of Facility Number for Business Cost Premium');
+    this.headerService.setTitle('Application to Cancel or Change Details for Facilities with an MSP Facility Number');
 
     // Set breadcrumb step titles to route title.
     this.progressSteps.forEach((step) => {

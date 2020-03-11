@@ -1,23 +1,24 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ReviewFormPageComponent } from './review-form-page.component';
+import { ReviewPhysicalAddressComponent } from './review-physical-address.component';
+import { SubheadingReviewContainerComponent } from '../subheading-review-container/subheading-review-container.component';
 import { CoreBCPModule } from '../../../core-bcp/core-bcp.module';
 import { RouterTestingModule } from '@angular/router/testing';
 
-describe('ReviewFormPageComponent', () => {
-  let component: ReviewFormPageComponent;
-  let fixture: ComponentFixture<ReviewFormPageComponent>;
+describe('ReviewPhysicalAddressComponent', () => {
+  let component: ReviewPhysicalAddressComponent;
+  let fixture: ComponentFixture<ReviewPhysicalAddressComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ CoreBCPModule, RouterTestingModule ],
-      declarations: [ ReviewFormPageComponent ]
+      declarations: [ ReviewPhysicalAddressComponent, SubheadingReviewContainerComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ReviewFormPageComponent);
+    fixture = TestBed.createComponent(ReviewPhysicalAddressComponent);
     component = fixture.componentInstance;
   });
 

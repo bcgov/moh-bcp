@@ -23,8 +23,8 @@ export class ReviewComponent extends BcpBaseForm implements OnInit, AfterViewIni
 
   readonly privacyStatement = PrivacyStmt;
 
-  pageTitle: string = 'Review Request';
-  signatureLabel: string = 'Practitioner Signature';
+  pageTitle: string = 'Review Application';
+  signatureLabel: string = 'Signature of Administrator';
   errorMessage: string = `${this.signatureLabel } is required to submit the form`;
 
   constructor(public dataService: UpdateFacilityDataService,
@@ -74,9 +74,24 @@ export class ReviewComponent extends BcpBaseForm implements OnInit, AfterViewIni
     this.containerService.setIsLoading();
     this.dataService.dateOfSubmission = new Date();
     const jsonPayLoad = this.dataService.getJSONPayload();
+    this.apiService.submitForm(jsonPayLoad, this.dataService.signature, this.dataService.applicationUUID)
+      .subscribe((res: SubmissionResponse) => {
 
-    // TODO: Make submission API request.
-    this.navigate(UPDATE_FACILITY_PAGES.SUBMISSION.fullpath);
+        this.dataService.jsonSubmission.response = res;
+        this.splunkLoggerService.log(
+          this.dataService.getSubmissionLogObject<SubmissionResponse>(
+            'Maintain Facility',
+            this.dataService.jsonSubmission.response
+          )
+        );
+
+        this.containerService.setIsLoading(false);
+        this.navigate(UPDATE_FACILITY_PAGES.SUBMISSION.fullpath);
+      }, error => {
+        // console.log('apiService onerror', error);
+        this.containerService.setIsLoading(false);
+        this.navigate(UPDATE_FACILITY_PAGES.SUBMISSION.fullpath);
+      });
   }
 }
 

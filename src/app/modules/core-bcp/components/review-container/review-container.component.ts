@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { scrollToElement } from '../../helpers/scroll-helper';
 
 @Component({
     selector: 'bcp-review-container',
@@ -10,6 +11,7 @@ export class ReviewContainerComponent implements OnInit {
     @Input() hideReviewSection: boolean = false;
     @Input() header: string | null;
     @Input() redirectPath: string | null;
+    @Input() pageSection: string | null;
     @Input() sectionItems: any | null;
     @Input() showCheckBoxList: boolean = false;
 
@@ -22,6 +24,11 @@ export class ReviewContainerComponent implements OnInit {
 
     redirect(routeName: string) {
         this.router.navigate([routeName]);
+
+        // Scroll to page section anchor.
+        if (this.pageSection) {
+            scrollToElement('a[name=\'' + this.pageSection + '\']');
+        }
     }
 
     containsMultiLine(text: string): boolean {

@@ -7,7 +7,6 @@ import {
   stripPostalCodeSpaces,
   stripPhoneFormatting,
   convertToJSONDate } from '../../core-bcp/models/helperFunc';
-import { parseISO } from 'date-fns';
 
 @Injectable({
   providedIn: 'root'
@@ -20,11 +19,20 @@ export class UpdateFacilityDataService extends BaseDataService {
       this.firstName = 'Mock First Name';
       this.lastName = 'Mock Last Name';
       this.email = 'test@example.com';
-      this.phone = '250-123-1234';
+      this.phone = '2501231234';
       this.phoneExt = '123';
       this.facilityName = 'Test Facility';
       this.facilityMSPNumber = '89902';
-      this.facilityFax = '251-123-1234';
+      this.facilityFax = '2511231234';
+
+      this.checkChangeAdminInfo = false;
+      this.changeAdminInfoFirstName = 'TEST';
+      this.changeAdminInfoLastName = 'PRIVATEPRACTICE';
+      this.changeAdminInfoMSPPracNumber = '89902';
+      this.changeAdminInfoEmail = 'email@email.com';
+      this.changeAdminInfoPhoneNumber = '2501231231';
+      this.changeAdminInfoEffectiveDate = new Date(2020, 3, 1);
+      this.otherChangeRequests = 'test\ntest\ntest\ntest\ntest\ntest';
     }
 
         // Partial setup for using data in back end
@@ -49,7 +57,7 @@ export class UpdateFacilityDataService extends BaseDataService {
   checkChangeBCPCancelDate: boolean = false;
   checkChangeAdminInfo: boolean = false;
   checkCancelFacilityNumber: boolean = false;
-  otherChangeRequests: string;
+  otherChangeRequests: string = '';
 
   changeFacilityAddressPreviousAddress: string;
   changeFacilityAddressPreviousCity: string;
@@ -90,32 +98,98 @@ export class UpdateFacilityDataService extends BaseDataService {
     response: null
   };
 
-  readonly declarationText = `I, the Practitioner named above, hereby confirm that: by checking either "Add New", "Cancel" above, or by requesting an "Other Change", I am either adding, changing details of, or cancelling an attachment to the MSP Facility Number set out in this document, as the case may be. In the case of adding an attachment or changing details of an attachment to the above MSP Facility Number:
+  readonly declarationText = `I understand that:
   <ol class='no-bullets'>
-      <li>i. I am an Eligible Physician regarding the facility that has been issued the MSP Facility Number named in this document, and that I understand that my claims for the Business Cost Premium on Eligible Fees will be based on my attachment to the MSP Facility Number named in this document;</li>
-      <li>ii. this attachment will result in the Business Cost Premium being applied to all Eligible Fees on claims submitted, in the format approved by the Medical Services Commission of British Columbia bearing my Practitioner Number and the MSP Facility Number of the facility named in this document;</li>
-      <li>iii. I understand that this is a legal document and I represent that the information that I have provided on this document is true to the best of my knowledge;</li>
-      <li>iv. I understand that claims in relation to the Business Cost Premium are subject to audit, and if found to be contrary to the <em>Medicare Protection Act (the "Act")</em>, are subject to financial recovery.  I further understand that submitting false or misleading claims information is an offence under the Act and may be an offence under the Criminal Code of Canada;</li>
-      <li>v. I authorize the sharing of this information with the Administrator for the facility named in this document, including the delivery of this information to the facility mailing address for the purposes of confirmation of my attachment to the MSP Facility Number; and</li>
-      <li>vi. If, at any point, I am no longer an Eligible Physician with regard to the facility named in this document, I will submit a form for cancellation of my attachment to this MSP Facility Number to Health Insurance BC.</li>
+      <li>i. this is a legal document and I represent that the information that I have provided on this document is true to the best of my knowledge;</li>
+      <li>ii. MSP is a public system based on trust, but also that claims, including those portions relating to the Business Cost Premium, are subject to audit and financial recovery for claims made contrary to the Medicare Protection Act (the "Act"); and</li>
+      <li>iii. submitting false or misleading claims information is an offence under the Act and may be an offence under the Criminal Code of Canada.</li>
   </ol>`;
 
   get declarationTextForAPI() {
     return prepareDeclarationTextForAPI(this.declarationText);
   }
 
+  get declarationTextForHtml(): string {
+    const text = this.declarationText.replace(/<li>\w+\. /g, '<li>');
+    return text.replace('class=\'no-bullets\'', 'type=\'i\'');
+  }
+
   // Abstract method
   getJSONPayload() {
 
     const jsonPayLoad: any = {
-
       informationConsentAgreement: this.informationCollectionNoticeConsent,
-      sampleEntry: {
+      administrator: {
+        firstName: this.firstName,
+        lastName: this.lastName,
+        email: this.email,
+        phoneNumber: stripPhoneFormatting(this.phone),
+        extension: this.phoneExt
       },
-      // Update section for schema - needs to be reflected in the data service to only have 2 dates to keep code maintainable
+      facility: {
+        name: this.facilityName,
+        number: this.facilityMSPNumber,
+        faxNumber: stripPhoneFormatting(this.facilityFax),
+      },
+      otherChangeRequest: this.otherChangeRequests,
       dateOfAcceptance: convertToJSONDate(this.dateOfAcceptance),
       declarationText: this.declarationTextForAPI,
     };
+
+    if (this.checkChangeFacilityAddress) {
+      jsonPayLoad.changeFacilityAddress = {
+        prevAddress: this.changeFacilityAddressPreviousAddress,
+        prevCity: this.changeFacilityAddressPreviousCity,
+        prevProvince: 'BC',
+        prevPostalCode: stripPostalCodeSpaces(this.changeFacilityAddressPreviousPostalCode),
+        prevFaxNumber: stripPhoneFormatting(this.changeFacilityAddressPreviousFax),
+        newAddress: this.changeFacilityAddressNewAddress,
+        newCity: this.changeFacilityAddressNewCity,
+        newProvince: 'BC',
+        newPostalCode: stripPostalCodeSpaces(this.changeFacilityAddressNewPostalCode),
+        newFaxNumber: stripPhoneFormatting(this.changeFacilityAddressNewFax),
+        effectiveDate: convertToJSONDate(this.changeFacilityAddressEffectiveDate)
+      };
+    }
+    if (this.checkChangeMailingAddress) {
+      jsonPayLoad.changeMailingAddress = {
+        prevAddress: this.changeMailingAddressPreviousAddress,
+        prevCity: this.changeMailingAddressPreviousCity,
+        prevProvince: 'BC',
+        prevPostalCode: stripPostalCodeSpaces(this.changeMailingAddressPreviousPostalCode),
+        newAddress: this.changeMailingAddressNewAddress,
+        newCity: this.changeMailingAddressNewCity,
+        newProvince: 'BC',
+        newPostalCode: stripPostalCodeSpaces(this.changeMailingAddressNewPostalCode),
+        effectiveDate: convertToJSONDate(this.changeMailingAddressEffectiveDate)
+      };
+    }
+    if (this.checkChangeAppliesFees) {
+      jsonPayLoad.requestBCPEffectiveDate = convertToJSONDate(this.changeAppliesFeesEffectiveDate);
+    }
+    if (this.checkCancelBCP) {
+      jsonPayLoad.cancelBCPDate = convertToJSONDate(this.cancelBCPEffectiveDate);
+    }
+    if (this.checkChangeBCPEffectiveDate) {
+      jsonPayLoad.changeBCPEffectiveDate = convertToJSONDate(this.changeBCPEffectiveDateEffectiveDate);
+    }
+    if (this.checkChangeBCPCancelDate) {
+      jsonPayLoad.changeBCPCancelDate = convertToJSONDate(this.changeBCPCancelDateCancelDate);
+    }
+    if (this.checkChangeAdminInfo) {
+      jsonPayLoad.changeAdministrator = {
+        firstName: this.changeAdminInfoFirstName,
+        lastName: this.changeAdminInfoLastName,
+        pracNumber: this.changeAdminInfoMSPPracNumber,
+        email: this.changeAdminInfoEmail,
+        phoneNumber: stripPhoneFormatting(this.changeAdminInfoPhoneNumber),
+        extension: this.changeAdminInfoPhoneNumberExt,
+        effectiveDate: convertToJSONDate(this.changeAdminInfoEffectiveDate)
+      };
+    }
+    if (this.checkCancelFacilityNumber) {
+      jsonPayLoad.cancelFacilityNumberDate = convertToJSONDate(this.cancelFacilityNumberCancelDate);
+    }
 
     return jsonPayLoad;
   }
