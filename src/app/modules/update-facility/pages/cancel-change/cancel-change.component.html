@@ -79,7 +79,8 @@
         <hr/>
 
         <div class="form-group">
-          <common-geocoder-input label='Facility physical address'
+          <!-- Label has intentional trailing space for accessiblity validators -->
+          <common-geocoder-input label='Facility physical address '
                             formControlName='changeFacilityAddressNewAddress'
                             maxlength='60'
                             (select)='changeFacilityAddressNewAddressSelected($event)'></common-geocoder-input>
@@ -193,7 +194,8 @@
         <hr/>
 
         <div class="form-group">
-          <common-geocoder-input label='Mailing address'
+          <!-- Label has intentional trailing space for accessiblity validators -->
+          <common-geocoder-input label='Mailing address '
                             formControlName='changeMailingAddressNewAddress'
                             maxlength='60'
                             (select)='changeMailingAddressNewAddressSelected($event)'></common-geocoder-input>
