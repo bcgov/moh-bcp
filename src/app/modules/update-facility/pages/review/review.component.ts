@@ -86,11 +86,11 @@ export class ReviewComponent extends BcpBaseForm implements OnInit, AfterViewIni
         );
 
         this.containerService.setIsLoading(false);
-        // TODO: Handle failure case, e.g. no backend, failed request, etc.
         this.navigate(UPDATE_FACILITY_PAGES.SUBMISSION.fullpath);
       }, error => {
         // console.log('apiService onerror', error);
         this.containerService.setIsLoading(false);
+        this.navigate(UPDATE_FACILITY_PAGES.SUBMISSION.fullpath);
       });
   }
 }
