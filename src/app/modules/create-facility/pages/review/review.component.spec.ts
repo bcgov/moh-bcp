@@ -15,6 +15,7 @@ import { SignatureComponent } from '../../../core-bcp/components/signature/signa
 import { ReviewContainerComponent } from '../../../core-bcp/components/review-container/review-container.component';
 
 import { ReviewComponent } from './review.component';
+import { CoreBCPModule } from '../../../core-bcp/core-bcp.module';
 
 describe('ReviewComponent', () => {
   let component: ReviewComponent;
@@ -23,6 +24,7 @@ describe('ReviewComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        CoreBCPModule,
         FormsModule,
         HttpClientTestingModule,
         ModalModule,
@@ -37,8 +39,6 @@ describe('ReviewComponent', () => {
         ReviewFacilityMailingInfoComponent,
         ReviewFacilityBcpComponent,
         ReviewApplicantComponent,
-        ReviewContainerComponent,
-        SignatureComponent
       ]
     })
     .compileComponents();

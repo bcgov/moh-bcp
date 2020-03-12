@@ -243,6 +243,11 @@ input[type=number] {
   .review-value {font-weight: 400}
   .print-page-break {page-break-after: always}
 }
+
+header .skip-to-content {
+  display: none !important;
+}
+
 // Preload image assets.
 body::after{
     position: absolute;

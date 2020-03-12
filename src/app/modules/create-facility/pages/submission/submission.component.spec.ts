@@ -10,6 +10,7 @@ import { ReviewFacilityMailingInfoComponent } from '../../components/review-faci
 import { ReviewFacilityBcpComponent } from '../../components/review-facility-bcp/review-facility-bcp.component';
 
 import { ReviewContainerComponent } from '../../../core-bcp/components/review-container/review-container.component';
+import { CoreBCPModule } from '../../../core-bcp/core-bcp.module';
 
 describe('SubmissionComponent', () => {
   let component: SubmissionComponent;
@@ -17,10 +18,9 @@ describe('SubmissionComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ RouterTestingModule, SharedCoreModule ],
+      imports: [ CoreBCPModule, RouterTestingModule, SharedCoreModule ],
       declarations: [
         ReviewApplicantComponent,
-        ReviewContainerComponent,
         ReviewFacilityBcpComponent,
         ReviewFacilityComponent,
         ReviewFacilityMailingInfoComponent,

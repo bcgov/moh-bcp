@@ -14,6 +14,7 @@ export class FacilityNumberComponent extends AbstractFormControl implements OnIn
   public facNumber: string;
 
   @Input() label: string = 'Medical Services Plan Facility Number';
+  @Input() maxlength: string = '9';
 
   _defaultErrMsg: ErrorMessage = {
     required: `${LabelReplacementTag} is required.`,

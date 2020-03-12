@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LandingComponent } from './pages/landing/landing.component';
 import { BCP_ROUTES } from './modules/core-bcp/models/bcp-route-constanst';
-import { SplashPageModule } from './modules/splash-page/splash-page.module';
 
 const routes: Routes = [
   {
@@ -13,6 +12,10 @@ const routes: Routes = [
   {
     path: BCP_ROUTES.CREATE_FACILITY,
     loadChildren: './modules/create-facility/create-facility.module#CreateFacilityModule'
+  },
+  {
+    path: BCP_ROUTES.UPDATE_FACILITY,
+    loadChildren: './modules/update-facility/update-facility.module#UpdateFacilityModule'
   },
   {
     path: BCP_ROUTES.PRACTITIONER_REGISTRATION,

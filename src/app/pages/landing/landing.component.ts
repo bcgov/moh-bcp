@@ -9,6 +9,7 @@ import { BCP_ROUTES } from '../../modules/core-bcp/models/bcp-route-constanst';
 export class LandingComponent {
 
   registerFacility = BCP_ROUTES.CREATE_FACILITY;
+  updateFacility = BCP_ROUTES.UPDATE_FACILITY;
   practitionerAssignment = BCP_ROUTES.PRACTITIONER_REGISTRATION;
 
   constructor() { }
