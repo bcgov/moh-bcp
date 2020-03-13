@@ -19,30 +19,8 @@
         class="col-md-12 ml-0 mt-0 {{displayPrintView? 'pl-2 pt-2 pb-2': 'pl-4 pt-4 pb-4 review--background-color'}}">
     <div *ngFor="let form of sectionItems; let formIndex=index" >
       <div class="row mb-2" *ngFor="let item of form; let i=index">
-        <ng-container *ngIf='item.label'>
-          <div class='col-md-6'>
-            {{item.label}}{{item.hideColon ? '' : ':'}}
-          </div>
-          <div class='col-md-6'>
-            <ng-container *ngIf='containsMultiLine(item.value)'>
-              <b [innerHTML]='getMultiLineHTML(item.value)'></b>
-            </ng-container>
-            <ng-container *ngIf='!containsMultiLine(item.value)'>
-              <b>{{item.value}}</b>
-            </ng-container>
-            
-          </div>
-        </ng-container>
-        <ng-container *ngIf='!item.label'>
-          <div class='col-md-12'>
-            <ng-container *ngIf='containsMultiLine(item.value)'>
-              <span [innerHTML]='getMultiLineHTML(item.value)'></span>
-            </ng-container>
-            <ng-container *ngIf='!containsMultiLine(item.value)'>
-              {{item.value}}
-            </ng-container>
-          </div>
-        </ng-container>
+        <ng-container [ngTemplateOutlet]='item.label ? basicItemTemplate : noLabelTemplate'
+                      [ngTemplateOutletContext]='{item:item}'></ng-container>
       </div>
     </div>
   </div>
@@ -67,3 +45,31 @@
 
   <!--#endregion -->
 </div>
+
+<ng-template #basicItemTemplate let-item='item'>
+  <div class='col-md-6'>
+    {{item.label}}{{item.hideColon ? '' : ':'}}
+  </div>
+  <div class='col-md-6'>
+    <b>
+      <ng-container [ngTemplateOutlet]='valueTemplate'
+                    [ngTemplateOutletContext]='{item:item}'></ng-container>
+    </b>
+  </div>
+</ng-template>
+
+<ng-template #noLabelTemplate let-item='item'>
+  <div class='col-md-12'>
+    <ng-container [ngTemplateOutlet]='valueTemplate'
+                  [ngTemplateOutletContext]='{item:item}'></ng-container>
+  </div>
+</ng-template>
+
+<ng-template #valueTemplate let-item='item'>
+  <ng-container *ngIf='containsMultiLine(item.value)'>
+    <span [innerHTML]='getMultiLineHTML(item.value)'></span>
+  </ng-container>
+  <ng-container *ngIf='!containsMultiLine(item.value)'>
+    <span>{{item.value}}</span>
+  </ng-container>
+</ng-template>
