@@ -30,7 +30,7 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
   changeAdminInfoFG: FormGroup;
   cancelFacilityNumberFG: FormGroup;
   readonly bcpStartDate: Date = new Date(2020, 3, 1);
-  readonly bcpCancelDateStartLimit: Date = new Date(1966, 0, 1);
+  readonly retroActiveStartDate: Date = new Date(1966, 0, 1);
   readonly OTHER_REQUEST_MAX_LENGTH: number = 1000;
   systemDownError: boolean = false;
   showValidationError: boolean = false;
@@ -400,9 +400,9 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
     };
   }
 
-  get cancelFacilityDateErrorMessage(): ErrorMessage {
+  get retroActiveStartDateErrorMessage(): ErrorMessage {
     return {
-      invalidRange: `${LabelReplacementTag} must be after ${formatDateForDisplay(this.bcpCancelDateStartLimit)}.`
+      invalidRange: `${LabelReplacementTag} must be after ${formatDateForDisplay(this.retroActiveStartDate)}.`
     };
   }
 }

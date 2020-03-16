@@ -130,8 +130,8 @@
           <common-date name='changeFacilityAddressEffectiveDate'
                        formControlName='changeFacilityAddressEffectiveDate'
                        label='Effective date of address change'
-                       [dateRangeStart]='bcpStartDate'
-                       [errorMessage]='dateErrorMessage'></common-date>
+                       [dateRangeStart]='retroActiveStartDate'
+                       [errorMessage]='retroActiveStartDateErrorMessage'></common-date>
         </div>
       </form>
       
@@ -237,8 +237,8 @@
           <common-date name='changeMailingAddressEffectiveDate'
                         formControlName='changeMailingAddressEffectiveDate'
                         label='Effective date of address change'
-                        [dateRangeStart]='bcpStartDate'
-                        [errorMessage]='dateErrorMessage'></common-date>
+                        [dateRangeStart]='retroActiveStartDate'
+                        [errorMessage]='retroActiveStartDateErrorMessage'></common-date>
         </div>
       </form>
     </div>
@@ -355,8 +355,8 @@
           <common-date name='changeAdminInfoEffectiveDate'
                         formControlName='changeAdminInfoEffectiveDate'
                         label='Effective date of change'
-                        [dateRangeStart]='bcpStartDate'
-                        [errorMessage]='dateErrorMessage'></common-date>
+                        [dateRangeStart]='retroActiveStartDate'
+                        [errorMessage]='retroActiveStartDateErrorMessage'></common-date>
         </div>
       </form>
     </div>
@@ -379,8 +379,8 @@
           <common-date name='cancelFacilityNumberCancelDate'
                         formControlName='cancelFacilityNumberCancelDate'
                         label='Cancellation Date'
-                        [dateRangeStart]='bcpCancelDateStartLimit'
-                        [errorMessage]='cancelFacilityDateErrorMessage'></common-date>
+                        [dateRangeStart]='retroActiveStartDate'
+                        [errorMessage]='retroActiveStartDateErrorMessage'></common-date>
         </div>
       </form>
     </div>
