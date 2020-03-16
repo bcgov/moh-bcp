@@ -9,6 +9,7 @@ import { UpdateFacilityApiService } from '../../services/update-facility-api.ser
 import { ValidationResponse, ReturnCodes } from '../../../core-bcp/models/base-api.model';
 import { SplunkLoggerService } from '../../../../services/splunk-logger.service';
 import { formatDateForDisplay } from '../../../core-bcp/models/helperFunc';
+import { validatePostalCode } from '../../../core-bcp/models/validators';
 
 
 @Component({
@@ -63,21 +64,33 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
     this.changeFacilityAddressFG = this.fb.group({
       changeFacilityAddressPreviousAddress: [this.dataService.changeFacilityAddressPreviousAddress, [Validators.required]],
       changeFacilityAddressPreviousCity: [this.dataService.changeFacilityAddressPreviousCity, [Validators.required]],
-      changeFacilityAddressPreviousPostalCode: [this.dataService.changeFacilityAddressPreviousPostalCode, [Validators.required]],
+      changeFacilityAddressPreviousPostalCode: [this.dataService.changeFacilityAddressPreviousPostalCode, [
+        Validators.required,
+        validatePostalCode
+      ]],
       changeFacilityAddressPreviousFax: [this.dataService.changeFacilityAddressPreviousFax, []],
       changeFacilityAddressNewAddress: [this.dataService.changeFacilityAddressNewAddress, [Validators.required]],
       changeFacilityAddressNewCity: [this.dataService.changeFacilityAddressNewCity, [Validators.required]],
-      changeFacilityAddressNewPostalCode: [this.dataService.changeFacilityAddressNewPostalCode, [Validators.required]],
+      changeFacilityAddressNewPostalCode: [this.dataService.changeFacilityAddressNewPostalCode, [
+        Validators.required,
+        validatePostalCode
+      ]],
       changeFacilityAddressNewFax: [this.dataService.changeFacilityAddressNewFax, []],
       changeFacilityAddressEffectiveDate: [this.dataService.changeFacilityAddressEffectiveDate, [Validators.required]],
     });
     this.changeMailingAddressFG = this.fb.group({
       changeMailingAddressPreviousAddress: [this.dataService.changeMailingAddressPreviousAddress, [Validators.required]],
       changeMailingAddressPreviousCity: [this.dataService.changeMailingAddressPreviousCity, [Validators.required]],
-      changeMailingAddressPreviousPostalCode: [this.dataService.changeMailingAddressPreviousPostalCode, [Validators.required]],
+      changeMailingAddressPreviousPostalCode: [this.dataService.changeMailingAddressPreviousPostalCode, [
+        Validators.required,
+        validatePostalCode
+      ]],
       changeMailingAddressNewAddress: [this.dataService.changeMailingAddressNewAddress, [Validators.required]],
       changeMailingAddressNewCity: [this.dataService.changeMailingAddressNewCity, [Validators.required]],
-      changeMailingAddressNewPostalCode: [this.dataService.changeMailingAddressNewPostalCode, [Validators.required]],
+      changeMailingAddressNewPostalCode: [this.dataService.changeMailingAddressNewPostalCode, [
+        Validators.required,
+        validatePostalCode
+      ]],
       changeMailingAddressEffectiveDate: [this.dataService.changeMailingAddressEffectiveDate, [Validators.required]],
     });
     this.changeAppliesFeesFG = this.fb.group({
