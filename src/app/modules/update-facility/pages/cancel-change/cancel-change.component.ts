@@ -131,6 +131,7 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
         this.hasValidChange = true;
       } else {
         this.hasValidChange = false;
+        console.log("hasValidChange: ", this.hasValidChange);
       }
 
       // Reset values.
@@ -246,7 +247,7 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
   continue() {
     this.formGroup.patchValue({});
 
-    const forms = [];
+    const forms = [this.formGroup];
 
     if (this.dataService.checkChangeFacilityAddress) {
       forms.push(this.changeFacilityAddressFG);
