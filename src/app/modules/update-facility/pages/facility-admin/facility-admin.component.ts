@@ -42,7 +42,7 @@ export class FacilityAdminComponent extends BcpBaseForm implements OnInit, After
       email: [this.dataService.email, []],
       phone: [this.dataService.phone, [Validators.required]],
       phoneExt: [this.dataService.phoneExt, []],
-      facilityName: [this.dataService.facilityName, [Validators.required]],
+      facilityName: [this.dataService.facilityName, [Validators.required, Validators.pattern(/^[ -~]+$/)]],
       facilityMSPNumber: [this.dataService.facilityMSPNumber, [Validators.required]],
       facilityFax: [this.dataService.facilityFax, []],
     });
