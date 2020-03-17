@@ -18,7 +18,8 @@ export class FacilityNumberComponent extends AbstractFormControl implements OnIn
 
   _defaultErrMsg: ErrorMessage = {
     required: `${LabelReplacementTag} is required.`,
-    invalidFormat: LabelReplacementTag + ' is invalid format.  Please make sure it is alphanumeric and does not contain special characers or spaces.'
+    invalidFormat: LabelReplacementTag + ' is invalid format.  Please make sure it is alphanumeric and does not contain special characers or spaces.',
+    invalidLength: LabelReplacementTag + ' must be at least 5 characters long.'
   };
 
   constructor(@Optional() @Self() public controlDir: NgControl) {
@@ -55,7 +56,14 @@ export class FacilityNumberComponent extends AbstractFormControl implements OnIn
     if ( this.facNumber ) {
       const criteria: RegExp = /^\w*$/;
       const result = criteria.test(this.facNumber);
-      return result ? null : { invalidFormat: true };
+      if (!result) {
+        return { invalidFormat: true };
+      }
+      const minLengthCriteria: RegExp = /^\w{5,9}$/; // Restrict length to 5-9 characters long.
+      const minLengthResult = minLengthCriteria.test(this.facNumber);
+      if (!minLengthResult) {
+        return { invalidLength: true };
+      }
     }
     return null;
   }
