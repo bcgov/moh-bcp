@@ -19,7 +19,7 @@ export class FacilityNumberComponent extends AbstractFormControl implements OnIn
   _defaultErrMsg: ErrorMessage = {
     required: `${LabelReplacementTag} is required.`,
     invalidFormat: LabelReplacementTag + ' is invalid format.  Please make sure it is alphanumeric and does not contain special characers or spaces.',
-    invalidLength: LabelReplacementTag + ' must be at least 5 characters long.'
+    invalidLength: LabelReplacementTag + ' must be 5 characters long.'
   };
 
   constructor(@Optional() @Self() public controlDir: NgControl) {
