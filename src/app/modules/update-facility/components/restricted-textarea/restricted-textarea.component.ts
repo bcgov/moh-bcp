@@ -11,6 +11,7 @@ export class RestrictedTextareaComponent  extends AbstractFormControl implements
 
   labelforId: string = 'textarea_' + this.objectId;
   text: string = '';
+  textToCount: string = '';
 
   @Input() label: string = '';
   @Input() maxlength: number = 1000;
@@ -48,7 +49,7 @@ export class RestrictedTextareaComponent  extends AbstractFormControl implements
   }
 
   private validateSelf(): ValidationErrors | null {
-    if (this.text && this.text.length > this.maxlength) {
+    if (this.textToCount && this.textToCount.length > this.maxlength) {
       return {overLimit: true};
     }
     return null;

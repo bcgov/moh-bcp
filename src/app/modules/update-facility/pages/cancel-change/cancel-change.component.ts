@@ -127,7 +127,7 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
         || this.dataService.checkChangeBCPCancelDate
         || this.dataService.checkChangeAdminInfo
         || this.dataService.checkCancelFacilityNumber
-        || this.dataService.otherChangeRequests !== '') {
+        || (this.dataService.otherChangeRequests && this.dataService.otherChangeRequests !== '')) {
         this.hasValidChange = true;
       } else {
         this.hasValidChange = false;
