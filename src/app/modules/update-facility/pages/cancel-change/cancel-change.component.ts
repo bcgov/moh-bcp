@@ -131,7 +131,7 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
         this.hasValidChange = true;
       } else {
         this.hasValidChange = false;
-        console.log("hasValidChange: ", this.hasValidChange);
+        console.log('hasValidChange: ', this.hasValidChange);
       }
 
       // Reset values.
