@@ -101,7 +101,7 @@ export class UpdateFacilityDataService extends BaseDataService {
   readonly declarationText = `I understand that:
   <ol class='no-bullets'>
       <li>i. this is a legal document and I represent that the information that I have provided on this document is true to the best of my knowledge;</li>
-      <li>ii. MSP is a public system based on trust, but also that claims, including those portions relating to the Business Cost Premium, are subject to audit and financial recovery for claims made contrary to the <em>Medicare Protection Act</em> (the "Act"); and</li>
+      <li>ii. MSP is a public system based on trust, but also that claims, including those portions relating to the Business Cost Premium, are subject to audit and financial recovery for claims made contrary to the Medicare Protection Act (the "Act"); and</li>
       <li>iii. submitting false or misleading claims information is an offence under the Act and may be an offence under the Criminal Code of Canada.</li>
   </ol>`;
 
