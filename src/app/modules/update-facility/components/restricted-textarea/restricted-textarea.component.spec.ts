@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RestrictedTextareaComponent } from './restricted-textarea.component';
 import { SharedCoreModule } from 'moh-common-lib';
+import { FormsModule } from '@angular/forms';
 
 describe('RestrictedTextareaComponent', () => {
   let component: RestrictedTextareaComponent;
@@ -10,7 +11,7 @@ describe('RestrictedTextareaComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ RestrictedTextareaComponent ],
-      imports: [ SharedCoreModule ]
+      imports: [ SharedCoreModule, FormsModule ]
     })
     .compileComponents();
   }));

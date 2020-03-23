@@ -106,7 +106,7 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
   }
 
   get containsMissingInfoError() {
-    if ( this.formGroup.touched && 
+    if ( this.formGroup.touched &&
       (  !this.dataService.checkChangeFacilityAddress
       && !this.dataService.checkChangeMailingAddress
       && !this.dataService.checkChangeAppliesFees

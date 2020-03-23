@@ -3,7 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CancelChangeComponent } from './cancel-change.component';
 import { CoreBCPModule } from '../../../core-bcp/core-bcp.module';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RestrictedTextareaComponent } from '../../components/restricted-textarea/restricted-textarea.component';
 
 describe('CancelChangeComponent', () => {
   let component: CancelChangeComponent;
@@ -11,8 +12,8 @@ describe('CancelChangeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ CoreBCPModule, ReactiveFormsModule, RouterTestingModule ],
-      declarations: [ CancelChangeComponent ]
+      imports: [ CoreBCPModule, FormsModule, ReactiveFormsModule, RouterTestingModule ],
+      declarations: [ CancelChangeComponent, RestrictedTextareaComponent ]
     })
     .compileComponents();
   }));
