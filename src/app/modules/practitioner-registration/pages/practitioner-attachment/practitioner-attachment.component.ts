@@ -94,7 +94,7 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
       };
     } else {
       this.facilityEffectiveDateErrMsg = {
-        invalidRange: `${LabelReplacementTag} must be after ${formatDateForDisplay(this.effectiveDateStartRange)}.`
+        invalidRange: `${LabelReplacementTag} must be on or after ${formatDateForDisplay(this.effectiveDateStartRange)}.`
       };
     }
   }
@@ -109,7 +109,7 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
       };
     } else {
       this.facilityCancelDateErrMsg = {
-        invalidRange: `${LabelReplacementTag} must be after ${formatDateForDisplay(this.cancelDateStartRange)}.`
+        invalidRange: `${LabelReplacementTag} must be on or after ${formatDateForDisplay(this.cancelDateStartRange)}.`
       };
     }
   }
