@@ -396,11 +396,9 @@
                             formControlName='otherChangeRequests'
                             id='otherChangeRequests'
                             [maxlength]='5'></restricted-textarea>
-      <!-- <div class='text-right'>Characters remaining: {{ OTHER_REQUEST_MAX_LENGTH - dataService.otherChangeRequests.length }}</div> -->
-      hasValidChange: {{hasValidChange}}
     </div>
 
-    <common-error-container [displayError]='!hasValidChange && hasValidChange !== undefined'>
+    <common-error-container [displayError]='containsMissingInfoError'>
       You need to choose at least one option in this page in order to continue.
     </common-error-container>
 

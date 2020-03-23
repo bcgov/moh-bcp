@@ -33,7 +33,6 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
   readonly OTHER_REQUEST_MAX_LENGTH: number = 1000;
   systemDownError: boolean = false;
   showValidationError: boolean = false;
-  hasValidChange: boolean;
 
   constructor( protected containerService: ContainerService,
                protected router: Router,
@@ -106,6 +105,24 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
     });
   }
 
+  get containsMissingInfoError() {
+    if ( this.formGroup.touched && 
+      (  !this.dataService.checkChangeFacilityAddress
+      && !this.dataService.checkChangeMailingAddress
+      && !this.dataService.checkChangeAppliesFees
+      && !this.dataService.checkCancelBCP
+      && !this.dataService.checkChangeBCPEffectiveDate
+      && !this.dataService.checkChangeBCPCancelDate
+      && !this.dataService.checkChangeAdminInfo
+      && !this.dataService.checkCancelFacilityNumber
+      && (!this.dataService.otherChangeRequests || this.dataService.otherChangeRequests === ''))
+      ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   ngAfterViewInit() {
     super.ngAfterViewInit();
     // Update data service values
@@ -119,20 +136,6 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
       this.dataService.checkChangeAdminInfo = value.checkChangeAdminInfo;
       this.dataService.checkCancelFacilityNumber = value.checkCancelFacilityNumber;
       this.dataService.otherChangeRequests = value.otherChangeRequests;
-      if ( this.dataService.checkChangeFacilityAddress
-        || this.dataService.checkChangeMailingAddress
-        || this.dataService.checkChangeAppliesFees
-        || this.dataService.checkCancelBCP
-        || this.dataService.checkChangeBCPEffectiveDate
-        || this.dataService.checkChangeBCPCancelDate
-        || this.dataService.checkChangeAdminInfo
-        || this.dataService.checkCancelFacilityNumber
-        || (this.dataService.otherChangeRequests && this.dataService.otherChangeRequests !== '')) {
-        this.hasValidChange = true;
-      } else {
-        this.hasValidChange = false;
-        console.log('hasValidChange: ', this.hasValidChange);
-      }
 
       // Reset values.
       if (!this.dataService.checkChangeFacilityAddress) {
@@ -275,7 +278,7 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
     }
     this.markAllInputsTouched(forms);
 
-    if (this.hasValidChange
+    if (!this.containsMissingInfoError
       && forms.every( (x) => x.valid === true )) {
       if (this.dataService.checkChangeAdminInfo && this.canContinue()) {
         this.containerService.setIsLoading();

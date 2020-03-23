@@ -4,10 +4,10 @@
           id="{{labelforId}}"
           (change)="onValueChange($event.target.value)"
           (blur)="onBlur($event)"
-          [(ngModel)]="textToCount"
+          [(ngModel)]="text"
           [attr.rows]='rows'></textarea>
 
-<div class='text-right'>Characters remaining: {{ maxlength - (textToCount ? textToCount.length : 0) }}</div>
+<div class='text-right' [ngClass]="(text ? text.length : 0) > maxlength ? 'text-danger' : ''">Characters remaining: {{ maxlength - (text ? text.length : 0) }}</div>
 
 <!-- Error messages for component -->
 <common-error-container [displayError]="controlDir && !disabled && (controlDir.dirty || controlDir.touched) && controlDir?.errors">
