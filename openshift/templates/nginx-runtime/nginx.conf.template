@@ -111,6 +111,10 @@ http {
             location /api/captcha/ {
                 proxy_pass http://mygovbc-captcha-service:8080/;
             }
+
+            location /api/text/ {
+                proxy_pass http://spa-text-service:8080/;
+            }
         }
 
         # redirect server error pages to the static page /50x.html
