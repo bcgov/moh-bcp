@@ -7,6 +7,7 @@ import { CancelChangeComponent } from './pages/cancel-change/cancel-change.compo
 import { ReviewComponent } from './pages/review/review.component';
 import { SubmissionComponent } from './pages/submission/submission.component';
 import { FacilityContainerComponent } from './components/facility-container/facility-container.component';
+import { RestrictedTextareaComponent } from './components/restricted-textarea/restricted-textarea.component';
 import { CoreBCPModule } from '../core-bcp/core-bcp.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
@@ -37,6 +38,7 @@ import { environment } from '../../../environments/environment';
     ReviewComponent,
     SubmissionComponent,
     FacilityContainerComponent,
+    RestrictedTextareaComponent,
     ReviewBCPComponent,
     ReviewCancelFacilityComponent,
     ReviewChangeAdminComponent,
