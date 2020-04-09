@@ -6,15 +6,19 @@
           (blur)="onBlur($event)"
           [(ngModel)]="text"
           [attr.rows]='rows'></textarea>
-
-<div class='text-right' [ngClass]="(text ? text.length : 0) > maxlength ? 'text-danger' : ''">Characters remaining: {{ maxlength - (text ? text.length : 0) }}</div>
-
-<!-- Error messages for component -->
-<common-error-container [displayError]="controlDir && !disabled && (controlDir.dirty || controlDir.touched) && controlDir?.errors">
-  <div *ngIf="controlDir?.errors?.required">
-    {{_defaultErrMsg.required}}
+<div class="row">
+  <div class="col-6">
+    <!-- Error messages for component -->
+    <common-error-container [displayError]="controlDir && !disabled && (controlDir.dirty || controlDir.touched) && controlDir?.errors">
+      <div *ngIf="controlDir?.errors?.required">
+        {{_defaultErrMsg.required}}
+      </div>
+      <div *ngIf="controlDir?.errors?.overLimit">
+        {{_defaultErrMsg.overLimit}}
+      </div>
+    </common-error-container>
   </div>
-  <div *ngIf="controlDir?.errors?.overLimit">
-    {{_defaultErrMsg.overLimit}}
+  <div class="col-6">
+      <div class='text-right character-limit' [ngClass]="(text ? text.length : 0) > maxlength ? 'text-danger' : ''">Characters remaining: {{ maxlength - (text ? text.length : 0) }}</div>
   </div>
-</common-error-container>
+</div>
