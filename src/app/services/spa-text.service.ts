@@ -6,9 +6,9 @@ import { environment } from '../../environments/environment';
 import { retry, filter } from 'rxjs/operators';
 
 // List of all text keys to be fetched from the server.
-const textKeys = {
-  SPA_ENV_TEXT_CHANGE_FACILITY_FORM_TITLE: '',
-};
+const textKeys = [
+  'SPA_TEXT_TEST'
+];
 
 // Used in HTTP request
 const stringifiedTextKeys = JSON.stringify(textKeys);
@@ -30,7 +30,7 @@ export class SpaTextService extends AbstractHttpService {
   protected _isLoading: boolean = false;
 
   protected _headers: HttpHeaders = new HttpHeaders({
-    SPA_ENV_NAME: stringifiedTextKeys,
+    SPA_TEXT_NAME: stringifiedTextKeys,
   });
 
   private _values = new BehaviorSubject<SpaTextResponse>( null );
@@ -53,11 +53,11 @@ export class SpaTextService extends AbstractHttpService {
   }
 
   private loadText() {
-    const url = environment.api.env;
+    const url = environment.api.text;
 
     // When the SpaEnv server is being deployed it can return an HTML error
     // page, and it should resolve shortly, so we try again.
-    return this.post<SpaTextResponse>(url, null).pipe(retry(3));
+    return this.post<SpaTextResponse>(url, stringifiedTextKeys).pipe(retry(3));
   }
 
   protected handleError(error: HttpErrorResponse) {
