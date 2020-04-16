@@ -18,7 +18,7 @@ export class RestrictedTextareaComponent  extends AbstractFormControl implements
 
   _defaultErrMsg: ErrorMessage = {
     required: `${LabelReplacementTag} is required.`,
-    overLimit: `This field is over the maximum character length.`
+    overLimit: `This field is over the maximum character limit.`
   };
 
   constructor(@Optional() @Self() public controlDir: NgControl) {
