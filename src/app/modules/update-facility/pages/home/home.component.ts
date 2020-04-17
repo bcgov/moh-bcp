@@ -8,6 +8,7 @@ import { UpdateFacilityDataService } from '../../services/update-facility-data.s
 import { environment } from '../../../../../environments/environment';
 import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 import { UpdateFacilityApiService } from '../../services/update-facility-api.service';
+import { SpaTextService } from '../../../../services/spa-text.service';
 
 @Component({
   selector: 'bcp-home',
@@ -25,7 +26,8 @@ export class HomeComponent extends BcpBaseForm implements OnInit {
                protected router: Router,
                protected pageStateService: PageStateService,
                private apiService: UpdateFacilityApiService,
-               private dataService: UpdateFacilityDataService ) {
+               private dataService: UpdateFacilityDataService,
+               public textService: SpaTextService ) {
     super(router, containerService, pageStateService);
   }
 
@@ -49,9 +51,5 @@ export class HomeComponent extends BcpBaseForm implements OnInit {
 
   setToken(token: string): void {
     this.apiService.setToken(token);
-  }
-
-  get pageTitle() {
-    return UPDATE_FACILITY_PAGES.HOME.title;
   }
 }

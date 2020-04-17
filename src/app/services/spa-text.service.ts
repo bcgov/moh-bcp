@@ -6,9 +6,27 @@ import { environment } from '../../environments/environment';
 import { retry, filter } from 'rxjs/operators';
 
 // List of all text keys to be fetched from the server.
-const textKeys = [
-  'SPA_TEXT_TEST'
-];
+const textKeys = {
+  SPA_TEXT_UPDATE_FACILITY_TITLE: "",
+  SPA_TEXT_UPDATE_FACILITY_HOME_PAGE_TITLE: "",
+  SPA_TEXT_UPDATE_FACILITY_HOME_PAGE_CONTENT: "",
+  SPA_TEXT_UPDATE_FACILITY_ADMIN_FAC_INFO_PAGE_TITLE: "",
+  SPA_TEXT_UPDATE_FACILITY_ADMIN_FAC_INFO_PAGE_DESCRIPTION: "",
+  SPA_TEXT_UPDATE_FACILITY_CHANGE_CANCEL_PAGE_TITLE: "",
+  SPA_TEXT_UPDATE_FACILITY_CHANGE_CANCEL_PAGE_DESCRIPTION: "",
+  SPA_TEXT_UPDATE_FACILITY_CHANGE_CANCEL_PAGE_ADDRESS_TITLE: "",
+  SPA_TEXT_UPDATE_FACILITY_CHANGE_CANCEL_PAGE_ADDRESS_DESCRIPTION: "",
+  SPA_TEXT_UPDATE_FACILITY_CHANGE_CANCEL_PAGE_BCP_TITLE: "",
+  SPA_TEXT_UPDATE_FACILITY_CHANGE_CANCEL_PAGE_BCP_DESCRIPTION: "",
+  SPA_TEXT_UPDATE_FACILITY_CHANGE_CANCEL_PAGE_ADMIN_TITLE: "",
+  SPA_TEXT_UPDATE_FACILITY_CHANGE_CANCEL_PAGE_ADMIN_DESCRIPTION: "",
+  SPA_TEXT_UPDATE_FACILITY_CHANGE_CANCEL_PAGE_FAC_NUM_TITLE: "",
+  SPA_TEXT_UPDATE_FACILITY_CHANGE_CANCEL_PAGE_FAC_NUM_DESCRIPTION: "",
+  SPA_TEXT_UPDATE_FACILITY_CHANGE_CANCEL_PAGE_OTHER_TITLE: "",
+  SPA_TEXT_UPDATE_FACILITY_CHANGE_CANCEL_PAGE_OTHER_DESCRIPTION: "",
+  SPA_TEXT_UPDATE_FACILITY_REVIEW_PAGE_TITLE: "",
+  SPA_TEXT_UPDATE_FACILITY_REVIEW_PAGE_DESCRIPTION: "",
+};
 
 // Used in HTTP request
 const stringifiedTextKeys = JSON.stringify(textKeys);
@@ -57,7 +75,7 @@ export class SpaTextService extends AbstractHttpService {
 
     // When the SpaEnv server is being deployed it can return an HTML error
     // page, and it should resolve shortly, so we try again.
-    return this.post<SpaTextResponse>(url, stringifiedTextKeys).pipe(retry(3));
+    return this.post<SpaTextResponse>(url, null).pipe(retry(3));
   }
 
   protected handleError(error: HttpErrorResponse) {

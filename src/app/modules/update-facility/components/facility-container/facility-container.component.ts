@@ -22,7 +22,7 @@ export class FacilityContainerComponent extends Container implements AfterViewIn
     this.pageStateService.setPages( pages, UPDATE_FACILITY_PAGES );
 
     spaTextService.values.subscribe((values) => {
-      this.headerService.setTitle("values.SPA_ENV_TEXT_CHANGE_FACILITY_FORM_TITLE");
+      this.headerService.setTitle(values.SPA_TEXT_UPDATE_FACILITY_TITLE);
     });
 
     // Set breadcrumb step titles to route title.

@@ -1,6 +1,6 @@
 <form [formGroup]="formGroup" novalidate>
-  <h1>{{pageTitle}}</h1>
-  <p>Review your application and provide your signature before submission</p>
+  <h1 [innerHTML]='textService.textValues.SPA_TEXT_UPDATE_FACILITY_REVIEW_PAGE_TITLE'></h1>
+  <div [innerHTML]='textService.textValues.SPA_TEXT_UPDATE_FACILITY_REVIEW_PAGE_DESCRIPTION'></div>
   <hr/>
 
   <div class='border-warning'></div>

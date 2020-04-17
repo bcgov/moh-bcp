@@ -1,16 +1,11 @@
-<h1>{{pageTitle}}</h1>
-<p>To cancel or change details for a Medical Services Plan Facility Number, the Administrator must be an active medical practitioner.</p>
+<h1 [innerHTML]='textService.textValues.SPA_TEXT_UPDATE_FACILITY_CHANGE_CANCEL_PAGE_TITLE'></h1>
+<p [innerHTML]='textService.textValues.SPA_TEXT_UPDATE_FACILITY_CHANGE_CANCEL_PAGE_DESCRIPTION'></p>
 <hr/>
 
 <common-page-section layout='noTips'>
   <form [formGroup]="formGroup">
-    <h2>Change of Facility Address or Mailing Address</h2>
-    <p>To change the address of the facility associated with an MSP Facility Number, provide the effective date of the address change, the previous address and the new address.</p>
-    <p>A change in the physical location of the facility may result in a new MSP Facility Number being issued for the facility and may also impact</p>
-    <ol>
-      <li>eligibility for the Business Cost Premium; and</li>
-      <li>the Business Cost Premium amount payable.</li>
-    </ol>
+    <h2 [innerHTML]='textService.textValues.SPA_TEXT_UPDATE_FACILITY_CHANGE_CANCEL_PAGE_ADDRESS_TITLE'></h2>
+    <div [innerHTML]='textService.textValues.SPA_TEXT_UPDATE_FACILITY_CHANGE_CANCEL_PAGE_ADDRESS_DESCRIPTION'></div>
     <hr/>
     
     <a name='physical-address'></a>
@@ -254,9 +249,8 @@
 <!-- Business Cost Premium -->
 
     <a name='bcp'></a>
-    <h2 class='mt-5'>Business Cost Premium</h2>
-    <p>The <strong>Business Cost Premium</strong> applies to Eligible Fees claimed by Eligible Physicians for services that are provided in a community-based office that has been issued an MSP Facility Number. MSP Facility Numbers are issued to qualifying facilities, based on the physical location of the facility.</p>
-    <p><strong>Eligible Physicians</strong> are those practitioners who are responsible to pay for some or all of the lease, rental, or ownership costs of the community-based office that has been issued an MSP Facility Number. Eligible Physicians must apply to be attached to the MSP Number for a facility to claim the Business Cost Premium on Eligible Fees for services provided at that facility.</p>
+    <h2 class='mt-5' [innerHTML]='textService.textValues.SPA_TEXT_UPDATE_FACILITY_CHANGE_CANCEL_PAGE_BCP_TITLE'></h2>
+    <div [innerHTML]='textService.textValues.SPA_TEXT_UPDATE_FACILITY_CHANGE_CANCEL_PAGE_BCP_DESCRIPTION'></div>
     <hr/>
 
 <!-- BCP Change applies to fees -->
@@ -342,8 +336,8 @@
     </div>
 
     <a name='change-admin'></a>
-    <h2 class='mt-5'>Change Responsible Administrator</h2>
-    <p>The Administrator must be an active medical practitioner.</p>
+    <h2 class='mt-5' [innerHTML]='textService.textValues.SPA_TEXT_UPDATE_FACILITY_CHANGE_CANCEL_PAGE_ADMIN_TITLE'></h2>
+    <div [innerHTML]='textService.textValues.SPA_TEXT_UPDATE_FACILITY_CHANGE_CANCEL_PAGE_ADMIN_DESCRIPTION'></div>
     <hr/>
 
 <!-- BCP Change Cancel Date -->
@@ -372,8 +366,8 @@
 <!-- Cancel Facility Number -->
 
     <a name='cancel-facility'></a>
-    <h2 class='mt-5'>Cancellation of Facility Number</h2>
-    <p>To authorize cancellation of a MSP Facility Number</p>
+    <h2 class='mt-5' [innerHTML]='textService.textValues.SPA_TEXT_UPDATE_FACILITY_CHANGE_CANCEL_PAGE_FAC_NUM_TITLE'></h2>
+    <div [innerHTML]='textService.textValues.SPA_TEXT_UPDATE_FACILITY_CHANGE_CANCEL_PAGE_FAC_NUM_DESCRIPTION'></div>
     <hr/>
     <div class="form-group pl-4">
       <common-checkbox label='Cancel Facility Number'
@@ -393,8 +387,8 @@
       </form>
     </div>
 
-    <h2 class='mt-5'>Other Change or Request</h2>
-    <p>Administrators may request other changes or provide additional information associated with an MSP Facility Number not included in the standard fields provided in this form, including where a prior Eligible Physician is no longer providing services at this facility for which the Business Cost Premium on Eligible Fees would otherwise be paid. Requests in this field may be manually entered by HIBC against the MSP Facility Number, following which the Administrator will be notified of any such changes.</p>
+    <h2 class='mt-5' [innerHTML]='textService.textValues.SPA_TEXT_UPDATE_FACILITY_CHANGE_CANCEL_PAGE_OTHER_TITLE'></h2>
+    <div [innerHTML]='textService.textValues.SPA_TEXT_UPDATE_FACILITY_CHANGE_CANCEL_PAGE_OTHER_DESCRIPTION'></div>
     <hr/>
 
     <a name='other-request'></a>
