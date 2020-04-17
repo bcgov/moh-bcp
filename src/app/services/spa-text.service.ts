@@ -44,7 +44,7 @@ export type SpaTextResponse = typeof textKeys;
 })
 export class SpaTextService extends AbstractHttpService {
 
-  public textValues: object = {};
+  public textValues: SpaTextResponse = textKeys;
   protected _isLoading: boolean = false;
 
   protected _headers: HttpHeaders = new HttpHeaders({
