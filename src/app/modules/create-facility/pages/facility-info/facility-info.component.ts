@@ -13,6 +13,7 @@ import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 import { ValidationResponse, ReturnCodes } from '../../../core-bcp/models/base-api.model';
 import { CreateFacilityApiService } from '../../services/create-facility-api.service';
 import { IRadioItems } from 'moh-common-lib/lib/components/radio/radio.component';
+import { SpaTextService } from '../../../../services/spa-text.service';
 
 @Component({
   selector: 'app-facility-info',
@@ -58,7 +59,8 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
     private api: CreateFacilityApiService,
     private cdr: ChangeDetectorRef,
     private splunkLoggerService: SplunkLoggerService,
-    protected containerService: ContainerService) {
+    protected containerService: ContainerService,
+    public textService: SpaTextService) {
     super(router, containerService, pageStateService);
     this.validFormControl = validMultiFormControl;
   }

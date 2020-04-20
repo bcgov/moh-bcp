@@ -1,6 +1,6 @@
 <common-page-framework layout='blank'>
-  <h1>{{pageTitle}}</h1>
-  <p>To apply for a Medical Services Plan Facility Number, the Administrator must be an active medical practitioner.</p>
+  <h1 [innerHTML]='textService.textValues.SPA_TEXT_REGISTER_FACILITY_ADMIN_INFO_PAGE_TITLE'></h1>
+  <div [innerHTML]='textService.textValues.SPA_TEXT_REGISTER_FACILITY_ADMIN_INFO_PAGE_DESCRIPTION'></div>
   <hr>
 
   <common-page-section>
@@ -63,13 +63,8 @@
 
     </form>
     <aside>
-      <h2>Tip</h2>
-      <p>To confirm that the Facility Administrator is an active medical practitioner, the following fields will automatically be validated against Medical Services Plan records:</p>
-      <ul>
-        <li>First name</li>
-        <li>Last name</li>
-        <li>Medical Services Plan Practitioner Number</li>
-      </ul>
+      <h2 [innerHTML]='textService.textValues.SPA_TEXT_REGISTER_FACILITY_ADMIN_INFO_PAGE_TIP_TITLE'>Tip</h2>
+      <div [innerHTML]='textService.textValues.SPA_TEXT_REGISTER_FACILITY_ADMIN_INFO_PAGE_TIP_CONTENT'></div>
     </aside>
 
   </common-page-section>
