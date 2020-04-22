@@ -21,7 +21,7 @@ export class FacilityContainerComponent extends Container implements AfterViewIn
     this.setProgressSteps(pages);
     this.pageStateService.setPages( pages, UPDATE_FACILITY_PAGES );
 
-    spaTextService.values.subscribe((values) => {
+    this.spaTextService.values.subscribe((values) => {
       this.headerService.setTitle(values.SPA_TEXT_UPDATE_FACILITY_TITLE);
     });
 

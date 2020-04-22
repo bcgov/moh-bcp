@@ -3,6 +3,7 @@ import { Container, PageStateService, ContainerService } from 'moh-common-lib';
 import { createFacilityPageRoutes } from '../../create-facility-page-routing';
 import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
 import { HeaderService } from 'src/app/services/header.service';
+import { SpaTextService } from '../../../../services/spa-text.service';
 
 
 @Component({
@@ -14,12 +15,16 @@ export class CreateFacilityContainerComponent extends Container implements After
 
   constructor(private pageStateService: PageStateService,
               private headerService: HeaderService,
-              protected containerService: ContainerService) {
+              protected containerService: ContainerService,
+              private textService: SpaTextService) {
     super(containerService);
 
     this.setProgressSteps(createFacilityPageRoutes);
     this.pageStateService.setPages( createFacilityPageRoutes, CREATE_FACILITY_PAGES );
-    this.headerService.setTitle('Application for Medical Services Plan Facility Number (New)');
+
+    this.textService.values.subscribe((values) => {
+      this.headerService.setTitle(values.SPA_TEXT_REGISTER_FACILITY_TITLE);
+    });
   }
 
   ngAfterViewInit() {

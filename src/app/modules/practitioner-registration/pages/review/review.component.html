@@ -1,6 +1,7 @@
 <form [formGroup]="formGroup" novalidate>
-  <h1>{{pageTitle}}</h1>
-  <p class="border-bottom">Review your request for practitioner attachment before submission</p>
+  <h1 [innerHTML]='textService.textValues.SPA_TEXT_PRACTITIONER_REG_REVIEW_PAGE_TITLE'></h1>
+  <div [innerHTML]='textService.textValues.SPA_TEXT_PRACTITIONER_REG_REVIEW_PAGE_DESCRIPTION'></div>
+  <hr/>
 
   <div class='border-warning'></div>
 

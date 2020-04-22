@@ -9,6 +9,7 @@ import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 import { RegisterPractitionerApiService } from '../../services/register-practitioner-api.service';
 import { ValidationResponse, ReturnCodes } from '../../../core-bcp/models/base-api.model';
 import { SplunkLoggerService } from '../../../../services/splunk-logger.service';
+import { SpaTextService } from '../../../../services/spa-text.service';
 
 
 @Component({
@@ -18,7 +19,6 @@ import { SplunkLoggerService } from '../../../../services/splunk-logger.service'
 })
 export class PractitionerInfoComponent extends BcpBaseForm implements OnInit, AfterViewInit {
 
-  pageTitle: string = 'Practitioner Information';
   formGroup: FormGroup;
   showValidationError: boolean = false;
   systemDownError: boolean = false;
@@ -30,7 +30,8 @@ export class PractitionerInfoComponent extends BcpBaseForm implements OnInit, Af
                private fb: FormBuilder,
                public dataService: RegisterPractitionerDataService,
                private splunkLoggerService: SplunkLoggerService,
-               private apiService: RegisterPractitionerApiService ) {
+               private apiService: RegisterPractitionerApiService,
+               public textService: SpaTextService) {
     super(router, containerService, pageStateService);
   }
 

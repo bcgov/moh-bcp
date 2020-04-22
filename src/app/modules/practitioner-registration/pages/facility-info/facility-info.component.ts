@@ -10,6 +10,7 @@ import { RegisterPractitionerApiService } from '../../services/register-practiti
 import { stripPostalCodeSpaces } from '../../../core-bcp/models/helperFunc';
 import { ValidationResponse, ReturnCodes } from '../../../core-bcp/models/base-api.model';
 import { parseISO, compareAsc, isAfter } from 'date-fns';
+import { SpaTextService } from '../../../../services/spa-text.service';
 
 
 @Component({
@@ -19,7 +20,6 @@ import { parseISO, compareAsc, isAfter } from 'date-fns';
 })
 export class FacilityInfoComponent extends BcpBaseForm implements OnInit, AfterViewInit {
 
-  pageTitle: string = 'Facility Information';
   formGroup: FormGroup;
   showValidationError: boolean = false;
   systemDownError: boolean = false;
@@ -34,7 +34,8 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit, AfterV
                private fb: FormBuilder,
                private dataService: RegisterPractitionerDataService,
                private splunkLoggerService: SplunkLoggerService,
-               private apiService: RegisterPractitionerApiService  ) {
+               private apiService: RegisterPractitionerApiService,
+               public textService: SpaTextService) {
     super(router, containerService, pageStateService);
   }
 

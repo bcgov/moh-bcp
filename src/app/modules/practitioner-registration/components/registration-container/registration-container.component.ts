@@ -3,6 +3,7 @@ import { Container, ContainerService, PageStateService } from 'moh-common-lib';
 import { pages } from '../../practitioner-registration-page-routes';
 import { HeaderService } from '../../../../services/header.service';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration-route-constants';
+import { SpaTextService } from '../../../../services/spa-text.service';
 
 
 @Component({
@@ -14,11 +15,15 @@ export class RegistrationContainerComponent extends Container implements AfterVi
 
   constructor( private headerService: HeaderService,
                private pageStateService: PageStateService,
-               protected  containerService: ContainerService) {
+               protected  containerService: ContainerService,
+               private textService: SpaTextService) {
     super( containerService );
     this.setProgressSteps(pages);
     this.pageStateService.setPages( pages, PRACTITIONER_REGISTRATION_PAGES );
-    this.headerService.setTitle('Practitioner Attachment to Medical Services Plan Facility Number for Business Cost Premium');
+
+    this.textService.values.subscribe((values) => {
+      this.headerService.setTitle(values.SPA_TEXT_PRACTITIONER_REG_TITLE);
+    });
   }
 
   ngAfterViewInit() {

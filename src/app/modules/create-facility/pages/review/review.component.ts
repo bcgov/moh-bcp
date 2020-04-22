@@ -12,6 +12,7 @@ import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 import { ValidationResponse } from '../../../core-bcp/models/base-api.model';
 import { CreateFacilityApiService } from '../../services/create-facility-api.service';
 import { PrivacyStmt } from '../../../core-bcp/components/core-consent-modal/core-consent-modal.component';
+import { SpaTextService } from '../../../../services/spa-text.service';
 
 @Component({
   selector: 'app-review',
@@ -33,7 +34,8 @@ export class ReviewComponent extends BcpBaseForm implements OnInit, AfterViewIni
               private api: CreateFacilityApiService,
               private splunkLoggerService: SplunkLoggerService,
               private fb: FormBuilder,
-              protected containerService: ContainerService) {
+              protected containerService: ContainerService,
+              public textService: SpaTextService) {
     super(router, containerService, pageStateService);
    }
 
