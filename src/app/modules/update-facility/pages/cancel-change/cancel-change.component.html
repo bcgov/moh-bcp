@@ -393,20 +393,14 @@
 
     <a name='other-request'></a>
     <div class='form-group'>
-      <div>
-        <label class='control-label'
-               for='otherChangeRequests'>Please enter any other change or request here</label>
-        <textarea class='form-control'
-                  rows='7'
-                  name='otherChangeRequests'
-                  formControlName='otherChangeRequests'
-                  id='otherChangeRequests'
-                  [maxlength]='OTHER_REQUEST_MAX_LENGTH'></textarea>
-      </div>
-      <div class='text-right'>Characters remaining: {{ OTHER_REQUEST_MAX_LENGTH - dataService.otherChangeRequests.length }}</div>
+      <restricted-textarea label='Please enter any other change or request here'
+                            name='otherChangeRequests'
+                            formControlName='otherChangeRequests'
+                            id='otherChangeRequests'
+                            [maxlength]='OTHER_REQUEST_MAX_LENGTH'></restricted-textarea>
     </div>
 
-    <common-error-container [displayError]='!hasValidChange && hasValidChange !== undefined'>
+    <common-error-container [displayError]='containsMissingInfoError'>
       You need to choose at least one option in this page in order to continue.
     </common-error-container>
 
