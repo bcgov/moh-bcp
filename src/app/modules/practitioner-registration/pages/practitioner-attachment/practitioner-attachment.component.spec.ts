@@ -4,6 +4,7 @@ import { PractitionerAttachmentComponent } from './practitioner-attachment.compo
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedCoreModule } from 'moh-common-lib';
 import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('PractitionerAttachmentComponent', () => {
   let component: PractitionerAttachmentComponent;
@@ -11,7 +12,7 @@ describe('PractitionerAttachmentComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ ReactiveFormsModule, RouterTestingModule, SharedCoreModule ],
+      imports: [ HttpClientTestingModule, ReactiveFormsModule, RouterTestingModule, SharedCoreModule ],
       declarations: [ PractitionerAttachmentComponent ]
     })
     .compileComponents();
