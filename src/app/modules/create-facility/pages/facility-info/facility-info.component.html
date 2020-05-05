@@ -68,7 +68,7 @@
                             placeholder=''
                             formControlName='postalCode'></common-postal-code>
         <common-error-container [displayError]="showInvalidPostalCodeError">
-          <div>The postal code does not match the city provided.</div>
+          <div>{{invalidPostalCodeErrorMessage}}</div>
         </common-error-container>
       </div>
 
@@ -162,6 +162,9 @@
                               placeholder=''
                               formControlName="mailingPostalCode">
           </common-postal-code>
+          <common-error-container [displayError]="showInvalidMailingPostalCodeError">
+            <div>{{invalidPostalCodeErrorMessage}}</div>
+          </common-error-container>
         </div>
 
       </form>

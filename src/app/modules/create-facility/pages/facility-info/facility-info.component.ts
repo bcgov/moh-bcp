@@ -23,6 +23,8 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
 
   systemDownError = false;
   showInvalidPostalCodeError: boolean = false;
+  showInvalidMailingPostalCodeError: boolean = false;
+  invalidPostalCodeErrorMessage: string = 'The postal code does not match the city provided.';
 
   // Error Messages
   qualifyBcpError: ErrorMessage = {
@@ -193,7 +195,6 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
   continue() {
     this.updateDataService();
 
-    
     // todo: fix common-components issues - Not issues as the abstract form is using Template Forms not Reactive
     // note in common-library that this need to be addressed.
     this.facilityForm.markAllAsTouched();
@@ -246,11 +247,37 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
             this.handleError();
           });
       });
-      Promise.all([
-        physicalAddressValidationPromise
-      ]).then(() => {
+      const promises = [physicalAddressValidationPromise];
+
+      if (!this.dataService.facInfoIsSameMailingAddress) {
+        // Add promise.
+        promises.push(new Promise((resolve, reject) => {
+          this.api.validateFacility({
+            facilityName: this.dataService.facInfoFacilityName,
+            number: null,
+            facilityCity: this.dataService.facInfoMailCity,
+            // API expects postalCode without any spaces in it
+            postalCode: stripPostalCodeSpaces(this.dataService.facInfoMailPostalCode)
+          }, this.dataService.applicationUUID)
+            .subscribe((res: ValidationResponse) => {
+              if ( res.returnCode === ReturnCodes.FAILURE) {
+                this.showInvalidMailingPostalCodeError = true;
+                return reject();
+              } else if (res.returnCode === ReturnCodes.SYSTEM_ERROR || res.returnCode === ReturnCodes.SYSTEM_DOWN) {
+                this.systemDownError = true;
+                return reject();
+              }
+              return resolve();
+            });
+        }));
+      }
+
+      Promise.all(promises).then(() => {
+        this.containerService.setIsLoading(false);
         this.navigate(CREATE_FACILITY_PAGES.REVIEW.fullpath);
       }).catch(() => {
+        this.containerService.setIsLoading(false);
+
         setTimeout(() => {
           scrollToError();
         }, 50);
