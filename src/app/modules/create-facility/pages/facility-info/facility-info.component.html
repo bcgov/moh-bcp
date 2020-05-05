@@ -67,6 +67,9 @@
                             label='Postal code'
                             placeholder=''
                             formControlName='postalCode'></common-postal-code>
+        <common-error-container [displayError]="showInvalidPostalCodeError">
+          <div>The postal code does not match the city provided.</div>
+        </common-error-container>
       </div>
 
       <div class="form-group">
