@@ -37,6 +37,7 @@ export interface FacilityValidationPartial {
   facilityName: string;
   // number must populated for practitioner registration, otherwise null
   number: string;
+  facilityCity?: string;
   postalCode: string;
 }
 

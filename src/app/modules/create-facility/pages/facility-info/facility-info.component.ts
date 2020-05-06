@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { cCreateFacilityValidators, validMultiFormControl } from '../../models/validators';
-import { Address, getProvinceDescription, ErrorMessage, ContainerService } from 'moh-common-lib';
+import { Address, getProvinceDescription, ErrorMessage, ContainerService, scrollToError } from 'moh-common-lib';
 import { CreateFacilityDataService } from '../../services/create-facility-data.service';
 import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
 import { stripPostalCodeSpaces } from '../../../core-bcp/models/helperFunc';
@@ -22,6 +22,9 @@ import { IRadioItems } from 'moh-common-lib/lib/components/radio/radio.component
 export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
 
   systemDownError = false;
+  showInvalidPostalCodeError: boolean = false;
+  showInvalidMailingPostalCodeError: boolean = false;
+  invalidPostalCodeErrorMessage: string = 'The postal code does not match the city provided.';
 
   // Error Messages
   qualifyBcpError: ErrorMessage = {
@@ -192,7 +195,6 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
   continue() {
     this.updateDataService();
 
-
     // todo: fix common-components issues - Not issues as the abstract form is using Template Forms not Reactive
     // note in common-library that this need to be addressed.
     this.facilityForm.markAllAsTouched();
@@ -201,42 +203,85 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
       this.pageStateService.setPageComplete();
       this.containerService.setIsLoading();
 
-      this.api.validateFacility({
-        facilityName: this.dataService.facInfoFacilityName,
-        number: null,
-        // API expects postalCode without any spaces in it
-        postalCode: stripPostalCodeSpaces(this.dataService.facInfoPostalCode)
-      }, this.dataService.applicationUUID)
-        .subscribe((res: ValidationResponse) => {
-          this.dataService.jsonFacilityValidation.response = res;
+      const physicalAddressValidationPromise = new Promise((resolve, reject) => {
+        this.api.validateFacility({
+          facilityName: this.dataService.facInfoFacilityName,
+          number: null,
+          facilityCity: this.dataService.facInfoCity,
+          // API expects postalCode without any spaces in it
+          postalCode: stripPostalCodeSpaces(this.dataService.facInfoPostalCode)
+        }, this.dataService.applicationUUID)
+          .subscribe((res: ValidationResponse) => {
+            this.dataService.jsonFacilityValidation.response = res;
 
-          this.splunkLoggerService.log(
-              this.dataService.getSubmissionLogObject<ValidationResponse>(
-                'Validate Facility',
-                this.dataService.jsonFacilityValidation.response
-              )
-          );
+            this.splunkLoggerService.log(
+                this.dataService.getSubmissionLogObject<ValidationResponse>(
+                  'Validate Facility',
+                  this.dataService.jsonFacilityValidation.response
+                )
+            );
 
-          if (res.returnCode === ReturnCodes.SUCCESS) {
-            this.handleAPIValidation(true);
-            this.dataService.validateFacilityMessage = res.message;
-          } else {
-            if (Number(res.returnCode) <= Number(ReturnCodes.SYSTEM_ERROR)) {
-              // Set to near match so that document is sent to MAXIMAGE
-              this.dataService.validateFacilityMessage = 'UNKNOWN';
-            } else {
+            if (res.returnCode === ReturnCodes.SUCCESS) {
+              this.handleAPIValidation(true);
               this.dataService.validateFacilityMessage = res.message;
+              resolve();
+            } else {
+              if (Number(res.returnCode) <= Number(ReturnCodes.FAILURE)) {
+                // Message: CITY NOT VALID FOR POSTAL CODE
+                this.handlePostalCodeValidationFailure();
+                reject();
+              } else {
+                if (Number(res.returnCode) <= Number(ReturnCodes.SYSTEM_ERROR)) {
+                  // Set to near match so that document is sent to MAXIMAGE
+                  this.dataService.validateFacilityMessage = 'UNKNOWN';
+                } else {
+                  this.dataService.validateFacilityMessage = res.message;
+                }
+                // we treat near match or exact match the same
+                this.handleAPIValidation(false);
+                resolve();
+              }
             }
-            // we treat near match or exact match the same
-            this.handleAPIValidation(false);
-          }
+          }, error => {
+            // console.log('apiService onerror', error);
+            this.handleError();
+          });
+      });
+      const promises = [physicalAddressValidationPromise];
 
-          this.navigate(CREATE_FACILITY_PAGES.REVIEW.fullpath);
+      if (!this.dataService.facInfoIsSameMailingAddress) {
+        // Add promise.
+        promises.push(new Promise((resolve, reject) => {
+          this.api.validateFacility({
+            facilityName: this.dataService.facInfoFacilityName,
+            number: null,
+            facilityCity: this.dataService.facInfoMailCity,
+            // API expects postalCode without any spaces in it
+            postalCode: stripPostalCodeSpaces(this.dataService.facInfoMailPostalCode)
+          }, this.dataService.applicationUUID)
+            .subscribe((res: ValidationResponse) => {
+              if ( res.returnCode === ReturnCodes.FAILURE) {
+                this.showInvalidMailingPostalCodeError = true;
+                return reject();
+              } else if (res.returnCode === ReturnCodes.SYSTEM_ERROR || res.returnCode === ReturnCodes.SYSTEM_DOWN) {
+                this.systemDownError = true;
+                return reject();
+              }
+              return resolve();
+            });
+        }));
+      }
 
-        }, error => {
-          // console.log('apiService onerror', error);
-          this.handleError();
-        });
+      Promise.all(promises).then(() => {
+        this.containerService.setIsLoading(false);
+        this.navigate(CREATE_FACILITY_PAGES.REVIEW.fullpath);
+      }).catch(() => {
+        this.containerService.setIsLoading(false);
+
+        setTimeout(() => {
+          scrollToError();
+        }, 50);
+      });
     }
   }
 
@@ -275,6 +320,7 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
   private handleError(): void {
     this.systemDownError = true;
     this.containerService.setIsLoading(false);
+    this.showInvalidPostalCodeError = false;
     this.cdr.detectChanges();
   }
 
@@ -282,6 +328,15 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
     this.systemDownError = false;
     this.containerService.setIsLoading(false);
     this.dataService.apiDuplicateWarning = !isValid;
+    this.showInvalidPostalCodeError = false;
+    this.cdr.detectChanges();
+  }
+
+  handlePostalCodeValidationFailure() {
+    this.showInvalidPostalCodeError = true;
+    this.systemDownError = false;
+    this.containerService.setIsLoading(false);
+    this.dataService.apiDuplicateWarning = false;
     this.cdr.detectChanges();
   }
 

@@ -67,6 +67,9 @@
                             label='Postal code'
                             placeholder=''
                             formControlName='postalCode'></common-postal-code>
+        <common-error-container [displayError]="showInvalidPostalCodeError">
+          <div>{{invalidPostalCodeErrorMessage}}</div>
+        </common-error-container>
       </div>
 
       <div class="form-group">
@@ -159,6 +162,9 @@
                               placeholder=''
                               formControlName="mailingPostalCode">
           </common-postal-code>
+          <common-error-container [displayError]="showInvalidMailingPostalCodeError">
+            <div>{{invalidPostalCodeErrorMessage}}</div>
+          </common-error-container>
         </div>
 
       </form>
