@@ -14,6 +14,8 @@ enum WarningMessage {
   FAILED_VALIDATE_FACIL = 2
 }
 
+const DUPE_WARNING_STATUS = '3';
+
 @Component({
   selector: 'app-submission',
   templateUrl: './submission.component.html',
@@ -61,7 +63,11 @@ export class SubmissionComponent extends ConfirmBaseForm implements OnInit {
       } else {
         // console.log( 'return code <> 0');
         // case not Successful
-        if ( this.response.referenceNumber ) {
+        if (this.response.returnCode === DUPE_WARNING_STATUS) {
+          this.warningMessage = WarningMessage.NEAR_MATCH_SCEN;
+          this.displayIcon = ApiStatusCodes.WARNING;
+          this.isUnderReview = true;
+        } else if ( this.response.referenceNumber ) {
           // message Yellow 1
           this.warningMessage = WarningMessage.NO_MATCH_CLM_DWN;
           this.displayIcon = ApiStatusCodes.WARNING;
