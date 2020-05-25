@@ -10,6 +10,7 @@ import { ValidationResponse, ReturnCodes } from '../../../core-bcp/models/base-a
 import { SplunkLoggerService } from '../../../../services/splunk-logger.service';
 import { formatDateForDisplay } from '../../../core-bcp/models/helperFunc';
 import { validatePostalCode } from '../../../core-bcp/models/validators';
+import { SpaTextService } from '../../../../services/spa-text.service';
 
 
 @Component({
@@ -19,7 +20,6 @@ import { validatePostalCode } from '../../../core-bcp/models/validators';
 })
 export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterViewInit {
 
-  pageTitle: string = 'Cancel or Change Facility Details';
   formGroup: FormGroup;
   changeFacilityAddressFG: FormGroup;
   changeMailingAddressFG: FormGroup;
@@ -41,7 +41,8 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
                private fb: FormBuilder,
                public dataService: UpdateFacilityDataService,
                private splunkLoggerService: SplunkLoggerService,
-               private apiService: UpdateFacilityApiService ) {
+               private apiService: UpdateFacilityApiService,
+               public textService: SpaTextService ) {
     super(router, containerService, pageStateService);
   }
 

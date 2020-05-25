@@ -6,6 +6,7 @@ import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
 
 import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 import { CreateFacilityApiService } from '../../services/create-facility-api.service';
+import { SpaTextService } from '../../../../services/spa-text.service';
 
 @Component({
   selector: 'app-home',
@@ -20,12 +21,9 @@ export class HomeComponent extends BcpBaseForm implements OnInit, AfterViewInit 
               protected router: Router,
               protected pageStateService: PageStateService,
               private ApiService: CreateFacilityApiService,
-              protected containerService: ContainerService) {
+              protected containerService: ContainerService,
+              public textService: SpaTextService) {
     super(router, containerService, pageStateService);
-  }
-
-  get pageTitle() {
-    return CREATE_FACILITY_PAGES.HOME.title;
   }
 
   ngOnInit() {

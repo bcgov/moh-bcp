@@ -9,6 +9,7 @@ import { PRACTITIONER_ATTACHMENT, PRAC_ATTACHMENT_TYPE } from '../../models/prac
 import { IRadioItems } from 'moh-common-lib/lib/components/radio/radio.component';
 import { RegisterPractitionerDataService } from '../../services/register-practitioner-data.service';
 import { formatDateForDisplay } from '../../../core-bcp/models/helperFunc';
+import { SpaTextService } from '../../../../services/spa-text.service';
 
 @Component({
   selector: 'bcp-practitioner-attachment',
@@ -21,11 +22,10 @@ export class PractitionerAttachmentComponent extends BcpBaseForm implements OnIn
                protected router: Router,
                protected pageStateService: PageStateService,
                private fb: FormBuilder,
-               public dataService: RegisterPractitionerDataService ) {
+               public dataService: RegisterPractitionerDataService,
+               public textService: SpaTextService) {
     super(router, containerService, pageStateService);
   }
-
-  pageTitle: string = 'Practitioner Attachment';
 
   // Radio buttons
   radioItems: Array<IRadioItems> = [

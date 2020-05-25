@@ -1,8 +1,7 @@
 <common-page-framework layout='blank'>
-  <h1>{{pageTitle}}</h1>
-  <p class="border-bottom">
-      To qualify a Facility must be located in British Columbia
-  </p>
+  <h1 [innerHTML]='textService.textValues.SPA_TEXT_REGISTER_FACILITY_FAC_INFO_PAGE_TITLE'>{{pageTitle}}</h1>
+  <div [innerHTML]='textService.textValues.SPA_TEXT_REGISTER_FACILITY_FAC_INFO_PAGE_DESCRIPTION'></div>
+  <hr/>
   <common-page-section layout="tips">
 
     <form [formGroup]="facilityForm">
@@ -108,8 +107,8 @@
     </form>
 
     <aside>
-      <h2>Tip</h2>
-      <p>"Facility effective date" is the date the facility initially opens and begins operations. (The Business Cost Premium cannot be claimed for physician services provided earlier than the facility effective date.)</p>
+      <h2 [innerHTML]='textService.textValues.SPA_TEXT_REGISTER_FACILITY_FAC_INFO_PAGE_TIP1_TITLE'>Tip</h2>
+      <div [innerHTML]='textService.textValues.SPA_TEXT_REGISTER_FACILITY_FAC_INFO_PAGE_TIP1_CONTENT'></div>
     </aside>
   </common-page-section>
   <h2 class='border-bottom' *ngIf="showMailingAddress">Facility Mailing Address</h2>
@@ -170,9 +169,9 @@
       </form>
     </div>
   </common-page-section>
-  <h2>Business Cost Premium</h2>
-  <p>The Business Cost Premium applies to Eligible Fees claimed by Eligible Physicians for services that are provided in a community-based office that has been issued a Medical Services Plan Facility Number. Medical Services Plan Facility Numbers are issued to qualifying facilities, based on the physical location of the facility.</p>
-  <p class="border-bottom">Eligible Physicians are those practitioners who are responsible to pay for some or all of the lease, rental, or ownership costs of the community-based office that has been issued an Medical Services Plan Facility Number. Eligible Physicians must apply to be attached to the Medical Services Plan number for a facility to claim the Business Cost Premium on Eligible Fees for services provided at that facility.</p>
+  <h2 [innerHTML]='textService.textValues.SPA_TEXT_REGISTER_FACILITY_FAC_INFO_PAGE_BCP_TITLE'></h2>
+  <div [innerHTML]='textService.textValues.SPA_TEXT_REGISTER_FACILITY_FAC_INFO_PAGE_BCP_DESCRIPTION'></div>
+  <hr/>
   <common-page-section layout="tips">
     <div class="form-group p-sm-0">
       <form [formGroup]="facilityForm">
@@ -187,8 +186,8 @@
       </form>
     </div>
     <aside>
-      <h2>Tip</h2>
-      <p>To become eligible for the Business Cost Premium, practitioners must complete the "Practitioner Attachment To MSP Facility Number For Business Cost Premium" form, using the Facility Number supplied after successful completion of this form.</p>
+      <h2 [innerHTML]='textService.textValues.SPA_TEXT_REGISTER_FACILITY_FAC_INFO_PAGE_TIP2_TITLE'></h2>
+      <div [innerHTML]='textService.textValues.SPA_TEXT_REGISTER_FACILITY_FAC_INFO_PAGE_TIP2_CONTENT'></div>
     </aside>
   </common-page-section>
 

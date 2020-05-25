@@ -9,6 +9,7 @@ import { UpdateFacilityApiService } from '../../services/update-facility-api.ser
 import { ValidationResponse, ReturnCodes } from '../../../core-bcp/models/base-api.model';
 import { SplunkLoggerService } from '../../../../services/splunk-logger.service';
 import { validMultiFormControl } from '../../../core-bcp/models/validators';
+import { SpaTextService } from '../../../../services/spa-text.service';
 
 
 @Component({
@@ -26,7 +27,8 @@ export class FacilityAdminComponent extends BcpBaseForm implements OnInit, After
                private fb: FormBuilder,
                public dataService: UpdateFacilityDataService,
                private splunkLoggerService: SplunkLoggerService,
-               private apiService: UpdateFacilityApiService ) {
+               private apiService: UpdateFacilityApiService,
+               public textService: SpaTextService ) {
     super(router, containerService, pageStateService);
     this.validFormControl = validMultiFormControl;
   }

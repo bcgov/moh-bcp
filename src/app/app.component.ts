@@ -8,6 +8,7 @@ import { SplunkLoggerService } from './services/splunk-logger.service';
 import { CommonLogEvents } from 'moh-common-lib';
 import { environment } from '../environments/environment';
 import { SplashPageService } from './modules/splash-page/splash-page.service';
+import { SpaTextService } from './services/spa-text.service';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +23,8 @@ export class AppComponent implements OnInit {
               private router: Router,
               private activatedRoute: ActivatedRoute,
               private splunkLogger: SplunkLoggerService,
-              private splash: SplashPageService) {
+              private splash: SplashPageService,
+              private spaTextService: SpaTextService) {
     version.success
       ? console.log('%c' + version.message, 'color: #036; font-size: 20px; background-color: white;')
       : console.error(version.message);

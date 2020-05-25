@@ -1,5 +1,6 @@
-<h1>{{pageTitle}}</h1>
-<p class="border-bottom">To add a new attachment, cancel an existing attachment, or change an existing attachment you must provide the appropriate effective or cancellation date.</p>
+<h1 [innerHTML]='textService.textValues.SPA_TEXT_PRACTITIONER_REG_PRAC_ATTACHMENT_PAGE_TITLE'></h1>
+<div [innerHTML]='textService.textValues.SPA_TEXT_PRACTITIONER_REG_PRAC_ATTACHMENT_PAGE_DESCRIPTION'></div>
+<hr/>
 
 <!-- Form group for practitioner attachment types -->
 <form [formGroup]="formGroup">

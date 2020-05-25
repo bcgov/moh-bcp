@@ -1,9 +1,9 @@
 <common-page-framework layout='blank'>
 
   <form [formGroup]='formGroup'>
-    <h1>{{pageTitle}}</h1>
-
-    <p class="border-bottom">Review your application and provide your signature before submission</p>
+    <h1 [innerHTML]='textService.textValues.SPA_TEXT_REGISTER_FACILITY_REVIEW_PAGE_TITLE'></h1>
+    <div [innerHTML]='textService.textValues.SPA_TEXT_REGISTER_FACILITY_REVIEW_PAGE_DESCRIPTION'></div>
+    <hr/>
 
     <div class="message-container border-warning" *ngIf='showDuplicateWarning'>
         <p class="confirm-icon--warning">

@@ -1,5 +1,6 @@
-<h1>{{pageTitle}}</h1>
-<p class="border-bottom">Provide facility information for the community-based office where you qualify as an Eligible Practitioner.</p>
+<h1 [innerHTML]='textService.textValues.SPA_TEXT_PRACTITIONER_REG_FAC_INFO_PAGE_TITLE'></h1>
+<div [innerHTML]='textService.textValues.SPA_TEXT_PRACTITIONER_REG_FAC_INFO_PAGE_DESCRIPTION'></div>
+<hr/>
 
 <bcp-core-facility-info name='facInfo'
   [formGroup]='formGroup'

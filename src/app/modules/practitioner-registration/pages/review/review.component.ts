@@ -11,6 +11,7 @@ import { SubmissionResponse } from '../../../core-bcp/models/base-api.model';
 import { SplunkLoggerService } from '../../../../services/splunk-logger.service';
 import { getAttachmentLabelByValue } from '../../models/practitioner-attachment';
 import { PrivacyStmt } from '../../../core-bcp/components/core-consent-modal/core-consent-modal.component';
+import { SpaTextService } from '../../../../services/spa-text.service';
 
 @Component({
   selector: 'bcp-review',
@@ -24,7 +25,6 @@ export class ReviewComponent extends BcpBaseForm implements OnInit, AfterViewIni
 
   readonly privacyStatement = PrivacyStmt;
 
-  pageTitle: string = 'Review Request';
   signatureLabel: string = 'Practitioner Signature';
   errorMessage: string = `${this.signatureLabel } is required to submit the form`;
 
@@ -34,7 +34,8 @@ export class ReviewComponent extends BcpBaseForm implements OnInit, AfterViewIni
               protected pageStateService: PageStateService,
               private fb: FormBuilder,
               private apiService: RegisterPractitionerApiService,
-              private splunkLoggerService: SplunkLoggerService) {
+              private splunkLoggerService: SplunkLoggerService,
+              public textService: SpaTextService) {
     super(router, containerService, pageStateService);
   }
 

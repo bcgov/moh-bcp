@@ -3,6 +3,7 @@ import { Container, ContainerService, PageStateService } from 'moh-common-lib';
 import { pages } from '../../update-facility-page-routes';
 import { HeaderService } from '../../../../services/header.service';
 import { UPDATE_FACILITY_PAGES } from '../../update-facility-route-constants';
+import { SpaTextService } from '../../../../services/spa-text.service';
 
 
 @Component({
@@ -14,11 +15,15 @@ export class FacilityContainerComponent extends Container implements AfterViewIn
 
   constructor( private headerService: HeaderService,
                private pageStateService: PageStateService,
-               protected  containerService: ContainerService) {
+               protected  containerService: ContainerService,
+               private spaTextService: SpaTextService) {
     super( containerService );
     this.setProgressSteps(pages);
     this.pageStateService.setPages( pages, UPDATE_FACILITY_PAGES );
-    this.headerService.setTitle('Application to Cancel or Change Details for Facilities with an MSP Facility Number');
+
+    this.spaTextService.values.subscribe((values) => {
+      this.headerService.setTitle(values.SPA_TEXT_UPDATE_FACILITY_TITLE);
+    });
 
     // Set breadcrumb step titles to route title.
     this.progressSteps.forEach((step) => {

@@ -8,6 +8,7 @@ import { PageStateService, ContainerService } from 'moh-common-lib';
 import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 import { ValidationResponse, ReturnCodes } from '../../../core-bcp/models/base-api.model';
 import { CreateFacilityApiService } from '../../services/create-facility-api.service';
+import { SpaTextService } from '../../../../services/spa-text.service';
 
 @Component({
   selector: 'app-applicant-info',
@@ -27,7 +28,8 @@ export class ApplicantInfoComponent extends BcpBaseForm implements OnInit, After
     private cdr: ChangeDetectorRef,
     private apiService: CreateFacilityApiService,
     private splunkLoggerService: SplunkLoggerService,
-    protected containerService: ContainerService) {
+    protected containerService: ContainerService,
+    public textService: SpaTextService) {
     super(router, containerService, pageStateService);
   }
 
@@ -56,10 +58,6 @@ export class ApplicantInfoComponent extends BcpBaseForm implements OnInit, After
       this.dataService.facAdminPhoneNumber = val.phoneNumber;
       this.dataService.facAdminExtension = val.extension;
     });
-  }
-
-  get pageTitle() {
-    return CREATE_FACILITY_PAGES.FACILITY_ADMIN.title;
   }
 
   continue() {
