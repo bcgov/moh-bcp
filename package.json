@@ -19,11 +19,13 @@
     "e2e:bcprf-happy-path": "npm run e2e -- --protractorConfig=e2e/register-facility/protractor-bcp-rf-happy-path.conf.js --port=4300",
     "e2e:bcp": "npm run e2e-protractor -- e2e/register-facility/protractor.bcp.conf.js",
     "chrome-update": "sudo apt-get install google-chrome-stable",
-    "webdriver-update": "webdriver-manager update"
+    "webdriver-update": "webdriver-manager update",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "private": true,
   "dependencies": {
-    "@angular-devkit/build-angular": "^0.803.23",
+    "@angular-devkit/build-angular": "^0.803.27",
     "@angular/animations": "~8.2.9",
     "@angular/common": "~8.2.9",
     "@angular/compiler": "~8.2.9",
@@ -50,6 +52,7 @@
     "puppeteer": "^2.0.0",
     "rxjs": "6.5.3",
     "sha1": "^1.1.1",
+    "snyk": "^1.339.2",
     "tslib": "^1.9.0",
     "zone.js": "~0.10.2"
   },
@@ -72,5 +75,6 @@
     "ts-node": "~8.4.1",
     "tslint": "~5.20.0",
     "typescript": "^3.4.5"
-  }
+  },
+  "snyk": true
 }
