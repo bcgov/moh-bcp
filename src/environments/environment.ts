@@ -16,6 +16,7 @@ export const environment = {
     splunk: '/bcp/api/logging',
     attachment: '/bcp/api/bcpAttachment',
     env: '/bcp/api/env',
+    address: '/bcp/api/address',
   },
   links: {
     tbd: 'google.com',
