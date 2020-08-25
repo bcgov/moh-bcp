@@ -23,11 +23,12 @@
 
       <div class="form-group">
         <!-- NOTE: Removed until we are able to resolve issues with GeoCoder component -->
-        <common-geocoder-input label='Physical address'
+        <common-address-validator label='Physical address'
                                 formControlName="address"
                                 maxlength="60"
-                                (select)="physicalAddressSelected($event)">
-        </common-geocoder-input>
+                                (select)="physicalAddressSelected($event)"
+                                [serviceUrl]="addressServiceUrl">
+        </common-address-validator>
         <!-- <div>
           <label class="control-label" for="address">Physical address</label>
           <input id="PhysAddress" formControlName="address" class="form-control" maxlength="60">-->
@@ -119,10 +120,11 @@
       <form [formGroup]="facilityForm">
 
         <div class="form-group">
-          <common-geocoder-input label='Mailing address'
+          <common-address-validator label='Mailing address'
             formControlName="mailingAddress" maxlength="60"
-            (select)="mailingAddressSelected($event)">
-          </common-geocoder-input>
+            (select)="mailingAddressSelected($event)"
+            [serviceUrl]="addressServiceUrl">
+          </common-address-validator>
         <!-- <label class="control-label" for="mailingAddress">Mailing address</label>
         <input id="MailingsAddress" formControlName="mailingAddress" class="form-control" maxlength="60">-->
         <common-error-container

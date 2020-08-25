@@ -11,7 +11,7 @@ import { environment } from '../../../../../environments/environment';
 })
 export class CoreFacilityInfoComponent {
 
-  public readonly addressServiceUrl = environment.api.address;
+  public readonly addressServiceUrl: string = environment.api.address;
   @Input() public showValidationError: boolean = false;
   public validationErrorMessage: string = 'This field does not match our records.';
 

@@ -13,6 +13,7 @@ import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 import { ValidationResponse, ReturnCodes } from '../../../core-bcp/models/base-api.model';
 import { CreateFacilityApiService } from '../../services/create-facility-api.service';
 import { IRadioItems } from 'moh-common-lib/lib/components/radio/radio.component';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-facility-info',
@@ -25,6 +26,7 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
   showInvalidPostalCodeError: boolean = false;
   showInvalidMailingPostalCodeError: boolean = false;
   invalidPostalCodeErrorMessage: string = 'The postal code does not match the city provided.';
+  public readonly addressServiceUrl: string = environment.api.address;
 
   // Error Messages
   qualifyBcpError: ErrorMessage = {
@@ -288,16 +290,20 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
   physicalAddressSelected(address: Address) {
     // console.log('%c ADDRESS (physicalAddr): %o', 'color:red', address);
 
-    if (!address.addressLine1 && !address.city) {
+    if (!address.addressLine1
+      && !address.city
+      && !address.postal) {
       return;
     }
     this.facilityForm.patchValue({
       address: address.addressLine1,
-      city: address.city
+      city: address.city,
+      postalCode: address.postal
     });
 
     this.dataService.facInfoPhysicalAddress = address.addressLine1;
     this.dataService.facInfoCity = address.city;
+    this.dataService.facInfoPostalCode = address.postal;
 
     // this.physicalAddress = address;
   }
@@ -305,15 +311,19 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
   mailingAddressSelected(address: Address) {
     // console.log('%c ADDRESS: %o', 'color:red', address);
 
-    if (!address.addressLine1 && !address.city) {
+    if (!address.addressLine1
+      && !address.city
+      && !address.postal) {
       return;
     }
     this.facilityForm.patchValue({
       mailingAddress: address.addressLine1,
-      mailingCity: address.city
+      mailingCity: address.city,
+      mailingPostalCode: address.postal
     });
     this.dataService.facInfoMailAddress = address.addressLine1;
     this.dataService.facInfoMailCity = address.city;
+    this.dataService.facInfoMailPostalCode = address.postal;
    // this.mailingAddress = address;
   }
 
