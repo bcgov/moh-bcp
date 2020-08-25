@@ -25,11 +25,12 @@
 
     <div class="form-group">
       
-      <common-geocoder-input label='{{physicalAddrLabel}}'
+      <common-address-validator label='{{physicalAddrLabel}}'
         formControlName="address"
         maxlength="60"
-        (select)="physicalAddressSelected($event)">
-      </common-geocoder-input>
+        (select)="physicalAddressSelected($event)"
+        [serviceUrl]="addressServiceUrl">
+      </common-address-validator>
       <!-- <div>
         <label class="control-label" for="address">{{physicalAddrLabel}}</label>
         <input id="Address" formControlName="address" class="form-control" maxlength="60">-->

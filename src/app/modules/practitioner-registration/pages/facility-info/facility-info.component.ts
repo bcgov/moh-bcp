@@ -67,15 +67,19 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit, AfterV
   }
 
   addressSelected(address: Address) {
-    if (!address.addressLine1 && !address.city) {
+    if (!address.addressLine1
+      && !address.city
+      && !address.postal) {
       return;
     }
     this.formGroup.patchValue({
       address: address.addressLine1,
-      city: address.city
+      city: address.city,
+      postalCode: address.postal
     });
     this.dataService.pracFacilityAddress = address.addressLine1;
     this.dataService.pracFacilityCity = address.city;
+    this.dataService.pracFacilityPostalCode = address.postal;
     this.address = address;
   }
 
