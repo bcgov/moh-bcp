@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { cCreateFacilityValidators, validMultiFormControl } from '../../models/validators';
-import { Address, getProvinceDescription, ErrorMessage, ContainerService, scrollToError } from 'moh-common-lib';
+import { Address, getProvinceDescription, ErrorMessage, ContainerService, scrollToError, BRITISH_COLUMBIA } from 'moh-common-lib';
 import { CreateFacilityDataService } from '../../services/create-facility-data.service';
 import { CREATE_FACILITY_PAGES } from '../../create-facility-route-constants';
 import { stripPostalCodeSpaces } from '../../../core-bcp/models/helperFunc';
@@ -293,6 +293,13 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit {
     if (!address.addressLine1
       && !address.city
       && !address.postal) {
+      return;
+    }
+    if (address.province !== BRITISH_COLUMBIA) {
+      this.facilityForm.patchValue({
+        address: '',
+      });
+      alert('Please select a valid BC address.');
       return;
     }
     this.facilityForm.patchValue({

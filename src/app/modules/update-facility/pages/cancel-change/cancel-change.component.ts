@@ -3,7 +3,7 @@ import { UPDATE_FACILITY_PAGES } from '../../update-facility-route-constants';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UpdateFacilityDataService } from '../../services/update-facility-data.service';
-import { ContainerService, ErrorMessage, LabelReplacementTag, PageStateService, scrollToError, Address } from 'moh-common-lib';
+import { ContainerService, ErrorMessage, LabelReplacementTag, PageStateService, scrollToError, Address, BRITISH_COLUMBIA } from 'moh-common-lib';
 import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 import { UpdateFacilityApiService } from '../../services/update-facility-api.service';
 import { ValidationResponse, ReturnCodes } from '../../../core-bcp/models/base-api.model';
@@ -370,6 +370,13 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
       && !address.postal) {
       return;
     }
+    if (address.province !== BRITISH_COLUMBIA) {
+      this.changeFacilityAddressFG.patchValue({
+        changeFacilityAddressPreviousAddress: '',
+      });
+      alert('Please select a valid BC address.');
+      return;
+    }
     this.changeFacilityAddressFG.patchValue({
       changeFacilityAddressPreviousAddress: address.addressLine1,
       changeFacilityAddressPreviousCity: address.city,
@@ -384,6 +391,13 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
     if (!address.addressLine1
       && !address.city
       && !address.postal) {
+      return;
+    }
+    if (address.province !== BRITISH_COLUMBIA) {
+      this.changeFacilityAddressFG.patchValue({
+        changeFacilityAddressNewAddress: '',
+      });
+      alert('Please select a valid BC address.');
       return;
     }
     this.changeFacilityAddressFG.patchValue({
@@ -402,6 +416,13 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
       && !address.postal) {
       return;
     }
+    if (address.province !== BRITISH_COLUMBIA) {
+      this.changeMailingAddressFG.patchValue({
+        changeMailingAddressPreviousAddress: '',
+      });
+      alert('Please select a valid BC address.');
+      return;
+    }
     this.changeMailingAddressFG.patchValue({
       changeMailingAddressPreviousAddress: address.addressLine1,
       changeMailingAddressPreviousCity: address.city,
@@ -416,6 +437,13 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
     if (!address.addressLine1
       && !address.city
       && !address.postal) {
+      return;
+    }
+    if (address.province !== BRITISH_COLUMBIA) {
+      this.changeMailingAddressFG.patchValue({
+        changeMailingAddressNewAddress: '',
+      });
+      alert('Please select a valid BC address.');
       return;
     }
     this.changeMailingAddressFG.patchValue({

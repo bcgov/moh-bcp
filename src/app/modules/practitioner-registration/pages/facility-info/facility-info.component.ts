@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { PRACTITIONER_REGISTRATION_PAGES } from '../../practitioner-registration-route-constants';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RegisterPractitionerDataService } from '../../services/register-practitioner-data.service';
-import { getProvinceDescription, ContainerService, PageStateService, Address } from 'moh-common-lib';
+import { getProvinceDescription, ContainerService, PageStateService, Address, BRITISH_COLUMBIA } from 'moh-common-lib';
 import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 import { SplunkLoggerService } from '../../../../services/splunk-logger.service';
 import { RegisterPractitionerApiService } from '../../services/register-practitioner-api.service';
@@ -70,6 +70,13 @@ export class FacilityInfoComponent extends BcpBaseForm implements OnInit, AfterV
     if (!address.addressLine1
       && !address.city
       && !address.postal) {
+      return;
+    }
+    if (address.province !== BRITISH_COLUMBIA) {
+      this.formGroup.patchValue({
+        address: '',
+      });
+      alert('Please select a valid BC address.');
       return;
     }
     this.formGroup.patchValue({
