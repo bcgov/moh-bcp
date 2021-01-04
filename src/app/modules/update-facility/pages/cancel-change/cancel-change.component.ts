@@ -3,13 +3,14 @@ import { UPDATE_FACILITY_PAGES } from '../../update-facility-route-constants';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UpdateFacilityDataService } from '../../services/update-facility-data.service';
-import { ContainerService, ErrorMessage, LabelReplacementTag, PageStateService, scrollToError } from 'moh-common-lib';
+import { ContainerService, ErrorMessage, LabelReplacementTag, PageStateService, scrollToError, Address, BRITISH_COLUMBIA } from 'moh-common-lib';
 import { BcpBaseForm } from '../../../core-bcp/models/bcp-base-form';
 import { UpdateFacilityApiService } from '../../services/update-facility-api.service';
 import { ValidationResponse, ReturnCodes } from '../../../core-bcp/models/base-api.model';
 import { SplunkLoggerService } from '../../../../services/splunk-logger.service';
 import { formatDateForDisplay } from '../../../core-bcp/models/helperFunc';
 import { validatePostalCode } from '../../../core-bcp/models/validators';
+import { environment } from '../../../../../environments/environment';
 
 
 @Component({
@@ -34,6 +35,7 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
   readonly OTHER_REQUEST_MAX_LENGTH: number = 1000;
   systemDownError: boolean = false;
   showValidationError: boolean = false;
+  public readonly addressServiceUrl: string = environment.api.address;
 
   constructor( protected containerService: ContainerService,
                protected router: Router,
@@ -362,52 +364,96 @@ export class CancelChangeComponent extends BcpBaseForm implements OnInit, AfterV
     }, 50);
   }
 
-  changeFacilityAddressPreviousAddressSelected(address: any) {
-    if (!address.addressLine1 && !address.city) {
+  changeFacilityAddressPreviousAddressSelected(address: Address) {
+    if (!address.addressLine1
+      && !address.city
+      && !address.postal) {
+      return;
+    }
+    if (address.province !== BRITISH_COLUMBIA) {
+      this.changeFacilityAddressFG.patchValue({
+        changeFacilityAddressPreviousAddress: '',
+      });
+      alert('Please select a valid BC address.');
       return;
     }
     this.changeFacilityAddressFG.patchValue({
       changeFacilityAddressPreviousAddress: address.addressLine1,
-      changeFacilityAddressPreviousCity: address.city
+      changeFacilityAddressPreviousCity: address.city,
+      changeFacilityAddressPreviousPostalCode: address.postal
     });
     this.dataService.changeFacilityAddressPreviousAddress = address.addressLine1;
     this.dataService.changeFacilityAddressPreviousCity = address.city;
+    this.dataService.changeFacilityAddressPreviousPostalCode = address.postal;
   }
 
-  changeFacilityAddressNewAddressSelected(address: any) {
-    if (!address.addressLine1 && !address.city) {
+  changeFacilityAddressNewAddressSelected(address: Address) {
+    if (!address.addressLine1
+      && !address.city
+      && !address.postal) {
+      return;
+    }
+    if (address.province !== BRITISH_COLUMBIA) {
+      this.changeFacilityAddressFG.patchValue({
+        changeFacilityAddressNewAddress: '',
+      });
+      alert('Please select a valid BC address.');
       return;
     }
     this.changeFacilityAddressFG.patchValue({
       changeFacilityAddressNewAddress: address.addressLine1,
-      changeFacilityAddressNewCity: address.city
+      changeFacilityAddressNewCity: address.city,
+      changeFacilityAddressNewPostalCode: address.postal
     });
     this.dataService.changeFacilityAddressNewAddress = address.addressLine1;
     this.dataService.changeFacilityAddressNewCity = address.city;
+    this.dataService.changeFacilityAddressNewPostalCode = address.postal;
   }
 
-  changeMailingAddressPreviousAddressSelected(address: any) {
-    if (!address.addressLine1 && !address.city) {
+  changeMailingAddressPreviousAddressSelected(address: Address) {
+    if (!address.addressLine1
+      && !address.city
+      && !address.postal) {
+      return;
+    }
+    if (address.province !== BRITISH_COLUMBIA) {
+      this.changeMailingAddressFG.patchValue({
+        changeMailingAddressPreviousAddress: '',
+      });
+      alert('Please select a valid BC address.');
       return;
     }
     this.changeMailingAddressFG.patchValue({
       changeMailingAddressPreviousAddress: address.addressLine1,
-      changeMailingAddressPreviousCity: address.city
+      changeMailingAddressPreviousCity: address.city,
+      changeMailingAddressPreviousPostalCode: address.postal
     });
     this.dataService.changeMailingAddressPreviousAddress = address.addressLine1;
     this.dataService.changeMailingAddressPreviousCity = address.city;
+    this.dataService.changeMailingAddressPreviousPostalCode = address.postal;
   }
 
-  changeMailingAddressNewAddressSelected(address: any) {
-    if (!address.addressLine1 && !address.city) {
+  changeMailingAddressNewAddressSelected(address: Address) {
+    if (!address.addressLine1
+      && !address.city
+      && !address.postal) {
+      return;
+    }
+    if (address.province !== BRITISH_COLUMBIA) {
+      this.changeMailingAddressFG.patchValue({
+        changeMailingAddressNewAddress: '',
+      });
+      alert('Please select a valid BC address.');
       return;
     }
     this.changeMailingAddressFG.patchValue({
       changeMailingAddressNewAddress: address.addressLine1,
-      changeMailingAddressNewCity: address.city
+      changeMailingAddressNewCity: address.city,
+      changeMailingAddressNewPostalCode: address.postal
     });
     this.dataService.changeMailingAddressNewAddress = address.addressLine1;
     this.dataService.changeMailingAddressNewCity = address.city;
+    this.dataService.changeMailingAddressNewPostalCode = address.postal;
   }
 
   get dateErrorMessage(): ErrorMessage {

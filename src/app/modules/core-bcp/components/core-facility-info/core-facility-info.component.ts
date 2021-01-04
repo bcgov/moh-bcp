@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ErrorMessage, Address } from 'moh-common-lib';
 import { BaseDataService } from '../../../../services/base-data.service';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'bcp-core-facility-info',
@@ -10,6 +11,7 @@ import { BaseDataService } from '../../../../services/base-data.service';
 })
 export class CoreFacilityInfoComponent {
 
+  public readonly addressServiceUrl: string = environment.api.address;
   @Input() public showValidationError: boolean = false;
   public validationErrorMessage: string = 'This field does not match our records.';
 
